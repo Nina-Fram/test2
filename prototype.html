@@ -1,0 +1,1457 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ЛККК — прототип оформления заказа</title>
+  <style>
+    :root {
+      --accent: #00a39a;
+      --accent-strong: #008a82;
+      --ok: #2e7d32;
+      --warning: #ef6c00;
+      --danger: #c62828;
+      --ink: #1f2937;
+      --muted: #6b7280;
+      --line: #d8dee6;
+      --bg: #f4f6f8;
+      --panel: #ffffff;
+      --soft: #f8fafc;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+    }
+
+    a { color: var(--accent-strong); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    header.page {
+      padding: 20px 24px 0;
+    }
+
+    .note {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 6px;
+    }
+
+    nav.toc {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      margin: 12px 24px 24px;
+      padding: 12px 16px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .toc-group h3 {
+      margin: 0 0 6px;
+      font-size: 14px;
+    }
+
+    .toc-group a {
+      display: inline-block;
+      margin: 2px 10px 2px 0;
+      font-size: 12px;
+    }
+
+    main {
+      padding-bottom: 80px;
+    }
+
+    .frame {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      margin: 24px;
+      padding: 16px 18px 20px;
+      box-shadow: 0 1px 0 rgba(16, 24, 40, 0.02);
+    }
+
+    .frame h2 {
+      margin: 0 0 12px;
+      font-size: 18px;
+    }
+
+    .progress {
+      margin-bottom: 14px;
+    }
+
+    .progress ol {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 0;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .progress li {
+      position: relative;
+      flex: 1;
+      text-align: center;
+      padding: 0 4px;
+    }
+
+    .progress li::before {
+      content: "";
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--line);
+      display: block;
+      margin: 0 auto 6px;
+    }
+
+    .progress li::after {
+      content: "";
+      position: absolute;
+      top: 4px;
+      right: -50%;
+      width: 100%;
+      height: 2px;
+      background: var(--line);
+      z-index: 0;
+    }
+
+    .progress li:last-child::after { content: none; }
+    .progress .done::before { background: var(--ok); }
+    .progress .active::before { background: var(--accent); }
+    .progress .done::after { background: var(--ok); }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    .block {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px;
+      background: var(--soft);
+    }
+
+    .block h3 {
+      margin: 0 0 8px;
+      font-size: 15px;
+    }
+
+    .block h4 {
+      margin: 10px 0 6px;
+      font-size: 13px;
+    }
+
+    .status-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      font-size: 12px;
+    }
+
+    .status-list li {
+      margin-bottom: 6px;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .status-pill {
+      font-size: 11px;
+      padding: 2px 6px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      color: var(--muted);
+      background: #fff;
+    }
+
+    .pill-ok { border-color: #cfe6d3; color: var(--ok); }
+    .pill-warn { border-color: #ffe0b2; color: var(--warning); }
+    .pill-error { border-color: #ffcdd2; color: var(--danger); }
+
+    .row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .row-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .input, input, select, textarea {
+      width: 100%;
+      padding: 6px 8px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: #fff;
+      font-size: 12px;
+    }
+
+    .input.inline {
+      display: inline-block;
+      width: auto;
+      min-width: 120px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 8px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 12px;
+      border: none;
+      text-decoration: none;
+    }
+
+    .btn.secondary {
+      background: #fff;
+      color: var(--accent-strong);
+      border: 1px solid var(--line);
+    }
+
+    .btn.ghost {
+      background: transparent;
+      border: 1px dashed var(--line);
+      color: var(--muted);
+    }
+
+    .btn.disabled,
+    .disabled {
+      background: #e5e7eb;
+      color: #9ca3af;
+      border: 1px solid #e5e7eb;
+      pointer-events: none;
+    }
+
+    .chip {
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 10px;
+      background: #fff;
+      border: 1px solid var(--line);
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .meta {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .list {
+      margin: 0;
+      padding-left: 16px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .banner {
+      padding: 8px 10px;
+      border-radius: 10px;
+      font-size: 12px;
+      margin-bottom: 8px;
+      border: 1px solid;
+    }
+
+    .banner.error { background: #ffebee; border-color: #ffcdd2; color: var(--danger); }
+    .banner.warn { background: #fff3e0; border-color: #ffe0b2; color: var(--warning); }
+    .banner.ok { background: #e8f5e9; border-color: #c8e6c9; color: var(--ok); }
+
+    .alert-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--danger);
+      color: #fff;
+      font-size: 12px;
+      position: relative;
+    }
+
+    .alert-icon::after {
+      content: attr(data-tip);
+      position: absolute;
+      bottom: 125%;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 4px 6px;
+      border-radius: 6px;
+      background: #111827;
+      color: #fff;
+      font-size: 11px;
+      opacity: 0;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+
+    .alert-icon:hover::after { opacity: 1; }
+
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+
+    .table th,
+    .table td {
+      border-bottom: 1px solid var(--line);
+      padding: 6px 4px;
+      text-align: left;
+    }
+
+    .summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--muted);
+      border-top: 1px dashed var(--line);
+      padding-top: 8px;
+      margin-top: 8px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      margin-top: 10px;
+    }
+
+    details.accordion summary {
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .highlight {
+      border-color: var(--danger);
+      box-shadow: 0 0 0 2px rgba(198, 40, 40, 0.08);
+      background: #fff5f5;
+    }
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(17, 24, 39, 0.35);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      z-index: 50;
+    }
+
+    .overlay:target { display: flex; }
+
+    .modal {
+      background: #fff;
+      border-radius: 14px;
+      padding: 16px;
+      width: min(980px, 90vw);
+      max-height: 90vh;
+      overflow: auto;
+      border: 1px solid var(--line);
+    }
+
+    .drawer {
+      margin-left: auto;
+      height: 100%;
+      width: min(520px, 90vw);
+      border-radius: 16px 0 0 16px;
+    }
+
+    .modal h3 { margin: 0 0 10px; }
+    .modal .grid-2 { margin-top: 8px; }
+    .modal .close {
+      float: right;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 8px;
+      background: #eef2ff;
+      color: #4f46e5;
+      font-size: 11px;
+    }
+
+    @media (max-width: 980px) {
+      .grid-3 { grid-template-columns: 1fr; }
+      .grid-2 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div id="top"></div>
+  <header class="page">
+    <h1>Кликабельный MVP прототип ЛККК: оформление заказа в медофисе</h1>
+    <p class="note">Формат: low-fi → mid-fi wireframe, один HTML-файл. Визуальный стиль нейтральный, акценты только для интерактивных элементов.</p>
+  </header>
+
+  <nav class="toc">
+    <div class="toc-group">
+      <h3>Экран 1 — Сбор заказа</h3>
+      <a href="#screen1-start">Старт</a>
+      <a href="#screen1-sunny">Sunny Day</a>
+      <a href="#screen1-sunny-plus">Sunny Day + доп. анализ</a>
+      <a href="#screen1-no-patient">Ошибка: нет пациента</a>
+      <a href="#screen1-empty-cart">Ошибка: корзина пуста</a>
+      <a href="#screen1-medinfo-required">Ошибка: мединформация</a>
+      <a href="#screen1-delivery-missing">Ошибка: доставка</a>
+    </div>
+    <div class="toc-group">
+      <h3>Экран 2 — Завершение заказа</h3>
+      <a href="#screen2-sunny">Sunny Day</a>
+      <a href="#screen2-print-disabled">Ошибка: печать недоступна</a>
+      <a href="#screen2-cert-required">Ошибка: сертификат обязателен</a>
+      <a href="#screen2-paid">Оплата успешна</a>
+      <a href="#screen2-minimal">После оплаты (минимально)</a>
+    </div>
+    <div class="toc-group">
+      <h3>Overlay / Панели</h3>
+      <a href="#overlay-patient-search">Поиск/создание пациента</a>
+      <a href="#overlay-patient-card">Карточка пациента</a>
+      <a href="#overlay-medinfo">Медицинская информация</a>
+      <a href="#overlay-medinfo-per-product">Мединфо per product</a>
+      <a href="#overlay-delivery">Доставка результатов</a>
+      <a href="#overlay-printer">Выбор принтера</a>
+      <a href="#overlay-brightness">Яркость печати</a>
+      <a href="#overlay-recommend">Рекомендации перед анализами</a>
+    </div>
+  </nav>
+
+  <main>
+    <section class="frame" id="screen1-start">
+      <h2>MVP / Экран 1 — Сбор заказа (Старт)</h2>
+      <div class="progress">
+        <ol>
+          <li class="active">Поиск</li>
+          <li>Состав заказа</li>
+          <li>Мединформация</li>
+          <li>Печать</li>
+          <li>Оплата</li>
+          <li>Готово</li>
+        </ol>
+      </div>
+
+      <div class="block">
+        <div class="row">
+          <strong>Статусы оформления</strong>
+          <span class="status-pill">ожидает</span>
+        </div>
+        <ul class="status-list">
+          <li><span class="status-pill pill-error">нет</span> Пациент выбран</li>
+          <li><span class="status-pill pill-error">нет</span> Продукты добавлены</li>
+          <li><span class="status-pill">—</span> Контейнеры и биоматериал проверены</li>
+          <li><span class="status-pill">—</span> Мединформация заполнена (если требуется)</li>
+          <li><span class="status-pill">—</span> Доставка результатов настроена</li>
+        </ul>
+      </div>
+
+      <div class="banner ok">Начать можно с любого блока: анализы, пациент или врач. Врач необязателен.</div>
+
+      <div class="grid-3">
+        <div class="block">
+          <h3>Анализы</h3>
+          <input placeholder="Код или название анализа">
+          <div class="meta">Подходящие варианты</div>
+          <div class="row">
+            <div>
+              <strong>ОАК</strong> · A01<br>
+              <span class="meta">Готовность: 1 день</span>
+            </div>
+            <div>
+              <select>
+                <option>Канал забора: венозная кровь</option>
+                <option>Канал забора: капиллярная кровь</option>
+              </select>
+              <div class="actions">
+                <a class="btn ghost" href="#screen1-sunny">Добавить</a>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div>
+              <strong>Биохимия</strong> · B12<br>
+              <span class="meta">Готовность: 2 дня</span>
+            </div>
+            <div>
+              <select>
+                <option>Канал забора: венозная кровь</option>
+                <option>Канал забора: капиллярная кровь</option>
+              </select>
+              <div class="actions">
+                <a class="btn ghost" href="#screen1-sunny">Добавить</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="block">
+          <h3>Пациент</h3>
+          <input placeholder="Фамилия, телефон, код или почта">
+          <div class="meta">Подходящие варианты</div>
+          <div class="row">
+            <div>
+              <strong>Иванова Мария П.</strong><br>
+              <span class="meta">12.03.1987 · +7 999 111-22-33 · Москва</span>
+            </div>
+            <a class="btn ghost" href="#screen1-sunny">Выбрать</a>
+          </div>
+          <div class="actions">
+            <a class="btn secondary" href="#overlay-patient-search">Создать</a>
+          </div>
+        </div>
+
+        <div class="block">
+          <h3>Врач (необязательно)</h3>
+          <input placeholder="Фамилия или специализация">
+          <div class="meta">Подходящие варианты</div>
+          <div class="row">
+            <div>
+              <strong>Смирнов И.О.</strong> · терапевт
+            </div>
+            <a class="btn ghost" href="#screen1-sunny">Выбрать</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="block">
+        <h3>Выбранные анализы</h3>
+        <div class="meta">Пока нет выбранных анализов. Добавьте позиции сверху.</div>
+      </div>
+
+      <details class="block accordion">
+        <summary>Контейнеры и биоматериал</summary>
+        <div class="meta">Появится после добавления анализов.</div>
+      </details>
+
+      <div class="block">
+        <div class="row">
+          <strong>Медицинская информация</strong>
+          <span class="status-pill">не требуется</span>
+        </div>
+        <div class="meta">Если будет нужна, появится список полей.</div>
+      </div>
+
+      <div class="actions">
+        <span class="btn disabled">Перейти к завершению</span>
+        <span class="meta">Нужны пациент и анализы.</span>
+      </div>
+    </section>
+
+    <section class="frame" id="screen1-sunny">
+      <h2>MVP / Экран 1 — Сбор заказа (Sunny Day)</h2>
+      <div class="progress">
+        <ol>
+          <li class="done">Поиск</li>
+          <li class="active">Состав заказа</li>
+          <li>Мединформация</li>
+          <li>Печать</li>
+          <li>Оплата</li>
+          <li>Готово</li>
+        </ol>
+      </div>
+
+      <div class="block">
+        <div class="row">
+          <strong>Статусы оформления</strong>
+          <span class="status-pill pill-ok">готово</span>
+        </div>
+        <ul class="status-list">
+          <li><span class="status-pill pill-ok">ок</span> Пациент выбран</li>
+          <li><span class="status-pill pill-ok">ок</span> Продукты добавлены</li>
+          <li><span class="status-pill pill-ok">ок</span> Контейнеры и биоматериал проверены</li>
+          <li><span class="status-pill pill-ok">ок</span> Мединформация заполнена (если требуется)</li>
+          <li><span class="status-pill pill-ok">ок</span> Доставка результатов настроена</li>
+        </ul>
+      </div>
+
+      <div class="grid-3">
+        <div class="block">
+          <h3>Анализы</h3>
+          <input placeholder="Код или название анализа" value="био">
+          <div class="meta">Подходящие варианты</div>
+          <div class="row">
+            <div>
+              <strong>Биохимия</strong> · B12<br>
+              <span class="meta">Готовность: 2 дня</span>
+            </div>
+            <div>
+              <select>
+                <option>Канал забора: венозная кровь</option>
+                <option>Канал забора: капиллярная кровь</option>
+              </select>
+              <div class="actions">
+                <span class="chip">Уже добавлено</span>
+                <a class="btn secondary" href="#screen1-sunny-plus">+1</a>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div>
+              <strong>Ферритин</strong> · F16<br>
+              <span class="meta">Готовность: 1 день</span>
+            </div>
+            <div>
+              <select>
+                <option>Канал забора: венозная кровь</option>
+                <option>Канал забора: капиллярная кровь</option>
+              </select>
+              <div class="actions">
+                <a class="btn ghost" href="#screen1-sunny-plus">Добавить</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="block">
+          <h3>Пациент</h3>
+          <div class="row">
+            <div>
+              <strong>Иванова Мария Петровна</strong>
+              <span class="alert-icon" data-tip="группа риска">!</span><br>
+              <span class="meta">12.03.1987 · +7 999 111-22-33</span><br>
+              <span class="meta">m.ivanova@mail.ru · Москва</span>
+            </div>
+            <div class="row-wrap">
+              <a class="btn secondary" href="#screen1-start">Изменить пациента</a>
+              <a class="btn secondary" href="#overlay-patient-card">Изменить карточку</a>
+            </div>
+          </div>
+          <h4>Доставка результатов</h4>
+          <div class="row-wrap">
+            <label class="chip">Email: m.ivanova@mail.ru</label>
+            <label class="chip">Телефон: +7 999 111-22-33</label>
+            <span class="chip">Доп. email: m.iv+lab@mail.ru</span>
+            <a class="btn secondary" href="#overlay-delivery">Настроить</a>
+          </div>
+          <h4>Плательщик</h4>
+          <div class="row">
+            <div class="meta">Пациент (по умолчанию)</div>
+            <span class="btn disabled" title="Уточняется перенос в ЛККК">Другой плательщик</span>
+          </div>
+        </div>
+
+        <div class="block">
+          <h3>Врач (необязательно)</h3>
+          <div class="row">
+            <div>
+              <strong>Смирнов Илья Олегович</strong><br>
+              <span class="meta">Терапевт · клиника «Север»</span>
+            </div>
+            <a class="btn secondary" href="#screen1-sunny">Убрать</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="block">
+        <h3>Выбранные анализы</h3>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Позиция</th>
+              <th>Канал забора</th>
+              <th>Готовность</th>
+              <th>Действия</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <strong>ОАК</strong> · A01<br>
+                <span class="meta">Контейнеры: пробирка 1 · Биоматериал: кровь</span>
+              </td>
+              <td>Венозная кровь</td>
+              <td>01.02</td>
+              <td>
+                <a href="#screen1-sunny" class="chip">Изменить срочность</a>
+                <a href="#screen1-sunny" class="chip">Удалить</a>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <strong>Биохимия</strong> · B12<br>
+                <span class="meta">Контейнеры: пробирка 1 · Биоматериал: кровь</span>
+              </td>
+              <td>Венозная кровь</td>
+              <td>02.02</td>
+              <td>
+                <a href="#screen1-sunny" class="chip">Изменить срочность</a>
+                <a href="#screen1-sunny" class="chip">Удалить</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="summary">
+          <div>2 позиции · сумма 4 600 ₽</div>
+          <div>Самая поздняя готовность: 02.02</div>
+        </div>
+      </div>
+
+      <details class="block accordion" open>
+        <summary>Контейнеры и биоматериал</summary>
+        <ul class="list">
+          <li>Пробирка вакуумная — 2 шт.</li>
+          <li>Контейнер для мочи — 1 шт.</li>
+          <li>Штрих-коды: 3 шт.</li>
+        </ul>
+        <div class="banner warn">Для анализа мочи печатаются 2 штрих-кода: на баночку и на пробирку.</div>
+      </details>
+
+      <div class="block">
+        <div class="row">
+          <strong>Медицинская информация</strong>
+          <span class="status-pill">не требуется</span>
+        </div>
+        <div class="meta">Если появятся обязательные поля, они блокируют переход.</div>
+      </div>
+
+      <div class="block">
+        <h3>Предложение со скидкой</h3>
+        <div class="grid-2">
+          <div>
+            <strong>Ферритин</strong> · F16<br>
+            <span class="meta">Полезен для: терапевт, гематолог</span><br>
+            <span class="meta">В каких случаях: хроническая усталость, анемия</span>
+          </div>
+          <div>
+            <div class="meta">Сейчас: 4 600 ₽</div>
+            <div class="meta">С анализом: 5 100 ₽</div>
+            <div class="meta">Скидка: 10% (−500 ₽)</div>
+          </div>
+        </div>
+        <div class="actions">
+          <a class="btn" href="#screen1-sunny-plus">Добавить</a>
+        </div>
+      </div>
+
+      <div class="block">
+        <h3>Sunny Day Flow</h3>
+        <div class="row-wrap">
+          <a class="chip" href="#overlay-patient-search">Поиск пациента</a>
+          <a class="chip" href="#screen1-sunny">Добавить анализы</a>
+          <a class="chip" href="#screen1-sunny">Проверить контейнеры</a>
+          <a class="chip" href="#overlay-medinfo">Заполнить мединформацию</a>
+          <a class="chip" href="#overlay-delivery">Настроить доставку</a>
+          <a class="chip" href="#screen2-sunny">Перейти к завершению</a>
+        </div>
+      </div>
+
+      <div class="actions">
+        <a class="btn" href="#screen2-sunny">Перейти к завершению</a>
+        <span class="meta">Все обязательные шаги выполнены.</span>
+      </div>
+    </section>
+
+    <section class="frame" id="screen1-sunny-plus">
+      <h2>MVP / Экран 1 — Сбор заказа (Sunny Day + доп. анализ)</h2>
+      <div class="progress">
+        <ol>
+          <li class="done">Поиск</li>
+          <li class="active">Состав заказа</li>
+          <li>Мединформация</li>
+          <li>Печать</li>
+          <li>Оплата</li>
+          <li>Готово</li>
+        </ol>
+      </div>
+
+      <div class="block">
+        <div class="row">
+          <strong>Статусы оформления</strong>
+          <span class="status-pill pill-ok">готово</span>
+        </div>
+        <ul class="status-list">
+          <li><span class="status-pill pill-ok">ок</span> Пациент выбран</li>
+          <li><span class="status-pill pill-ok">ок</span> Продукты добавлены</li>
+          <li><span class="status-pill pill-ok">ок</span> Контейнеры и биоматериал проверены</li>
+          <li><span class="status-pill pill-ok">ок</span> Мединформация заполнена (если требуется)</li>
+          <li><span class="status-pill pill-ok">ок</span> Доставка результатов настроена</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <h3>Выбранные анализы</h3>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Позиция</th>
+              <th>Канал забора</th>
+              <th>Готовность</th>
+              <th>Действия</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <strong>ОАК</strong> · A01<br>
+                <span class="meta">Контейнеры: пробирка 1 · Биоматериал: кровь</span>
+              </td>
+              <td>Венозная кровь</td>
+              <td>01.02</td>
+              <td><span class="chip">Изменить срочность</span> <span class="chip">Удалить</span></td>
+            </tr>
+            <tr>
+              <td>
+                <strong>Биохимия</strong> · B12<br>
+                <span class="meta">Контейнеры: пробирка 1 · Биоматериал: кровь</span>
+              </td>
+              <td>Венозная кровь</td>
+              <td>02.02</td>
+              <td><span class="chip">Изменить срочность</span> <span class="chip">Удалить</span></td>
+            </tr>
+            <tr>
+              <td>
+                <strong>Ферритин</strong> · F16<br>
+                <span class="meta">Контейнеры: пробирка 1 · Биоматериал: кровь</span>
+              </td>
+              <td>Венозная кровь</td>
+              <td>01.02</td>
+              <td><span class="chip">Изменить срочность</span> <span class="chip">Удалить</span></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="summary">
+          <div>3 позиции · сумма 5 100 ₽</div>
+          <div>Самая поздняя готовность: 02.02</div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <a class="btn" href="#screen2-sunny">Перейти к завершению</a>
+        <span class="meta">Дополнительный анализ добавлен.</span>
+      </div>
+    </section>
+
+    <section class="frame" id="screen1-no-patient">
+      <h2>MVP / Экран 1 — Сбор заказа (Ошибка: нет пациента)</h2>
+      <div class="progress">
+        <ol>
+          <li class="active">Поиск</li>
+          <li>Состав заказа</li>
+          <li>Мединформация</li>
+          <li>Печать</li>
+          <li>Оплата</li>
+          <li>Готово</li>
+        </ol>
+      </div>
+
+      <div class="banner error">Нужен пациент, чтобы продолжить.</div>
+
+      <div class="grid-3">
+        <div class="block">
+          <h3>Анализы</h3>
+          <div class="meta">Позиции уже добавлены.</div>
+          <div class="chip">ОАК · A01</div>
+          <div class="chip">Биохимия · B12</div>
+        </div>
+        <div class="block highlight">
+          <h3>Пациент</h3>
+          <input placeholder="Фамилия, телефон, код или почта">
+          <div class="actions">
+            <a class="btn" href="#overlay-patient-search">Найти пациента</a>
+            <a class="btn secondary" href="#overlay-patient-search">Создать</a>
+          </div>
+        </div>
+        <div class="block">
+          <h3>Врач (необязательно)</h3>
+          <input placeholder="Фамилия или специализация">
+        </div>
+      </div>
+
+      <div class="actions">
+        <span class="btn disabled">Перейти к завершению</span>
+      </div>
+    </section>
+
+    <section class="frame" id="screen1-empty-cart">
+      <h2>MVP / Экран 1 — Сбор заказа (Ошибка: корзина пуста)</h2>
+      <div class="progress">
+        <ol>
+          <li class="active">Поиск</li>
+          <li>Состав заказа</li>
+          <li>Мединформация</li>
+          <li>Печать</li>
+          <li>Оплата</li>
+          <li>Готово</li>
+        </ol>
+      </div>
+
+      <div class="banner error">Нужны выбранные анализы.</div>
+
+      <div class="grid-3">
+        <div class="block highlight">
+          <h3>Анализы</h3>
+          <input placeholder="Код или название анализа">
+          <div class="actions">
+            <a class="btn" href="#screen1-sunny">Добавить анализ</a>
+          </div>
+        </div>
+        <div class="block">
+          <h3>Пациент</h3>
+          <div class="meta">Иванова Мария Петровна · 12.03.1987</div>
+          <div class="meta">+7 999 111-22-33 · Москва</div>
+        </div>
+        <div class="block">
+          <h3>Врач (необязательно)</h3>
+          <input placeholder="Фамилия или специализация">
+        </div>
+      </div>
+
+      <div class="block">
+        <h3>Выбранные анализы</h3>
+        <div class="meta">Список пуст.</div>
+      </div>
+
+      <div class="actions">
+        <span class="btn disabled">Перейти к завершению</span>
+      </div>
+    </section>
+
+    <section class="frame" id="screen1-medinfo-required">
+      <h2>MVP / Экран 1 — Сбор заказа (Ошибка: мединформация)</h2>
+      <div class="progress">
+        <ol>
+          <li class="done">Поиск</li>
+          <li class="active">Состав заказа</li>
+          <li>Мединформация</li>
+          <li>Печать</li>
+          <li>Оплата</li>
+          <li>Готово</li>
+        </ol>
+      </div>
+
+      <div class="banner error">
+        Нужны обязательные поля мединформации:
+        <ul class="list">
+          <li>Код контингента (ВИЧ)</li>
+          <li>Срок голодания (часов)</li>
+          <li>Комментарий для лаборатории</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <div class="row">
+          <strong>Медицинская информация</strong>
+          <span class="status-pill pill-error">требуется</span>
+        </div>
+        <div class="actions">
+          <a class="btn" href="#overlay-medinfo">Заполнить</a>
+        </div>
+      </div>
+
+      <div class="actions">
+        <span class="btn disabled">Перейти к завершению</span>
+      </div>
+    </section>
+
+    <section class="frame" id="screen1-delivery-missing">
+      <h2>MVP / Экран 1 — Сбор заказа (Ошибка: доставка результатов)</h2>
+      <div class="progress">
+        <ol>
+          <li class="done">Поиск</li>
+          <li class="active">Состав заказа</li>
+          <li>Мединформация</li>
+          <li>Печать</li>
+          <li>Оплата</li>
+          <li>Готово</li>
+        </ol>
+      </div>
+
+      <div class="banner error">Нужно выбрать способ доставки результатов.</div>
+
+      <div class="block highlight">
+        <h3>Пациент</h3>
+        <div class="meta">Иванова Мария Петровна · +7 999 111-22-33</div>
+        <h4>Доставка результатов</h4>
+        <div class="row-wrap">
+          <span class="chip">Email не выбран</span>
+          <span class="chip">Телефон не выбран</span>
+          <a class="btn" href="#overlay-delivery">Настроить</a>
+        </div>
+      </div>
+
+      <div class="actions">
+        <span class="btn disabled">Перейти к завершению</span>
+      </div>
+    </section>
+
+    <section class="frame" id="screen2-sunny">
+      <h2>MVP / Экран 2 — Завершение заказа (Sunny Day)</h2>
+      <div class="progress">
+        <ol>
+          <li class="done">Поиск</li>
+          <li class="done">Состав заказа</li>
+          <li class="done">Мединформация</li>
+          <li class="active">Печать</li>
+          <li>Оплата</li>
+          <li>Готово</li>
+        </ol>
+      </div>
+
+      <div class="block">
+        <h3>Сводка заказа</h3>
+        <div class="grid-2">
+          <div>
+            <strong>Пациент:</strong> Иванова Мария Петровна<br>
+            <span class="meta">12.03.1987 · +7 999 111-22-33</span><br>
+            <span class="meta">Плательщик: пациент</span>
+          </div>
+          <div>
+            <strong>Анализы:</strong> ОАК, Биохимия<br>
+            <span class="meta">Самая поздняя готовность: 02.02</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="block">
+        <h3>Рекомендации перед анализами</h3>
+        <div class="actions">
+          <a class="btn secondary" href="#overlay-recommend">Показать рекомендации</a>
+        </div>
+      </div>
+
+      <div class="block">
+        <h3>Печать документов заказа</h3>
+        <div class="actions">
+          <a class="btn" href="#overlay-printer">Печать</a>
+          <a class="btn secondary" href="#overlay-printer">Выбор принтера</a>
+          <a class="btn secondary" href="#screen2-sunny">Скачать PDF (с водяными знаками)</a>
+        </div>
+        <div class="meta">Печать доступна после заполнения обязательных полей.</div>
+      </div>
+
+      <div class="block">
+        <h3>Юридические документы и подписи</h3>
+        <label class="chip">Юридические документы не подписаны</label>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Документ</th>
+              <th>Действия</th>
+              <th>Подтверждение</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Договор</td>
+              <td><a href="#screen2-sunny" class="chip">Просмотреть</a> <a href="#screen2-sunny" class="chip">Распечатать</a></td>
+              <td><span class="chip">Пациент подписал · 30.01</span></td>
+            </tr>
+            <tr>
+              <td>Согласие на ПДн</td>
+              <td><a href="#screen2-sunny" class="chip">Просмотреть</a> <a href="#screen2-sunny" class="chip">Распечатать</a></td>
+              <td><span class="chip">Пациент подписал · 30.01</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="block">
+        <h3>Печать штрих-кодов / этикеток</h3>
+        <div class="row-wrap">
+          <label class="chip"><input type="checkbox" checked> Пробирка 1</label>
+          <label class="chip"><input type="checkbox" checked> Пробирка 2</label>
+          <label class="chip"><input type="checkbox" checked> Баночка (моча)</label>
+          <label class="chip"><input type="checkbox" checked> Пробирка (моча)</label>
+        </div>
+        <div class="meta">Для мочи печатается 2 штрих-кода.</div>
+        <div class="actions">
+          <a class="btn" href="#screen2-sunny">Печать</a>
+          <a class="btn secondary" href="#overlay-brightness">Яркость печати</a>
+        </div>
+      </div>
+
+      <div class="block">
+        <h3>Лояльность и доп. скидки</h3>
+        <div class="grid-2">
+          <div>
+            <strong>Здоровый кэшбэк</strong><br>
+            <span class="meta">Доступно к списанию: 320 ₽</span>
+            <input placeholder="Списать сумму">
+          </div>
+          <div>
+            <strong>Доп. скидки</strong>
+            <input placeholder="Сертификат">
+            <input placeholder="Купон / промокод">
+            <input placeholder="Дисконтная карта">
+          </div>
+        </div>
+      </div>
+
+      <div class="block">
+        <h3>Оплата</h3>
+        <div class="row">
+          <div>
+            <strong>К оплате:</strong> 4 600 ₽
+          </div>
+          <div class="row-wrap">
+            <label class="chip"><input type="radio" checked> Наличные</label>
+            <label class="chip"><input type="radio"> Карта</label>
+            <label class="chip"><input type="radio"> СБП</label>
+            <label class="chip"><input type="radio"> Комбинированная</label>
+          </div>
+        </div>
+        <div class="actions">
+          <a class="btn" href="#screen2-paid">Принять оплату</a>
+        </div>
+      </div>
+
+      <div class="block">
+        <h3>Sunny Day Flow</h3>
+        <div class="row-wrap">
+          <a class="chip" href="#overlay-printer">Печать бланка</a>
+          <a class="chip" href="#screen2-sunny">Юр. подписи</a>
+          <a class="chip" href="#screen2-sunny">Печать штрих-кодов</a>
+          <a class="chip" href="#screen2-sunny">Лояльность / скидки</a>
+          <a class="chip" href="#screen2-paid">Оплата картой</a>
+          <a class="chip" href="#screen2-paid">Фискальный чек</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="frame" id="screen2-print-disabled">
+      <h2>MVP / Экран 2 — Завершение заказа (Ошибка: печать недоступна)</h2>
+      <div class="progress">
+        <ol>
+          <li class="done">Поиск</li>
+          <li class="done">Состав заказа</li>
+          <li class="done">Мединформация</li>
+          <li class="active">Печать</li>
+          <li>Оплата</li>
+          <li>Готово</li>
+        </ol>
+      </div>
+
+      <div class="block">
+        <h3>Печать документов заказа</h3>
+        <div class="actions">
+          <span class="btn disabled" title="Печать доступна после заполнения обязательных полей">Печать</span>
+          <span class="btn disabled" title="Печать доступна после заполнения обязательных полей">Выбор принтера</span>
+          <span class="btn disabled" title="Печать доступна после заполнения обязательных полей">Скачать PDF</span>
+        </div>
+        <div class="banner warn">Заполните обязательные поля, чтобы включить печать.</div>
+      </div>
+    </section>
+
+    <section class="frame" id="screen2-cert-required">
+      <h2>MVP / Экран 2 — Завершение заказа (Ошибка: сертификат обязателен)</h2>
+      <div class="progress">
+        <ol>
+          <li class="done">Поиск</li>
+          <li class="done">Состав заказа</li>
+          <li class="done">Мединформация</li>
+          <li class="done">Печать</li>
+          <li class="active">Оплата</li>
+          <li>Готово</li>
+        </ol>
+      </div>
+
+      <div class="banner error">Нужен номер сертификата для одного из анализов.</div>
+
+      <div class="block">
+        <h3>Лояльность и доп. скидки</h3>
+        <input placeholder="Сертификат (обязательно)">
+        <div class="meta">Поле обязательно, иначе оплата недоступна.</div>
+      </div>
+
+      <div class="block">
+        <h3>Оплата</h3>
+        <div class="actions">
+          <span class="btn disabled">Принять оплату</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="frame" id="screen2-paid">
+      <h2>MVP / Экран 2 — Завершение заказа (Оплата успешна)</h2>
+      <div class="progress">
+        <ol>
+          <li class="done">Поиск</li>
+          <li class="done">Состав заказа</li>
+          <li class="done">Мединформация</li>
+          <li class="done">Печать</li>
+          <li class="done">Оплата</li>
+          <li class="active">Готово</li>
+        </ol>
+      </div>
+
+      <div class="banner ok">Оплачено. Можно печатать фискальные и банковские документы.</div>
+
+      <div class="block">
+        <h3>Фискальные и банковские документы</h3>
+        <div class="actions">
+          <a class="btn" href="#screen2-paid">Печать фискального чека</a>
+          <a class="btn secondary" href="#screen2-paid">Печать банковских документов</a>
+        </div>
+      </div>
+
+      <div class="block">
+        <h3>Печать этикеток</h3>
+        <div class="actions">
+          <a class="btn" href="#screen2-minimal">Перейти к этикеткам</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="frame" id="screen2-minimal">
+      <h2>MVP / Экран 2 — Завершение заказа (После оплаты, минимально)</h2>
+      <div class="progress">
+        <ol>
+          <li class="done">Поиск</li>
+          <li class="done">Состав заказа</li>
+          <li class="done">Мединформация</li>
+          <li class="done">Печать</li>
+          <li class="done">Оплата</li>
+          <li class="active">Готово</li>
+        </ol>
+      </div>
+
+      <div class="block">
+        <h3>Печать этикеток</h3>
+        <div class="row-wrap">
+          <label class="chip"><input type="checkbox" checked> Пробирка 1</label>
+          <label class="chip"><input type="checkbox" checked> Пробирка 2</label>
+          <label class="chip"><input type="checkbox" checked> Баночка (моча)</label>
+          <label class="chip"><input type="checkbox" checked> Пробирка (моча)</label>
+        </div>
+        <div class="actions">
+          <a class="btn" href="#screen2-minimal">Печать</a>
+        </div>
+      </div>
+
+      <div class="actions">
+        <a class="btn" href="#screen1-start">Завершить и начать новый заказ</a>
+      </div>
+    </section>
+  </main>
+
+  <section class="overlay" id="overlay-patient-search">
+    <div class="modal">
+      <a class="close" href="#screen1-start">Закрыть</a>
+      <h3>Поиск / создание пациента</h3>
+      <div class="grid-2">
+        <div class="block">
+          <h4>Поиск</h4>
+          <input placeholder="Фамилия / телефон / код / почта">
+          <div class="meta">Результаты</div>
+          <div class="row">
+            <div>
+              <strong>Иванова Мария Петровна</strong><br>
+              <span class="meta">12.03.1987 · +7 999 111-22-33</span>
+            </div>
+            <a class="btn" href="#screen1-sunny">Выбрать</a>
+          </div>
+        </div>
+        <div class="block">
+          <h4>Если не найден</h4>
+          <input placeholder="ФИО">
+          <input placeholder="Дата рождения">
+          <div class="row-wrap">
+            <label class="chip"><input type="radio"> Жен</label>
+            <label class="chip"><input type="radio"> Муж</label>
+          </div>
+          <input placeholder="Телефон">
+          <input placeholder="Email">
+          <div class="actions">
+            <a class="btn" href="#screen1-sunny">Сохранить и выбрать</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="overlay" id="overlay-patient-card">
+    <div class="modal drawer">
+      <a class="close" href="#screen1-sunny">Закрыть</a>
+      <h3>Карточка пациента</h3>
+      <div class="block">
+        <h4>Контакты</h4>
+        <input placeholder="ФИО" value="Иванова Мария Петровна">
+        <input placeholder="Дата рождения" value="12.03.1987">
+        <input placeholder="Телефон" value="+7 999 111-22-33">
+        <input placeholder="Email" value="m.ivanova@mail.ru">
+        <input placeholder="Доп. email" value="m.iv+lab@mail.ru">
+      </div>
+      <div class="block">
+        <h4>Документы и адрес</h4>
+        <input placeholder="Паспорт: серия и номер" value="4506 123456">
+        <input placeholder="Кем выдан" value="ОВД Центральный">
+        <input placeholder="Адрес" value="г. Москва, ул. Северная 12">
+      </div>
+      <div class="block">
+        <h4>Работодатель</h4>
+        <input placeholder="Компания" value="ООО Север">
+        <input placeholder="Должность" value="Бухгалтер">
+      </div>
+      <div class="block">
+        <h4>Комментарий</h4>
+        <textarea rows="3" placeholder="Короткий комментарий"></textarea>
+      </div>
+      <div class="actions">
+        <a class="btn" href="#screen1-sunny">Сохранить</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="overlay" id="overlay-medinfo">
+    <div class="modal">
+      <a class="close" href="#screen1-medinfo-required">Закрыть</a>
+      <h3>Медицинская информация</h3>
+      <div class="block">
+        <h4>Комментарии</h4>
+        <input placeholder="Локальный комментарий">
+        <input placeholder="Информационный комментарий">
+      </div>
+      <div class="block">
+        <h4>Доп. мед. информация</h4>
+        <div class="grid-2">
+          <div>
+            <strong>Срок голодания (часов)</strong>
+            <div class="meta">Для продукта: Биохимия · Тип: Number · min 0 · max 24 · Обязательно</div>
+            <input placeholder="0-24">
+          </div>
+          <div>
+            <strong>Код контингента (ВИЧ)</strong>
+            <div class="meta">Для продукта: ВИЧ-скрининг · Тип: Select · Обязательно</div>
+            <input placeholder="Выберите код">
+          </div>
+        </div>
+      </div>
+      <div class="block">
+        <h4>Опросники / коды</h4>
+        <strong>Комментарий для лаборатории</strong>
+        <div class="meta">Для продукта: ОАК · Тип: Text · Обязательно</div>
+        <input placeholder="Короткий текст">
+      </div>
+      <div class="actions">
+        <a class="btn" href="#screen1-sunny">Сохранить</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="overlay" id="overlay-medinfo-per-product">
+    <div class="modal">
+      <a class="close" href="#screen1-medinfo-required">Закрыть</a>
+      <h3>Медицинская информация (IsPerProduct=true)</h3>
+      <div class="banner warn">Поле нужно заполнить отдельно для двух продуктов.</div>
+      <div class="block">
+        <strong>Срок голодания (часов)</strong>
+        <div class="meta">IsPerProduct=true · Тип: Number · min 0 · max 24 · Обязательно</div>
+        <div class="row-wrap">
+          <span class="tag">Заполнить для: ОАК</span>
+          <span class="tag">Заполнить для: Биохимия</span>
+        </div>
+        <div class="grid-2">
+          <div>
+            <div class="meta">ОАК</div>
+            <input placeholder="0-24">
+          </div>
+          <div>
+            <div class="meta">Биохимия</div>
+            <input placeholder="0-24">
+          </div>
+        </div>
+      </div>
+      <div class="actions">
+        <a class="btn" href="#screen1-sunny">Сохранить</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="overlay" id="overlay-delivery">
+    <div class="modal">
+      <a class="close" href="#screen1-delivery-missing">Закрыть</a>
+      <h3>Доставка результатов</h3>
+      <div class="block">
+        <div class="row-wrap">
+          <label class="chip"><input type="checkbox" checked> Email: m.ivanova@mail.ru</label>
+          <label class="chip"><input type="checkbox"> Телефон: +7 999 111-22-33</label>
+          <label class="chip"><input type="checkbox"> Доп. email</label>
+        </div>
+        <input placeholder="Доп. email">
+      </div>
+      <div class="actions">
+        <a class="btn" href="#screen1-sunny">Сохранить</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="overlay" id="overlay-printer">
+    <div class="modal">
+      <a class="close" href="#screen2-sunny">Закрыть</a>
+      <h3>Выбор принтера</h3>
+      <div class="block">
+        <label class="chip"><input type="radio" checked> Принтер 1 (стойка)</label>
+        <label class="chip"><input type="radio"> Принтер 2 (кабинет)</label>
+        <label class="chip"><input type="radio"> PDF</label>
+      </div>
+      <div class="actions">
+        <a class="btn" href="#screen2-sunny">Применить</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="overlay" id="overlay-brightness">
+    <div class="modal">
+      <a class="close" href="#screen2-sunny">Закрыть</a>
+      <h3>Яркость печати</h3>
+      <div class="block">
+        <label class="chip"><input type="radio" checked> По умолчанию</label>
+        <label class="chip"><input type="radio"> Ручная настройка</label>
+        <input placeholder="Ползунок яркости 0-100">
+      </div>
+      <div class="actions">
+        <a class="btn" href="#screen2-sunny">Сохранить</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="overlay" id="overlay-recommend">
+    <div class="modal">
+      <a class="close" href="#screen2-sunny">Закрыть</a>
+      <h3>Рекомендации перед анализами</h3>
+      <div class="block">
+        <div class="meta">Выберите способ выдачи рекомендаций:</div>
+        <div class="actions">
+          <a class="btn" href="#screen2-sunny">Напечатать</a>
+          <a class="btn secondary" href="#screen2-sunny">Отправить на почту</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
+</html>
