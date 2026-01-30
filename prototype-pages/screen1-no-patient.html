@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Экран 1 — Сбор заказа (Ошибка: нет пациента)</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <section class="frame">
+    <div class="top-nav">
+      <a href="index.html">← Оглавление</a>
+      <a href="screen1-sunny.html">К рабочему состоянию →</a>
+    </div>
+
+    <h2>MVP / Экран 1 — Сбор заказа (Ошибка: нет пациента)</h2>
+    <div class="progress">
+      <ol>
+        <li class="active">Поиск</li>
+        <li>Состав заказа</li>
+        <li>Мединформация</li>
+        <li>Печать</li>
+        <li>Оплата</li>
+        <li>Готово</li>
+      </ol>
+    </div>
+
+    <div class="banner error">Нужен пациент, чтобы продолжить.</div>
+
+    <div class="grid-3">
+      <div class="block">
+        <h3>Анализы</h3>
+        <div class="meta">Позиции уже добавлены.</div>
+        <div class="chip">ОАК · A01</div>
+        <div class="chip">Биохимия · B12</div>
+      </div>
+      <div class="block highlight">
+        <h3>Пациент</h3>
+        <input placeholder="Фамилия, телефон, код или почта">
+        <div class="actions">
+          <a class="btn" href="overlay-patient-search.html">Найти пациента</a>
+          <a class="btn secondary" href="overlay-patient-search.html">Создать</a>
+        </div>
+      </div>
+      <div class="block">
+        <h3>Врач (необязательно)</h3>
+        <input placeholder="Фамилия или специализация">
+      </div>
+    </div>
+
+    <div class="actions">
+      <span class="btn disabled">Перейти к завершению</span>
+    </div>
+  </section>
+</body>
+</html>

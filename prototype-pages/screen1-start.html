@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Экран 1 — Сбор заказа (Старт)</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <section class="frame">
+    <div class="top-nav">
+      <a href="index.html">← Оглавление</a>
+      <a href="screen1-sunny.html">Sunny Day →</a>
+    </div>
+
+    <h2>MVP / Экран 1 — Сбор заказа (Старт)</h2>
+    <div class="progress">
+      <ol>
+        <li class="active">Поиск</li>
+        <li>Состав заказа</li>
+        <li>Мединформация</li>
+        <li>Печать</li>
+        <li>Оплата</li>
+        <li>Готово</li>
+      </ol>
+    </div>
+
+    <div class="block">
+      <div class="row">
+        <strong>Статусы оформления</strong>
+        <span class="status-pill">ожидает</span>
+      </div>
+      <ul class="status-list">
+        <li><span class="status-pill pill-error">нет</span> Пациент выбран</li>
+        <li><span class="status-pill pill-error">нет</span> Продукты добавлены</li>
+        <li><span class="status-pill">—</span> Контейнеры и биоматериал проверены</li>
+        <li><span class="status-pill">—</span> Мединформация заполнена (если требуется)</li>
+        <li><span class="status-pill">—</span> Доставка результатов настроена</li>
+      </ul>
+    </div>
+
+    <div class="banner ok">Начать можно с любого блока: анализы, пациент или врач. Врач необязателен.</div>
+
+    <div class="grid-3">
+      <div class="block">
+        <h3>Анализы</h3>
+        <input placeholder="Код или название анализа">
+        <div class="meta">Подходящие варианты</div>
+        <div class="row">
+          <div>
+            <strong>ОАК</strong> · A01<br>
+            <span class="meta">Готовность: 1 день</span>
+          </div>
+          <div>
+            <select>
+              <option>Канал забора: венозная кровь</option>
+              <option>Канал забора: капиллярная кровь</option>
+            </select>
+            <div class="actions">
+              <a class="btn ghost" href="screen1-sunny.html">Добавить</a>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <strong>Биохимия</strong> · B12<br>
+            <span class="meta">Готовность: 2 дня</span>
+          </div>
+          <div>
+            <select>
+              <option>Канал забора: венозная кровь</option>
+              <option>Канал забора: капиллярная кровь</option>
+            </select>
+            <div class="actions">
+              <a class="btn ghost" href="screen1-sunny.html">Добавить</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="block">
+        <h3>Пациент</h3>
+        <input placeholder="Фамилия, телефон, код или почта">
+        <div class="meta">Подходящие варианты</div>
+        <div class="row">
+          <div>
+            <strong>Иванова Мария П.</strong><br>
+            <span class="meta">12.03.1987 · +7 999 111-22-33 · Москва</span>
+          </div>
+          <a class="btn ghost" href="screen1-sunny.html">Выбрать</a>
+        </div>
+        <div class="actions">
+          <a class="btn secondary" href="overlay-patient-search.html">Создать</a>
+        </div>
+      </div>
+
+      <div class="block">
+        <h3>Врач (необязательно)</h3>
+        <input placeholder="Фамилия или специализация">
+        <div class="meta">Подходящие варианты</div>
+        <div class="row">
+          <div>
+            <strong>Смирнов И.О.</strong> · терапевт
+          </div>
+          <a class="btn ghost" href="screen1-sunny.html">Выбрать</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3>Выбранные анализы</h3>
+      <div class="meta">Пока нет выбранных анализов. Добавьте позиции сверху.</div>
+    </div>
+
+    <details class="block accordion">
+      <summary>Контейнеры и биоматериал</summary>
+      <div class="meta">Появится после добавления анализов.</div>
+    </details>
+
+    <div class="block">
+      <div class="row">
+        <strong>Медицинская информация</strong>
+        <span class="status-pill">не требуется</span>
+      </div>
+      <div class="meta">Если будет нужна, появится список полей.</div>
+    </div>
+
+    <div class="actions">
+      <span class="btn disabled">Перейти к завершению</span>
+      <span class="meta">Нужны пациент и анализы.</span>
+    </div>
+  </section>
+</body>
+</html>

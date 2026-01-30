@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Overlay — Медицинская информация</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <section class="frame">
+    <div class="top-nav">
+      <a href="screen1-medinfo-required.html">← Назад к сбору заказа</a>
+      <a href="screen1-sunny.html">Сохранить и вернуться →</a>
+    </div>
+
+    <h2>Overlay: Медицинская информация</h2>
+    <div class="block">
+      <h3>Комментарии</h3>
+      <input placeholder="Локальный комментарий">
+      <input placeholder="Информационный комментарий">
+    </div>
+    <div class="block">
+      <h3>Доп. мед. информация</h3>
+      <div class="grid-2">
+        <div>
+          <strong>Срок голодания (часов)</strong>
+          <div class="meta">Для продукта: Биохимия · Тип: Number · min 0 · max 24 · Обязательно</div>
+          <input placeholder="0-24">
+        </div>
+        <div>
+          <strong>Код контингента (ВИЧ)</strong>
+          <div class="meta">Для продукта: ВИЧ-скрининг · Тип: Select · Обязательно</div>
+          <input placeholder="Выберите код">
+        </div>
+      </div>
+    </div>
+    <div class="block">
+      <h3>Опросники / коды</h3>
+      <strong>Комментарий для лаборатории</strong>
+      <div class="meta">Для продукта: ОАК · Тип: Text · Обязательно</div>
+      <input placeholder="Короткий текст">
+    </div>
+    <div class="actions">
+      <a class="btn" href="screen1-sunny.html">Сохранить</a>
+    </div>
+  </section>
+</body>
+</html>

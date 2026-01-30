@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Экран 1 — Сбор заказа (Ошибка: корзина пуста)</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <section class="frame">
+    <div class="top-nav">
+      <a href="index.html">← Оглавление</a>
+      <a href="screen1-sunny.html">К рабочему состоянию →</a>
+    </div>
+
+    <h2>MVP / Экран 1 — Сбор заказа (Ошибка: корзина пуста)</h2>
+    <div class="progress">
+      <ol>
+        <li class="active">Поиск</li>
+        <li>Состав заказа</li>
+        <li>Мединформация</li>
+        <li>Печать</li>
+        <li>Оплата</li>
+        <li>Готово</li>
+      </ol>
+    </div>
+
+    <div class="banner error">Нужны выбранные анализы.</div>
+
+    <div class="grid-3">
+      <div class="block highlight">
+        <h3>Анализы</h3>
+        <input placeholder="Код или название анализа">
+        <div class="actions">
+          <a class="btn" href="screen1-sunny.html">Добавить анализ</a>
+        </div>
+      </div>
+      <div class="block">
+        <h3>Пациент</h3>
+        <div class="meta">Иванова Мария Петровна · 12.03.1987</div>
+        <div class="meta">+7 999 111-22-33 · Москва</div>
+      </div>
+      <div class="block">
+        <h3>Врач (необязательно)</h3>
+        <input placeholder="Фамилия или специализация">
+      </div>
+    </div>
+
+    <div class="block">
+      <h3>Выбранные анализы</h3>
+      <div class="meta">Список пуст.</div>
+    </div>
+
+    <div class="actions">
+      <span class="btn disabled">Перейти к завершению</span>
+    </div>
+  </section>
+</body>
+</html>

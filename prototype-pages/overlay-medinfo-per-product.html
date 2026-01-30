@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Overlay — Мединформация IsPerProduct</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <section class="frame">
+    <div class="top-nav">
+      <a href="screen1-medinfo-required.html">← Назад к сбору заказа</a>
+      <a href="screen1-sunny.html">Сохранить и вернуться →</a>
+    </div>
+
+    <h2>Overlay: Медицинская информация (IsPerProduct=true)</h2>
+    <div class="banner warn">Поле нужно заполнить отдельно для двух продуктов.</div>
+    <div class="block">
+      <strong>Срок голодания (часов)</strong>
+      <div class="meta">IsPerProduct=true · Тип: Number · min 0 · max 24 · Обязательно</div>
+      <div class="row-wrap">
+        <span class="tag">Заполнить для: ОАК</span>
+        <span class="tag">Заполнить для: Биохимия</span>
+      </div>
+      <div class="grid-2">
+        <div>
+          <div class="meta">ОАК</div>
+          <input placeholder="0-24">
+        </div>
+        <div>
+          <div class="meta">Биохимия</div>
+          <input placeholder="0-24">
+        </div>
+      </div>
+    </div>
+    <div class="actions">
+      <a class="btn" href="screen1-sunny.html">Сохранить</a>
+    </div>
+  </section>
+</body>
+</html>
