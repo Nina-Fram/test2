@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Экран 2 - завершение заказа</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <section class="frame">
+    <div class="top-nav">
+      <a href="index.html"><- Оглавление</a>
+      <span class="chip">Экран 2 из 2</span>
+    </div>
+
+    <h2>Экран 2 - завершение заказа и печать документации</h2>
+    <div class="progress">
+      <ol>
+        <li class="done">Сбор заказа</li>
+        <li class="active">Завершение</li>
+      </ol>
+    </div>
+
+    <div class="layout">
+      <div class="stack">
+        <div class="block">
+          <h3>Сводка заказа</h3>
+          <table class="table">
+            <tbody>
+              <tr>
+                <th>Пациент</th>
+                <td>Иванова Мария Петровна, 12.03.1987</td>
+              </tr>
+              <tr>
+                <th>Врач</th>
+                <td>Не выбран</td>
+              </tr>
+              <tr>
+                <th>Позиции</th>
+                <td>ОАК, Биохимия, Глюкоза</td>
+              </tr>
+              <tr>
+                <th>Дата готовности</th>
+                <td>02.02.2026</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="block">
+          <h3>Печать документации</h3>
+          <div class="actions">
+            <a class="btn" href="screen2-finish.html">Печать заказа</a>
+            <a class="btn secondary" href="screen2-finish.html">Печать этикеток</a>
+            <a class="btn secondary" href="screen2-finish.html">Скачать PDF</a>
+          </div>
+          <div class="meta">Печать доступна после заполнения обязательных полей.</div>
+        </div>
+
+        <div class="block">
+          <h3>Статус</h3>
+          <div class="row-wrap">
+            <span class="chip ok">Заказ готов к печати</span>
+            <span class="chip">Оплата не требуется на этом шаге</span>
+          </div>
+          <div class="meta">Если нужны дополнительные поля, они будут подсвечены в предыдущем экране.</div>
+        </div>
+      </div>
+
+      <div class="summary-panel">
+        <div class="block">
+          <h3>Сводка заказа</h3>
+          <ul class="summary-list">
+            <li><span>Итоговая стоимость</span><strong>5 120 ₽</strong></li>
+            <li><span>Количество позиций</span><strong>3</strong></li>
+            <li><span>Дата готовности</span><strong>02.02.2026</strong></li>
+          </ul>
+          <div class="meta">Сводка фиксирована и отображается на обоих экранах.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bar">
+      <div class="meta">Это финальный экран оформления.</div>
+      <div class="row-wrap">
+        <a class="btn secondary" href="screen1-order.html">Назад</a>
+        <span class="btn disabled">Вперед</span>
+      </div>
+    </div>
+  </section>
+</body>
+</html>

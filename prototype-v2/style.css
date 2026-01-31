@@ -153,6 +153,14 @@ nav.toc {
   align-items: center;
 }
 
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin-top: 10px;
+}
+
 input, select, textarea {
   width: 100%;
   padding: 6px 8px;
@@ -311,6 +319,17 @@ input, select, textarea {
 }
 
 .stack { display: grid; gap: 10px; }
+
+.footer-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--line);
+}
 
 .link-muted { color: var(--muted); }
 
