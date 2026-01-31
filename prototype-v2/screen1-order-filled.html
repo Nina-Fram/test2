@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Экран 1 - выбор анализов и корзина</title>
+  <title>Экран 1 - выбор анализов и корзина (заполнено)</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -18,7 +18,19 @@
         <div class="section">
           <div class="section-head">
             <div class="section-title"><span class="dot"></span>Кто будет сдавать</div>
-            <a class="link-muted" href="screen1-order.html">Подробнее</a>
+            <a class="link-muted" href="screen1-order-filled.html">Подробнее</a>
+          </div>
+          <div class="block">
+            <div class="row">
+              <div class="row-wrap">
+                <div class="avatar"></div>
+                <div>
+                  <div class="result-title">Нина Д.</div>
+                  <div class="meta">27 лет</div>
+                </div>
+              </div>
+              <a class="btn light" href="screen1-order.html">Сменить</a>
+            </div>
           </div>
           <div class="block soft">
             <div class="row">
@@ -41,7 +53,7 @@
                 <a class="btn light" href="screen1-order-filled.html">Выбрать</a>
               </div>
             </div>
-            <div class="meta">Пациент выбирается из базы и обязателен для перехода дальше.</div>
+            <div class="meta">Пациент выбирается из базы.</div>
           </div>
         </div>
 
@@ -53,7 +65,7 @@
           <div class="block soft">
             <div class="row">
               <input placeholder="Найти врача по базе">
-              <a class="btn secondary" href="screen1-order.html">Найти</a>
+              <a class="btn secondary" href="screen1-order-filled.html">Найти</a>
             </div>
             <div class="list">
               <div class="result-row">
@@ -71,7 +83,7 @@
                 <a class="btn light" href="screen1-order-filled.html">Выбрать</a>
               </div>
             </div>
-            <div class="meta">Врач можно не выбирать.</div>
+            <div class="meta">Текущий выбор: не выбран.</div>
           </div>
         </div>
 
@@ -81,7 +93,7 @@
           </div>
           <div class="block soft">
             <div class="row">
-              <input placeholder="Код или название (минимум 3 символа)">
+              <input value="кров" placeholder="Код или название (минимум 3 символа)">
               <a class="btn secondary" href="screen1-order-filled.html">Искать</a>
             </div>
             <div class="list">
@@ -116,7 +128,7 @@
                 </div>
               </div>
             </div>
-            <div class="meta">Выбор анализов обязателен для перехода дальше.</div>
+            <div class="meta">После добавления фокус остается в поиске.</div>
           </div>
         </div>
 
@@ -124,11 +136,53 @@
           <div class="section-head">
             <div class="section-title"><span class="dot"></span>Состав заказа</div>
             <div class="row-wrap">
-              <span class="meta">0 позиций</span>
+              <span class="meta">3 позиции</span>
+              <a class="btn light" href="screen1-order-filled.html">Очистить все</a>
             </div>
           </div>
-          <div class="block soft">
-            <div class="meta">Пока нет выбранных анализов. Добавьте позиции через поиск.</div>
+          <div class="list">
+            <div class="order-item">
+              <div class="row">
+                <div>
+                  <span class="pill">Срок: 1 день</span>
+                  <div class="order-title">Клинический анализ крови: общий анализ, лейкоформула, СОЭ</div>
+                  <div class="order-meta">Взятие крови из вены</div>
+                </div>
+                <div class="price-block">
+                  <div class="price-now">1 164 ₽</div>
+                  <div class="price-old">1 370 ₽</div>
+                  <a class="link-muted" href="screen1-order-filled.html">Удалить</a>
+                </div>
+              </div>
+            </div>
+            <div class="order-item">
+              <div class="row">
+                <div>
+                  <span class="pill">Срок: 1 день</span>
+                  <div class="order-title">Общий белок в крови</div>
+                  <div class="order-meta">Взятие крови из вены</div>
+                </div>
+                <div class="price-block">
+                  <div class="price-now">343 ₽</div>
+                  <div class="price-old">404 ₽</div>
+                  <a class="link-muted" href="screen1-order-filled.html">Удалить</a>
+                </div>
+              </div>
+            </div>
+            <div class="order-item">
+              <div class="row">
+                <div>
+                  <span class="pill">Срок: 1 день</span>
+                  <div class="order-title">Общий анализ крови (без лейкоцитарной формулы и СОЭ)</div>
+                  <div class="order-meta">Взятие крови из вены</div>
+                </div>
+                <div class="price-block">
+                  <div class="price-now">419 ₽</div>
+                  <div class="price-old">493 ₽</div>
+                  <a class="link-muted" href="screen1-order-filled.html">Удалить</a>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -136,26 +190,25 @@
       <div class="summary-panel">
         <div class="summary-card">
           <div class="summary-line">
-            <span>Исследования: 0</span>
-            <span>0 ₽</span>
+            <span>Исследования: 3</span>
+            <span><span class="price-old">2 267 ₽</span>1 926 ₽</span>
           </div>
           <div class="summary-line">
             <span>Забор биоматериала</span>
-            <span>0 ₽</span>
+            <span><span class="price-old">316 ₽</span>268 ₽</span>
           </div>
           <div class="summary-total">
             <span>Итого</span>
-            <span><span class="price-now">0 ₽</span></span>
+            <span><span class="price-old">2 583 ₽</span><span class="price-now">2 194 ₽</span></span>
           </div>
           <div class="summary-meta">
-            <div>Количество позиций: 0</div>
-            <div>Дата готовности: -</div>
+            <div>Количество позиций: 3</div>
+            <div>Дата готовности: 02.02.2026</div>
           </div>
           <div class="summary-actions">
-            <span class="btn wide disabled">Вперед</span>
+            <a class="btn wide" href="screen2-finish.html">Вперед</a>
             <span class="btn light wide disabled">Назад</span>
           </div>
-          <div class="meta">Нужно выбрать пациента и анализы.</div>
         </div>
       </div>
     </div>
