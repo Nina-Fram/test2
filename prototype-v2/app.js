@@ -90,6 +90,7 @@ const setupPatientSearch = (root) => {
 
     if (value.length < MIN_CHARS) {
       results.innerHTML = "";
+      results.classList.add("hidden");
       hint.textContent = `Введите минимум ${MIN_CHARS} символа для поиска.`;
       return;
     }
@@ -97,10 +98,12 @@ const setupPatientSearch = (root) => {
     const filtered = PATIENTS.filter((patient) => matchesQuery(patient, value));
     if (filtered.length === 0) {
       results.innerHTML = "";
+      results.classList.add("hidden");
       hint.textContent = "Ничего не найдено. Проверьте запрос.";
       return;
     }
 
+    results.classList.remove("hidden");
     renderResults(results, filtered);
     hint.textContent = "Пациент выбирается из базы и обязателен для перехода дальше.";
   };

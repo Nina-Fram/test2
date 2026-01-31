@@ -447,6 +447,31 @@ input, select, textarea {
   margin-top: 10px;
 }
 
+.dropdown {
+  margin-top: 6px;
+  border-radius: 12px;
+  border: 1px solid #e5e9f0;
+  background: #fff;
+  box-shadow: 0 10px 20px rgba(17, 24, 39, 0.08);
+  overflow: hidden;
+}
+
+.dropdown.hidden {
+  display: none;
+}
+
+.dropdown .result-row {
+  background: #fff;
+  border: 0;
+  border-bottom: 1px solid #eef2f7;
+  border-radius: 0;
+  padding: 10px 12px;
+}
+
+.dropdown .result-row:last-child {
+  border-bottom: 0;
+}
+
 .result-row {
   display: flex;
   align-items: center;
