@@ -204,6 +204,10 @@ nav.toc {
   align-items: center;
 }
 
+.subhead-row {
+  margin-top: 12px;
+}
+
 .actions {
   display: flex;
   flex-wrap: wrap;
