@@ -32,28 +32,13 @@
               <a class="btn light" href="screen1-order.html">Сменить</a>
             </div>
           </div>
-          <div class="block soft">
+          <div class="block soft" data-patient-search>
             <div class="row">
-              <input placeholder="Найти пациента по базе">
+              <input placeholder="Найти пациента по базе" data-patient-input>
               <a class="btn secondary" href="screen1-order-filled.html">Найти</a>
             </div>
-            <div class="list">
-              <div class="result-row">
-                <div>
-                  <div class="result-title">Нина Дмитриева</div>
-                  <div class="meta">27 лет, Москва, +7 999 111-22-33</div>
-                </div>
-                <a class="btn light" href="screen1-order-filled.html">Выбрать</a>
-              </div>
-              <div class="result-row">
-                <div>
-                  <div class="result-title">Ирина Дмитриева</div>
-                  <div class="meta">34 года, Тула, +7 901 222-33-44</div>
-                </div>
-                <a class="btn light" href="screen1-order-filled.html">Выбрать</a>
-              </div>
-            </div>
-            <div class="meta">Пациент выбирается из базы.</div>
+            <div class="list" data-patient-results></div>
+            <div class="meta" data-patient-hint>Введите минимум 2 символа для поиска.</div>
           </div>
         </div>
 
@@ -207,5 +192,6 @@
       </div>
     </div>
   </section>
+  <script src="app.js"></script>
 </body>
 </html>

@@ -20,12 +20,13 @@
             <div class="section-title"><span class="dot"></span>Кто будет сдавать</div>
             <a class="link-muted" href="screen1-order.html">Подробнее</a>
           </div>
-          <div class="block soft">
+          <div class="block soft" data-patient-search>
             <div class="row">
-              <input placeholder="Найти пациента по базе">
+              <input placeholder="Найти пациента по базе" data-patient-input>
               <a class="btn secondary" href="screen1-order-filled.html">Найти</a>
             </div>
-            <div class="meta">Пациент выбирается из базы и обязателен для перехода дальше.</div>
+            <div class="list" data-patient-results></div>
+            <div class="meta" data-patient-hint>Введите минимум 2 символа для поиска.</div>
           </div>
         </div>
 
@@ -85,5 +86,6 @@
       </div>
     </div>
   </section>
+  <script src="app.js"></script>
 </body>
 </html>
