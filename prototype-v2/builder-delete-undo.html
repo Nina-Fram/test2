@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Удаление позиции - Undo</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <section class="frame">
+    <div class="top-nav">
+      <a href="builder-sunny.html"><- Назад</a>
+      <a href="builder-sunny.html">Вернуть позицию -></a>
+    </div>
+
+    <div class="toast">
+      Позиция "Глюкоза" удалена
+      <a class="btn secondary" href="builder-sunny.html">Отменить</a>
+    </div>
+
+    <h2>Удаление позиции - последствия</h2>
+    <div class="banner warn">Обновлены сумма и срок готовности. Услуга взятия крови оставлена для других анализов.</div>
+
+    <div class="layout">
+      <div class="stack">
+        <div class="block">
+          <h3>Выбранные позиции</h3>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Код</th>
+                <th>Название</th>
+                <th>Биоматериал</th>
+                <th>Цена</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>19Г</td>
+                <td>ОАК</td>
+                <td><span class="chip ok">Кровь (венозная)</span></td>
+                <td>1 200 ₽</td>
+              </tr>
+              <tr>
+                <td>1463</td>
+                <td>Биохимия</td>
+                <td><span class="chip ok">Кровь (венозная)</span></td>
+                <td>3 400 ₽</td>
+              </tr>
+              <tr>
+                <td>BM-01</td>
+                <td>Взятие венозной крови</td>
+                <td><span class="chip">-</span></td>
+                <td>450 ₽</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="meta">Удаленная позиция не отображается, но доступна для отмены действия.</div>
+        </div>
+      </div>
+
+      <div class="summary-panel">
+        <div class="block">
+          <h3>Сводка</h3>
+          <ul class="summary-list">
+            <li><span>Сумма</span><strong>5 050 ₽</strong></li>
+            <li><span>Ориентир готовности</span><strong>02.02</strong></li>
+            <li><span>Изменения</span><strong>−520 ₽</strong></li>
+          </ul>
+          <div class="actions">
+            <a class="btn secondary" href="builder-sunny.html">Отменить удаление</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
+</html>

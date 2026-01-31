@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Выбор биоматериала</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <section class="frame">
+    <div class="top-nav">
+      <a href="builder-bm-required.html"><- Назад</a>
+      <a href="builder-sunny.html">Применить и вернуться -></a>
+    </div>
+
+    <h2>Выбор биоматериала (локализация)</h2>
+    <div class="banner warn">Для первого выбранного исследования биоматериал будет применен к схожим позициям.</div>
+
+    <div class="block">
+      <h3>Шаг 1 из 2</h3>
+      <div class="row-wrap">
+        <label class="chip"><input type="radio" checked> Кровь (венозная)</label>
+        <label class="chip"><input type="radio"> Кровь (капиллярная)</label>
+        <label class="chip"><input type="radio"> Сыворотка</label>
+        <label class="chip"><input type="radio"> Плазма</label>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3>Шаг 2 из 2</h3>
+      <div class="meta">Дополнительная локализация (если требуется).</div>
+      <div class="row-wrap">
+        <label class="chip"><input type="radio" checked> Основная пробирка</label>
+        <label class="chip"><input type="radio"> Доп. пробирка</label>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3>Применить к позициям</h3>
+      <div class="row-wrap">
+        <label class="chip"><input type="checkbox" checked> Глюкоза</label>
+        <label class="chip"><input type="checkbox" checked> Железо</label>
+        <label class="chip"><input type="checkbox"> Только текущая позиция</label>
+      </div>
+      <div class="meta">Если нужно указать другой биоматериал, добавьте исследование повторно и выберите другую локализацию.</div>
+    </div>
+
+    <div class="actions">
+      <a class="btn" href="builder-sunny.html">Применить</a>
+      <a class="btn secondary" href="builder-bm-required.html">Отмена</a>
+    </div>
+  </section>
+</body>
+</html>

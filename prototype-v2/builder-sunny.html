@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Конструктор заказа - рабочий экран</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <section class="frame">
+    <div class="top-nav">
+      <a href="index.html"><- Оглавление</a>
+      <a href="builder-bm-required.html">Состояние без биоматериала -></a>
+    </div>
+
+    <h2>Конструктор заказа - рабочий экран</h2>
+    <div class="progress">
+      <ol>
+        <li class="active">Сбор заказа</li>
+        <li>Мед. информация</li>
+        <li>Завершение</li>
+      </ol>
+    </div>
+
+    <div class="layout">
+      <div class="stack">
+        <div class="block">
+          <h3>Поиск исследований</h3>
+          <div class="row">
+            <input value="кров" placeholder="Код или название (от 3 символов)">
+            <a class="btn secondary" href="builder-catalog.html">Из каталога</a>
+          </div>
+          <div class="meta">Минимум 3 символа. Точные совпадения показываются первыми.</div>
+        </div>
+
+        <div class="block">
+          <div class="row">
+            <h3>Результаты поиска</h3>
+            <span class="chip">6 найдено</span>
+          </div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Код</th>
+                <th>Название</th>
+                <th>Тип</th>
+                <th>Цена</th>
+                <th>Биоматериал</th>
+                <th>Действия</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>19Г</td>
+                <td><a href="product-card.html">ОАК</a></td>
+                <td>Анализ</td>
+                <td>1 200 ₽</td>
+                <td><span class="chip ok">Кровь (венозная)</span></td>
+                <td>
+                  <span class="chip">Уже в заказе</span>
+                  <a class="btn secondary" href="builder-duplicate.html">Добавить повторно</a>
+                </td>
+              </tr>
+              <tr>
+                <td>1463</td>
+                <td><a href="product-card.html">Биохимия</a></td>
+                <td>Анализ</td>
+                <td>3 400 ₽</td>
+                <td><span class="chip ok">Кровь (венозная)</span></td>
+                <td>
+                  <span class="chip">Уже в заказе</span>
+                  <a class="btn secondary" href="builder-duplicate.html">Добавить повторно</a>
+                </td>
+              </tr>
+              <tr>
+                <td>410</td>
+                <td><a href="product-card.html">Глюкоза</a></td>
+                <td>Анализ</td>
+                <td>520 ₽</td>
+                <td><span class="chip">Кровь (выбор)</span></td>
+                <td>
+                  <a class="btn" href="builder-bm-required.html">В заказ</a>
+                </td>
+              </tr>
+              <tr>
+                <td>BM-01</td>
+                <td>Взятие венозной крови</td>
+                <td>Услуга</td>
+                <td>450 ₽</td>
+                <td><span class="chip">-</span></td>
+                <td><span class="chip">Авто-добавление</span></td>
+              </tr>
+              <tr>
+                <td>P-02</td>
+                <td>Профиль "Общий"</td>
+                <td>Профиль</td>
+                <td>2 900 ₽</td>
+                <td><span class="chip">Кровь (венозная)</span></td>
+                <td><a class="btn" href="builder-profile-overlap.html">В заказ</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="stack">
+        <div class="block">
+          <div class="row">
+            <h3>Выбранные позиции</h3>
+            <span class="chip">3 позиции</span>
+          </div>
+          <div class="row-wrap">
+            <a class="chip" href="builder-large-list.html">Компактный режим</a>
+            <a class="chip" href="builder-large-list.html">Группировка: по биоматериалу</a>
+            <input placeholder="Фильтр по названию или коду">
+            <a class="chip" href="builder-delete-undo.html">Удалить выбранные</a>
+          </div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Код</th>
+                <th>Название</th>
+                <th>Биоматериал</th>
+                <th>Цена</th>
+                <th>Статус</th>
+                <th>Действия</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr id="row-19g">
+                <td><input type="checkbox"></td>
+                <td>19Г</td>
+                <td><a href="product-card.html">ОАК</a></td>
+                <td><span class="chip ok">Кровь (венозная)</span></td>
+                <td>1 200 ₽</td>
+                <td><span class="badge good">Готово</span></td>
+                <td class="row-wrap">
+                  <a class="chip" href="builder-bm-modal.html">Сменить</a>
+                  <a class="chip" href="product-card.html">Описание</a>
+                  <a class="chip" href="builder-delete-undo.html">Удалить</a>
+                </td>
+              </tr>
+              <tr id="row-1463">
+                <td><input type="checkbox"></td>
+                <td>1463</td>
+                <td><a href="product-card.html">Биохимия</a></td>
+                <td><span class="chip ok">Кровь (венозная)</span></td>
+                <td>3 400 ₽</td>
+                <td><span class="badge good">Готово</span></td>
+                <td class="row-wrap">
+                  <a class="chip" href="builder-bm-modal.html">Сменить</a>
+                  <a class="chip" href="product-card.html">Описание</a>
+                  <a class="chip" href="builder-delete-undo.html">Удалить</a>
+                </td>
+              </tr>
+              <tr id="row-bm01">
+                <td><input type="checkbox"></td>
+                <td>BM-01</td>
+                <td>Взятие венозной крови</td>
+                <td><span class="chip">-</span></td>
+                <td>450 ₽</td>
+                <td><span class="badge warning">Авто</span></td>
+                <td class="row-wrap">
+                  <a class="chip" href="builder-delete-blocked.html">Удалить</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="meta">Авто-добавленные услуги отображаются отдельно и снимаются при отсутствии связанных исследований.</div>
+        </div>
+
+        <div class="summary-panel">
+          <div class="block">
+            <h3>Сводка</h3>
+            <ul class="summary-list">
+              <li><span>Сумма</span><strong>5 050 ₽</strong></li>
+              <li><span>Ориентир готовности</span><strong>02.02 (до 2 дней)</strong></li>
+              <li><span>Позиции</span><strong>3</strong></li>
+              <li><span>Контейнеры</span><strong>Пробирка 2, штрих-коды 2</strong></li>
+              <li><span>Требует внимания</span><strong>0</strong></li>
+            </ul>
+            <div class="actions">
+              <a class="btn" href="builder-summary-unknown.html">Следующий шаг</a>
+              <span class="meta">Срок зависит от биоматериала и логистики.</span>
+            </div>
+          </div>
+          <div class="block">
+            <h3>Быстрые действия</h3>
+            <div class="row-wrap">
+              <a class="chip" href="builder-bm-modal.html">Выбор биоматериала</a>
+              <a class="chip" href="product-card.html">Подготовка пациента</a>
+              <a class="chip" href="builder-profile-overlap.html">Проверка пересечений</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
+</html>

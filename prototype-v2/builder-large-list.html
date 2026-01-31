@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Большой список позиций</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <section class="frame">
+    <div class="top-nav">
+      <a href="builder-sunny.html"><- Назад</a>
+      <a href="builder-summary-unknown.html">Сводка -></a>
+    </div>
+
+    <h2>Большой список позиций (компактный режим)</h2>
+    <div class="banner ok">Плотный режим и группировка помогают работать со 100+ позициями.</div>
+
+    <div class="block">
+      <div class="row-wrap">
+        <span class="chip ok">Компактный режим: вкл</span>
+        <span class="chip">Группировка: по биоматериалу</span>
+        <input placeholder="Фильтр по коду или названию">
+        <span class="chip">Показать только проблемные</span>
+        <span class="chip">Выделено: 12</span>
+        <a class="chip" href="builder-delete-undo.html">Удалить выбранные</a>
+      </div>
+    </div>
+
+    <details class="block accordion" open>
+      <summary>Кровь (венозная) - 74 позиции</summary>
+      <table class="table compact">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Код</th>
+            <th>Название</th>
+            <th>Цена</th>
+            <th>Статус</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><input type="checkbox"></td>
+            <td>19Г</td>
+            <td>ОАК</td>
+            <td>1 200 ₽</td>
+            <td><span class="badge good">Готово</span></td>
+          </tr>
+          <tr>
+            <td><input type="checkbox"></td>
+            <td>1463</td>
+            <td>Биохимия</td>
+            <td>3 400 ₽</td>
+            <td><span class="badge good">Готово</span></td>
+          </tr>
+          <tr>
+            <td><input type="checkbox"></td>
+            <td>410</td>
+            <td>Глюкоза</td>
+            <td>520 ₽</td>
+            <td><span class="badge warning">Требует БМ</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </details>
+
+    <details class="block accordion">
+      <summary>Кровь (капиллярная) - 22 позиции</summary>
+      <div class="meta">Список свернут для экономии места.</div>
+    </details>
+
+    <details class="block accordion">
+      <summary>Моча - 15 позиций</summary>
+      <div class="meta">Список свернут для экономии места.</div>
+    </details>
+
+    <details class="block accordion">
+      <summary>Без биоматериала - 3 позиции</summary>
+      <div class="meta">Авто-добавленные услуги и сервисные строки.</div>
+    </details>
+  </section>
+</body>
+</html>
