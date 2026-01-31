@@ -8,221 +8,208 @@
 </head>
 <body>
   <section class="frame">
-    <div class="top-nav">
-      <a href="index.html"><- Оглавление</a>
-      <span class="chip">Экран 1 из 2</span>
-    </div>
-
-    <h2>Экран 1 - выбор анализов и сбор корзины</h2>
-    <div class="progress">
-      <ol>
-        <li class="active">Сбор заказа</li>
-        <li>Завершение</li>
-      </ol>
+    <div class="tab-bar">
+      <span class="tab active">Корзина</span>
+      <span class="tab">Оформление заказа</span>
     </div>
 
     <div class="layout">
       <div class="stack">
-        <div class="block">
-          <div class="row">
-            <h3>Пациент (обязательно)</h3>
-            <span class="chip warn">Нужен выбор из базы</span>
+        <div class="section">
+          <div class="section-head">
+            <div class="section-title"><span class="dot"></span>Кто будет сдавать</div>
+            <a class="link-muted" href="screen1-order.html">Подробнее</a>
           </div>
-          <div class="row">
-            <input placeholder="Фамилия, телефон, email или код">
-            <a class="btn secondary" href="screen1-order.html">Найти</a>
+          <div class="block">
+            <div class="row">
+              <div class="row-wrap">
+                <div class="avatar"></div>
+                <div>
+                  <div class="result-title">Нина Д.</div>
+                  <div class="meta">27 лет</div>
+                </div>
+              </div>
+              <a class="btn light" href="screen1-order.html">Сменить</a>
+            </div>
           </div>
-          <div class="meta">Пациент выбирается только из базы данных.</div>
-          <table class="table">
-            <thead>
-              <tr>
-                <th>ФИО</th>
-                <th>Дата рождения</th>
-                <th>Телефон</th>
-                <th>Город</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Иванова Мария Петровна</td>
-                <td>12.03.1987</td>
-                <td>+7 999 111-22-33</td>
-                <td>Москва</td>
-                <td><a class="btn" href="screen1-order.html">Выбрать</a></td>
-              </tr>
-              <tr>
-                <td>Петров Алексей Игоревич</td>
-                <td>05.07.1990</td>
-                <td>+7 901 222-33-44</td>
-                <td>Тула</td>
-                <td><a class="btn secondary" href="screen1-order.html">Выбрать</a></td>
-              </tr>
-            </tbody>
-          </table>
-          <div class="banner ok">Выбран пациент: Иванова Мария Петровна, 12.03.1987</div>
-          <div class="actions">
-            <a class="btn secondary" href="screen1-order.html">Изменить пациента</a>
+          <div class="block soft">
+            <div class="row">
+              <input placeholder="Найти пациента по базе">
+              <a class="btn secondary" href="screen1-order.html">Найти</a>
+            </div>
+            <div class="list">
+              <div class="result-row">
+                <div>
+                  <div class="result-title">Нина Дмитриева</div>
+                  <div class="meta">27 лет, Москва, +7 999 111-22-33</div>
+                </div>
+                <a class="btn light" href="screen1-order.html">Выбрать</a>
+              </div>
+              <div class="result-row">
+                <div>
+                  <div class="result-title">Ирина Дмитриева</div>
+                  <div class="meta">34 года, Тула, +7 901 222-33-44</div>
+                </div>
+                <a class="btn light" href="screen1-order.html">Выбрать</a>
+              </div>
+            </div>
+            <div class="meta">Пациент выбирается из базы.</div>
           </div>
         </div>
 
-        <div class="block">
-          <div class="row">
-            <h3>Врач (необязательно)</h3>
-            <span class="chip">Можно пропустить</span>
+        <div class="section">
+          <div class="section-head">
+            <div class="section-title"><span class="dot"></span>Врач назначивший сдачу анализов</div>
+            <span class="meta">Необязательно</span>
           </div>
-          <div class="row">
-            <input placeholder="Фамилия или специализация">
-            <a class="btn secondary" href="screen1-order.html">Найти</a>
+          <div class="block soft">
+            <div class="row">
+              <input placeholder="Найти врача по базе">
+              <a class="btn secondary" href="screen1-order.html">Найти</a>
+            </div>
+            <div class="list">
+              <div class="result-row">
+                <div>
+                  <div class="result-title">Смирнов Илья Олегович</div>
+                  <div class="meta">Терапевт</div>
+                </div>
+                <a class="btn light" href="screen1-order.html">Выбрать</a>
+              </div>
+              <div class="result-row">
+                <div>
+                  <div class="result-title">Ильина Светлана Романовна</div>
+                  <div class="meta">Эндокринолог</div>
+                </div>
+                <a class="btn light" href="screen1-order.html">Выбрать</a>
+              </div>
+            </div>
+            <div class="meta">Текущий выбор: не выбран.</div>
           </div>
-          <table class="table">
-            <thead>
-              <tr>
-                <th>ФИО</th>
-                <th>Специализация</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Смирнов Илья Олегович</td>
-                <td>Терапевт</td>
-                <td><a class="btn secondary" href="screen1-order.html">Выбрать</a></td>
-              </tr>
-              <tr>
-                <td>Ильина Светлана Романовна</td>
-                <td>Эндокринолог</td>
-                <td><a class="btn secondary" href="screen1-order.html">Выбрать</a></td>
-              </tr>
-            </tbody>
-          </table>
-          <div class="meta">Текущий выбор: не выбран.</div>
         </div>
 
-        <div class="block">
-          <h3>Поиск и добавление анализов</h3>
-          <div class="row">
-            <input value="кров" placeholder="Код или название (минимум 3 символа)">
-            <a class="btn secondary" href="screen1-order.html">Искать</a>
+        <div class="section">
+          <div class="section-head">
+            <div class="section-title"><span class="dot"></span>Поиск и добавление анализов</div>
           </div>
-          <table class="table">
-            <thead>
-              <tr>
-                <th>Код</th>
-                <th>Название</th>
-                <th>Тип</th>
-                <th>Цена</th>
-                <th>Биоматериал</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>19Г</td>
-                <td>ОАК</td>
-                <td>Анализ</td>
-                <td>1 200 ₽</td>
-                <td>Кровь (венозная)</td>
-                <td><a class="btn" href="screen1-order.html">Добавить</a></td>
-              </tr>
-              <tr>
-                <td>1463</td>
-                <td>Биохимия</td>
-                <td>Анализ</td>
-                <td>3 400 ₽</td>
-                <td>Кровь (венозная)</td>
-                <td><a class="btn" href="screen1-order.html">Добавить</a></td>
-              </tr>
-              <tr>
-                <td>410</td>
-                <td>Глюкоза</td>
-                <td>Анализ</td>
-                <td>520 ₽</td>
-                <td>Требуется выбор</td>
-                <td><a class="btn secondary" href="screen1-order.html">Добавить</a></td>
-              </tr>
-            </tbody>
-          </table>
-          <div class="meta">После добавления фокус остается в поиске, список не прыгает.</div>
+          <div class="block soft">
+            <div class="row">
+              <input value="кров" placeholder="Код или название (минимум 3 символа)">
+              <a class="btn secondary" href="screen1-order.html">Искать</a>
+            </div>
+            <div class="list">
+              <div class="result-row">
+                <div>
+                  <div class="result-title">ОАК</div>
+                  <div class="meta">Код 19Г, Анализ, Биоматериал: кровь</div>
+                </div>
+                <div class="row-wrap">
+                  <div class="meta">1 200 ₽</div>
+                  <a class="btn light" href="screen1-order.html">Добавить</a>
+                </div>
+              </div>
+              <div class="result-row">
+                <div>
+                  <div class="result-title">Биохимия</div>
+                  <div class="meta">Код 1463, Анализ, Биоматериал: кровь</div>
+                </div>
+                <div class="row-wrap">
+                  <div class="meta">3 400 ₽</div>
+                  <a class="btn light" href="screen1-order.html">Добавить</a>
+                </div>
+              </div>
+              <div class="result-row">
+                <div>
+                  <div class="result-title">Глюкоза</div>
+                  <div class="meta">Код 410, Анализ, Биоматериал: требуется выбор</div>
+                </div>
+                <div class="row-wrap">
+                  <div class="meta">520 ₽</div>
+                  <a class="btn light" href="screen1-order.html">Добавить</a>
+                </div>
+              </div>
+            </div>
+            <div class="meta">После добавления фокус остается в поиске.</div>
+          </div>
         </div>
 
-        <div class="block">
-          <div class="row">
-            <h3>Корзина</h3>
-            <span class="chip">3 позиции</span>
+        <div class="section">
+          <div class="section-head">
+            <div class="section-title"><span class="dot"></span>Состав заказа</div>
+            <div class="row-wrap">
+              <span class="meta">3 позиции</span>
+              <a class="btn light" href="screen1-order.html">Очистить все</a>
+            </div>
           </div>
-          <table class="table">
-            <thead>
-              <tr>
-                <th>Код</th>
-                <th>Название</th>
-                <th>Биоматериал</th>
-                <th>Цена</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>19Г</td>
-                <td>ОАК</td>
-                <td>
-                  <select>
-                    <option>Кровь (венозная)</option>
-                    <option>Кровь (капиллярная)</option>
-                  </select>
-                </td>
-                <td>1 200 ₽</td>
-                <td><a class="btn secondary" href="screen1-order.html">Удалить</a></td>
-              </tr>
-              <tr>
-                <td>1463</td>
-                <td>Биохимия</td>
-                <td>
-                  <select>
-                    <option>Кровь (венозная)</option>
-                    <option>Кровь (капиллярная)</option>
-                  </select>
-                </td>
-                <td>3 400 ₽</td>
-                <td><a class="btn secondary" href="screen1-order.html">Удалить</a></td>
-              </tr>
-              <tr>
-                <td>410</td>
-                <td>Глюкоза</td>
-                <td>
-                  <select>
-                    <option>Выберите биоматериал</option>
-                    <option>Кровь (венозная)</option>
-                    <option>Кровь (капиллярная)</option>
-                  </select>
-                </td>
-                <td>520 ₽</td>
-                <td><a class="btn secondary" href="screen1-order.html">Удалить</a></td>
-              </tr>
-            </tbody>
-          </table>
-          <div class="meta">Изменение биоматериала и удаление позиции сразу обновляют сумму и срок готовности.</div>
+          <div class="list">
+            <div class="order-item">
+              <div class="row">
+                <div>
+                  <span class="pill">Срок: 1 день</span>
+                  <div class="order-title">Клинический анализ крови: общий анализ, лейкоформула, СОЭ</div>
+                  <div class="order-meta">Взятие крови из вены</div>
+                </div>
+                <div class="price-block">
+                  <div class="price-now">1 164 ₽</div>
+                  <div class="price-old">1 370 ₽</div>
+                  <a class="link-muted" href="screen1-order.html">Удалить</a>
+                </div>
+              </div>
+            </div>
+            <div class="order-item">
+              <div class="row">
+                <div>
+                  <span class="pill">Срок: 1 день</span>
+                  <div class="order-title">Общий белок в крови</div>
+                  <div class="order-meta">Взятие крови из вены</div>
+                </div>
+                <div class="price-block">
+                  <div class="price-now">343 ₽</div>
+                  <div class="price-old">404 ₽</div>
+                  <a class="link-muted" href="screen1-order.html">Удалить</a>
+                </div>
+              </div>
+            </div>
+            <div class="order-item">
+              <div class="row">
+                <div>
+                  <span class="pill">Срок: 1 день</span>
+                  <div class="order-title">Общий анализ крови (без лейкоцитарной формулы и СОЭ)</div>
+                  <div class="order-meta">Взятие крови из вены</div>
+                </div>
+                <div class="price-block">
+                  <div class="price-now">419 ₽</div>
+                  <div class="price-old">493 ₽</div>
+                  <a class="link-muted" href="screen1-order.html">Удалить</a>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
       <div class="summary-panel">
-        <div class="block">
-          <h3>Сводка заказа</h3>
-          <ul class="summary-list">
-            <li><span>Итоговая стоимость</span><strong>5 120 ₽</strong></li>
-            <li><span>Количество позиций</span><strong>3</strong></li>
-            <li><span>Дата готовности</span><strong>02.02.2026</strong></li>
-          </ul>
-          <div class="meta">Сводка фиксирована и обновляется мгновенно после изменений.</div>
+        <div class="summary-card">
+          <div class="summary-line">
+            <span>Исследования: 3</span>
+            <span><span class="price-old">2 267 ₽</span>1 926 ₽</span>
+          </div>
+          <div class="summary-line">
+            <span>Забор биоматериала</span>
+            <span><span class="price-old">316 ₽</span>268 ₽</span>
+          </div>
+          <div class="summary-total">
+            <span>Итого</span>
+            <span><span class="price-old">2 583 ₽</span><span class="price-now">2 194 ₽</span></span>
+          </div>
+          <div class="summary-meta">
+            <div>Количество позиций: 3</div>
+            <div>Дата готовности: 02.02.2026</div>
+          </div>
+          <div class="summary-actions">
+            <a class="btn wide" href="screen2-finish.html">Вперед</a>
+            <span class="btn light wide disabled">Назад</span>
+          </div>
         </div>
-      </div>
-    </div>
-
-    <div class="footer-bar">
-      <div class="meta">Пациент обязателен для перехода дальше.</div>
-      <div class="row-wrap">
-        <span class="btn disabled">Назад</span>
-        <a class="btn" href="screen2-finish.html">Вперед</a>
       </div>
     </div>
   </section>
