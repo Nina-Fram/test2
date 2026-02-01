@@ -107,6 +107,36 @@
       </div>
     </div>
   </section>
+  <div class="modal-overlay hidden" data-localization-modal>
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title" data-localization-title>Локализация</div>
+        <button class="btn light" type="button" data-localization-cancel>Закрыть</button>
+      </div>
+      <div class="radio-list">
+        <label class="radio-item">
+          <input type="radio" name="localization" value="Кровь (венозная)" checked>
+          Кровь (венозная)
+        </label>
+        <label class="radio-item">
+          <input type="radio" name="localization" value="Кровь (капиллярная)">
+          Кровь (капиллярная)
+        </label>
+        <label class="radio-item">
+          <input type="radio" name="localization" value="Сыворотка">
+          Сыворотка
+        </label>
+        <label class="radio-item">
+          <input type="radio" name="localization" value="Плазма">
+          Плазма
+        </label>
+      </div>
+      <div class="modal-actions">
+        <button class="btn light" type="button" data-localization-cancel>Отмена</button>
+        <button class="btn" type="button" data-localization-confirm>Применить</button>
+      </div>
+    </div>
+  </div>
   <script src="app.js"></script>
 </body>
 </html>

@@ -476,6 +476,14 @@ input, select, textarea {
   border-bottom: 0;
 }
 
+.clickable {
+  cursor: pointer;
+}
+
+.dropdown .result-row:hover {
+  background: #f6f9fc;
+}
+
 .result-row {
   display: flex;
   align-items: center;
@@ -501,6 +509,60 @@ input, select, textarea {
 
 .selected-card {
   margin-bottom: 8px;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  z-index: 50;
+}
+
+.modal {
+  width: min(520px, 90vw);
+  background: #fff;
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.2);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.modal-title {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
+.radio-list {
+  display: grid;
+  gap: 8px;
+}
+
+.radio-item {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding: 10px 12px;
+  border: 1px solid #e5e9f0;
+  border-radius: 12px;
+  background: #f8fafc;
 }
 
 .order-title {

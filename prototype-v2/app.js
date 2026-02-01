@@ -127,7 +127,7 @@ const renderResults = (container, results, onSelect) => {
 
   results.forEach((patient) => {
     const row = document.createElement("div");
-    row.className = "result-row";
+    row.className = "result-row clickable";
 
     const info = document.createElement("div");
     const title = document.createElement("div");
@@ -141,14 +141,8 @@ const renderResults = (container, results, onSelect) => {
     info.appendChild(title);
     info.appendChild(meta);
 
-    const action = document.createElement("button");
-    action.type = "button";
-    action.className = "btn light";
-    action.textContent = "Выбрать";
-    action.addEventListener("click", () => onSelect(patient));
-
     row.appendChild(info);
-    row.appendChild(action);
+    row.addEventListener("click", () => onSelect(patient));
     container.appendChild(row);
   });
 };
@@ -238,7 +232,7 @@ const setupDoctorSearch = (root) => {
     results.innerHTML = "";
     items.forEach((doctor) => {
       const row = document.createElement("div");
-      row.className = "result-row";
+      row.className = "result-row clickable";
 
       const info = document.createElement("div");
       const title = document.createElement("div");
@@ -252,19 +246,13 @@ const setupDoctorSearch = (root) => {
       info.appendChild(title);
       info.appendChild(meta);
 
-      const action = document.createElement("button");
-      action.type = "button";
-      action.className = "btn light";
-      action.textContent = "Выбрать";
-      action.addEventListener("click", () => {
+      row.appendChild(info);
+      row.addEventListener("click", () => {
         state.doctor = doctor;
         renderSelected();
         results.classList.add("hidden");
         input.value = "";
       });
-
-      row.appendChild(info);
-      row.appendChild(action);
       results.appendChild(row);
     });
   };
@@ -307,6 +295,55 @@ const setupAnalysisSearch = (root) => {
 
   if (!input || !results || !hint || !list || !count) return;
 
+  const modal = document.querySelector("[data-localization-modal]");
+  const modalTitle = document.querySelector("[data-localization-title]");
+  const modalConfirm = document.querySelector("[data-localization-confirm]");
+  const modalCancel = document.querySelector("[data-localization-cancel]");
+  const modalOptions = document.querySelectorAll("[name='localization']");
+
+  let pendingAnalysis = null;
+
+  const openLocalizationModal = (analysis) => {
+    if (!modal || !modalTitle || !modalConfirm || !modalCancel) return;
+    pendingAnalysis = analysis;
+    modalTitle.textContent = `Локализация: ${analysis.name} (${analysis.code})`;
+    const first = modalOptions[0];
+    if (first) {
+      first.checked = true;
+    }
+    modal.classList.remove("hidden");
+  };
+
+  const closeLocalizationModal = () => {
+    if (!modal) return;
+    modal.classList.add("hidden");
+    pendingAnalysis = null;
+  };
+
+  if (modalCancel) {
+    modalCancel.addEventListener("click", closeLocalizationModal);
+  }
+
+  if (modalConfirm) {
+    modalConfirm.addEventListener("click", () => {
+      if (!pendingAnalysis) {
+        closeLocalizationModal();
+        return;
+      }
+      const selected = Array.from(modalOptions).find((option) => option.checked);
+      const location = selected ? selected.value : pendingAnalysis.biomaterial;
+      const entry = { ...pendingAnalysis, location };
+      const exists = state.analyses.some(
+        (item) => item.code === entry.code && item.location === entry.location
+      );
+      if (!exists) {
+        state.analyses.push(entry);
+      }
+      closeLocalizationModal();
+      renderSelected();
+    });
+  }
+
   const renderSelected = () => {
     list.innerHTML = "";
     if (state.analyses.length === 0) {
@@ -329,7 +366,7 @@ const setupAnalysisSearch = (root) => {
       title.textContent = `${analysis.name} (${analysis.code})`;
       const meta = document.createElement("div");
       meta.className = "order-meta";
-      meta.textContent = `Биоматериал: ${analysis.biomaterial} · Срок: ${analysis.days} дн.`;
+      meta.textContent = `Локализация: ${analysis.location || analysis.biomaterial} · Срок: ${analysis.days} дн.`;
       info.appendChild(title);
       info.appendChild(meta);
 
@@ -343,7 +380,10 @@ const setupAnalysisSearch = (root) => {
       remove.className = "link-muted";
       remove.textContent = "Удалить";
       remove.addEventListener("click", () => {
-        state.analyses = state.analyses.filter((item) => item.code !== analysis.code);
+        state.analyses = state.analyses.filter(
+          (item) =>
+            !(item.code === analysis.code && item.location === analysis.location)
+        );
         renderSelected();
       });
       price.appendChild(priceValue);
@@ -370,7 +410,7 @@ const setupAnalysisSearch = (root) => {
     results.innerHTML = "";
     items.forEach((analysis) => {
       const row = document.createElement("div");
-      row.className = "result-row";
+      row.className = "result-row clickable";
 
       const info = document.createElement("div");
       const title = document.createElement("div");
@@ -384,19 +424,6 @@ const setupAnalysisSearch = (root) => {
       info.appendChild(title);
       info.appendChild(meta);
 
-      const action = document.createElement("button");
-      action.type = "button";
-      action.className = "btn light";
-      action.textContent = "Добавить";
-      action.addEventListener("click", () => {
-        if (!state.analyses.some((item) => item.code === analysis.code)) {
-          state.analyses.push(analysis);
-        }
-        renderSelected();
-        results.classList.add("hidden");
-        input.value = "";
-      });
-
       const price = document.createElement("div");
       price.className = "meta";
       price.textContent = formatMoney(analysis.price);
@@ -404,10 +431,14 @@ const setupAnalysisSearch = (root) => {
       const actionWrap = document.createElement("div");
       actionWrap.className = "row-wrap";
       actionWrap.appendChild(price);
-      actionWrap.appendChild(action);
 
       row.appendChild(info);
       row.appendChild(actionWrap);
+      row.addEventListener("click", () => {
+        openLocalizationModal(analysis);
+        results.classList.add("hidden");
+        input.value = "";
+      });
       results.appendChild(row);
     });
   };
