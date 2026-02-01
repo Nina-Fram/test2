@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Экран 2 - завершение заказа</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <section class="frame">
+    <div class="tab-bar">
+      <span class="tab">Корзина</span>
+      <span class="tab active">Оформление заказа</span>
+    </div>
+
+    <div class="layout">
+      <div class="stack">
+        <div class="section">
+          <div class="section-head">
+            <div class="section-title"><span class="dot"></span>Сводка заказа</div>
+          </div>
+          <div class="block">
+            <div class="summary-meta">
+              <div><strong>Пациент:</strong> Иванова Мария Петровна, 12.03.1987</div>
+              <div><strong>Врач:</strong> Не выбран</div>
+              <div><strong>Позиции:</strong> ОАК, Биохимия, Глюкоза</div>
+              <div><strong>Дата готовности:</strong> 02.02.2026</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-head">
+            <div class="section-title"><span class="dot"></span>Печать документации</div>
+          </div>
+          <div class="block">
+            <div class="row-wrap">
+              <a class="btn" href="screen2-finish.html">Печать заказа</a>
+              <a class="btn light" href="screen2-finish.html">Печать этикеток</a>
+              <a class="btn light" href="screen2-finish.html">Скачать PDF</a>
+            </div>
+            <div class="meta">Печать доступна после заполнения обязательных полей.</div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-head">
+            <div class="section-title"><span class="dot"></span>Статус</div>
+          </div>
+          <div class="block soft">
+            <div class="row-wrap">
+              <span class="chip ok">Заказ готов к печати</span>
+              <span class="chip">Оплата не требуется на этом шаге</span>
+            </div>
+            <div class="meta">Если нужны дополнительные поля, они будут подсвечены на экране корзины.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="summary-panel">
+        <div class="summary-card">
+          <div class="summary-line">
+            <span>Исследования: 3</span>
+            <span><span class="price-old">2 267 ₽</span>1 926 ₽</span>
+          </div>
+          <div class="summary-line">
+            <span>Забор биоматериала</span>
+            <span><span class="price-old">316 ₽</span>268 ₽</span>
+          </div>
+          <div class="summary-total">
+            <span>Итого</span>
+            <span><span class="price-old">2 583 ₽</span><span class="price-now">2 194 ₽</span></span>
+          </div>
+          <div class="summary-meta">
+            <div>Количество позиций: 3</div>
+            <div>Дата готовности: 02.02.2026</div>
+          </div>
+          <div class="summary-actions">
+            <a class="btn wide" href="screen1-order.html">Назад</a>
+            <span class="btn light wide disabled">Вперед</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
+</html>
