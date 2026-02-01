@@ -20,10 +20,22 @@
             <div class="section-title"><span class="dot"></span>Кто будет сдавать</div>
             <a class="link-muted" href="screen1-order.html">Подробнее</a>
           </div>
+          <div class="block selected-card hidden" data-patient-selected>
+            <div class="row">
+              <div class="row-wrap">
+                <div class="avatar"></div>
+                <div>
+                  <div class="result-title" data-patient-name></div>
+                  <div class="meta" data-patient-info></div>
+                </div>
+              </div>
+              <button class="btn light" type="button" data-patient-clear>Сменить</button>
+            </div>
+          </div>
           <div class="block soft" data-patient-search>
             <div class="row">
               <input placeholder="Найти пациента по базе" data-patient-input>
-              <a class="btn secondary" href="screen1-order-filled.html">Найти</a>
+              <button class="btn secondary" type="button">Найти</button>
             </div>
             <div class="dropdown hidden" data-patient-results></div>
             <div class="meta" data-patient-hint>Введите минимум 2 символа для поиска.</div>
@@ -35,28 +47,35 @@
             <div class="section-title"><span class="dot"></span>Врач назначивший сдачу анализов</div>
             <span class="meta">Необязательно</span>
           </div>
-          <div class="block soft">
+          <div class="block soft" data-doctor-search>
             <div class="row">
-              <input placeholder="Найти врача по базе">
-              <a class="btn secondary" href="screen1-order.html">Найти</a>
+              <input placeholder="Найти врача по базе" data-doctor-input>
+              <button class="btn secondary" type="button">Найти</button>
             </div>
-            <div class="dropdown hidden"></div>
-            <div class="meta">Врач можно не выбирать.</div>
+            <div class="dropdown hidden" data-doctor-results></div>
+            <div class="meta" data-doctor-hint>Введите минимум 2 символа для поиска.</div>
           </div>
+          <div class="meta" data-doctor-selected>Текущий выбор: не выбран.</div>
         </div>
 
         <div class="section">
           <div class="section-head">
             <div class="section-title"><span class="dot"></span>Корзина</div>
           </div>
-          <div class="block soft">
+          <div class="block soft" data-analysis-search>
             <div class="row">
-              <input placeholder="Код или название (минимум 3 символа)">
-              <a class="btn secondary" href="screen1-order-filled.html">Искать</a>
+              <input placeholder="Код или название (минимум 3 символа)" data-analysis-input>
+              <button class="btn secondary" type="button">Искать</button>
             </div>
-            <div class="dropdown hidden"></div>
-            <div class="meta">Выбранные анализы будут отображаться здесь.</div>
-            <div class="meta">Выбор анализов обязателен для перехода дальше.</div>
+            <div class="dropdown hidden" data-analysis-results></div>
+            <div class="meta" data-analysis-hint>Введите минимум 2 символа для поиска.</div>
+            <div class="row-wrap subhead-row">
+              <span class="meta">Выбранные анализы: <span data-analyses-count>0</span></span>
+              <button class="btn light" type="button" data-analyses-clear>Очистить все</button>
+            </div>
+            <div class="list" data-analysis-list>
+              <div class="meta" data-analyses-empty>Пока нет выбранных анализов. Добавьте позиции через поиск.</div>
+            </div>
           </div>
         </div>
       </div>
@@ -64,26 +83,26 @@
       <div class="summary-panel">
         <div class="summary-card">
           <div class="summary-line">
-            <span>Исследования: 0</span>
-            <span>0 ₽</span>
+            <span>Исследования: <span data-summary-count>0</span></span>
+            <span><span class="price-old hidden" data-summary-research-old></span><span data-summary-research>0 ₽</span></span>
           </div>
           <div class="summary-line">
             <span>Забор биоматериала</span>
-            <span>0 ₽</span>
+            <span><span class="price-old hidden" data-summary-collection-old></span><span data-summary-collection>0 ₽</span></span>
           </div>
           <div class="summary-total">
             <span>Итого</span>
-            <span><span class="price-now">0 ₽</span></span>
+            <span><span class="price-now" data-summary-total>0 ₽</span></span>
           </div>
           <div class="summary-meta">
-            <div>Количество позиций: 0</div>
-            <div>Дата готовности: -</div>
+            <div>Количество позиций: <span data-summary-count-meta>0</span></div>
+            <div>Дата готовности: <span data-summary-ready>-</span></div>
           </div>
           <div class="summary-actions">
-            <span class="btn wide disabled">Вперед</span>
+            <a class="btn wide disabled" href="screen2-finish.html" data-next-button>Вперед</a>
             <span class="btn light wide disabled">Назад</span>
           </div>
-          <div class="meta">Нужно выбрать пациента и анализы.</div>
+          <div class="meta" data-summary-hint>Нужно выбрать пациента и анализы.</div>
         </div>
       </div>
     </div>
