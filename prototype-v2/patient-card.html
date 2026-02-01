@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Карточка пациента</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <section class="frame">
+    <div class="top-nav">
+      <a href="screen1-order.html"><- Назад к корзине</a>
+    </div>
+
+    <h2>Карточка пациента</h2>
+    <div class="block">
+      <div class="row">
+        <div class="row-wrap">
+          <div class="avatar"></div>
+          <div>
+            <div class="result-title" data-card-name>Пациент не выбран</div>
+            <div class="meta" data-card-dob>-</div>
+          </div>
+        </div>
+      </div>
+      <div class="list">
+        <div class="result-row">
+          <div>
+            <div class="meta">Телефон</div>
+            <div class="result-title" data-card-phone>-</div>
+          </div>
+        </div>
+        <div class="result-row">
+          <div>
+            <div class="meta">Email</div>
+            <div class="result-title" data-card-email>-</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const stored = localStorage.getItem("selectedPatient");
+    if (stored) {
+      try {
+        const patient = JSON.parse(stored);
+        const name = document.querySelector("[data-card-name]");
+        const dob = document.querySelector("[data-card-dob]");
+        const phone = document.querySelector("[data-card-phone]");
+        const email = document.querySelector("[data-card-email]");
+        if (name) name.textContent = patient.name;
+        if (dob) dob.textContent = `Дата рождения: ${patient.dob}`;
+        if (phone) phone.textContent = patient.phone;
+        if (email) email.textContent = patient.email;
+      } catch (error) {
+        // ignore invalid storage
+      }
+    }
+  </script>
+</body>
+</html>

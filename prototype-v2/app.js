@@ -173,6 +173,7 @@ const setupPatientSearch = (root) => {
   if (clearButton) {
     clearButton.addEventListener("click", () => {
       state.patient = null;
+      localStorage.removeItem("selectedPatient");
       renderSelected();
       updateSummary();
     });
@@ -202,6 +203,7 @@ const setupPatientSearch = (root) => {
     hint.classList.remove("hidden");
     renderResults(results, filtered, (patient) => {
       state.patient = patient;
+      localStorage.setItem("selectedPatient", JSON.stringify(patient));
       renderSelected();
       results.classList.add("hidden");
       input.value = "";
