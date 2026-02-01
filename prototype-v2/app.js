@@ -304,55 +304,6 @@ const setupAnalysisSearch = (root) => {
 
   if (!input || !results || !hint || !list || !count) return;
 
-  const modal = document.querySelector("[data-localization-modal]");
-  const modalTitle = document.querySelector("[data-localization-title]");
-  const modalConfirm = document.querySelector("[data-localization-confirm]");
-  const modalCancel = document.querySelector("[data-localization-cancel]");
-  const modalOptions = document.querySelectorAll("[name='localization']");
-
-  let pendingAnalysis = null;
-
-  const openLocalizationModal = (analysis) => {
-    if (!modal || !modalTitle || !modalConfirm || !modalCancel) return;
-    pendingAnalysis = analysis;
-    modalTitle.textContent = `Локализация: ${analysis.name} (${analysis.code})`;
-    const first = modalOptions[0];
-    if (first) {
-      first.checked = true;
-    }
-    modal.classList.remove("hidden");
-  };
-
-  const closeLocalizationModal = () => {
-    if (!modal) return;
-    modal.classList.add("hidden");
-    pendingAnalysis = null;
-  };
-
-  if (modalCancel) {
-    modalCancel.addEventListener("click", closeLocalizationModal);
-  }
-
-  if (modalConfirm) {
-    modalConfirm.addEventListener("click", () => {
-      if (!pendingAnalysis) {
-        closeLocalizationModal();
-        return;
-      }
-      const selected = Array.from(modalOptions).find((option) => option.checked);
-      const location = selected ? selected.value : pendingAnalysis.biomaterial;
-      const entry = { ...pendingAnalysis, location };
-      const exists = state.analyses.some(
-        (item) => item.code === entry.code && item.location === entry.location
-      );
-      if (!exists) {
-        state.analyses.push(entry);
-      }
-      closeLocalizationModal();
-      renderSelected();
-    });
-  }
-
   const renderSelected = () => {
     list.innerHTML = "";
     if (state.analyses.length === 0) {
@@ -449,7 +400,14 @@ const setupAnalysisSearch = (root) => {
       row.appendChild(info);
       row.appendChild(actionWrap);
       row.addEventListener("click", () => {
-        openLocalizationModal(analysis);
+        const entry = { ...analysis, location: analysis.biomaterial };
+        const exists = state.analyses.some(
+          (item) => item.code === entry.code && item.location === entry.location
+        );
+        if (!exists) {
+          state.analyses.push(entry);
+        }
+        renderSelected();
         results.classList.add("hidden");
         input.value = "";
       });
