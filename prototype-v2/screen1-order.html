@@ -18,7 +18,6 @@
         <div class="section">
           <div class="section-head">
             <div class="section-title"><span class="dot"></span>Кто будет сдавать</div>
-            <a class="link-muted" href="screen1-order.html">Подробнее</a>
           </div>
           <div class="block selected-card hidden" data-patient-selected>
             <div class="row">
@@ -38,7 +37,7 @@
               <button class="btn secondary" type="button">Найти</button>
             </div>
             <div class="dropdown hidden" data-patient-results></div>
-            <div class="meta" data-patient-hint>Введите минимум 2 символа для поиска.</div>
+            <div class="meta hidden" data-patient-hint>Введите минимум 2 символа для поиска.</div>
           </div>
         </div>
 
@@ -53,9 +52,9 @@
               <button class="btn secondary" type="button">Найти</button>
             </div>
             <div class="dropdown hidden" data-doctor-results></div>
-            <div class="meta" data-doctor-hint>Введите минимум 2 символа для поиска.</div>
+            <div class="meta hidden" data-doctor-hint>Введите минимум 2 символа для поиска.</div>
           </div>
-          <div class="meta" data-doctor-selected>Текущий выбор: не выбран.</div>
+          <div class="meta hidden" data-doctor-selected>Текущий выбор: не выбран.</div>
         </div>
 
         <div class="section">
@@ -68,13 +67,13 @@
               <button class="btn secondary" type="button">Искать</button>
             </div>
             <div class="dropdown hidden" data-analysis-results></div>
-            <div class="meta" data-analysis-hint>Введите минимум 2 символа для поиска.</div>
-            <div class="row-wrap subhead-row">
+            <div class="meta hidden" data-analysis-hint>Введите минимум 2 символа для поиска.</div>
+            <div class="row-wrap subhead-row hidden" data-analyses-row>
               <span class="meta">Выбранные анализы: <span data-analyses-count>0</span></span>
               <button class="btn light" type="button" data-analyses-clear>Очистить все</button>
             </div>
-            <div class="list" data-analysis-list>
-              <div class="meta" data-analyses-empty>Пока нет выбранных анализов. Добавьте позиции через поиск.</div>
+            <div class="list hidden" data-analysis-list>
+              <div class="meta hidden" data-analyses-empty>Пока нет выбранных анализов. Добавьте позиции через поиск.</div>
             </div>
           </div>
         </div>

@@ -184,6 +184,7 @@ const setupPatientSearch = (root) => {
     if (value.length < MIN_CHARS) {
       results.innerHTML = "";
       results.classList.add("hidden");
+      hint.classList.remove("hidden");
       hint.textContent = `Введите минимум ${MIN_CHARS} символа для поиска.`;
       return;
     }
@@ -192,11 +193,13 @@ const setupPatientSearch = (root) => {
     if (filtered.length === 0) {
       results.innerHTML = "";
       results.classList.add("hidden");
+      hint.classList.remove("hidden");
       hint.textContent = "Ничего не найдено. Проверьте запрос.";
       return;
     }
 
     results.classList.remove("hidden");
+    hint.classList.remove("hidden");
     renderResults(results, filtered, (patient) => {
       state.patient = patient;
       renderSelected();
@@ -223,9 +226,11 @@ const setupDoctorSearch = (root) => {
     if (!selected) return;
     if (!state.doctor) {
       selected.textContent = "Текущий выбор: не выбран.";
+      selected.classList.add("hidden");
       return;
     }
     selected.textContent = `Текущий выбор: ${state.doctor.name} · ${state.doctor.specialty}`;
+    selected.classList.remove("hidden");
   };
 
   const renderDoctorResults = (items) => {
@@ -263,6 +268,7 @@ const setupDoctorSearch = (root) => {
     if (value.length < MIN_CHARS) {
       results.innerHTML = "";
       results.classList.add("hidden");
+      hint.classList.remove("hidden");
       hint.textContent = `Введите минимум ${MIN_CHARS} символа для поиска.`;
       return;
     }
@@ -271,12 +277,14 @@ const setupDoctorSearch = (root) => {
     if (filtered.length === 0) {
       results.innerHTML = "";
       results.classList.add("hidden");
+      hint.classList.remove("hidden");
       hint.textContent = "Ничего не найдено. Проверьте запрос.";
       return;
     }
 
     results.classList.remove("hidden");
     renderDoctorResults(filtered);
+    hint.classList.remove("hidden");
     hint.textContent = "Выберите врача из списка.";
   };
 
@@ -292,6 +300,7 @@ const setupAnalysisSearch = (root) => {
   const empty = root.querySelector("[data-analyses-empty]");
   const count = root.querySelector("[data-analyses-count]");
   const clearButton = root.querySelector("[data-analyses-clear]");
+  const countRow = root.querySelector("[data-analyses-row]");
 
   if (!input || !results || !hint || !list || !count) return;
 
@@ -347,12 +356,17 @@ const setupAnalysisSearch = (root) => {
   const renderSelected = () => {
     list.innerHTML = "";
     if (state.analyses.length === 0) {
-      if (empty) list.appendChild(empty);
       count.textContent = "0";
+      if (empty) empty.classList.add("hidden");
+      if (list) list.classList.add("hidden");
+      if (countRow) countRow.classList.add("hidden");
       updateSummary();
       return;
     }
 
+    if (empty) empty.classList.add("hidden");
+    if (list) list.classList.remove("hidden");
+    if (countRow) countRow.classList.remove("hidden");
     state.analyses.forEach((analysis) => {
       const item = document.createElement("div");
       item.className = "order-item";
@@ -449,6 +463,7 @@ const setupAnalysisSearch = (root) => {
     if (value.length < MIN_CHARS) {
       results.innerHTML = "";
       results.classList.add("hidden");
+      hint.classList.remove("hidden");
       hint.textContent = `Введите минимум ${MIN_CHARS} символа для поиска.`;
       return;
     }
@@ -457,12 +472,14 @@ const setupAnalysisSearch = (root) => {
     if (filtered.length === 0) {
       results.innerHTML = "";
       results.classList.add("hidden");
+      hint.classList.remove("hidden");
       hint.textContent = "Ничего не найдено. Проверьте запрос.";
       return;
     }
 
     results.classList.remove("hidden");
     renderAnalysisResults(filtered);
+    hint.classList.remove("hidden");
     hint.textContent = "Выберите анализ из списка.";
   };
 
