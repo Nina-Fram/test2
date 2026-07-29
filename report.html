@@ -118,6 +118,7 @@
       .row .nums { color: var(--muted); font-size: 13px; }
 
       .svgline { width: 100%; height: 36px; }
+      .svgline--detailed { height: 56px; }
 
       .quote {
         border: 1px solid var(--border);
@@ -243,8 +244,17 @@
             </div>
           </div>
           <div class="hr"></div>
-          <h3>Сводка по 5 блокам (средние по шкале 1–5)</h3>
+          <h3>Где восприятие команды и руководителя расходится по блокам (1–5)</h3>
+          <div class="subtitle" style="margin-bottom:10px;">
+            Положительный разрыв = руководитель оценивает блок выше, чем команда; отрицательный = наоборот.
+          </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-bottom:10px;">
+            <span class="badge"><span class="dot team"></span>Команда</span>
+            <span class="badge"><span class="dot lead"></span>Руководитель</span>
+            <span class="badge"><span class="dot" style="background:rgba(17,24,39,0.22)"></span>Линия = величина разрыва</span>
+          </div>
           <div class="chart" id="blockChart"></div>
+          <div class="footer" id="blockSummary"></div>
         </div>
       </section>
 
@@ -737,9 +747,16 @@
         return [header, ...rows].map(row => row.map(esc).join(",")).join("\n");
       }
 
-      function dumbbellSvg(team, lead) {
-        const W = 620, H = 36;
-        const padL = 22, padR = 22;
+      function dumbbellSvg(team, lead, opts = {}) {
+        const showAxisLabels = !!opts.showAxisLabels;
+        const showTickLabels = !!opts.showTickLabels;
+        const showPointValues = !!opts.showPointValues;
+        const gap = (typeof opts.gap === "number") ? opts.gap : (lead - team);
+        const className = opts.className || "svgline";
+
+        const W = 620;
+        const H = (showTickLabels || showPointValues || showAxisLabels) ? 56 : 36;
+        const padL = 34, padR = 34;
         const x = (v) => {
           const t = (clamp(v, 1, 5) - 1) / 4;
           return padL + t * (W - padL - padR);
@@ -748,17 +765,35 @@
         const xLead = x(lead);
         const x1 = Math.min(xTeam, xLead);
         const x2 = Math.max(xTeam, xLead);
-        const axisY = 18;
+        const axisY = 24;
+
         const ticks = [1,2,3,4,5].map(v => {
           const xv = x(v);
-          return `<line x1="${xv}" y1="${axisY-10}" x2="${xv}" y2="${axisY+10}" stroke="rgba(231,233,239,0.9)"/>`;
+          return `<line x1="${xv}" y1="${axisY-14}" x2="${xv}" y2="${axisY+14}" stroke="rgba(231,233,239,0.55)"/>`;
         }).join("");
+
+        const tickLabels = [1,2,3,4,5].map(v => {
+          const xv = x(v);
+          return `<text x="${xv}" y="${axisY + 28}" text-anchor="middle" font-size="11" fill="rgba(91,100,117,0.9)">${v}</text>`;
+        }).join("");
+
+        const axisLine = `<line x1="${x(1)}" y1="${axisY}" x2="${x(5)}" y2="${axisY}" stroke="rgba(231,233,239,0.95)" stroke-width="2" stroke-linecap="round"/>`;
+
+        const absGap = Math.abs(gap);
+        const lineOpacity = gap >= 0 ? 0.35 : 0.22;
+        const lineWidth = absGap >= 0.6 ? 8 : (absGap >= 0.35 ? 7 : 6);
         return `
-          <svg class="svgline" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="Сравнение команда/руководитель">
+          <svg class="${className}" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="Сравнение команда/руководитель">
             ${ticks}
-            <line x1="${x1}" y1="${axisY}" x2="${x2}" y2="${axisY}" stroke="rgba(17,24,39,0.22)" stroke-width="6" stroke-linecap="round"/>
+            ${axisLine}
+            ${showAxisLabels ? `<text x="${x(1) - 10}" y="${axisY - 10}" text-anchor="start" font-size="11" fill="var(--team)">Команда</text>` : ""}
+            ${showAxisLabels ? `<text x="${x(5) + 10}" y="${axisY - 10}" text-anchor="end" font-size="11" fill="var(--lead)">Руководитель</text>` : ""}
+            <line x1="${x1}" y1="${axisY}" x2="${x2}" y2="${axisY}" stroke="rgba(17,24,39,${lineOpacity})" stroke-width="${lineWidth}" stroke-linecap="round"/>
             <circle cx="${xTeam}" cy="${axisY}" r="7.5" fill="var(--team)"/>
             <circle cx="${xLead}" cy="${axisY}" r="7.5" fill="var(--lead)"/>
+            ${showPointValues ? `<text x="${xTeam - 10}" y="${axisY - 10}" text-anchor="end" font-size="11" fill="var(--team)">${fmt(team,1)}</text>` : ""}
+            ${showPointValues ? `<text x="${xLead + 10}" y="${axisY - 10}" text-anchor="start" font-size="11" fill="var(--lead)">${fmt(lead,1)}</text>` : ""}
+            ${showTickLabels ? tickLabels : ""}
           </svg>
         `;
       }
@@ -901,24 +936,51 @@
 
         const blockChart = el("blockChart");
         if (blockChart) {
+          const blockName = (s) => {
+            if (s === "Ежедневная ясность/поддержка") return "Ясность и поддержка";
+            if (s === "Предсказуемость/коммуникация") return "Коммуникация и предсказуемость";
+            return s;
+          };
+
           const blockRows = (data.blocks || []).map(b => ({
-            q: b.block,
+            q: blockName(b.block),
             team_avg: b.team_avg,
             lead: b.lead_avg,
             gap: b.gap
-          }));
+          })).sort((a, b) => Math.abs(b.gap) - Math.abs(a.gap));
+
+          const gapTone = (g) => {
+            const a = Math.abs(g);
+            if (a <= 0.30) return "var(--good)";
+            if (a <= 0.60) return "var(--warn)";
+            return "var(--bad)";
+          };
+
+          const gapText = (g) => {
+            const sign = g > 0 ? "+" : "";
+            const who = g > 0 ? "руководитель выше" : (g < 0 ? "команда выше" : "равно");
+            return `Разрыв: ${sign}${fmt(g,2)} (${who})`;
+          };
+
           blockChart.innerHTML = blockRows.map(b => {
-            const gapSign = b.gap > 0 ? "+" : "";
+            const tone = gapTone(b.gap);
             return `
               <div class="row">
                 <div class="meta">
                   <div class="q">${escapeHtml(b.q)}</div>
-                  <div class="nums">Команда ${fmt(b.team_avg,2)} · Руководитель ${fmt(b.lead,2)} · Разрыв ${gapSign}${fmt(b.gap,2)}</div>
+                  <div class="nums" style="color:${tone}; font-weight:650;">${escapeHtml(gapText(b.gap))}</div>
                 </div>
-                ${dumbbellSvg(b.team_avg, b.lead)}
+                ${dumbbellSvg(b.team_avg, b.lead, { showAxisLabels: true, showTickLabels: true, showPointValues: true, gap: b.gap, className: "svgline svgline--detailed" })}
               </div>
             `;
           }).join("");
+
+          const blockSummary = el("blockSummary");
+          if (blockSummary && blockRows.length) {
+            const top2 = blockRows.slice(0, 2).map(b => b.q).join(" и ");
+            const closest = [...blockRows].sort((a,b) => Math.abs(a.gap) - Math.abs(b.gap))[0]?.q;
+            blockSummary.textContent = `Самые большие разрывы — в блоках: ${top2}. Ближе всего по восприятию — ${closest}.`;
+          }
         }
 
         const themesList = el("themesList");
