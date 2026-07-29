@@ -97,6 +97,61 @@
       @media (min-width: 920px){
         .cards{grid-template-columns: 1fr 1fr;}
       }
+      .radial{
+        display:grid;
+        grid-template-columns: 1fr;
+        gap: 12px;
+        margin-top: 12px;
+      }
+      @media (min-width: 920px){
+        .radial{grid-template-columns: 420px 1fr;}
+      }
+      .radarBox{
+        border: 1px solid var(--border);
+        background: rgba(255,255,255,.05);
+        border-radius: 14px;
+        padding: 12px;
+      }
+      .radarSvg{
+        width: 100%;
+        height: auto;
+        display:block;
+      }
+      .radarNote{
+        font-size: 12px;
+        color: var(--muted2);
+        margin-top: 8px;
+        line-height: 1.35;
+      }
+      .gapList{
+        display:grid;
+        gap: 8px;
+        margin-top: 10px;
+      }
+      .gapItem{
+        border: 1px solid rgba(255,255,255,.14);
+        background: rgba(255,255,255,.04);
+        border-radius: 14px;
+        padding: 10px 10px 8px;
+      }
+      .gapItem .top{
+        display:flex;
+        gap:10px;
+        justify-content: space-between;
+        align-items:flex-start;
+      }
+      .gapItem .lbl{
+        color: var(--text);
+        font-size: 13px;
+        line-height: 1.25;
+      }
+      .gapItem .vals{
+        color: var(--muted2);
+        font-size: 12px;
+        font-family: var(--mono);
+        white-space: nowrap;
+      }
+      .gapMini{ margin-top: 8px; }
       .card{
         border: 1px solid var(--border);
         background: rgba(255,255,255,.05);
@@ -253,25 +308,38 @@
 
       <div class="grid">
         <section>
-          <h2>1) Быстрый итог по блокам (инфографика)</h2>
+          <h2>1) Быстрый итог по блокам (радиальная диаграмма)</h2>
           <p>
-            Ниже — средние оценки по 5 смысловым блокам (1–5, 6–10, …). Это удобный «компас» для разговора:
-            где ожидания совпадают, а где нужна настройка управленческих практик.
+            5 осей = 5 смысловых блоков. Чем ближе к внешнему кругу, тем выше оценка (1→5).
+            Сравнение: среднее по команде vs самооценка руководителя.
           </p>
-          <div class="cards" id="groupCards"></div>
-          <div class="note">
-            Интерпретация: <b>высокие значения</b> по большинству утверждений — хорошо. Исключение: вопрос 18 («контроль избыточен») — высокий балл означал бы риск микроменеджмента.
+          <div class="radial">
+            <div class="radarBox">
+              <svg id="radarSvg" class="radarSvg" viewBox="0 0 420 420" role="img" aria-label="Радиальная диаграмма: команда vs руководитель"></svg>
+              <div class="radarNote">
+                <b>Gap</b> = руководитель − команда. Положительный gap означает, что руководитель оценивает утверждения выше; отрицательный — ниже.<br/>
+                В утверждении «контроль кажется избыточным» высокий балл — это риск (в таблице отмечено).
+              </div>
+            </div>
+            <div>
+              <h2 style="margin:0 0 8px; font-size:16px;">Самые заметные расхождения (по отдельным утверждениям)</h2>
+              <p style="margin-top:0;">Топ‑5 по модулю gap. Здесь удобно начинать разговор — это точки, где видение расходится сильнее всего.</p>
+              <div class="gapList" id="topGaps"></div>
+              <div class="note">
+                Зачем это нужно: расхождения обычно означают <b>не одинаковую картину “как устроено”</b>. Дальше мы не спорим, а договариваемся о простых правилах и ритмах, чтобы картинка стала общей.
+              </div>
+            </div>
           </div>
         </section>
 
         <section>
-          <h2>2) Ключевые выводы (что важно руководителю увидеть)</h2>
+          <h2>2) Ключевые выводы</h2>
           <ul id="keyFindings"></ul>
           <div class="hr"></div>
           <h2>3) Приоритетные зоны внимания</h2>
           <ul id="priorityZones"></ul>
           <div class="note">
-            Важный сигнал: по вопросу «контроль избыточен» (18) команда в среднем <b>не согласна</b> (низкая оценка), а требования руководителя считает <b>обоснованными</b> (17) — это сильная база для дальнейшей настройки ритмов и договоренностей.
+            Важный сигнал: команда в среднем <b>не согласна</b> с утверждением «контроль кажется избыточным», а требования руководителя считает <b>обоснованными</b> — это сильная база для дальнейшей настройки ритмов и договоренностей.
           </div>
         </section>
       </div>
@@ -309,7 +377,7 @@
           <div class="kpiItem">
             <b>Петля обратной связи</b>
             <p>Самая частая боль: недостаток регулярной ОС, короткие слоты, «точечно в perf review», ощущение что ОС «нет как таковой».</p>
-            <div class="pill">Сигнал в цифрах: вопрос 8 (ОС) — один из самых низких (≈3.11)</div>
+            <div class="pill">Сигнал в цифрах: одно из самых низких утверждений — «Руководитель дает мне достаточно обратной связи» (≈3.11)</div>
           </div>
           <div class="kpiItem">
             <b>Статусы/ответы в чате и предсказуемость реакции</b>
@@ -319,7 +387,7 @@
           <div class="kpiItem">
             <b>Decision rights: где решение за руководителем, а где за дизайнером</b>
             <p>Часть команды пишет, что иногда пытается «согласовать всё», потому что не всегда очевидны границы решений и ответственности.</p>
-            <div class="pill">Сигнал в цифрах: вопрос 9 (разделение решений) — ≈3.44, высокий разброс</div>
+            <div class="pill">Сигнал в цифрах: «Понятно, какие решения принимает руководитель, а какие — команда» — ≈3.44, высокий разброс</div>
           </div>
           <div class="kpiItem">
             <b>Тон и эмпатия</b>
@@ -334,7 +402,7 @@
           <div class="kpiItem">
             <b>Процессы в целом поддерживаются</b>
             <p>Внутреннее ревью, дизайн‑демо/викли, стандарты качества — чаще считаются полезными. Отдельные сомнения вызывают «ритуалы без эффекта» (например, перегруз целеполаганием без ясного «зачем»).</p>
-            <div class="pill">Сигнал в цифрах: блок 21–24 — высокий; 25 («упростить») в среднем низкий</div>
+            <div class="pill">Сигнал в цифрах: процессы/стандарты оцениваются высоко; при этом «упрощать правила и процессы» в среднем не выглядит как запрос большинства</div>
           </div>
         </div>
         <div class="note">
@@ -344,7 +412,7 @@
 
       <section style="margin-top:14px;">
         <h2>6) Дальнейшие шаги (план улучшений взаимодействия)</h2>
-        <p>План построен так, чтобы закрыть основные зоны улучшения, выявленные опросом, и закрепить устойчивый ритм коммуникации и принятия решений.</p>
+        <p>План — короткий и без дублей: 5 инициатив → конкретные артефакты → измеримая проверка через пульс‑опрос.</p>
         <div class="tableWrap">
           <table style="min-width: 980px;">
             <thead>
@@ -357,84 +425,73 @@
             </thead>
             <tbody>
               <tr>
-                <td><b>Петля ОС (1:1 + async)</b></td>
+                <td><b>Система обратной связи</b></td>
                 <td>
-                  - Ввести регулярный ритм: 1:1 с фокусом на ОС и рост.<br/>
-                  - Добавить «async feedback»: короткие письменные заметки после ревью/демо (что хорошо / что улучшить / следующий шаг).<br/>
-                  - Нормализовать «ОС не только на perf review».
+                  - Фиксируем ритм: 1:1 + “разбор работы” (коротко и регулярно).<br/>
+                  - Вводим единый формат ОС: <i>сильные стороны → зона роста → следующий шаг</i> (1–3 пункта).<br/>
+                  - Добавляем «async‑ОС» после демо/ревью (коротко письменно, чтобы не терялось).
                 </td>
                 <td>
-                  - У каждого дизайнера есть регулярная ОС минимум раз в X (зафиксировать правило).<br/>
-                  - Через повторный пульс‑опрос вопрос 8 растет.
-                </td>
-                <td>Руководитель</td>
-              </tr>
-              <tr>
-                <td><b>Статусы в чате (SLA реакции)</b></td>
-                <td>
-                  Согласовать простое правило: если сообщение прочитано и требует ответа — ставим быстрый статус («принял», «отвечу до …», «нужно уточнение»).<br/>
-                  Это снижает тревогу и «додумывание».
-                </td>
-                <td>
-                  - Команда перестает отмечать «молчание после прочтения» как проблему (качественно).<br/>
-                  - Пульс‑опрос: улучшение по предсказуемости (11–15).
+                  - У каждого дизайнера есть регулярная ОС по договоренному ритму.<br/>
+                  - В пульс‑опросе растет согласие с «Руководитель дает мне достаточно обратной связи».
                 </td>
                 <td>Руководитель</td>
               </tr>
               <tr>
-                <td><b>Decision rights map</b></td>
+                <td><b>Коммуникация в чате (SLA статусов)</b></td>
                 <td>
-                  На 1 странице описать типовые решения (качество/UX‑риски/сроки/стандарты/коммуникации с продактами) и для каждого: кто «Decider», кто «Consulted».<br/>
-                  Использовать в ревью фразу‑маркер: «Здесь D — …, C — …».
+                  Согласовать правило: если запрос требует ответа — ставим статус «принял / отвечу до … / нужно уточнение».<br/>
+                  Для срочного — отдельный “канал эскалации” (как именно — фиксируем в одном абзаце).
                 </td>
                 <td>
-                  - Снижение «согласовываю всё на всякий случай».<br/>
-                  - Рост по вопросу 9 (и/или снижение разброса).
+                  - Уходит повторяющаяся проблема «прочитано и тишина».<br/>
+                  - Растет согласие с «взаимодействие предсказуемо / понятно чего ожидать».
+                </td>
+                <td>Руководитель</td>
+              </tr>
+              <tr>
+                <td><b>Decision rights map (1 страница)</b></td>
+                <td>
+                  Описать типовые решения и роли: кто <b>Decider</b>, кто <b>Consulted</b>.<br/>
+                  Использовать в ревью маркер: «Здесь Decider — …, Consulted — …» (чтобы не “согласовывать всё на всякий случай”).
+                </td>
+                <td>
+                  - Снижается “лишнее согласование”, растет автономность там, где это безопасно.<br/>
+                  - Растет согласие с «понятно, какие решения — руководителя, какие — команды».
                 </td>
                 <td>Руководитель + команда</td>
               </tr>
               <tr>
-                <td><b>Правила/процессы: убрать ритуалы</b></td>
+                <td><b>Процессы: ясность “зачем”</b></td>
                 <td>
-                  Легкий аудит процессов: что дает эффект, что стало ритуалом. Если процесс остается — у него есть «зачем» и измеримый результат.<br/>
-                  Особенно аккуратно — с целеполаганием: оставить то, что реально помогает приоритизировать и защищать команду.
+                  Для каждого ключевого процесса фиксируем: <i>цель → выход → кто участвует → когда можно пропустить</i>.<br/>
+                  Если процесс стал ритуалом — упрощаем/заменяем.
                 </td>
                 <td>
-                  - У каждого процесса есть «цель/выход/когда не делаем».<br/>
-                  - Участники понимают «зачем» (22 держится высоким).
+                  - У процессов есть короткие описания и понятные ожидания.<br/>
+                  - Держится/растет согласие с «понимаю, зачем нужны стандарты и правила».
                 </td>
                 <td>Комьюнити‑лид + Руководитель</td>
               </tr>
               <tr>
-                <td><b>Коммуникация и тон</b></td>
+                <td><b>Правило “контроль по риску”</b></td>
                 <td>
-                  Договориться о «кодексе переписки»: короткие, ясные, уважительные формулировки; избегать резкости; если усталость — перенос сложных обсуждений в синхрон.<br/>
-                  Встроить в 1:1 вопрос: «Как тебе мой стиль коммуникации в последнее время?».
+                  Фиксируем принцип: глубина контроля зависит от риска (качество/сроки/влияние), а не от деталей реализации.<br/>
+                  Для высокого риска — контрольные точки; для низкого — больше автономности.
                 </td>
                 <td>
-                  - Уходит повторяющаяся тема «жесткий/грубоватый тон».<br/>
-                  - Рост субъективной поддержки (качественные сигналы).
-                </td>
-                <td>Руководитель</td>
-              </tr>
-              <tr>
-                <td><b>Контроль ≠ микроменеджмент</b></td>
-                <td>
-                  Зафиксировать принцип (который уже совпадает у команды и руководителя): контроль по риску и результату, а не по «каждому пикселю».<br/>
-                  Для задач высокого риска — контрольные точки; для низкого — больше автономности.
-                </td>
-                <td>
-                  Вопрос 18 остается низким (это хорошо), а «самостоятельности» (20) — не растет как проблема.
+                  - Сохраняется низкое согласие с «контроль кажется избыточным».<br/>
+                  - Уходит необходимость “согласовывать каждый шаг” там, где риск низкий.
                 </td>
                 <td>Руководитель</td>
               </tr>
               <tr>
-                <td><b>Повторная проверка прогресса</b></td>
+                <td><b>Пульс‑проверка прогресса</b></td>
                 <td>
-                  Провести короткий повторный пульс‑опрос по 6–10 ключевым вопросам (8, 9, 11–15) + 2 открытых: «что стало лучше» / «что еще мешает».
+                  Короткий повторный пульс‑опрос по 6–8 утверждениям + 2 открытых: «что стало лучше» / «что еще мешает».
                 </td>
                 <td>
-                  Есть динамика по цифрам и качественным ответам; изменения не «размываются».
+                  Видна динамика по цифрам и качественным ответам; изменения не “размываются”.
                 </td>
                 <td>Комьюнити‑лид</td>
               </tr>
@@ -531,7 +588,6 @@
       const chips = [
         `Команда: n=${DATA.meta.teamRespondents}`,
         `Костя: самооценка (1 ответ)`,
-        `Период ответов команды: ${DATA.meta.teamTimestamps[0]} → ${DATA.meta.teamTimestamps[DATA.meta.teamTimestamps.length-1]}`,
         `Самооценка руководителя: ${DATA.meta.kostyaTimestamp}`
       ];
       chips.forEach(t => {
@@ -541,29 +597,98 @@
         meta.appendChild(s);
       });
 
-      // Group cards
-      const groupCards = document.getElementById('groupCards');
-      DATA.groups.forEach(g => {
-        const el = document.createElement('div');
-        el.className = 'card';
-        el.innerHTML = `
-          <div class="t">${g.label}</div>
-          <div class="s">Вопросы ${g.range[0]}–${g.range[1]} • gap=${fmt(g.gap)}</div>
-          <div class="bars">
-            <div class="barLine">
-              <div class="barLabel"><span class="dot team"></span>Команда</div>
-              <div class="barTrack"><div class="barFill team" style="width:${pct(g.teamAvg)}"></div></div>
-              <div class="score">${fmt(g.teamAvg)}/5</div>
-            </div>
-            <div class="barLine">
-              <div class="barLabel"><span class="dot lead"></span>Костя</div>
-              <div class="barTrack"><div class="barFill lead" style="width:${pct(g.kostyaAvg)}"></div></div>
-              <div class="score">${fmt(g.kostyaAvg)}/5</div>
-            </div>
-          </div>
-        `;
-        groupCards.appendChild(el);
-      });
+      // Radar chart (5 blocks)
+      function polar(cx, cy, r, angRad){ return { x: cx + r*Math.cos(angRad), y: cy + r*Math.sin(angRad) }; }
+      function pathFromPoints(pts){
+        if (!pts.length) return '';
+        return 'M ' + pts.map(p => `${p.x.toFixed(2)} ${p.y.toFixed(2)}`).join(' L ') + ' Z';
+      }
+      const radarSvg = document.getElementById('radarSvg');
+      (function renderRadar(){
+        const W = 420, H = 420;
+        const cx = W/2, cy = H/2 + 10;
+        const R = 150;
+        const levels = 5;
+        const labels = DATA.groups.map(g => g.label);
+        const teamVals = DATA.groups.map(g => g.teamAvg);
+        const leadVals = DATA.groups.map(g => g.kostyaAvg);
+        const n = labels.length;
+        const startAng = -Math.PI/2; // top
+
+        const svgNS = 'http://www.w3.org/2000/svg';
+        const el = (name, attrs={}) => {
+          const e = document.createElementNS(svgNS, name);
+          Object.entries(attrs).forEach(([k,v]) => e.setAttribute(k, v));
+          return e;
+        };
+
+        // background
+        radarSvg.innerHTML = '';
+        radarSvg.appendChild(el('rect', { x:0, y:0, width:W, height:H, fill:'transparent' }));
+
+        // grid levels
+        for (let lv=1; lv<=levels; lv++){
+          const r = (R * lv/levels);
+          const pts = Array.from({length:n}, (_,i)=>{
+            const ang = startAng + i*(2*Math.PI/n);
+            return polar(cx, cy, r, ang);
+          });
+          radarSvg.appendChild(el('path', {
+            d: pathFromPoints(pts),
+            fill: 'none',
+            stroke: 'rgba(255,255,255,.10)',
+            'stroke-width': 1
+          }));
+        }
+
+        // axes + labels
+        for (let i=0;i<n;i++){
+          const ang = startAng + i*(2*Math.PI/n);
+          const p = polar(cx, cy, R, ang);
+          radarSvg.appendChild(el('line', {
+            x1: cx, y1: cy, x2: p.x, y2: p.y,
+            stroke: 'rgba(255,255,255,.12)',
+            'stroke-width': 1
+          }));
+
+          const labelP = polar(cx, cy, R + 36, ang);
+          const anchor = (Math.cos(ang) > 0.25) ? 'start' : (Math.cos(ang) < -0.25 ? 'end' : 'middle');
+          const dy = (Math.sin(ang) > 0.6) ? 12 : (Math.sin(ang) < -0.6 ? -6 : 4);
+          const t = el('text', {
+            x: labelP.x, y: labelP.y + dy,
+            fill: 'rgba(255,255,255,.72)',
+            'font-size': 11,
+            'text-anchor': anchor,
+            'font-family': 'ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial'
+          });
+          // short label: first 2-3 words
+          const short = labels[i].split(' ').slice(0,3).join(' ') + (labels[i].split(' ').length>3 ? '…' : '');
+          t.textContent = short;
+          radarSvg.appendChild(t);
+        }
+
+        // polygons
+        const mkPoly = (vals) => {
+          const pts = vals.map((v, i)=>{
+            const ang = startAng + i*(2*Math.PI/n);
+            const rr = R*(v/5);
+            return polar(cx, cy, rr, ang);
+          });
+          return pathFromPoints(pts);
+        };
+
+        radarSvg.appendChild(el('path', { d: mkPoly(teamVals), fill: 'rgba(37,99,235,.18)', stroke: 'rgba(37,99,235,.85)', 'stroke-width': 2 }));
+        radarSvg.appendChild(el('path', { d: mkPoly(leadVals), fill: 'rgba(249,115,22,.14)', stroke: 'rgba(249,115,22,.85)', 'stroke-width': 2 }));
+
+        // legend
+        const legend = el('g', {});
+        const lx = 18, ly = 18;
+        legend.appendChild(el('rect', { x: lx, y: ly, width: 10, height: 10, rx: 3, fill: 'rgba(37,99,235,.85)' }));
+        legend.appendChild(el('text', { x: lx+16, y: ly+9, fill:'rgba(255,255,255,.78)', 'font-size': 12, 'font-family':'ui-sans-serif, system-ui', 'text-anchor':'start' })).textContent = 'Команда (среднее)';
+        legend.appendChild(el('rect', { x: lx, y: ly+18, width: 10, height: 10, rx: 3, fill: 'rgba(249,115,22,.85)' }));
+        legend.appendChild(el('text', { x: lx+16, y: ly+27, fill:'rgba(255,255,255,.78)', 'font-size': 12, 'font-family':'ui-sans-serif, system-ui', 'text-anchor':'start' })).textContent = 'Руководитель (самооценка)';
+        radarSvg.appendChild(legend);
+      })();
 
       // Key findings (data-driven)
       const per = DATA.perQuestion;
@@ -581,16 +706,47 @@
       const addLi = (parent, html) => { const li=document.createElement('li'); li.innerHTML=html; parent.appendChild(li); };
 
       addLi(key, `<b>Высокая база по ясности роли и процессов.</b> Блоки «роль» и «процессы» у команды высокие (≈${fmt(DATA.groups.find(x=>x.key==='role').teamAvg)}/5 и ≈${fmt(DATA.groups.find(x=>x.key==='process').teamAvg)}/5).`);
-      addLi(key, `<b>Главная зона роста — обратная связь.</b> Самый низкий «позитивный» вопрос: №${lowestPositive[0].id} (${lowestPositive[0].label}) — ≈${fmt(lowestPositive[0].team.mean)}/5.` );
-      addLi(key, `<b>Decision rights и навигация в изменениях — вторые по важности.</b> Вопросы №${lowestPositive[1].id} и №${lowestPositive[2].id} также ниже остальных.` );
-      addLi(key, `<b>Сильная опора: требования воспринимаются обоснованными, а микроменеджмент в среднем не ощущается.</b> Вопрос 17 ≈${fmt(per.find(x=>x.id===17).team.mean)}/5, вопрос 18 ≈${fmt(per.find(x=>x.id===18).team.mean)}/5 (низкий балл — хорошо).` );
-      addLi(key, `<b>Руководитель чаще оценивает ситуацию строже, чем команда.</b> Самый большой разрыв: вопрос 15 (gap=${fmt(per.find(x=>x.id===15).gap)}): команда считает предсказуемость выше, чем думает руководитель о себе.` );
+      addLi(key, `<b>Главная зона роста — обратная связь.</b> Самое слабое утверждение по среднему: «${lowestPositive[0].label}» — ≈${fmt(lowestPositive[0].team.mean)}/5.` );
+      addLi(key, `<b>Decision rights и навигация в изменениях — следующие по важности.</b> Ниже среднего также: «${lowestPositive[1].label}» и «${lowestPositive[2].label}».` );
+      addLi(key, `<b>Сильная опора: требования воспринимаются обоснованными, а микроменеджмент в среднем не ощущается.</b> «${per.find(x=>x.id===17).label}» — ≈${fmt(per.find(x=>x.id===17).team.mean)}/5; «${per.find(x=>x.id===18).label}» — ≈${fmt(per.find(x=>x.id===18).team.mean)}/5 (низкий балл — хорошо).` );
+      addLi(key, `<b>Есть точки, где руководитель оценивает себя строже.</b> Например, по «${per.find(x=>x.id===15).label}» gap=${fmt(per.find(x=>x.id===15).gap)}.` );
 
       const pr = document.getElementById('priorityZones');
-      addLi(pr, `<b>ОС как «система» (ритм + качество + фиксация).</b> Цель: поднять вопрос 8 и уменьшить разброс.` );
-      addLi(pr, `<b>Decision rights map.</b> Цель: рост по вопросу 9 и снижение необходимости «согласовывать всё на всякий случай».` );
-      addLi(pr, `<b>Статусы в чате и закрытие петли.</b> Цель: снизить неопределенность и улучшить предсказуемость (11–15).` );
-      addLi(pr, `<b>Управление по риску.</b> Сохранить сильную сторону: контроль ≠ микроменеджмент (вопрос 18 держать низким).` );
+      addLi(pr, `<b>ОС как система.</b> Ритм + единый формат + фиксация письменно (коротко).` );
+      addLi(pr, `<b>Decision rights.</b> Чтобы было одинаково понятно, где решение за руководителем, а где — за дизайнером/командой.` );
+      addLi(pr, `<b>Предсказуемость реакции.</b> Четкие статусы в чате и правило эскалации для срочного.` );
+      addLi(pr, `<b>Сохранить сильное: контроль по риску.</b> Не скатываться в микроменеджмент и не перегружать согласованиями.` );
+
+      // Top gaps list (by abs gap)
+      const topGaps = document.getElementById('topGaps');
+      const gapSorted = [...per]
+        .filter(q => q.id !== 4) // duplicate question in form; keep in table, exclude from "top gaps" to reduce confusion
+        .sort((a,b)=>Math.abs(b.gap)-Math.abs(a.gap))
+        .slice(0,5);
+      gapSorted.forEach(q => {
+        const gCls = gapClass(q.gap);
+        const item = document.createElement('div');
+        item.className = 'gapItem';
+        item.innerHTML = `
+          <div class="top">
+            <div class="lbl">«${q.label}»</div>
+            <div class="vals">Команда ${fmt(q.team.mean)} • Руководитель ${fmt(q.kostya.value)} • <span class="gap ${gCls}">${q.gap>0?'+':''}${fmt(q.gap)}</span></div>
+          </div>
+          <div class="gapMini bars">
+            <div class="barLine">
+              <div class="barLabel"><span class="dot team"></span>Команда</div>
+              <div class="barTrack"><div class="barFill team" style="width:${pct(q.team.mean)}"></div></div>
+              <div class="score">${fmt(q.team.mean)}/5</div>
+            </div>
+            <div class="barLine">
+              <div class="barLabel"><span class="dot lead"></span>Руководитель</div>
+              <div class="barTrack"><div class="barFill lead" style="width:${pct(q.kostya.value)}"></div></div>
+              <div class="score">${fmt(q.kostya.value)}/5</div>
+            </div>
+          </div>
+        `;
+        topGaps.appendChild(item);
+      });
 
       // Table
       document.getElementById('nTeam').textContent = DATA.meta.teamRespondents;
@@ -599,12 +755,13 @@
       DATA.perQuestion.forEach(q => {
         const gCls = gapClass(q.gap);
         const tr = document.createElement('tr');
+        tr.id = `q-${q.id}`;
         const counts = q.team.counts; // [1..5] counts
         const total = counts.reduce((a,b)=>a+b,0) || 1;
         const segW = counts.map(c => `${(c/total)*100}%`);
         tr.innerHTML = `
           <td>
-            <div class="q">#${q.id}. ${q.label}</div>
+            <div class="q">${q.label}</div>
             <div class="qMeta">n=${DATA.meta.teamRespondents} • среднее=${fmt(q.team.mean)} • gap=${fmt(q.gap)}</div>
           </td>
           <td>
