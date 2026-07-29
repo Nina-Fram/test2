@@ -115,7 +115,7 @@
       .row:last-child { border-bottom: none; }
       .row .meta { display: flex; flex-wrap: wrap; gap: 8px 10px; align-items: baseline; justify-content: space-between; }
       .row .q { font-weight: 650; letter-spacing: -0.01em; }
-      .row .nums { color: var(--muted); font-size: 13px; }
+      .row .nums { color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; }
 
       .svgline { width: 100%; height: 36px; }
       .svgline--detailed { height: 56px; }
@@ -782,17 +782,25 @@
         const absGap = Math.abs(gap);
         const lineOpacity = gap >= 0 ? 0.35 : 0.22;
         const lineWidth = absGap >= 0.6 ? 8 : (absGap >= 0.35 ? 7 : 6);
+
+        const close = Math.abs(xTeam - xLead) < 34;
+        const teamValY = close ? (axisY - 14) : (axisY - 10);
+        const leadValY = close ? (axisY + 14) : (axisY - 10);
+        const teamValAnchor = "end";
+        const leadValAnchor = "start";
+        const teamValX = xTeam - 10;
+        const leadValX = xLead + 10;
         return `
-          <svg class="${className}" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="Сравнение команда/руководитель">
+          <svg class="${className}" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Сравнение команда/руководитель" style="font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; font-variant-numeric: tabular-nums;">
             ${ticks}
             ${axisLine}
-            ${showAxisLabels ? `<text x="${x(1) - 10}" y="${axisY - 10}" text-anchor="start" font-size="11" fill="var(--team)">Команда</text>` : ""}
-            ${showAxisLabels ? `<text x="${x(5) + 10}" y="${axisY - 10}" text-anchor="end" font-size="11" fill="var(--lead)">Руководитель</text>` : ""}
+            ${showAxisLabels ? `<text x="${x(1)}" y="${axisY - 12}" text-anchor="start" font-size="11" fill="rgba(37,99,235,0.95)">Команда</text>` : ""}
+            ${showAxisLabels ? `<text x="${x(5)}" y="${axisY - 12}" text-anchor="end" font-size="11" fill="rgba(17,24,39,0.95)">Руководитель</text>` : ""}
             <line x1="${x1}" y1="${axisY}" x2="${x2}" y2="${axisY}" stroke="rgba(17,24,39,${lineOpacity})" stroke-width="${lineWidth}" stroke-linecap="round"/>
             <circle cx="${xTeam}" cy="${axisY}" r="7.5" fill="var(--team)"/>
             <circle cx="${xLead}" cy="${axisY}" r="7.5" fill="var(--lead)"/>
-            ${showPointValues ? `<text x="${xTeam - 10}" y="${axisY - 10}" text-anchor="end" font-size="11" fill="var(--team)">${fmt(team,1)}</text>` : ""}
-            ${showPointValues ? `<text x="${xLead + 10}" y="${axisY - 10}" text-anchor="start" font-size="11" fill="var(--lead)">${fmt(lead,1)}</text>` : ""}
+            ${showPointValues ? `<text x="${teamValX}" y="${teamValY}" text-anchor="${teamValAnchor}" font-size="11" fill="rgba(37,99,235,0.95)">${fmt(team,1)}</text>` : ""}
+            ${showPointValues ? `<text x="${leadValX}" y="${leadValY}" text-anchor="${leadValAnchor}" font-size="11" fill="rgba(17,24,39,0.95)">${fmt(lead,1)}</text>` : ""}
             ${showTickLabels ? tickLabels : ""}
           </svg>
         `;
@@ -970,7 +978,7 @@
                   <div class="q">${escapeHtml(b.q)}</div>
                   <div class="nums" style="color:${tone}; font-weight:650;">${escapeHtml(gapText(b.gap))}</div>
                 </div>
-                ${dumbbellSvg(b.team_avg, b.lead, { showAxisLabels: true, showTickLabels: true, showPointValues: true, gap: b.gap, className: "svgline svgline--detailed" })}
+                ${dumbbellSvg(b.team_avg, b.lead, { showAxisLabels: false, showTickLabels: true, showPointValues: true, gap: b.gap, className: "svgline svgline--detailed" })}
               </div>
             `;
           }).join("");
