@@ -95,90 +95,7 @@
       @media (min-width: 920px){
         .cards{grid-template-columns: 1fr 1fr;}
       }
-      .radial{
-        display:grid;
-        grid-template-columns: 1fr;
-        gap: 12px;
-        margin-top: 12px;
-      }
-      @media (min-width: 920px){
-        .radial{grid-template-columns: 420px 1fr;}
-      }
-      .radarBox{
-        border: 1px solid var(--border);
-        background: var(--panel);
-        border-radius: 14px;
-        padding: 12px;
-      }
-      .radarSvg{
-        width: 100%;
-        height: auto;
-        display:block;
-      }
-      .radarNote{
-        font-size: 12px;
-        color: var(--muted2);
-        margin-top: 8px;
-        line-height: 1.35;
-      }
-      .radarLegendList{
-        margin-top: 10px;
-        padding: 10px 10px 8px;
-        border: 1px solid var(--border);
-        border-radius: 12px;
-        background: rgba(15, 23, 42, .02);
-        color: var(--muted);
-        font-size: 12px;
-        line-height: 1.45;
-      }
-      .radarLegendList .row{
-        display:flex;
-        gap: 10px;
-        justify-content: space-between;
-        align-items:flex-start;
-        margin: 6px 0;
-      }
-      .radarLegendList .k{
-        font-family: var(--mono);
-        color: var(--muted2);
-        white-space: nowrap;
-      }
-      .radarLegendList .v{
-        color: var(--text);
-        flex: 1;
-      }
-      .gapList{
-        display:grid;
-        gap: 8px;
-        margin-top: 10px;
-      }
-      .gapItem{
-        border: 1px solid var(--border);
-        background: rgba(15, 23, 42, .02);
-        border-radius: 14px;
-        padding: 10px 10px 8px;
-      }
-      .gapItem .top{
-        display:flex;
-        gap:10px;
-        justify-content: space-between;
-        align-items:flex-start;
-      }
-      .gapItem .lbl{
-        color: var(--text);
-        font-size: 13px;
-        line-height: 1.25;
-      }
-      .gapItem .vals{
-        color: var(--muted2);
-        font-size: 12px;
-        font-family: var(--mono);
-        white-space: normal;
-      }
-      @media (max-width: 640px){
-        .gapItem .top{flex-direction: column;}
-      }
-      .gapMini{ margin-top: 8px; }
+      /* (radar/top-gap styles removed after report restructure) */
       .card{
         border: 1px solid var(--border);
         background: rgba(15, 23, 42, .02);
@@ -333,40 +250,57 @@
         <div class="printHint">Совет: для печати/шера используйте «Print → Save as PDF» в браузере.</div>
       </header>
 
-      <div class="grid">
-        <section>
-          <h2>1) Быстрый итог по блокам</h2>
-          <p>
-            5 осей = 5 смысловых блоков. Чем ближе к внешнему кругу, тем выше оценка (1→5).
-            Сравнение: среднее по команде vs самооценка руководителя.
-          </p>
-          <div class="radial">
-            <div class="radarBox">
-              <svg id="radarSvg" class="radarSvg" viewBox="0 0 420 420" role="img" aria-label="Радиальная диаграмма: команда vs руководитель"></svg>
-              <div class="radarNote">
-                Диаграмма показывает 5 блоков. Чем ближе к внешнему кругу, тем выше оценка (1→5).
-              </div>
-              <div id="radarLegendList" class="radarLegendList"></div>
-            </div>
-            <div>
-              <h2 style="margin:0 0 8px; font-size:16px;">Самые заметные расхождения (по отдельным утверждениям)</h2>
-              <p style="margin-top:0;">Топ‑5 по модулю gap. Здесь удобно начинать разговор — это точки, где видение расходится сильнее всего.</p>
-              <div class="gapList" id="topGaps"></div>
-            </div>
-          </div>
-        </section>
-
-        <section>
-          <h2>2) Выводы (по цифрам и открытым ответам)</h2>
-          <ul id="keyFindings"></ul>
-          <div class="note">
-            Ниже — выводы, которые напрямую связаны с коммуникацией и ежедневным взаимодействием: обратная связь, предсказуемость реакций, границы решений и форматы договоренностей.
-          </div>
-        </section>
-      </div>
+      <section style="margin-top:14px;">
+        <h2>1) Цель и формат исследования</h2>
+        <p>
+          Этот отчет — <b>рабочий инструмент</b> для выявления расхождений в понимании роли руководителя, зон ответственности,
+          процессов и форм взаимодействия. Он не оценивает личность руководителя — он помогает <b>калибровать общие правила работы</b>.
+        </p>
+        <div class="note">
+          Формат: анонимный опрос команды и отдельная анкета руководителя по сопоставимым блокам утверждений (логика 180/360).
+          Данные сравнивают <b>две картины одной и той же рабочей реальности</b>.
+        </div>
+      </section>
 
       <section style="margin-top:14px;">
-        <h2>3) Детальная картина: 25 утверждений, команда vs руководитель</h2>
+        <h2>2) Ключевые выводы (3–5 тезисов)</h2>
+        <ul id="keyFindings"></ul>
+      </section>
+
+      <section style="margin-top:14px;">
+        <h2>3) Сводная инфографика по блокам</h2>
+        <p>Ниже — средние оценки по 5 смысловым блокам. Это быстрый способ увидеть общую картину и точки расхождения.</p>
+        <div class="card" style="padding:14px;">
+          <div id="blocksChart" class="bars"></div>
+        </div>
+        <div class="note" id="blocksChartNote"></div>
+      </section>
+
+      <section style="margin-top:14px;">
+        <h2>4) Основные расхождения (таблица для обсуждения)</h2>
+        <p>Таблица переводит результаты в язык управленческих решений: что видит команда, что видит руководитель и что имеет смысл уточнить.</p>
+        <div class="tableWrap">
+          <table style="min-width: 980px;">
+            <thead>
+              <tr>
+                <th style="width: 220px;">Тема</th>
+                <th>Как это видит команда</th>
+                <th>Как это видит руководитель</th>
+                <th style="width: 320px;">Что это означает / что уточнить</th>
+              </tr>
+            </thead>
+            <tbody id="divergenceTable"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section style="margin-top:14px;">
+        <h2>5) Что дает этот отчет руководителю</h2>
+        <ul id="valueForLead"></ul>
+      </section>
+
+      <section style="margin-top:14px;">
+        <h2>6) Приложение: детализация по всем утверждениям</h2>
         <p>
           Здесь — подробная таблица по каждому утверждению: среднее по команде, оценка руководителя и разница (gap = руководитель − команда),
           плюс распределение ответов команды (1→5).
@@ -395,7 +329,7 @@
       </section>
 
       <section style="margin-top:14px;">
-        <h2>4) Дальнейшие шаги (план улучшений коммуникации)</h2>
+        <h2>7) Конкретные следующие шаги</h2>
         <p>План — короткий и без дублей: 5 инициатив → конкретные артефакты → измеримая проверка через пульс‑опрос.</p>
         <div class="tableWrap">
           <table style="min-width: 980px;">
@@ -478,7 +412,7 @@
       </section>
 
       <section style="margin-top:14px;">
-        <h2>5) Приложение: шкала и методология</h2>
+        <h2>8) Приложение: шкала и методология</h2>
         <p><b>Шкала 1–5</b>: 1 — совсем не согласен(на), 2 — скорее не согласен(на), 3 — нейтрально/затрудняюсь, 4 — скорее согласен(на), 5 — полностью согласен(на).</p>
         <details>
           <summary style="cursor:pointer; color: var(--text); font-weight: 600;">Показать методологию</summary>
@@ -503,18 +437,7 @@
             "5": "полностью согласен(на)"
           },
           "teamRespondents": 9,
-          "teamTimestamps": [
-            "24.07.2026 17:28:46",
-            "24.07.2026 17:43:00",
-            "24.07.2026 17:57:26",
-            "24.07.2026 18:05:31",
-            "24.07.2026 18:18:27",
-            "24.07.2026 18:32:14",
-            "24.07.2026 22:26:56",
-            "27.07.2026 6:04:01",
-            "29.07.2026 19:25:57"
-          ],
-          "kostyaTimestamp": "29.07.2026 17:23:08"
+          "kostyaTimestamp": null
         },
         "groups": [
           { "key": "role", "label": "Понимание роли и ответственности", "range": [1,5], "teamAvg": 4.29, "kostyaAvg": 4.60, "gap": 0.31 },
@@ -575,111 +498,6 @@
         meta.appendChild(s);
       });
 
-      // Radar chart (5 blocks)
-      function polar(cx, cy, r, angRad){ return { x: cx + r*Math.cos(angRad), y: cy + r*Math.sin(angRad) }; }
-      function pathFromPoints(pts){
-        if (!pts.length) return '';
-        return 'M ' + pts.map(p => `${p.x.toFixed(2)} ${p.y.toFixed(2)}`).join(' L ') + ' Z';
-      }
-      const radarSvg = document.getElementById('radarSvg');
-      (function renderRadar(){
-        const W = 420, H = 420;
-        const cx = W/2, cy = H/2 + 10;
-        const R = 150;
-        const levels = 5;
-        const labels = DATA.groups.map(g => g.label);
-        const teamVals = DATA.groups.map(g => g.teamAvg);
-        const leadVals = DATA.groups.map(g => g.kostyaAvg);
-        const n = labels.length;
-        const startAng = -Math.PI/2; // top
-
-        const svgNS = 'http://www.w3.org/2000/svg';
-        const el = (name, attrs={}) => {
-          const e = document.createElementNS(svgNS, name);
-          Object.entries(attrs).forEach(([k,v]) => e.setAttribute(k, v));
-          return e;
-        };
-
-        // background
-        radarSvg.innerHTML = '';
-        radarSvg.appendChild(el('rect', { x:0, y:0, width:W, height:H, fill:'transparent' }));
-
-        // grid levels
-        for (let lv=1; lv<=levels; lv++){
-          const r = (R * lv/levels);
-          const pts = Array.from({length:n}, (_,i)=>{
-            const ang = startAng + i*(2*Math.PI/n);
-            return polar(cx, cy, r, ang);
-          });
-          radarSvg.appendChild(el('path', {
-            d: pathFromPoints(pts),
-            fill: 'none',
-            stroke: 'rgba(15,23,42,.12)',
-            'stroke-width': 1
-          }));
-        }
-
-        // axes + labels
-        for (let i=0;i<n;i++){
-          const ang = startAng + i*(2*Math.PI/n);
-          const p = polar(cx, cy, R, ang);
-          radarSvg.appendChild(el('line', {
-            x1: cx, y1: cy, x2: p.x, y2: p.y,
-            stroke: 'rgba(15,23,42,.12)',
-            'stroke-width': 1
-          }));
-
-          const labelP = polar(cx, cy, R + 36, ang);
-          const anchor = (Math.cos(ang) > 0.25) ? 'start' : (Math.cos(ang) < -0.25 ? 'end' : 'middle');
-          const dy = (Math.sin(ang) > 0.6) ? 12 : (Math.sin(ang) < -0.6 ? -6 : 4);
-          const t = el('text', {
-            x: labelP.x, y: labelP.y + dy,
-            fill: 'rgba(15,23,42,.70)',
-            'font-size': 11,
-            'text-anchor': anchor,
-            'font-family': 'ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial'
-          });
-          // short label: first 2-3 words
-          // Use numeric axis markers to avoid truncation; full labels are shown in text blocks nearby.
-          t.textContent = String(i + 1);
-          radarSvg.appendChild(t);
-        }
-
-        // polygons
-        const mkPoly = (vals) => {
-          const pts = vals.map((v, i)=>{
-            const ang = startAng + i*(2*Math.PI/n);
-            const rr = R*(v/5);
-            return polar(cx, cy, rr, ang);
-          });
-          return pathFromPoints(pts);
-        };
-
-        radarSvg.appendChild(el('path', { d: mkPoly(teamVals), fill: 'rgba(37,99,235,.18)', stroke: 'rgba(37,99,235,.85)', 'stroke-width': 2 }));
-        radarSvg.appendChild(el('path', { d: mkPoly(leadVals), fill: 'rgba(249,115,22,.14)', stroke: 'rgba(249,115,22,.85)', 'stroke-width': 2 }));
-
-        // legend
-        const legend = el('g', {});
-        const lx = 18, ly = 18;
-        legend.appendChild(el('rect', { x: lx, y: ly, width: 10, height: 10, rx: 3, fill: 'rgba(37,99,235,.85)' }));
-        legend.appendChild(el('text', { x: lx+16, y: ly+9, fill:'rgba(15,23,42,.80)', 'font-size': 12, 'font-family':'ui-sans-serif, system-ui', 'text-anchor':'start' })).textContent = 'Команда (среднее)';
-        legend.appendChild(el('rect', { x: lx, y: ly+18, width: 10, height: 10, rx: 3, fill: 'rgba(249,115,22,.85)' }));
-        legend.appendChild(el('text', { x: lx+16, y: ly+27, fill:'rgba(15,23,42,.80)', 'font-size': 12, 'font-family':'ui-sans-serif, system-ui', 'text-anchor':'start' })).textContent = 'Руководитель';
-        radarSvg.appendChild(legend);
-      })();
-
-      // Block legend (full labels + scores) — avoids truncation in SVG.
-      const radarLegendList = document.getElementById('radarLegendList');
-      radarLegendList.innerHTML = DATA.groups.map((g, idx) => {
-        return `
-          <div class="row">
-            <div class="k">${idx + 1}</div>
-            <div class="v">${g.label}</div>
-            <div class="k">Команда ${fmt(g.teamAvg)} • Руководитель ${fmt(g.kostyaAvg)}</div>
-          </div>
-        `;
-      }).join('');
-
       // Key findings (data-driven + open responses themes)
       const per = DATA.perQuestion;
       const qFeedback = per.find(x => x.id === 8);
@@ -698,35 +516,84 @@
       addLi(key, `<b>Управленческая позиция в целом принимается.</b> «${qRequirementsOk.label}» — ≈${fmt(qRequirementsOk.team.mean)}/5; при этом «${qMicromanage.label}» — ≈${fmt(qMicromanage.team.mean)}/5 (низкий балл — хорошо).` );
       addLi(key, `<b>Из открытых ответов повторяются запросы</b>: короткие статусы в чате (“принял/отвечу до…”), регулярная ОС вне perf‑циклов, более явная доступность руководителя для дизайн‑контура и более мягкий тон в переписке.` );
 
-      // Top gaps list (by abs gap)
-      const topGaps = document.getElementById('topGaps');
-      const gapSorted = [...per]
-        .filter(q => q.id !== 4) // duplicate question in form; keep in table, exclude from "top gaps" to reduce confusion
-        .sort((a,b)=>Math.abs(b.gap)-Math.abs(a.gap))
-        .slice(0,5);
-      gapSorted.forEach(q => {
-        const gCls = gapClass(q.gap);
-        const item = document.createElement('div');
-        item.className = 'gapItem';
-        item.innerHTML = `
-          <div class="top">
-            <div class="lbl">«${q.label}»</div>
-            <div class="vals">Команда ${fmt(q.team.mean)} • Руководитель ${fmt(q.kostya.value)} • <span class="gap ${gCls}">${q.gap>0?'+':''}${fmt(q.gap)}</span></div>
-          </div>
-          <div class="gapMini bars">
+      // Value for the leader
+      const valueForLead = document.getElementById('valueForLead');
+      addLi(valueForLead, `<b>Показывает опоры.</b> Где восприятие команды и руководителя совпадает — это база, на которой можно строить договоренности.`);
+      addLi(valueForLead, `<b>Подсвечивает места, где рамки считываются по-разному.</b> Это не про “ошибки”, а про точки, где нужно уточнение роли/процессов/формата коммуникации.`);
+      addLi(valueForLead, `<b>Дает короткий план действий.</b> Какие 2–3 изменения можно внедрить быстро, чтобы снизить неопределенность в ежедневной работе.`);
+
+      // Blocks chart (one compact visualization)
+      const blocksChart = document.getElementById('blocksChart');
+      const blocksChartNote = document.getElementById('blocksChartNote');
+      blocksChart.innerHTML = '';
+      const gapSortedBlocks = [...DATA.groups].sort((a,b)=>Math.abs(b.gap)-Math.abs(a.gap));
+      DATA.groups.forEach(g => {
+        const wrap = document.createElement('div');
+        wrap.className = 'card';
+        wrap.style.padding = '12px 12px 10px';
+        wrap.innerHTML = `
+          <div class="t">${g.label}</div>
+          <div class="s">Команда ${fmt(g.teamAvg)}/5 • Руководитель ${fmt(g.kostyaAvg)}/5 • <span class="gap ${gapClass(g.gap)}">${g.gap>0?'+':''}${fmt(g.gap)}</span></div>
+          <div class="bars">
             <div class="barLine">
               <div class="barLabel"><span class="dot team"></span>Команда</div>
-              <div class="barTrack"><div class="barFill team" style="width:${pct(q.team.mean)}"></div></div>
-              <div class="score">${fmt(q.team.mean)}/5</div>
+              <div class="barTrack"><div class="barFill team" style="width:${pct(g.teamAvg)}"></div></div>
+              <div class="score">${fmt(g.teamAvg)}/5</div>
             </div>
             <div class="barLine">
               <div class="barLabel"><span class="dot lead"></span>Руководитель</div>
-              <div class="barTrack"><div class="barFill lead" style="width:${pct(q.kostya.value)}"></div></div>
-              <div class="score">${fmt(q.kostya.value)}/5</div>
+              <div class="barTrack"><div class="barFill lead" style="width:${pct(g.kostyaAvg)}"></div></div>
+              <div class="score">${fmt(g.kostyaAvg)}/5</div>
             </div>
           </div>
         `;
-        topGaps.appendChild(item);
+        blocksChart.appendChild(wrap);
+      });
+      const worst = gapSortedBlocks[0];
+      blocksChartNote.innerHTML = `Самое заметное расхождение по блокам сейчас в теме <b>«${worst.label}»</b> (gap ${worst.gap>0?'+':''}${fmt(worst.gap)}).`;
+
+      // Divergence table (theme → two views → implication)
+      const divergenceTable = document.getElementById('divergenceTable');
+      function topStatementInGroup(groupKey){
+        const items = per.filter(x => x.group === groupKey);
+        return [...items].sort((a,b)=>Math.abs(b.gap)-Math.abs(a.gap))[0] || null;
+      }
+      const groupText = {
+        role: {
+          team: 'В целом роль и ответственность руководителя понятны, но местами не хватает четкой границы самостоятельности и управленческой ответственности.',
+          lead: 'Роль видится достаточно определенной и понятной; ожидание — удерживать стандарты и рамки качества.'
+        },
+        daily: {
+          team: 'В ежедневной работе чаще всего не хватает регулярной обратной связи и ясности “где чье решение” в отдельных ситуациях.',
+          lead: 'В ежедневной поддержке видит пространство для усиления: больше обозначать decision rights и ритм обратной связи.'
+        },
+        predict: {
+          team: 'В целом взаимодействие воспринимается предсказуемым, но есть запрос на более явные статусы/закрытие петли в переписке.',
+          lead: 'Оценивает свою предсказуемость и “ясность ожиданий” строже — это сигнал, что часть рамок может быть не всегда явно проговорена.'
+        },
+        boundary: {
+          team: 'Микроменеджмент в среднем не ощущается, но периодически возникает потребность в большей автономности или ясности границ.',
+          lead: 'Считает контроль скорее обоснованным и видит зоны, где можно дать больше самостоятельности.'
+        },
+        process: {
+          team: 'Стандарты и договоренности в целом понятны; запрос на упрощение процессов выражен слабо.',
+          lead: 'Процессы воспринимаются устойчивыми; часть правил можно упрощать, если они становятся ритуалом без эффекта.'
+        }
+      };
+      divergenceTable.innerHTML = '';
+      DATA.groups.forEach(g => {
+        const top = topStatementInGroup(g.key);
+        const tr = document.createElement('tr');
+        const topLine = top ? `Показательное утверждение: «${top.label}» (gap ${top.gap>0?'+':''}${fmt(top.gap)}).` : '';
+        tr.innerHTML = `
+          <td><b>${g.label}</b><div class="small" style="margin-top:6px;">Команда ${fmt(g.teamAvg)} • Руководитель ${fmt(g.kostyaAvg)}</div></td>
+          <td>${groupText[g.key].team}<div class="small" style="margin-top:6px;">${topLine}</div></td>
+          <td>${groupText[g.key].lead}</td>
+          <td>
+            Требуется уточнение договоренностей: <b>что обязательно</b>, <b>где автономия</b>, <b>как выглядит “достаточно ОС”</b>, и <b>как закрываем петлю</b> в ежедневной коммуникации.
+          </td>
+        `;
+        divergenceTable.appendChild(tr);
       });
 
       // Table
