@@ -1,0 +1,817 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Срез восприятия роли руководителя — команда дизайнеров</title>
+    <style>
+      :root {
+        --bg: #fbfbfc;
+        --card: #ffffff;
+        --text: #0b1220;
+        --muted: #5b6475;
+        --border: #e7e9ef;
+        --shadow: 0 10px 30px rgba(10, 20, 40, 0.08);
+        --team: #2563eb;
+        --lead: #111827;
+        --good: #059669;
+        --warn: #d97706;
+        --bad: #b91c1c;
+        --radius: 16px;
+        --max: 1080px;
+      }
+
+      * { box-sizing: border-box; }
+      html, body { height: 100%; }
+      body {
+        margin: 0;
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Liberation Sans", sans-serif;
+        color: var(--text);
+        background: radial-gradient(1200px 600px at 80% -10%, rgba(37, 99, 235, 0.10), transparent 60%),
+                    radial-gradient(900px 500px at 10% 0%, rgba(17, 24, 39, 0.08), transparent 55%),
+                    var(--bg);
+      }
+
+      a { color: inherit; text-decoration: none; }
+      a:hover { text-decoration: underline; }
+
+      .wrap { max-width: var(--max); margin: 0 auto; padding: 28px 18px 60px; }
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background: rgba(251, 251, 252, 0.80);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(231, 233, 239, 0.8);
+      }
+      .topbar-inner { max-width: var(--max); margin: 0 auto; padding: 12px 18px; display: flex; gap: 12px; align-items: center; justify-content: space-between; }
+      .brand { display: flex; gap: 10px; align-items: baseline; }
+      .brand .kicker { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+      .brand .title { font-weight: 650; }
+
+      .nav { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; }
+      .pill {
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        padding: 8px 10px;
+        font-size: 13px;
+        color: var(--muted);
+        background: rgba(255,255,255,0.75);
+      }
+      .pill:hover { color: var(--text); border-color: rgba(37, 99, 235, 0.35); }
+
+      .hero { padding: 24px 0 8px; }
+      h1 { font-size: 34px; line-height: 1.12; margin: 0 0 10px; letter-spacing: -0.02em; }
+      .subtitle { color: var(--muted); font-size: 15px; line-height: 1.55; max-width: 80ch; }
+
+      .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 14px; margin-top: 18px; }
+      .card {
+        grid-column: span 12;
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        padding: 16px;
+      }
+
+      .card h2 { margin: 0 0 10px; font-size: 18px; letter-spacing: -0.01em; }
+      .card h3 { margin: 0 0 8px; font-size: 15px; color: var(--muted); font-weight: 600; }
+      .muted { color: var(--muted); }
+      .hr { height: 1px; background: var(--border); margin: 16px 0; }
+
+      .metrics { display: grid; grid-template-columns: repeat(12, 1fr); gap: 12px; }
+      .metric {
+        grid-column: span 12;
+        background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,1));
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 14px;
+      }
+      .metric .num { font-size: 30px; font-weight: 720; letter-spacing: -0.02em; }
+      .metric .label { font-size: 13px; color: var(--muted); margin-top: 4px; line-height: 1.35; }
+      .metric .hint { font-size: 12px; color: var(--muted); margin-top: 8px; }
+
+      .two-col { display: grid; grid-template-columns: 1fr; gap: 14px; }
+      .list { margin: 0; padding-left: 18px; color: var(--text); line-height: 1.55; }
+      .list li { margin: 6px 0; }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 10px;
+        border-radius: 999px;
+        font-size: 12px;
+        border: 1px solid var(--border);
+        color: var(--muted);
+        background: rgba(255,255,255,0.7);
+      }
+      .dot { width: 10px; height: 10px; border-radius: 999px; background: var(--muted); }
+      .dot.team { background: var(--team); }
+      .dot.lead { background: var(--lead); }
+
+      .chart { width: 100%; overflow: hidden; }
+      .row { display: grid; grid-template-columns: 1fr; gap: 10px; padding: 10px 0; border-bottom: 1px dashed rgba(231, 233, 239, 0.9); }
+      .row:last-child { border-bottom: none; }
+      .row .meta { display: flex; flex-wrap: wrap; gap: 8px 10px; align-items: baseline; justify-content: space-between; }
+      .row .q { font-weight: 650; letter-spacing: -0.01em; }
+      .row .nums { color: var(--muted); font-size: 13px; }
+
+      .svgline { width: 100%; height: 36px; }
+
+      .quote {
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 12px 12px;
+        background: rgba(255,255,255,0.85);
+      }
+      .quote p { margin: 0; line-height: 1.5; }
+      .quote .who { margin-top: 8px; font-size: 12px; color: var(--muted); }
+
+      .steps { width: 100%; border-collapse: collapse; }
+      .steps th, .steps td { border-top: 1px solid var(--border); padding: 10px 8px; vertical-align: top; }
+      .steps th { text-align: left; font-size: 12px; color: var(--muted); font-weight: 650; letter-spacing: 0.04em; text-transform: uppercase; }
+      .steps td { font-size: 14px; line-height: 1.45; }
+      .steps .w-step { width: 8%; }
+      .steps .w-what { width: 52%; }
+      .steps .w-owner { width: 20%; }
+      .steps .w-when { width: 20%; }
+
+      .appendix { overflow-x: auto; }
+      .table { width: 100%; border-collapse: collapse; min-width: 860px; }
+      .table th, .table td { border-top: 1px solid var(--border); padding: 10px 8px; vertical-align: middle; }
+      .table th { text-align: left; font-size: 12px; color: var(--muted); font-weight: 650; letter-spacing: 0.04em; text-transform: uppercase; }
+      .table td { font-size: 13px; line-height: 1.4; }
+      .mini { width: 220px; height: 14px; border-radius: 999px; overflow: hidden; border: 1px solid rgba(231, 233, 239, 0.9); background: rgba(0,0,0,0.02); display: flex; }
+      .mini span { height: 100%; display: block; }
+      .s1 { background: rgba(185, 28, 28, 0.85); }
+      .s2 { background: rgba(217, 119, 6, 0.85); }
+      .s3 { background: rgba(107, 114, 128, 0.65); }
+      .s4 { background: rgba(37, 99, 235, 0.55); }
+      .s5 { background: rgba(37, 99, 235, 0.92); }
+
+      .footer { margin-top: 24px; font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+      @media (min-width: 900px) {
+        .metric { grid-column: span 4; }
+        .two-col { grid-template-columns: 1fr 1fr; }
+        .row { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="topbar">
+      <div class="topbar-inner">
+        <div class="brand">
+          <div class="kicker">команда · роль · взаимодействие</div>
+          <div class="title">Отчет по опросу</div>
+        </div>
+        <div class="nav">
+          <a class="pill" href="#context">Контекст</a>
+          <a class="pill" href="#findings">Выводы</a>
+          <a class="pill" href="#gaps">Расхождения</a>
+          <a class="pill" href="#steps">Шаги</a>
+          <a class="pill" href="#appendix">Приложение</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <section class="hero" id="top">
+        <h1>Срез восприятия роли руководителя в дизайн‑команде</h1>
+        <div class="subtitle">
+          Документ собран как <b>рабочий управленческий инструмент</b>: показывает зоны совпадений и расхождений между
+          восприятием команды и самооценкой руководителя, а также предлагает конкретные шаги по калибровке ожиданий.
+          <div style="margin-top:10px; display:flex; gap:10px; flex-wrap:wrap;">
+            <span class="badge"><span class="dot team"></span>Команда (среднее)</span>
+            <span class="badge"><span class="dot lead"></span>Руководитель (самооценка)</span>
+            <span class="badge" id="metaScale">Шкала 1–5</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="grid" id="context">
+        <div class="card">
+          <h2>Цель и рамка</h2>
+          <div class="two-col">
+            <div>
+              <h3>Зачем</h3>
+              <ul class="list">
+                <li>Увидеть, где ожидания от роли руководителя <b>совпадают</b> (зоны опоры), а где <b>расходятся</b> (зоны для договоренностей).</li>
+                <li>Перевести обсуждение из плоскости «впечатлений» в плоскость <b>наблюдений → выводов → решений</b>.</li>
+                <li>Сформировать <b>пакет следующих шагов</b>: что именно обсудить, зафиксировать и проверить повторно.</li>
+              </ul>
+            </div>
+            <div>
+              <h3>Важно (про смысл документа)</h3>
+              <ul class="list">
+                <li>Это не инструмент оценки личности или компетентности руководителя. Это срез <b>восприятия и ясности договоренностей</b>.</li>
+                <li>Я беру ответственность за то, что инициатива была запущена без предварительного согласования с руководителем — это действительно могло повлиять на доверие. Ниже — «упаковка» результатов, чтобы извлечь из них управленческую пользу и закрыть контур действий.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="hr"></div>
+          <h3>Методика</h3>
+          <div class="metrics" id="methodMetrics"></div>
+          <div class="footer">
+            Примечание: один из пунктов формы у команды продублирован (в исходной анкете). В расчетах он сохранен как отдельный пункт, но при интерпретации объединяется по смыслу.
+          </div>
+        </div>
+      </section>
+
+      <section class="grid" id="findings">
+        <div class="card">
+          <h2>Ключевые выводы (коротко)</h2>
+          <div class="two-col">
+            <div>
+              <ul class="list" id="keyBullets"></ul>
+            </div>
+            <div>
+              <div class="quote">
+                <p id="leaderRoleQuote"></p>
+                <div class="who">Самоописание роли руководителя (из опроса)</div>
+              </div>
+              <div style="height:12px"></div>
+              <div class="quote">
+                <p id="leaderImproveQuote"></p>
+                <div class="who">Самоописание «что улучшить» (из опроса)</div>
+              </div>
+            </div>
+          </div>
+          <div class="hr"></div>
+          <h3>Сводка по 5 блокам (средние по шкале 1–5)</h3>
+          <div class="chart" id="blockChart"></div>
+        </div>
+      </section>
+
+      <section class="grid" id="gaps">
+        <div class="card">
+          <h2>Расхождения и зоны калибровки</h2>
+          <div class="two-col">
+            <div>
+              <h3>Топ‑10 различий (по модулю разрыва)</h3>
+              <div class="chart" id="divergenceList"></div>
+            </div>
+            <div>
+              <h3>Зоны опоры (минимальные расхождения)</h3>
+              <div class="chart" id="agreementList"></div>
+              <div class="hr"></div>
+              <h3>Повторяющиеся темы в открытых ответах</h3>
+              <ul class="list" id="themesList"></ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="grid" id="steps">
+        <div class="card">
+          <h2>Рекомендованные дальнейшие шаги</h2>
+          <div class="subtitle" style="margin-bottom:12px;">
+            Логика шагов: <b>калибруем decision rights и ожидания</b> → <b>закрываем петлю обратной связи</b> → <b>фиксируем правила</b> → <b>проверяем эффект</b>.
+          </div>
+          <table class="steps">
+            <thead>
+              <tr>
+                <th class="w-step">Шаг</th>
+                <th class="w-what">Что сделать</th>
+                <th class="w-owner">Ответственный</th>
+                <th class="w-when">Когда</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td><b>1:1‑калибровка</b>: договориться о цели отчета, правилах использования данных и формате дальнейших обсуждений (чтобы снять персонализацию и вернуть управленческую рамку).</td>
+                <td>Руководитель + комьюнити‑лид</td>
+                <td>Сразу после чтения отчета</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td><b>Decision rights</b>: на 1 странице зафиксировать «что решает руководитель / что решает дизайнер / что решаем вместе» + примеры на 5 типичных кейсах.</td>
+                <td>Руководитель (владелец) + комьюнити‑лид (фасилитация)</td>
+                <td>Ближайшие 1–2 недели</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td><b>Петля обратной связи</b>: договориться о минимальном стандарте ОС (регулярность, глубина, канал) и «быстрых статусах» в чате (например: «принял / отвечу до…»).</td>
+                <td>Руководитель + команда</td>
+                <td>В течение 2 недель</td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td><b>Контроль vs автономия</b>: обозначить контрольные точки (по риску/влиянию), где вовлечение руководителя усиливается, и где команда действует автономно.</td>
+                <td>Руководитель + команда</td>
+                <td>В течение месяца</td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td><b>Процессы</b>: подтвердить «обязательное ядро» (ревью, сроки, демо/викли, стандарты, handoff) и отдельно пересмотреть «ритуалы без эффекта» (например, если неясно «зачем»).</td>
+                <td>Руководитель + комьюнити‑лид</td>
+                <td>В течение месяца</td>
+              </tr>
+              <tr>
+                <td>6</td>
+                <td><b>Проверка эффекта</b>: короткий мини‑опрос (5–7 вопросов) или ретро по договоренностям: стало ли понятнее, где решения, как работает ОС, стало ли меньше «додумывания» ожиданий.</td>
+                <td>Команда + руководитель</td>
+                <td>Через 6–10 недель</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="grid" id="risks">
+        <div class="card">
+          <h2>Ограничения, риски и как ими управлять</h2>
+          <ul class="list">
+            <li><b>Это восприятие, а не «объективная истина»</b>: цифры показывают, насколько ясно и предсказуемо это считывается командой.</li>
+            <li><b>Открытые ответы эмоциональны по природе</b>: в отчете они используются только как индикаторы тем, а не как «доказательства» против человека.</li>
+            <li><b>Риск защитной реакции</b>: снижается через баланс «зоны опоры + зоны калибровки» и через перевод на язык договоренностей/decision rights.</li>
+            <li><b>Главный риск — отсутствие последующих шагов</b>: без фиксации договоренностей и повторной проверки эффект растворится.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="grid" id="appendix">
+        <div class="card">
+          <h2>Приложение: все вопросы (средние и распределения по команде)</h2>
+          <div class="subtitle" style="margin-bottom:12px;">
+            Показаны: среднее по команде, самооценка руководителя, разрыв (руководитель − команда) и распределение ответов команды (1..5).
+          </div>
+          <div class="appendix">
+            <table class="table" id="fullTable">
+              <thead>
+                <tr>
+                  <th style="width:6%">№</th>
+                  <th>Формулировка (кратко)</th>
+                  <th style="width:10%">Команда</th>
+                  <th style="width:12%">Руководитель</th>
+                  <th style="width:10%">Разрыв</th>
+                  <th style="width:250px">Распределение</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <div class="footer">
+            Легенда шкалы: <span id="legend"></span>
+          </div>
+        </div>
+      </section>
+
+      <div class="footer">
+        Этот файл — автономная HTML‑страница (без внешних библиотек). Чтобы поделиться, достаточно переслать `report.html`.
+      </div>
+    </div>
+
+    <script id="report-data" type="application/json">
+{
+  "meta": {
+    "n_team": 9,
+    "scale": "1—совсем не согласен · 2—скорее не согласен · 3—нейтрально · 4—скорее согласен · 5—полностью согласен",
+    "overall_team": 3.9644444444444447,
+    "overall_lead": 3.92,
+    "avg_abs_gap": 0.4888888888888889,
+    "lead_ts": "29.07.2026 17:23:08"
+  },
+  "blocks": [
+    {
+      "block": "Роль/полномочия",
+      "team_avg": 4.288888888888889,
+      "lead_avg": 4.6,
+      "gap": 0.3111111111111109
+    },
+    {
+      "block": "Ежедневная ясность/поддержка",
+      "team_avg": 3.844444444444444,
+      "lead_avg": 3.4,
+      "gap": -0.4444444444444442
+    },
+    {
+      "block": "Предсказуемость/коммуникация",
+      "team_avg": 4.155555555555556,
+      "lead_avg": 3.8,
+      "gap": -0.35555555555555607
+    },
+    {
+      "block": "Границы/контроль",
+      "team_avg": 3.422222222222222,
+      "lead_avg": 3.8,
+      "gap": 0.37777777777777777
+    },
+    {
+      "block": "Процессы/правила",
+      "team_avg": 4.111111111111112,
+      "lead_avg": 4.0,
+      "gap": -0.1111111111111116
+    }
+  ],
+  "questions": [
+    {
+      "q": 1,
+      "label": "Понятна ответственность руководителя",
+      "team_avg": 4.222222222222222,
+      "lead": 5,
+      "gap": 0.7777777777777777,
+      "dist": { "1": 0, "2": 1, "3": 2, "4": 0, "5": 6 }
+    },
+    {
+      "q": 2,
+      "label": "Понятно, какие решения у руководителя",
+      "team_avg": 4.222222222222222,
+      "lead": 5,
+      "gap": 0.7777777777777777,
+      "dist": { "1": 0, "2": 2, "3": 0, "4": 1, "5": 6 }
+    },
+    {
+      "q": 3,
+      "label": "Понятно, что руководитель вправе требовать",
+      "team_avg": 4.555555555555555,
+      "lead": 4,
+      "gap": -0.5555555555555554,
+      "dist": { "1": 0, "2": 0, "3": 2, "4": 0, "5": 7 }
+    },
+    {
+      "q": 4,
+      "label": "(дубликат в форме) Требования руководителя",
+      "team_avg": 4.555555555555555,
+      "lead": 5,
+      "gap": 0.44444444444444464,
+      "dist": { "1": 0, "2": 0, "3": 2, "4": 0, "5": 7 }
+    },
+    {
+      "q": 5,
+      "label": "Граница самостоятельность vs ответственность",
+      "team_avg": 3.888888888888889,
+      "lead": 4,
+      "gap": 0.11111111111111116,
+      "dist": { "1": 1, "2": 0, "3": 2, "4": 2, "5": 4 }
+    },
+    {
+      "q": 6,
+      "label": "Ясность, что важно в текущей работе",
+      "team_avg": 4.777777777777778,
+      "lead": 4,
+      "gap": -0.7777777777777777,
+      "dist": { "1": 0, "2": 0, "3": 1, "4": 0, "5": 8 }
+    },
+    {
+      "q": 7,
+      "label": "Помогает ориентироваться в изменениях",
+      "team_avg": 3.888888888888889,
+      "lead": 3,
+      "gap": -0.8888888888888888,
+      "dist": { "1": 1, "2": 1, "3": 1, "4": 1, "5": 5 }
+    },
+    {
+      "q": 8,
+      "label": "Достаточно обратной связи",
+      "team_avg": 3.111111111111111,
+      "lead": 3,
+      "gap": -0.11111111111111116,
+      "dist": { "1": 1, "2": 2, "3": 3, "4": 1, "5": 2 }
+    },
+    {
+      "q": 9,
+      "label": "Кто принимает какие решения",
+      "team_avg": 3.4444444444444446,
+      "lead": 3,
+      "gap": -0.44444444444444464,
+      "dist": { "1": 2, "2": 0, "3": 2, "4": 2, "5": 3 }
+    },
+    {
+      "q": 10,
+      "label": "Понятны ожидания в повседневной работе",
+      "team_avg": 4.0,
+      "lead": 4,
+      "gap": 0.0,
+      "dist": { "1": 0, "2": 1, "3": 2, "4": 2, "5": 4 }
+    },
+    {
+      "q": 11,
+      "label": "Предсказуемость взаимодействия",
+      "team_avg": 4.333333333333333,
+      "lead": 4,
+      "gap": -0.33333333333333304,
+      "dist": { "1": 0, "2": 0, "3": 1, "4": 4, "5": 4 }
+    },
+    {
+      "q": 12,
+      "label": "Требования заранее и понятно",
+      "team_avg": 4.0,
+      "lead": 4,
+      "gap": 0.0,
+      "dist": { "1": 0, "2": 1, "3": 2, "4": 1, "5": 5 }
+    },
+    {
+      "q": 13,
+      "label": "Понятна логика решений",
+      "team_avg": 4.222222222222222,
+      "lead": 4,
+      "gap": -0.22222222222222232,
+      "dist": { "1": 0, "2": 0, "3": 1, "4": 5, "5": 3 }
+    },
+    {
+      "q": 14,
+      "label": "Понятно что и зачем требуется",
+      "team_avg": 4.222222222222222,
+      "lead": 4,
+      "gap": -0.22222222222222232,
+      "dist": { "1": 0, "2": 0, "3": 2, "4": 3, "5": 4 }
+    },
+    {
+      "q": 15,
+      "label": "Понятно, чего ожидать в типичных ситуациях",
+      "team_avg": 4.0,
+      "lead": 3,
+      "gap": -1.0,
+      "dist": { "1": 0, "2": 1, "3": 2, "4": 2, "5": 4 }
+    },
+    {
+      "q": 16,
+      "label": "Граница зон ответственности",
+      "team_avg": 3.7777777777777777,
+      "lead": 4,
+      "gap": 0.22222222222222232,
+      "dist": { "1": 0, "2": 2, "3": 0, "4": 3, "5": 4 }
+    },
+    {
+      "q": 17,
+      "label": "Требования обоснованны",
+      "team_avg": 4.333333333333333,
+      "lead": 5,
+      "gap": 0.666666666666667,
+      "dist": { "1": 0, "2": 1, "3": 1, "4": 1, "5": 6 }
+    },
+    {
+      "q": 18,
+      "label": "Контроль кажется избыточным",
+      "team_avg": 2.0,
+      "lead": 2,
+      "gap": 0.0,
+      "dist": { "1": 4, "2": 3, "3": 1, "4": 1, "5": 0 }
+    },
+    {
+      "q": 19,
+      "label": "Понятно, что обязательно",
+      "team_avg": 4.777777777777778,
+      "lead": 5,
+      "gap": 0.22222222222222232,
+      "dist": { "1": 0, "2": 0, "3": 0, "4": 2, "5": 7 }
+    },
+    {
+      "q": 20,
+      "label": "Хочется больше самостоятельности",
+      "team_avg": 2.2222222222222223,
+      "lead": 3,
+      "gap": 0.7777777777777777,
+      "dist": { "1": 4, "2": 2, "3": 0, "4": 3, "5": 0 }
+    },
+    {
+      "q": 21,
+      "label": "Понятны обязательные процессы",
+      "team_avg": 4.555555555555555,
+      "lead": 4,
+      "gap": -0.5555555555555554,
+      "dist": { "1": 0, "2": 1, "3": 0, "4": 1, "5": 7 }
+    },
+    {
+      "q": 22,
+      "label": "Понятно, зачем стандарты/правила",
+      "team_avg": 4.777777777777778,
+      "lead": 4,
+      "gap": -0.7777777777777777,
+      "dist": { "1": 0, "2": 0, "3": 0, "4": 2, "5": 7 }
+    },
+    {
+      "q": 23,
+      "label": "Нарушение стандартов влияет на качество",
+      "team_avg": 4.222222222222222,
+      "lead": 5,
+      "gap": 0.7777777777777777,
+      "dist": { "1": 0, "2": 1, "3": 2, "4": 0, "5": 6 }
+    },
+    {
+      "q": 24,
+      "label": "Договоренности сформулированы четко",
+      "team_avg": 4.666666666666667,
+      "lead": 4,
+      "gap": -0.666666666666667,
+      "dist": { "1": 0, "2": 0, "3": 0, "4": 3, "5": 6 }
+    },
+    {
+      "q": 25,
+      "label": "Правила/процессы можно упростить",
+      "team_avg": 2.3333333333333335,
+      "lead": 3,
+      "gap": 0.6666666666666665,
+      "dist": { "1": 2, "2": 5, "3": 0, "4": 1, "5": 1 }
+    }
+  ],
+  "agreement_top": [
+    { "q": 10, "label": "Понятны ожидания в повседневной работе", "team_avg": 4.0, "lead": 4, "gap": 0.0, "dist": { "1": 0, "2": 1, "3": 2, "4": 2, "5": 4 } },
+    { "q": 12, "label": "Требования заранее и понятно", "team_avg": 4.0, "lead": 4, "gap": 0.0, "dist": { "1": 0, "2": 1, "3": 2, "4": 1, "5": 5 } },
+    { "q": 18, "label": "Контроль кажется избыточным", "team_avg": 2.0, "lead": 2, "gap": 0.0, "dist": { "1": 4, "2": 3, "3": 1, "4": 1, "5": 0 } },
+    { "q": 8, "label": "Достаточно обратной связи", "team_avg": 3.111111111111111, "lead": 3, "gap": -0.11111111111111116, "dist": { "1": 1, "2": 2, "3": 3, "4": 1, "5": 2 } },
+    { "q": 5, "label": "Граница самостоятельность vs ответственность", "team_avg": 3.888888888888889, "lead": 4, "gap": 0.11111111111111116, "dist": { "1": 1, "2": 0, "3": 2, "4": 2, "5": 4 } },
+    { "q": 13, "label": "Понятна логика решений", "team_avg": 4.222222222222222, "lead": 4, "gap": -0.22222222222222232, "dist": { "1": 0, "2": 0, "3": 1, "4": 5, "5": 3 } },
+    { "q": 14, "label": "Понятно что и зачем требуется", "team_avg": 4.222222222222222, "lead": 4, "gap": -0.22222222222222232, "dist": { "1": 0, "2": 0, "3": 2, "4": 3, "5": 4 } },
+    { "q": 16, "label": "Граница зон ответственности", "team_avg": 3.7777777777777777, "lead": 4, "gap": 0.22222222222222232, "dist": { "1": 0, "2": 2, "3": 0, "4": 3, "5": 4 } }
+  ],
+  "divergence_top": [
+    { "q": 15, "label": "Понятно, чего ожидать в типичных ситуациях", "team_avg": 4.0, "lead": 3, "gap": -1.0, "dist": { "1": 0, "2": 1, "3": 2, "4": 2, "5": 4 } },
+    { "q": 7, "label": "Помогает ориентироваться в изменениях", "team_avg": 3.888888888888889, "lead": 3, "gap": -0.8888888888888888, "dist": { "1": 1, "2": 1, "3": 1, "4": 1, "5": 5 } },
+    { "q": 1, "label": "Понятна ответственность руководителя", "team_avg": 4.222222222222222, "lead": 5, "gap": 0.7777777777777777, "dist": { "1": 0, "2": 1, "3": 2, "4": 0, "5": 6 } },
+    { "q": 2, "label": "Понятно, какие решения у руководителя", "team_avg": 4.222222222222222, "lead": 5, "gap": 0.7777777777777777, "dist": { "1": 0, "2": 2, "3": 0, "4": 1, "5": 6 } },
+    { "q": 6, "label": "Ясность, что важно в текущей работе", "team_avg": 4.777777777777778, "lead": 4, "gap": -0.7777777777777777, "dist": { "1": 0, "2": 0, "3": 1, "4": 0, "5": 8 } },
+    { "q": 22, "label": "Понятно, зачем стандарты/правила", "team_avg": 4.777777777777778, "lead": 4, "gap": -0.7777777777777777, "dist": { "1": 0, "2": 0, "3": 0, "4": 2, "5": 7 } },
+    { "q": 23, "label": "Нарушение стандартов влияет на качество", "team_avg": 4.222222222222222, "lead": 5, "gap": 0.7777777777777777, "dist": { "1": 0, "2": 1, "3": 2, "4": 0, "5": 6 } },
+    { "q": 17, "label": "Требования обоснованны", "team_avg": 4.333333333333333, "lead": 5, "gap": 0.666666666666667, "dist": { "1": 0, "2": 1, "3": 1, "4": 1, "5": 6 } },
+    { "q": 24, "label": "Договоренности сформулированы четко", "team_avg": 4.666666666666667, "lead": 4, "gap": -0.666666666666667, "dist": { "1": 0, "2": 0, "3": 0, "4": 3, "5": 6 } },
+    { "q": 25, "label": "Правила/процессы можно упростить", "team_avg": 2.3333333333333335, "lead": 3, "gap": 0.6666666666666665, "dist": { "1": 2, "2": 5, "3": 0, "4": 1, "5": 1 } }
+  ],
+  "open": {
+    "team": {},
+    "lead": {
+      "ts": "29.07.2026 17:23:08",
+      "role_understanding": "Роль руководителя для меня — держать планку качества и фокус команды: стратегия и приоритеты, защита от шума снаружи, понятные decision rights, развитие людей и ответственность за результат направления. Не делать работу дизайнеров за них, а задавать рамку и помогать, когда застревают.",
+      "missing_daily": "Регулярной качественной обратной связи (не только на perf review), быстрых статусов в чате («принял / отвечу до…»), более явного обозначения, где решение за мной, а где — за дизайнером, и предсказуемой доступности именно для дизайн-команды.",
+      "interaction_good_bad": "Хорошо работает: разбор глубины решений, стандарты, наставничество в зонах роста. Мешает: молчание после прочтения сообщений, короткий слот на ОС и иногда жёсткий тон в переписке.",
+      "control_boundary": "Нормальное управление — фокус на результате, планке качества и рисках. Чрезмерный контроль — когда начинаю делать работу за дизайнера или согласовывать каждый пиксель без учёта загрузки.",
+      "processes_must_simplify": "Обязательны: внутреннее ревью, сроки, дизайн-демо/викли, стандарты качества и handoff. Можно упростить то, что превращается в ритуал без эффекта — в частности нагрузку от годового/квартального целеполагания, если нет ясности «зачем». Ответственность за результат, ясность мысли и эмпатия. Держать планку глубины решений, защищать команду снаружи, давать mentorship и не размывать стандарты. Закрывать петлю в чате статусами, делать ОС регулярной на 1:1, явно проговорить decision rights, быть заметнее в дизайн- контуре и мягче в тоне переписки.",
+      "tail": "Обязательны: внутреннее ревью, сроки, дизайн-демо/викли, стандарты качества и handoff. Можно упростить то, что превращается в ритуал без эффекта — в частности нагрузку от годового/квартального целеполагания, если нет ясности «зачем». Ответственность за результат, ясность мысли и эмпатия. Держать планку глубины решений, защищать команду снаружи, давать mentorship и не размывать стандарты. Закрывать петлю в чате статусами, делать ОС регулярной на 1:1, явно проговорить decision rights, быть заметнее в дизайн- контуре и мягче в тоне переписки."
+    },
+    "themes": {
+      "обратная_связь": 30,
+      "статусы_в_чате": 3,
+      "эмпатия_тон": 14,
+      "decision_rights": 9,
+      "доступность_время": 2,
+      "защита_снаружи": 6,
+      "процессы_ритуалы": 12
+    }
+  }
+}
+    </script>
+
+    <script>
+      function el(id) { return document.getElementById(id); }
+      function fmt(x, d = 2) { return (Math.round(x * Math.pow(10, d)) / Math.pow(10, d)).toFixed(d); }
+      function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
+      function escapeHtml(s) {
+        return (s ?? "").toString()
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#039;");
+      }
+
+      const data = JSON.parse(el("report-data").textContent);
+      el("legend").textContent = data.meta.scale;
+      el("metaScale").textContent = "Шкала 1–5 · N=" + data.meta.n_team;
+
+      // Method metrics cards
+      const method = [
+        { num: "N=" + data.meta.n_team, label: "Респондентов в опросе команды (анонимно)", hint: "Формат: шкала 1–5 + открытые ответы" },
+        { num: fmt(data.meta.overall_team, 2), label: "Среднее по команде (25 утверждений)", hint: "Это общий фон, важнее смотреть на разрывы и темы" },
+        { num: fmt(data.meta.avg_abs_gap, 2), label: "Средний абсолютный разрыв (рук − команда)", hint: "Показывает степень рассинхронизации ожиданий" },
+      ];
+      el("methodMetrics").innerHTML = method.map(m => `
+        <div class="metric">
+          <div class="num">${escapeHtml(m.num)}</div>
+          <div class="label">${escapeHtml(m.label)}</div>
+          <div class="hint">${escapeHtml(m.hint)}</div>
+        </div>
+      `).join("");
+
+      // Leader quotes
+      el("leaderRoleQuote").textContent = data.open.lead.role_understanding;
+      el("leaderImproveQuote").textContent = data.open.lead.missing_daily;
+
+      // Key bullets (crafted from numbers + themes)
+      const bullets = [
+        "В целом оценки высокие (среднее по команде " + fmt(data.meta.overall_team, 2) + "), при этом ключевые зоны для калибровки — это не «авторитет», а ясность договоренностей и коммуникационных контуров.",
+        "Самая заметная точка напряжения в открытых ответах — " +
+          "регулярность и закрытие «петли обратной связи» (ОС/статусы/предсказуемость ответа).",
+        "Есть рассинхрон в восприятии " +
+          "«насколько ясно команде, за что отвечает руководитель и какие решения принимает сам» (по вопросам 1–2 руководитель оценивает ясность выше, чем команда).",
+        "Параллельно руководитель сам занижает самооценку по отдельным пунктам " +
+          "про ежедневную ясность и стандарты (например, «что важно сейчас» и «зачем стандарты») — это сильная точка опоры для совместных улучшений.",
+        "По контролю картина скорее про необходимость " +
+          "явных правил глубины вовлечения (контрольные точки по риску) и проговаривания decision rights, чем про «микроменеджмент как норма».",
+      ];
+      el("keyBullets").innerHTML = bullets.map(b => `<li>${escapeHtml(b)}</li>`).join("");
+
+      // Dumbbell renderer
+      function dumbbellSvg(team, lead) {
+        const W = 620, H = 36;
+        const padL = 22, padR = 22;
+        const x = (v) => {
+          const t = (clamp(v, 1, 5) - 1) / 4;
+          return padL + t * (W - padL - padR);
+        };
+        const xTeam = x(team);
+        const xLead = x(lead);
+        const x1 = Math.min(xTeam, xLead);
+        const x2 = Math.max(xTeam, xLead);
+        const axisY = 18;
+        const ticks = [1,2,3,4,5].map(v => {
+          const xv = x(v);
+          return `<line x1="${xv}" y1="${axisY-10}" x2="${xv}" y2="${axisY+10}" stroke="rgba(231,233,239,0.9)"/>`;
+        }).join("");
+        return `
+          <svg class="svgline" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="Сравнение команда/руководитель">
+            ${ticks}
+            <line x1="${x1}" y1="${axisY}" x2="${x2}" y2="${axisY}" stroke="rgba(17,24,39,0.22)" stroke-width="6" stroke-linecap="round"/>
+            <circle cx="${xTeam}" cy="${axisY}" r="7.5" fill="var(--team)"/>
+            <circle cx="${xLead}" cy="${axisY}" r="7.5" fill="var(--lead)"/>
+          </svg>
+        `;
+      }
+
+      function renderRows(targetId, rows) {
+        el(targetId).innerHTML = rows.map(r => {
+          const gap = r.gap;
+          const gapSign = gap > 0 ? "+" : "";
+          return `
+            <div class="row">
+              <div class="meta">
+                <div class="q">#${r.q}. ${escapeHtml(r.label)}</div>
+                <div class="nums">Команда ${fmt(r.team_avg,2)} · Руководитель ${fmt(r.lead,2)} · Разрыв ${gapSign}${fmt(gap,2)}</div>
+              </div>
+              ${dumbbellSvg(r.team_avg, r.lead)}
+            </div>
+          `;
+        }).join("");
+      }
+
+      renderRows("divergenceList", data.divergence_top);
+      renderRows("agreementList", data.agreement_top);
+
+      // Block summary chart
+      const blockRows = data.blocks.map(b => ({
+        q: b.block,
+        team_avg: b.team_avg,
+        lead: b.lead_avg,
+        gap: b.gap
+      }));
+      el("blockChart").innerHTML = blockRows.map(b => {
+        const gapSign = b.gap > 0 ? "+" : "";
+        return `
+          <div class="row">
+            <div class="meta">
+              <div class="q">${escapeHtml(b.q)}</div>
+              <div class="nums">Команда ${fmt(b.team_avg,2)} · Руководитель ${fmt(b.lead,2)} · Разрыв ${gapSign}${fmt(b.gap,2)}</div>
+            </div>
+            ${dumbbellSvg(b.team_avg, b.lead)}
+          </div>
+        `;
+      }).join("");
+
+      // Themes list (presented as qualitative “часто/иногда”)
+      const t = data.open.themes;
+      const themes = [
+        { k: "обратная_связь", label: "Обратная связь (регулярность, закрытие «петли», глубина)", hint: "ядро запроса" },
+        { k: "decision_rights", label: "Decision rights и ясность «кто решает»", hint: "про границы решений" },
+        { k: "эмпатия_тон", label: "Тон/эмпатия/поддержка в коммуникации", hint: "особенно в чате" },
+        { k: "процессы_ритуалы", label: "Процессы и стандарты (где «обязательно», где «ритуал»)", hint: "про «зачем»" },
+        { k: "защита_снаружи", label: "Ожидание защиты команды от внешнего шума/задач", hint: "про приоритизацию" },
+        { k: "статусы_в_чате", label: "Статусы/предсказуемость ответа в чате", hint: "быстрые подтверждения" },
+      ];
+      el("themesList").innerHTML = themes.map(x => {
+        const n = t[x.k] ?? 0;
+        const level = n >= 10 ? "часто" : (n >= 4 ? "иногда" : "точечно");
+        return `<li><b>${escapeHtml(x.label)}</b> — ${escapeHtml(level)} (по открытым ответам), фокус: <span class="muted">${escapeHtml(x.hint)}</span>.</li>`;
+      }).join("");
+
+      // Full table
+      const tbody = el("fullTable").querySelector("tbody");
+      tbody.innerHTML = data.questions.map(q => {
+        const gap = q.gap;
+        const gapSign = gap > 0 ? "+" : "";
+        const dist = q.dist || {};
+        const total = Object.values(dist).reduce((a,b) => a + (Number(b) || 0), 0) || 1;
+        const w = (k) => ((Number(dist[k] || 0) / total) * 100).toFixed(2) + "%";
+        return `
+          <tr>
+            <td>${q.q}</td>
+            <td>${escapeHtml(q.label)}</td>
+            <td><b>${fmt(q.team_avg,2)}</b></td>
+            <td><b>${fmt(q.lead,2)}</b></td>
+            <td><b>${gapSign}${fmt(gap,2)}</b></td>
+            <td>
+              <div class="mini" title="1..5: ${dist["1"]||0}/${dist["2"]||0}/${dist["3"]||0}/${dist["4"]||0}/${dist["5"]||0}">
+                <span class="s1" style="width:${w(\"1\")}"></span>
+                <span class="s2" style="width:${w(\"2\")}"></span>
+                <span class="s3" style="width:${w(\"3\")}"></span>
+                <span class="s4" style="width:${w(\"4\")}"></span>
+                <span class="s5" style="width:${w(\"5\")}"></span>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join("");
+    </script>
+  </body>
+</html>
