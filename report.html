@@ -171,6 +171,7 @@
           <a class="pill" href="#findings">Выводы</a>
           <a class="pill" href="#gaps">Расхождения</a>
           <a class="pill" href="#steps">Шаги</a>
+          <a class="pill" href="#data">Данные</a>
           <a class="pill" href="#appendix">Приложение</a>
         </div>
       </div>
@@ -329,6 +330,39 @@
             <li><b>Риск защитной реакции</b>: снижается через баланс «зоны опоры + зоны калибровки» и через перевод на язык договоренностей/decision rights.</li>
             <li><b>Главный риск — отсутствие последующих шагов</b>: без фиксации договоренностей и повторной проверки эффект растворится.</li>
           </ul>
+        </div>
+      </section>
+
+      <section class="grid" id="data">
+        <div class="card">
+          <h2>Данные (анонимно) и выгрузка</h2>
+          <div class="subtitle" style="margin-bottom:12px;">
+            Здесь — <b>сырые ответы</b> (анонимно) и выгрузка датасета. Цель — прозрачность и возможность перепроверить расчеты.
+          </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+            <a class="pill" id="downloadJson" href="#">Скачать данные (JSON)</a>
+            <a class="pill" id="downloadCsv" href="#">Скачать таблицу оценок (CSV)</a>
+            <span class="badge"><span class="dot team"></span>Выгрузка включает ответы команды (R01…)</span>
+          </div>
+          <div class="hr"></div>
+
+          <details>
+            <summary style="cursor:pointer; font-weight:650;">Показать таблицу оценок (25 утверждений × N)</summary>
+            <div class="appendix" style="margin-top:12px;">
+              <table class="table" id="rawScoresTable">
+                <thead></thead>
+                <tbody></tbody>
+              </table>
+            </div>
+            <div class="footer">Примечание: идентификаторы R01…R09 — технические (для анонимности).</div>
+          </details>
+
+          <div style="height:12px"></div>
+
+          <details>
+            <summary style="cursor:pointer; font-weight:650;">Показать открытые ответы команды (по темам)</summary>
+            <div style="margin-top:12px;" id="openAnswers"></div>
+          </details>
         </div>
       </section>
 
@@ -667,41 +701,129 @@
           .replaceAll("'", "&#039;");
       }
 
-      const data = JSON.parse(el("report-data").textContent);
-      el("legend").textContent = data.meta.scale;
-      el("metaScale").textContent = "Шкала 1–5 · N=" + data.meta.n_team;
+      function downloadText(filename, content, mime = "text/plain;charset=utf-8") {
+        const blob = new Blob([content], { type: mime });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 1500);
+      }
 
-      // Method metrics cards
-      const method = [
-        { num: "N=" + data.meta.n_team, label: "Респондентов в опросе команды (анонимно)", hint: "Формат: шкала 1–5 + открытые ответы" },
-        { num: fmt(data.meta.overall_team, 2), label: "Среднее по команде (25 утверждений)", hint: "Это общий фон, важнее смотреть на разрывы и темы" },
-        { num: fmt(data.meta.avg_abs_gap, 2), label: "Средний абсолютный разрыв (рук − команда)", hint: "Показывает степень рассинхронизации ожиданий" },
-      ];
-      el("methodMetrics").innerHTML = method.map(m => `
-        <div class="metric">
-          <div class="num">${escapeHtml(m.num)}</div>
-          <div class="label">${escapeHtml(m.label)}</div>
-          <div class="hint">${escapeHtml(m.hint)}</div>
-        </div>
-      `).join("");
+      function toCsv(teamRaw) {
+        const header = ["id", ...Array.from({ length: 25 }, (_, i) => "q" + (i + 1))];
+        const rows = (teamRaw || []).map(r => [r.id, ...(r.scores || [])]);
+        const esc = (v) => {
+          const s = (v ?? "").toString();
+          return /[",\n]/.test(s) ? ("\"" + s.replaceAll("\"", "\"\"") + "\"") : s;
+        };
+        return [header, ...rows].map(row => row.map(esc).join(",")).join("\n");
+      }
 
-      // Leader quotes
-      el("leaderRoleQuote").textContent = data.open.lead.role_understanding;
-      el("leaderImproveQuote").textContent = data.open.lead.missing_daily;
+      function renderDataSection(data) {
+        // Downloads
+        const dlJson = el("downloadJson");
+        const dlCsv = el("downloadCsv");
+        if (dlJson) {
+          dlJson.onclick = (e) => {
+            e.preventDefault();
+            downloadText("report_data_full.json", JSON.stringify(data, null, 2), "application/json;charset=utf-8");
+          };
+        }
+        if (dlCsv) {
+          dlCsv.onclick = (e) => {
+            e.preventDefault();
+            const csv = toCsv((data.raw && data.raw.team) ? data.raw.team : []);
+            downloadText("team_scores.csv", csv, "text/csv;charset=utf-8");
+          };
+        }
 
-      // Key bullets (crafted from numbers + themes)
-      const bullets = [
-        "В целом оценки высокие (среднее по команде " + fmt(data.meta.overall_team, 2) + "), при этом ключевые зоны для калибровки — это не «авторитет», а ясность договоренностей и коммуникационных контуров.",
-        "Самая заметная точка напряжения в открытых ответах — " +
-          "регулярность и закрытие «петли обратной связи» (ОС/статусы/предсказуемость ответа).",
-        "Есть рассинхрон в восприятии " +
-          "«насколько ясно команде, за что отвечает руководитель и какие решения принимает сам» (по вопросам 1–2 руководитель оценивает ясность выше, чем команда).",
-        "Параллельно руководитель сам занижает самооценку по отдельным пунктам " +
-          "про ежедневную ясность и стандарты (например, «что важно сейчас» и «зачем стандарты») — это сильная точка опоры для совместных улучшений.",
-        "По контролю картина скорее про необходимость " +
-          "явных правил глубины вовлечения (контрольные точки по риску) и проговаривания decision rights, чем про «микроменеджмент как норма».",
-      ];
-      el("keyBullets").innerHTML = bullets.map(b => `<li>${escapeHtml(b)}</li>`).join("");
+        // Raw scores table
+        const raw = (data.raw && data.raw.team) ? data.raw.team : [];
+        const table = el("rawScoresTable");
+        if (table) {
+          const thead = table.querySelector("thead");
+          const tbody = table.querySelector("tbody");
+          thead.innerHTML = `
+            <tr>
+              <th style="width:8%">ID</th>
+              ${Array.from({ length: 25 }, (_, i) => `<th style="width:3%">Q${i+1}</th>`).join("")}
+            </tr>
+          `;
+          tbody.innerHTML = raw.length ? raw.map(r => `
+            <tr>
+              <td><b>${escapeHtml(r.id)}</b></td>
+              ${(r.scores || []).slice(0,25).map(v => `<td>${escapeHtml(v)}</td>`).join("")}
+            </tr>
+          `).join("") : `<tr><td colspan="26" class="muted">Полные данные не подгружены. Откройте страницу по ссылке (http/https), либо скачайте JSON.</td></tr>`;
+        }
+
+        // Open answers (team)
+        const openWrap = el("openAnswers");
+        if (openWrap) {
+          const teamOpen = (data.open && data.open.team) ? data.open.team : {};
+          const sections = [
+            { k: "role_understanding", t: "Как понимают роль руководителя" },
+            { k: "missing_daily", t: "Чего не хватает в ежедневной работе" },
+            { k: "interaction_good_bad", t: "Что работает/мешает во взаимодействии" },
+            { k: "control_boundary", t: "Граница управления и контроля" },
+            { k: "processes_must_simplify", t: "Процессы: что обязательно / что упростить" },
+            { k: "tail", t: "Качества/продолжать/делать иначе (как записано в форме)" },
+          ];
+
+          openWrap.innerHTML = sections.map(s => {
+            const arr = (teamOpen[s.k] || []).filter(Boolean);
+            const content = arr.length
+              ? arr.map(txt => `<div class="quote" style="margin:10px 0;"><p>${escapeHtml(txt)}</p><div class="who">Команда (анонимно)</div></div>`).join("")
+              : `<div class="muted">Нет данных для отображения.</div>`;
+            return `
+              <div style="margin: 10px 0 18px;">
+                <h3 style="margin:0 0 8px;">${escapeHtml(s.t)}</h3>
+                ${content}
+              </div>
+            `;
+          }).join("");
+        }
+      }
+
+      function renderReport(data) {
+        el("legend").textContent = data.meta.scale;
+        el("metaScale").textContent = "Шкала 1–5 · N=" + data.meta.n_team;
+
+        // Method metrics cards
+        const method = [
+          { num: "N=" + data.meta.n_team, label: "Респондентов в опросе команды (анонимно)", hint: "Формат: шкала 1–5 + открытые ответы" },
+          { num: fmt(data.meta.overall_team, 2), label: "Среднее по команде (25 утверждений)", hint: "Это общий фон, важнее смотреть на разрывы и темы" },
+          { num: fmt(data.meta.avg_abs_gap, 2), label: "Средний абсолютный разрыв (рук − команда)", hint: "Показывает степень рассинхронизации ожиданий" },
+        ];
+        el("methodMetrics").innerHTML = method.map(m => `
+          <div class="metric">
+            <div class="num">${escapeHtml(m.num)}</div>
+            <div class="label">${escapeHtml(m.label)}</div>
+            <div class="hint">${escapeHtml(m.hint)}</div>
+          </div>
+        `).join("");
+
+        // Leader quotes
+        el("leaderRoleQuote").textContent = data.open.lead.role_understanding || "";
+        el("leaderImproveQuote").textContent = data.open.lead.missing_daily || "";
+
+        // Key bullets (crafted from numbers + themes)
+        const bullets = [
+          "В целом оценки высокие (среднее по команде " + fmt(data.meta.overall_team, 2) + "), при этом ключевые зоны для калибровки — это не «авторитет», а ясность договоренностей и коммуникационных контуров.",
+          "Самая заметная точка напряжения в открытых ответах — " +
+            "регулярность и закрытие «петли обратной связи» (ОС/статусы/предсказуемость ответа).",
+          "Есть рассинхрон в восприятии " +
+            "«насколько ясно команде, за что отвечает руководитель и какие решения принимает сам» (по вопросам 1–2 руководитель оценивает ясность выше, чем команда).",
+          "Параллельно руководитель сам занижает самооценку по отдельным пунктам " +
+            "про ежедневную ясность и стандарты (например, «что важно сейчас» и «зачем стандарты») — это сильная точка опоры для совместных улучшений.",
+          "По контролю картина скорее про необходимость " +
+            "явных правил глубины вовлечения (контрольные точки по риску) и проговаривания decision rights, чем про «микроменеджмент как норма».",
+        ];
+        el("keyBullets").innerHTML = bullets.map(b => `<li>${escapeHtml(b)}</li>`).join("");
 
       // Dumbbell renderer
       function dumbbellSvg(team, lead) {
@@ -812,6 +934,22 @@
           </tr>
         `;
       }).join("");
+
+        // Raw data section
+        renderDataSection(data);
+      }
+
+      const embedded = JSON.parse(el("report-data").textContent);
+      renderReport(embedded);
+
+      // Try to load full dataset (raw + open answers) from a neighbor file.
+      fetch("./report_data_full.json", { cache: "no-cache" })
+        .then(r => r.ok ? r.json() : Promise.reject(new Error("fetch failed")))
+        .then(full => renderReport(full))
+        .catch(() => {
+          // If fetch fails (e.g., local file opened without server), embedded aggregate still works.
+          renderDataSection(embedded);
+        });
     </script>
   </body>
 </html>
