@@ -723,8 +723,51 @@
         return [header, ...rows].map(row => row.map(esc).join(",")).join("\n");
       }
 
+      function dumbbellSvg(team, lead) {
+        const W = 620, H = 36;
+        const padL = 22, padR = 22;
+        const x = (v) => {
+          const t = (clamp(v, 1, 5) - 1) / 4;
+          return padL + t * (W - padL - padR);
+        };
+        const xTeam = x(team);
+        const xLead = x(lead);
+        const x1 = Math.min(xTeam, xLead);
+        const x2 = Math.max(xTeam, xLead);
+        const axisY = 18;
+        const ticks = [1,2,3,4,5].map(v => {
+          const xv = x(v);
+          return `<line x1="${xv}" y1="${axisY-10}" x2="${xv}" y2="${axisY+10}" stroke="rgba(231,233,239,0.9)"/>`;
+        }).join("");
+        return `
+          <svg class="svgline" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="Сравнение команда/руководитель">
+            ${ticks}
+            <line x1="${x1}" y1="${axisY}" x2="${x2}" y2="${axisY}" stroke="rgba(17,24,39,0.22)" stroke-width="6" stroke-linecap="round"/>
+            <circle cx="${xTeam}" cy="${axisY}" r="7.5" fill="var(--team)"/>
+            <circle cx="${xLead}" cy="${axisY}" r="7.5" fill="var(--lead)"/>
+          </svg>
+        `;
+      }
+
+      function renderRows(targetId, rows) {
+        const target = el(targetId);
+        if (!target) return;
+        target.innerHTML = (rows || []).map(r => {
+          const gap = r.gap;
+          const gapSign = gap > 0 ? "+" : "";
+          return `
+            <div class="row">
+              <div class="meta">
+                <div class="q">#${r.q}. ${escapeHtml(r.label)}</div>
+                <div class="nums">Команда ${fmt(r.team_avg,2)} · Руководитель ${fmt(r.lead,2)} · Разрыв ${gapSign}${fmt(gap,2)}</div>
+              </div>
+              ${dumbbellSvg(r.team_avg, r.lead)}
+            </div>
+          `;
+        }).join("");
+      }
+
       function renderDataSection(data) {
-        // Downloads
         const dlJson = el("downloadJson");
         const dlCsv = el("downloadCsv");
         if (dlJson) {
@@ -741,27 +784,29 @@
           };
         }
 
-        // Raw scores table
         const raw = (data.raw && data.raw.team) ? data.raw.team : [];
         const table = el("rawScoresTable");
         if (table) {
           const thead = table.querySelector("thead");
           const tbody = table.querySelector("tbody");
-          thead.innerHTML = `
-            <tr>
-              <th style="width:8%">ID</th>
-              ${Array.from({ length: 25 }, (_, i) => `<th style="width:3%">Q${i+1}</th>`).join("")}
-            </tr>
-          `;
-          tbody.innerHTML = raw.length ? raw.map(r => `
-            <tr>
-              <td><b>${escapeHtml(r.id)}</b></td>
-              ${(r.scores || []).slice(0,25).map(v => `<td>${escapeHtml(v)}</td>`).join("")}
-            </tr>
-          `).join("") : `<tr><td colspan="26" class="muted">Полные данные не подгружены. Откройте страницу по ссылке (http/https), либо скачайте JSON.</td></tr>`;
+          if (thead) {
+            thead.innerHTML = `
+              <tr>
+                <th style="width:8%">ID</th>
+                ${Array.from({ length: 25 }, (_, i) => `<th style="width:3%">Q${i+1}</th>`).join("")}
+              </tr>
+            `;
+          }
+          if (tbody) {
+            tbody.innerHTML = raw.length ? raw.map(r => `
+              <tr>
+                <td><b>${escapeHtml(r.id)}</b></td>
+                ${(r.scores || []).slice(0,25).map(v => `<td>${escapeHtml(v)}</td>`).join("")}
+              </tr>
+            `).join("") : `<tr><td colspan="26" class="muted">Полные данные не подгружены. Откройте страницу по ссылке (http/https), либо скачайте JSON.</td></tr>`;
+          }
         }
 
-        // Open answers (team)
         const openWrap = el("openAnswers");
         if (openWrap) {
           const teamOpen = (data.open && data.open.team) ? data.open.team : {};
@@ -790,166 +835,129 @@
       }
 
       function renderReport(data) {
-        el("legend").textContent = data.meta.scale;
-        el("metaScale").textContent = "Шкала 1–5 · N=" + data.meta.n_team;
+        if (!data || !data.meta) return;
 
-        // Method metrics cards
+        const legend = el("legend");
+        const metaScale = el("metaScale");
+        if (legend) legend.textContent = data.meta.scale;
+        if (metaScale) metaScale.textContent = "Шкала 1–5 · N=" + data.meta.n_team;
+
         const method = [
           { num: "N=" + data.meta.n_team, label: "Респондентов в опросе команды (анонимно)", hint: "Формат: шкала 1–5 + открытые ответы" },
           { num: fmt(data.meta.overall_team, 2), label: "Среднее по команде (25 утверждений)", hint: "Это общий фон, важнее смотреть на разрывы и темы" },
           { num: fmt(data.meta.avg_abs_gap, 2), label: "Средний абсолютный разрыв (рук − команда)", hint: "Показывает степень рассинхронизации ожиданий" },
         ];
-        el("methodMetrics").innerHTML = method.map(m => `
-          <div class="metric">
-            <div class="num">${escapeHtml(m.num)}</div>
-            <div class="label">${escapeHtml(m.label)}</div>
-            <div class="hint">${escapeHtml(m.hint)}</div>
-          </div>
-        `).join("");
+        const methodMetrics = el("methodMetrics");
+        if (methodMetrics) {
+          methodMetrics.innerHTML = method.map(m => `
+            <div class="metric">
+              <div class="num">${escapeHtml(m.num)}</div>
+              <div class="label">${escapeHtml(m.label)}</div>
+              <div class="hint">${escapeHtml(m.hint)}</div>
+            </div>
+          `).join("");
+        }
 
-        // Leader quotes
-        el("leaderRoleQuote").textContent = data.open.lead.role_understanding || "";
-        el("leaderImproveQuote").textContent = data.open.lead.missing_daily || "";
+        const leaderRoleQuote = el("leaderRoleQuote");
+        const leaderImproveQuote = el("leaderImproveQuote");
+        if (leaderRoleQuote) leaderRoleQuote.textContent = (data.open && data.open.lead && data.open.lead.role_understanding) ? data.open.lead.role_understanding : "";
+        if (leaderImproveQuote) leaderImproveQuote.textContent = (data.open && data.open.lead && data.open.lead.missing_daily) ? data.open.lead.missing_daily : "";
 
-        // Key bullets (crafted from numbers + themes)
         const bullets = [
           "В целом оценки высокие (среднее по команде " + fmt(data.meta.overall_team, 2) + "), при этом ключевые зоны для калибровки — это не «авторитет», а ясность договоренностей и коммуникационных контуров.",
-          "Самая заметная точка напряжения в открытых ответах — " +
-            "регулярность и закрытие «петли обратной связи» (ОС/статусы/предсказуемость ответа).",
-          "Есть рассинхрон в восприятии " +
-            "«насколько ясно команде, за что отвечает руководитель и какие решения принимает сам» (по вопросам 1–2 руководитель оценивает ясность выше, чем команда).",
-          "Параллельно руководитель сам занижает самооценку по отдельным пунктам " +
-            "про ежедневную ясность и стандарты (например, «что важно сейчас» и «зачем стандарты») — это сильная точка опоры для совместных улучшений.",
-          "По контролю картина скорее про необходимость " +
-            "явных правил глубины вовлечения (контрольные точки по риску) и проговаривания decision rights, чем про «микроменеджмент как норма».",
+          "Самая заметная точка напряжения в открытых ответах — регулярность и закрытие «петли обратной связи» (ОС/статусы/предсказуемость ответа).",
+          "Есть рассинхрон в восприятии «насколько ясно команде, за что отвечает руководитель и какие решения принимает сам» (по вопросам 1–2 руководитель оценивает ясность выше, чем команда).",
+          "Параллельно руководитель сам занижает самооценку по отдельным пунктам про ежедневную ясность и стандарты (например, «что важно сейчас» и «зачем стандарты») — это сильная точка опоры для совместных улучшений.",
+          "По контролю картина скорее про необходимость явных правил глубины вовлечения (контрольные точки по риску) и проговаривания decision rights, чем про «микроменеджмент как норма».",
         ];
-        el("keyBullets").innerHTML = bullets.map(b => `<li>${escapeHtml(b)}</li>`).join("");
+        const keyBullets = el("keyBullets");
+        if (keyBullets) keyBullets.innerHTML = bullets.map(b => `<li>${escapeHtml(b)}</li>`).join("");
 
-      // Dumbbell renderer
-      function dumbbellSvg(team, lead) {
-        const W = 620, H = 36;
-        const padL = 22, padR = 22;
-        const x = (v) => {
-          const t = (clamp(v, 1, 5) - 1) / 4;
-          return padL + t * (W - padL - padR);
-        };
-        const xTeam = x(team);
-        const xLead = x(lead);
-        const x1 = Math.min(xTeam, xLead);
-        const x2 = Math.max(xTeam, xLead);
-        const axisY = 18;
-        const ticks = [1,2,3,4,5].map(v => {
-          const xv = x(v);
-          return `<line x1="${xv}" y1="${axisY-10}" x2="${xv}" y2="${axisY+10}" stroke="rgba(231,233,239,0.9)"/>`;
-        }).join("");
-        return `
-          <svg class="svgline" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="Сравнение команда/руководитель">
-            ${ticks}
-            <line x1="${x1}" y1="${axisY}" x2="${x2}" y2="${axisY}" stroke="rgba(17,24,39,0.22)" stroke-width="6" stroke-linecap="round"/>
-            <circle cx="${xTeam}" cy="${axisY}" r="7.5" fill="var(--team)"/>
-            <circle cx="${xLead}" cy="${axisY}" r="7.5" fill="var(--lead)"/>
-          </svg>
-        `;
-      }
+        renderRows("divergenceList", data.divergence_top || []);
+        renderRows("agreementList", data.agreement_top || []);
 
-      function renderRows(targetId, rows) {
-        el(targetId).innerHTML = rows.map(r => {
-          const gap = r.gap;
-          const gapSign = gap > 0 ? "+" : "";
-          return `
-            <div class="row">
-              <div class="meta">
-                <div class="q">#${r.q}. ${escapeHtml(r.label)}</div>
-                <div class="nums">Команда ${fmt(r.team_avg,2)} · Руководитель ${fmt(r.lead,2)} · Разрыв ${gapSign}${fmt(gap,2)}</div>
+        const blockChart = el("blockChart");
+        if (blockChart) {
+          const blockRows = (data.blocks || []).map(b => ({
+            q: b.block,
+            team_avg: b.team_avg,
+            lead: b.lead_avg,
+            gap: b.gap
+          }));
+          blockChart.innerHTML = blockRows.map(b => {
+            const gapSign = b.gap > 0 ? "+" : "";
+            return `
+              <div class="row">
+                <div class="meta">
+                  <div class="q">${escapeHtml(b.q)}</div>
+                  <div class="nums">Команда ${fmt(b.team_avg,2)} · Руководитель ${fmt(b.lead,2)} · Разрыв ${gapSign}${fmt(b.gap,2)}</div>
+                </div>
+                ${dumbbellSvg(b.team_avg, b.lead)}
               </div>
-              ${dumbbellSvg(r.team_avg, r.lead)}
-            </div>
-          `;
-        }).join("");
-      }
+            `;
+          }).join("");
+        }
 
-      renderRows("divergenceList", data.divergence_top);
-      renderRows("agreementList", data.agreement_top);
+        const themesList = el("themesList");
+        if (themesList) {
+          const t = (data.open && data.open.themes) ? data.open.themes : {};
+          const themes = [
+            { k: "обратная_связь", label: "Обратная связь (регулярность, закрытие «петли», глубина)", hint: "ядро запроса" },
+            { k: "decision_rights", label: "Decision rights и ясность «кто решает»", hint: "про границы решений" },
+            { k: "эмпатия_тон", label: "Тон/эмпатия/поддержка в коммуникации", hint: "особенно в чате" },
+            { k: "процессы_ритуалы", label: "Процессы и стандарты (где «обязательно», где «ритуал»)", hint: "про «зачем»" },
+            { k: "защита_снаружи", label: "Ожидание защиты команды от внешнего шума/задач", hint: "про приоритизацию" },
+            { k: "статусы_в_чате", label: "Статусы/предсказуемость ответа в чате", hint: "быстрые подтверждения" },
+          ];
+          themesList.innerHTML = themes.map(x => {
+            const n = t[x.k] ?? 0;
+            const level = n >= 10 ? "часто" : (n >= 4 ? "иногда" : "точечно");
+            return `<li><b>${escapeHtml(x.label)}</b> — ${escapeHtml(level)} (по открытым ответам), фокус: <span class="muted">${escapeHtml(x.hint)}</span>.</li>`;
+          }).join("");
+        }
 
-      // Block summary chart
-      const blockRows = data.blocks.map(b => ({
-        q: b.block,
-        team_avg: b.team_avg,
-        lead: b.lead_avg,
-        gap: b.gap
-      }));
-      el("blockChart").innerHTML = blockRows.map(b => {
-        const gapSign = b.gap > 0 ? "+" : "";
-        return `
-          <div class="row">
-            <div class="meta">
-              <div class="q">${escapeHtml(b.q)}</div>
-              <div class="nums">Команда ${fmt(b.team_avg,2)} · Руководитель ${fmt(b.lead,2)} · Разрыв ${gapSign}${fmt(b.gap,2)}</div>
-            </div>
-            ${dumbbellSvg(b.team_avg, b.lead)}
-          </div>
-        `;
-      }).join("");
+        const fullTable = el("fullTable");
+        if (fullTable) {
+          const tbody = fullTable.querySelector("tbody");
+          if (tbody) {
+            tbody.innerHTML = (data.questions || []).map(q => {
+              const gap = q.gap;
+              const gapSign = gap > 0 ? "+" : "";
+              const dist = q.dist || {};
+              const total = Object.values(dist).reduce((a,b) => a + (Number(b) || 0), 0) || 1;
+              const w = (k) => ((Number(dist[k] || 0) / total) * 100).toFixed(2) + "%";
+              return `
+                <tr>
+                  <td>${q.q}</td>
+                  <td>${escapeHtml(q.label)}</td>
+                  <td><b>${fmt(q.team_avg,2)}</b></td>
+                  <td><b>${fmt(q.lead,2)}</b></td>
+                  <td><b>${gapSign}${fmt(gap,2)}</b></td>
+                  <td>
+                    <div class="mini" title="1..5: ${dist["1"]||0}/${dist["2"]||0}/${dist["3"]||0}/${dist["4"]||0}/${dist["5"]||0}">
+                      <span class="s1" style="width:${w("1")}"></span>
+                      <span class="s2" style="width:${w("2")}"></span>
+                      <span class="s3" style="width:${w("3")}"></span>
+                      <span class="s4" style="width:${w("4")}"></span>
+                      <span class="s5" style="width:${w("5")}"></span>
+                    </div>
+                  </td>
+                </tr>
+              `;
+            }).join("");
+          }
+        }
 
-      // Themes list (presented as qualitative “часто/иногда”)
-      const t = data.open.themes;
-      const themes = [
-        { k: "обратная_связь", label: "Обратная связь (регулярность, закрытие «петли», глубина)", hint: "ядро запроса" },
-        { k: "decision_rights", label: "Decision rights и ясность «кто решает»", hint: "про границы решений" },
-        { k: "эмпатия_тон", label: "Тон/эмпатия/поддержка в коммуникации", hint: "особенно в чате" },
-        { k: "процессы_ритуалы", label: "Процессы и стандарты (где «обязательно», где «ритуал»)", hint: "про «зачем»" },
-        { k: "защита_снаружи", label: "Ожидание защиты команды от внешнего шума/задач", hint: "про приоритизацию" },
-        { k: "статусы_в_чате", label: "Статусы/предсказуемость ответа в чате", hint: "быстрые подтверждения" },
-      ];
-      el("themesList").innerHTML = themes.map(x => {
-        const n = t[x.k] ?? 0;
-        const level = n >= 10 ? "часто" : (n >= 4 ? "иногда" : "точечно");
-        return `<li><b>${escapeHtml(x.label)}</b> — ${escapeHtml(level)} (по открытым ответам), фокус: <span class="muted">${escapeHtml(x.hint)}</span>.</li>`;
-      }).join("");
-
-      // Full table
-      const tbody = el("fullTable").querySelector("tbody");
-      tbody.innerHTML = data.questions.map(q => {
-        const gap = q.gap;
-        const gapSign = gap > 0 ? "+" : "";
-        const dist = q.dist || {};
-        const total = Object.values(dist).reduce((a,b) => a + (Number(b) || 0), 0) || 1;
-        const w = (k) => ((Number(dist[k] || 0) / total) * 100).toFixed(2) + "%";
-        return `
-          <tr>
-            <td>${q.q}</td>
-            <td>${escapeHtml(q.label)}</td>
-            <td><b>${fmt(q.team_avg,2)}</b></td>
-            <td><b>${fmt(q.lead,2)}</b></td>
-            <td><b>${gapSign}${fmt(gap,2)}</b></td>
-            <td>
-              <div class="mini" title="1..5: ${dist["1"]||0}/${dist["2"]||0}/${dist["3"]||0}/${dist["4"]||0}/${dist["5"]||0}">
-                <span class="s1" style="width:${w(\"1\")}"></span>
-                <span class="s2" style="width:${w(\"2\")}"></span>
-                <span class="s3" style="width:${w(\"3\")}"></span>
-                <span class="s4" style="width:${w(\"4\")}"></span>
-                <span class="s5" style="width:${w(\"5\")}"></span>
-              </div>
-            </td>
-          </tr>
-        `;
-      }).join("");
-
-        // Raw data section
         renderDataSection(data);
       }
 
       const embedded = JSON.parse(el("report-data").textContent);
       renderReport(embedded);
 
-      // Try to load full dataset (raw + open answers) from a neighbor file.
       fetch("./report_data_full.json", { cache: "no-cache" })
         .then(r => r.ok ? r.json() : Promise.reject(new Error("fetch failed")))
         .then(full => renderReport(full))
-        .catch(() => {
-          // If fetch fails (e.g., local file opened without server), embedded aggregate still works.
-          renderDataSection(embedded);
-        });
+        .catch(() => renderDataSection(embedded));
     </script>
   </body>
 </html>
