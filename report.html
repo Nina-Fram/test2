@@ -807,6 +807,12 @@
         const openWrap = el("openAnswers");
         if (openWrap) {
           const teamOpen = (data.open && data.open.team) ? data.open.team : {};
+          const rawTeam = (data.raw && data.raw.team) ? data.raw.team : [];
+          const tailFallback = rawTeam
+            .map(r => (r && r.open && r.open.processes_must_simplify) ? r.open.processes_must_simplify : "")
+            .filter(Boolean)
+            .filter(t => /эмпат|делег|разв|регулярн|продолж|делать|стоит|хотелось|вдохнов|честн|надежн|ответствен/i.test(t));
+
           const sections = [
             { k: "role_understanding", t: "Как понимают роль руководителя" },
             { k: "missing_daily", t: "Чего не хватает в ежедневной работе" },
@@ -817,9 +823,14 @@
           ];
 
           openWrap.innerHTML = sections.map(s => {
-            const arr = (teamOpen[s.k] || []).filter(Boolean);
+            let arr = (teamOpen[s.k] || []).filter(Boolean);
+            let note = "";
+            if (s.k === "tail" && arr.length === 0 && tailFallback.length) {
+              arr = tailFallback;
+              note = `<div class="muted" style="margin:6px 0 10px; line-height:1.45;">В выгрузке PDF ответы на этот блок местами оказались объединены с ответом про процессы. Ниже показаны релевантные фрагменты из этого поля (анонимно).</div>`;
+            }
             const content = arr.length
-              ? arr.map(txt => `<div class="quote" style="margin:10px 0;"><p>${escapeHtml(txt)}</p><div class="who">Команда (анонимно)</div></div>`).join("")
+              ? (note + arr.map(txt => `<div class="quote" style="margin:10px 0;"><p>${escapeHtml(txt)}</p><div class="who">Команда (анонимно)</div></div>`).join(""))
               : `<div class="muted">Нет данных для отображения.</div>`;
             return `
               <div style="margin: 10px 0 18px;">
