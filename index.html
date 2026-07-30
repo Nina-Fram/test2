@@ -156,30 +156,6 @@
       line-height: 1.6;
     }
     .slide--dark .lead{ color: #CFCFCA; }
-    .note{
-      background: var(--cream2);
-      border-radius: 10px;
-      padding: 16px 16px 14px;
-      border-left: 3px solid var(--green);
-    }
-    .slide--dark .note{
-      background: var(--dark2);
-      border-color: var(--green);
-    }
-    .note__title{
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 8px;
-    }
-    .note__text{
-      font-size: 13px;
-      line-height: 1.55;
-      color: #2A2A28;
-    }
-    .slide--dark .note__text{ color: #CFCFCA; }
 
     /* ── RULE CARDS ─────────────────────────────────────────────────────── */
     .rules-grid{
@@ -191,10 +167,7 @@
       border-radius: 10px;
       padding: 18px 20px 16px;
       border-left: 4px solid transparent;
-      display: grid;
-      grid-template-columns: 40px 1fr;
-      gap: 14px;
-      align-items: start;
+      display: block;
     }
     .slide--light .rule-card{
       background: var(--white);
@@ -204,16 +177,6 @@
       background: var(--dark2);
       color: var(--white);
     }
-    .rule-num{
-      font-size: 28px;
-      font-weight: 700;
-      line-height: 1;
-      opacity: 0.12;
-      text-align: center;
-      margin-top: 2px;
-    }
-    .slide--dark .rule-num{ color: var(--white); opacity: 0.14; }
-    .slide--light .rule-num{ color: var(--dark); }
     .rule-title{
       font-size: 15px;
       font-weight: 600;
@@ -284,7 +247,7 @@
       .slide-num{ right: 22px; }
       .cover__line{ left: 22px; }
       .rules-grid{ grid-template-columns: 1fr; }
-      .rule-card{ grid-template-columns: 34px 1fr; padding: 16px 16px 14px; }
+      .rule-card{ padding: 16px 16px 14px; }
     }
   </style>
 </head>
@@ -318,13 +281,6 @@
       <div class="lead">
         <strong>Задача правил</strong>: сделать коммуникацию, обратную связь и принятие решений более понятными, спокойными и предсказуемыми.
       </div>
-
-      <aside class="note" aria-label="Заметка">
-        <div class="note__title">Принцип</div>
-        <div class="note__text">
-          Если решение не найдено — у обсуждения должен появиться следующий шаг и понятный участник, который помогает закрыть вопрос.
-        </div>
-      </aside>
     </div>
 
     <div class="slide-num">2 / 5</div>
@@ -338,59 +294,47 @@
 
     <div class="rules-grid fade-in" aria-label="Правила 1–4">
       <article class="rule-card" style="border-color:var(--green)">
-        <div class="rule-num">1</div>
-        <div>
-          <div class="rule-title">В спорах обсуждаем решение, а не человека</div>
-          <div class="rule-body">
-            <div>В спорных обсуждениях команда опирается на аргументы, а не на эмоции.</div>
-            <ul>
-              <li>Коммуникация строится спокойно, без агрессии и без личных оценок.</li>
-              <li>Вопросы и комментарии помогают двигаться к решению, а не уводят обсуждение в сторону.</li>
-            </ul>
-          </div>
+        <div class="rule-title">В спорах обсуждаем решение, а не человека</div>
+        <div class="rule-body">
+          <div>В спорных обсуждениях команда опирается на аргументы, а не на эмоции.</div>
+          <ul>
+            <li>Коммуникация строится спокойно, без агрессии и без личных оценок.</li>
+            <li>Вопросы и комментарии помогают двигаться к решению, а не уводят обсуждение в сторону.</li>
+          </ul>
         </div>
       </article>
 
       <article class="rule-card" style="border-color:var(--amber)">
-        <div class="rule-num">2</div>
-        <div>
-          <div class="rule-title">Если не договорились — подключаем нужную роль</div>
-          <div class="rule-body">
-            <ul>
-              <li>По вопросам ревью подключается владелец процесса ревью.</li>
-              <li>По продуктовым вопросам — руководитель команды дизайна.</li>
-              <li>По спорным моментам между дизайнерами в части взаимодействия — комьюнити лид.</li>
-              <li>Спор не должен оставаться «висящим»: если решение не найдено, у него должен появиться следующий шаг и понятный участник.</li>
-            </ul>
-          </div>
+        <div class="rule-title">Если не договорились — подключаем нужную роль</div>
+        <div class="rule-body">
+          <ul>
+            <li>По вопросам ревью подключается владелец процесса ревью.</li>
+            <li>По продуктовым вопросам — руководитель команды дизайна.</li>
+            <li>По спорным моментам между дизайнерами в части взаимодействия — комьюнити лид.</li>
+            <li>Спор не должен оставаться «висящим»: если решение не найдено, у него должен появиться следующий шаг и понятный участник.</li>
+          </ul>
         </div>
       </article>
 
       <article class="rule-card" style="border-color:var(--blue)">
-        <div class="rule-num">3</div>
-        <div>
-          <div class="rule-title">Важные договорённости фиксируем письменно</div>
-          <div class="rule-body">
-            <ul>
-              <li>После встреч и обсуждений, где были приняты решения, делается короткий follow‑up.</li>
-              <li>Особенно это важно для продуктовых и спорных тем.</li>
-              <li>Зафиксированная договорённость считается рабочей опорой, пока не пересмотрена отдельно.</li>
-            </ul>
-          </div>
+        <div class="rule-title">Важные договорённости фиксируем письменно</div>
+        <div class="rule-body">
+          <ul>
+            <li>После встреч и обсуждений, где были приняты решения, делается короткий follow‑up.</li>
+            <li>Особенно это важно для продуктовых и спорных тем.</li>
+            <li>Зафиксированная договорённость считается рабочей опорой, пока не пересмотрена отдельно.</li>
+          </ul>
         </div>
       </article>
 
       <article class="rule-card" style="border-color:var(--red)">
-        <div class="rule-num">4</div>
-        <div>
-          <div class="rule-title">Ошибка — это повод улучшить решение или процесс, а не обвинить человека</div>
-          <div class="rule-body">
-            <ul>
-              <li>Ошибка не используется как повод для упрёка или давления.</li>
-              <li>Замеченная ошибка — это вклад в качество работы.</li>
-              <li>Если уместно, разбираем не только саму ошибку, но и её причину, чтобы снизить риск повторения.</li>
-            </ul>
-          </div>
+        <div class="rule-title">Ошибка — это повод улучшить решение или процесс, а не обвинить человека</div>
+        <div class="rule-body">
+          <ul>
+            <li>Ошибка не используется как повод для упрёка или давления.</li>
+            <li>Замеченная ошибка — это вклад в качество работы.</li>
+            <li>Если уместно, разбираем не только саму ошибку, но и её причину, чтобы снизить риск повторения.</li>
+          </ul>
         </div>
       </article>
     </div>
@@ -406,42 +350,33 @@
 
     <div class="rules-grid fade-in" aria-label="Правила 5–7">
       <article class="rule-card" style="border-color:var(--purple)">
-        <div class="rule-num">5</div>
-        <div>
-          <div class="rule-title">Обратная связь должна быть корректной, понятной и полезной</div>
-          <div class="rule-body">
-            <ul>
-              <li>Обратная связь даётся без обвинений и по возможности с практическими рекомендациями.</li>
-              <li>Важно, чтобы человеку было понятно, в чём именно проблема и что можно сделать дальше.</li>
-              <li>Цель обратной связи — помочь улучшить результат, а не создавать дополнительное напряжение.</li>
-            </ul>
-          </div>
+        <div class="rule-title">Обратная связь должна быть корректной, понятной и полезной</div>
+        <div class="rule-body">
+          <ul>
+            <li>Обратная связь даётся без обвинений и по возможности с практическими рекомендациями.</li>
+            <li>Важно, чтобы человеку было понятно, в чём именно проблема и что можно сделать дальше.</li>
+            <li>Цель обратной связи — помочь улучшить результат, а не создавать дополнительное напряжение.</li>
+          </ul>
         </div>
       </article>
 
       <article class="rule-card" style="border-color:var(--teal)">
-        <div class="rule-num">6</div>
-        <div>
-          <div class="rule-title">Ответственность в решениях не смешивается</div>
-          <div class="rule-body">
-            <ul>
-              <li>За решение по задаче и бизнес‑контексту отвечает продакт.</li>
-              <li>За решение по UX и интерфейсу отвечает дизайнер.</li>
-            </ul>
-          </div>
+        <div class="rule-title">Ответственность в решениях не смешивается</div>
+        <div class="rule-body">
+          <ul>
+            <li>За решение по задаче и бизнес‑контексту отвечает продакт.</li>
+            <li>За решение по UX и интерфейсу отвечает дизайнер.</li>
+          </ul>
         </div>
       </article>
 
       <article class="rule-card" style="border-color:var(--pink)">
-        <div class="rule-num">7</div>
-        <div>
-          <div class="rule-title">В работе опираемся на действующие процессы и стандарты</div>
-          <div class="rule-body">
-            <ul>
-              <li>В кросс‑командных вопросах первичная договорённость строится между продактами, а дизайнеры отвечают каждый за свой контур.</li>
-              <li>Если возникает риск, что дизайн в продукте делается без участия дизайнера, задача дизайнера — вовремя вернуть обсуждение в рабочий процесс и опереться на принятые стандарты компании.</li>
-            </ul>
-          </div>
+        <div class="rule-title">В работе опираемся на действующие процессы и стандарты</div>
+        <div class="rule-body">
+          <ul>
+            <li>В кросс‑командных вопросах первичная договорённость строится между продактами, а дизайнеры отвечают каждый за свой контур.</li>
+            <li>Если возникает риск, что дизайн в продукте делается без участия дизайнера, задача дизайнера — вовремя вернуть обсуждение в рабочий процесс и опереться на принятые стандарты компании.</li>
+          </ul>
         </div>
       </article>
     </div>
