@@ -1,0 +1,761 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light" />
+    <title>Паспорт продукта</title>
+    <style>
+      :root {
+        --bg: #f6f8fc;
+        --card: #ffffff;
+        --text: #0a182b;
+        --muted: #5c6e86;
+        --border: #dfe7f3;
+        --shadow: 0 18px 45px rgba(10, 24, 43, 0.1);
+
+        /* INVITRO-inspired */
+        --primary: #00a69f;
+        --primary2: #0084c9;
+        --focus: 0 0 0 4px rgba(0, 166, 159, 0.16);
+
+        --r: 16px;
+        --rs: 12px;
+        --max: 1180px;
+        --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, Helvetica, Arial;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: var(--sans);
+        color: var(--text);
+        background:
+          radial-gradient(1100px 700px at 10% -10%, rgba(0, 166, 159, 0.14), transparent 55%),
+          radial-gradient(900px 650px at 90% 0%, rgba(0, 132, 201, 0.12), transparent 52%),
+          var(--bg);
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .top {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background: rgba(246, 248, 252, 0.78);
+        border-bottom: 1px solid rgba(223, 231, 243, 0.9);
+        backdrop-filter: blur(10px);
+      }
+
+      .top-inner {
+        max-width: var(--max);
+        margin: 0 auto;
+        padding: 12px 16px;
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .brand {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        min-width: 260px;
+      }
+
+      .logo {
+        width: 40px;
+        height: 40px;
+        border-radius: 14px;
+        background: linear-gradient(135deg, var(--primary), var(--primary2));
+        box-shadow: 0 14px 28px rgba(0, 166, 159, 0.18);
+      }
+
+      .brand h1 {
+        font-size: 15px;
+        margin: 0;
+        font-weight: 800;
+        letter-spacing: 0.2px;
+      }
+
+      .brand p {
+        margin: 2px 0 0;
+        font-size: 12px;
+        color: var(--muted);
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: flex-end;
+      }
+
+      .btn {
+        border: 1px solid rgba(223, 231, 243, 0.95);
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 12px;
+        padding: 9px 12px;
+        font-size: 13px;
+        cursor: pointer;
+        box-shadow: 0 10px 22px rgba(10, 24, 43, 0.07);
+        transition: transform 0.06s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+        user-select: none;
+      }
+
+      .btn:hover {
+        border-color: rgba(0, 166, 159, 0.35);
+        box-shadow: 0 14px 28px rgba(10, 24, 43, 0.1);
+      }
+
+      .btn:active {
+        transform: translateY(1px);
+      }
+
+      .btn.primary {
+        border-color: rgba(0, 166, 159, 0.35);
+        background: linear-gradient(135deg, rgba(0, 166, 159, 0.14), rgba(0, 132, 201, 0.1));
+      }
+
+      .wrap {
+        max-width: var(--max);
+        margin: 18px auto 72px;
+        padding: 0 16px;
+        display: grid;
+        grid-template-columns: 310px 1fr;
+        gap: 14px;
+      }
+
+      @media (max-width: 980px) {
+        .wrap {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .nav,
+      .card {
+        background: rgba(255, 255, 255, 0.92);
+        border: 1px solid rgba(223, 231, 243, 0.95);
+        border-radius: var(--r);
+        box-shadow: var(--shadow);
+      }
+
+      .nav {
+        position: sticky;
+        top: 74px;
+        align-self: start;
+        overflow: hidden;
+      }
+
+      @media (max-width: 980px) {
+        .nav {
+          position: relative;
+          top: 0;
+        }
+      }
+
+      .nav h2 {
+        margin: 0;
+        padding: 14px 14px 10px;
+        font-size: 13px;
+        letter-spacing: 0.2px;
+      }
+
+      .nav p {
+        margin: 0;
+        padding: 0 14px 12px;
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.35;
+      }
+
+      .nav a {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        padding: 10px 14px;
+        text-decoration: none;
+        color: rgba(10, 24, 43, 0.9);
+        border-top: 1px solid rgba(223, 231, 243, 0.75);
+        font-size: 13px;
+      }
+
+      .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 999px;
+        background: rgba(0, 166, 159, 0.22);
+        border: 1px solid rgba(0, 166, 159, 0.32);
+      }
+
+      .content {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .card {
+        overflow: hidden;
+      }
+
+      .head {
+        padding: 16px 18px 10px;
+        border-bottom: 1px solid rgba(223, 231, 243, 0.85);
+        background:
+          linear-gradient(180deg, rgba(0, 166, 159, 0.07), transparent 60%),
+          linear-gradient(90deg, rgba(0, 132, 201, 0.05), transparent 55%);
+      }
+
+      .head h3 {
+        margin: 0;
+        font-size: 15px;
+      }
+
+      .head .hint {
+        margin: 6px 0 0;
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.4;
+        max-width: 78ch;
+      }
+
+      .body {
+        padding: 14px 18px 18px;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 12px;
+      }
+
+      .f {
+        grid-column: span 6;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .span12 {
+        grid-column: span 12;
+      }
+
+      .span4 {
+        grid-column: span 4;
+      }
+
+      .span8 {
+        grid-column: span 8;
+      }
+
+      label {
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.15px;
+        color: rgba(10, 24, 43, 0.82);
+      }
+
+      input,
+      select,
+      textarea {
+        width: 100%;
+        border: 1px solid rgba(203, 213, 225, 0.95);
+        border-radius: var(--rs);
+        padding: 10px 12px;
+        font-size: 13px;
+        outline: none;
+        background: rgba(255, 255, 255, 0.95);
+      }
+
+      textarea {
+        min-height: 92px;
+        resize: vertical;
+        line-height: 1.45;
+      }
+
+      input:focus,
+      select:focus,
+      textarea:focus {
+        border-color: rgba(0, 166, 159, 0.55);
+        box-shadow: var(--focus);
+      }
+
+      small {
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.35;
+      }
+
+      .table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        border: 1px solid rgba(223, 231, 243, 0.95);
+        border-radius: 14px;
+        overflow: hidden;
+        background: rgba(255, 255, 255, 0.95);
+      }
+
+      .table th {
+        background: rgba(245, 248, 252, 0.9);
+        text-align: left;
+        font-size: 12px;
+        padding: 10px 12px;
+        border-bottom: 1px solid rgba(223, 231, 243, 0.85);
+      }
+
+      .table td {
+        padding: 10px 12px;
+        border-bottom: 1px solid rgba(223, 231, 243, 0.75);
+        vertical-align: top;
+      }
+
+      .table tr:last-child td {
+        border-bottom: 0;
+      }
+
+      .note {
+        margin-top: 10px;
+        padding: 10px 12px;
+        border-radius: 14px;
+        border: 1px dashed rgba(0, 166, 159, 0.36);
+        background: linear-gradient(135deg, rgba(0, 166, 159, 0.08), rgba(0, 132, 201, 0.06));
+        font-size: 12px;
+        color: rgba(10, 24, 43, 0.86);
+        line-height: 1.45;
+      }
+
+      .toast {
+        position: fixed;
+        bottom: 18px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(10, 24, 43, 0.92);
+        color: rgba(255, 255, 255, 0.95);
+        padding: 10px 12px;
+        border-radius: 12px;
+        font-size: 13px;
+        box-shadow: 0 16px 40px rgba(10, 24, 43, 0.22);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.18s ease, transform 0.18s ease;
+        max-width: min(92vw, 720px);
+        text-align: center;
+        line-height: 1.35;
+      }
+
+      .toast.show {
+        opacity: 1;
+        transform: translateX(-50%) translateY(-4px);
+      }
+
+      @media print {
+        .top,
+        .nav,
+        .actions {
+          display: none !important;
+        }
+
+        body {
+          background: #fff;
+        }
+
+        .wrap {
+          max-width: none;
+          margin: 0;
+        }
+
+        .card {
+          box-shadow: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="top">
+      <div class="top-inner">
+        <div class="brand">
+          <div class="logo" aria-hidden="true"></div>
+          <div>
+            <h1>Паспорт продукта</h1>
+            <p>INVITRO‑inspired • удобно заполнять • легко делиться ссылкой</p>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="btn primary" id="btn-download" type="button">Скачать HTML</button>
+          <button class="btn" id="btn-export" type="button">Экспорт JSON</button>
+          <button class="btn" id="btn-print" type="button">Печать / PDF</button>
+        </div>
+      </div>
+    </header>
+
+    <div class="wrap">
+      <nav class="nav" aria-label="Разделы">
+        <h2>Разделы</h2>
+        <p>Заполните по своему продукту. Сценариев — 3–5 ключевых.</p>
+
+        <a href="#s1"><span class="dot"></span>1. Общая информация</a>
+        <a href="#s2"><span class="dot"></span>2. Целевая аудитория</a>
+        <a href="#s3"><span class="dot"></span>3. Цели</a>
+        <a href="#s4"><span class="dot"></span>4. Основные сценарии</a>
+        <a href="#s5"><span class="dot"></span>5. Зависимости и стейкхолдеры</a>
+        <a href="#s6"><span class="dot"></span>6. Материалы</a>
+      </nav>
+
+      <main class="content">
+        <section class="card" id="s1">
+          <div class="head">
+            <h3>1. Общая информация</h3>
+            <div class="hint">Минимальные метаданные, чтобы быстро понять контекст и контактов.</div>
+          </div>
+          <div class="body">
+            <div class="grid">
+              <div class="f span8">
+                <label>Название продукта / модуля</label>
+                <input name="product_name" placeholder="Например: INVITRO Online • Запись на анализы" />
+                <small>Коротко и как в компании/интерфейсе.</small>
+              </div>
+              <div class="f span4">
+                <label>Направление</label>
+                <select name="direction">
+                  <option value="">Выберите…</option>
+                  <option>B2C</option>
+                  <option>B2B</option>
+                  <option>B2E</option>
+                </select>
+                <small>Для кого и каким образом продукт работает.</small>
+              </div>
+
+              <div class="f span4">
+                <label>Дизайнер‑ответственный</label>
+                <input name="designer" placeholder="ФИО / ник" />
+              </div>
+              <div class="f span4">
+                <label>Продакт</label>
+                <input name="pm" placeholder="ФИО / ник" />
+              </div>
+              <div class="f span4">
+                <label>Команда / стрим / продуктовая зона</label>
+                <input name="team" placeholder="Например: Booking / Diagnostics" />
+              </div>
+
+              <div class="f span12">
+                <label>Короткое описание</label>
+                <textarea
+                  name="summary"
+                  placeholder="1–3 предложения: какую проблему решаем и в каком контуре (приложение/сайт/внутренний инструмент)."
+                ></textarea>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="card" id="s2">
+          <div class="head">
+            <h3>2. Целевая аудитория</h3>
+            <div class="hint">Кто пользуется и какие особенности влияют на сценарии/интерфейс.</div>
+          </div>
+          <div class="body">
+            <div class="grid">
+              <div class="f">
+                <label>Основная ЦА</label>
+                <textarea name="audience_primary" placeholder="Сегменты/роли, ключевые потребности."></textarea>
+              </div>
+              <div class="f">
+                <label>Вторичная ЦА</label>
+                <textarea name="audience_secondary" placeholder="Доп. сегменты/косвенные пользователи."></textarea>
+              </div>
+              <div class="f span12">
+                <label>Контекст использования</label>
+                <textarea name="audience_context" placeholder="Устройство/канал, частота, срочность, окружение, ограничения."></textarea>
+              </div>
+              <div class="f span12">
+                <label>Особенности аудитории, влияющие на сценарии/интерфейс</label>
+                <textarea
+                  name="audience_constraints"
+                  placeholder="Стресс, доступность, возрастные особенности, регуляторика и т.п."
+                ></textarea>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="card" id="s3">
+          <div class="head">
+            <h3>3. Цели</h3>
+            <div class="hint">Бизнес‑цели, пользовательские цели, метрики, критерии успеха.</div>
+          </div>
+          <div class="body">
+            <div class="grid">
+              <div class="f">
+                <label>Бизнес‑цели</label>
+                <textarea name="goals_business" placeholder="Рост CR/выручки, снижение затрат, уменьшение обращений..."></textarea>
+              </div>
+              <div class="f">
+                <label>Пользовательские цели</label>
+                <textarea name="goals_user" placeholder="Быстрее/понятнее/надёжнее пройти путь..."></textarea>
+              </div>
+              <div class="f">
+                <label>Ключевые метрики / ожидаемый эффект</label>
+                <textarea name="metrics" placeholder="CR шагов, время до результата, доля ошибок, NPS/CSAT..."></textarea>
+              </div>
+              <div class="f">
+                <label>Что считается успехом</label>
+                <textarea name="success" placeholder="Чёткие критерии и условия успеха."></textarea>
+              </div>
+            </div>
+            <div class="note">Подсказка: формулируйте метрики так, чтобы их можно было проверить (данные/наблюдения/опросы).</div>
+          </div>
+        </section>
+
+        <section class="card" id="s4">
+          <div class="head" style="display: flex; gap: 12px; align-items: flex-start; justify-content: space-between">
+            <div>
+              <h3>4. Основные сценарии</h3>
+              <div class="hint">Заполните 3–5 ключевых сценариев и приложите ссылки на макеты.</div>
+            </div>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: flex-end">
+              <button class="btn" id="btn-add-scenario" type="button">Добавить сценарий</button>
+            </div>
+          </div>
+          <div class="body">
+            <table class="table" aria-label="Сценарии">
+              <thead>
+                <tr>
+                  <th style="width: 26%">Сценарий</th>
+                  <th style="width: 44%">Краткое описание</th>
+                  <th style="width: 24%">Ссылка на макеты</th>
+                  <th style="width: 6%"></th>
+                </tr>
+              </thead>
+              <tbody id="scenario-body">
+                <tr>
+                  <td><input name="scenario_name_1" placeholder="Например: Запись на анализ" /></td>
+                  <td><textarea name="scenario_desc_1" placeholder="Что делает пользователь и какой результат ожидает."></textarea></td>
+                  <td>
+                    <input name="scenario_link_1" placeholder="Figma / прототип / ссылка" />
+                    <small>Ссылка должна открываться у команды.</small>
+                  </td>
+                  <td style="text-align: right">
+                    <button class="btn" type="button" data-remove-row title="Удалить строку">✕</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="note">Совет: начните с самых частых или самых “денежных” сценариев.</div>
+          </div>
+        </section>
+
+        <section class="card" id="s5">
+          <div class="head">
+            <h3>5. Зависимости и стейкхолдеры</h3>
+            <div class="hint">Команды, ключевые стейкхолдеры, пересечения с другими продуктами.</div>
+          </div>
+          <div class="body">
+            <div class="grid">
+              <div class="f span12">
+                <label>Какие команды связаны с вашим продуктом</label>
+                <textarea name="deps_teams" placeholder="Команды/стримы и зона ответственности."></textarea>
+              </div>
+              <div class="f span12">
+                <label>Ключевые стейкхолдеры</label>
+                <textarea
+                  name="deps_stakeholders"
+                  placeholder="Роли/ФИО: бизнес, мед.эксперты, легал, аналитика, разработка, поддержка."
+                ></textarea>
+              </div>
+              <div class="f span12">
+                <label>Пересечения с продуктами / модулями / направлениями</label>
+                <textarea name="deps_intersections" placeholder="Где нужно согласование/общие паттерны/риск конфликтов."></textarea>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="card" id="s6">
+          <div class="head" style="display: flex; gap: 12px; align-items: flex-start; justify-content: space-between">
+            <div>
+              <h3>6. Материалы</h3>
+              <div class="hint">Соберите ссылки на источники. Удобно для онбординга и передачи контекста.</div>
+            </div>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: flex-end">
+              <button class="btn" id="btn-add-link" type="button">Добавить ссылку</button>
+            </div>
+          </div>
+          <div class="body">
+            <div class="grid" id="links-grid">
+              <div class="f">
+                <label>Figma‑файл</label>
+                <input name="link_figma" placeholder="Ссылка" />
+              </div>
+              <div class="f">
+                <label>Прототип</label>
+                <input name="link_prototype" placeholder="Ссылка" />
+              </div>
+              <div class="f">
+                <label>Исследования / интервью / тесты / инсайты</label>
+                <input name="link_research" placeholder="Ссылка" />
+              </div>
+              <div class="f">
+                <label>Документация</label>
+                <input name="link_docs" placeholder="Ссылка" />
+              </div>
+              <div class="f">
+                <label>Jira / задачи / постановки</label>
+                <input name="link_jira" placeholder="Ссылка" />
+              </div>
+              <div class="f">
+                <label>Дополнительные материалы</label>
+                <input name="link_extra" placeholder="Ссылка" />
+              </div>
+            </div>
+            <div class="note">
+              Если вы хотите делиться ссылкой, как в примере с `raw.githack.com`, просто используйте ссылку на конкретный коммит.
+            </div>
+          </div>
+        </section>
+
+        <div class="toast" id="toast" role="status" aria-live="polite"></div>
+      </main>
+    </div>
+
+    <script>
+      (function () {
+        const $ = (sel, root = document) => root.querySelector(sel);
+        const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+
+        const toastEl = $("#toast");
+        let toastTimer = null;
+        function toast(msg) {
+          if (!toastEl) return;
+          toastEl.textContent = msg;
+          toastEl.classList.add("show");
+          clearTimeout(toastTimer);
+          toastTimer = setTimeout(() => toastEl.classList.remove("show"), 2100);
+        }
+
+        function download(filename, content, mime) {
+          const blob = new Blob([content], { type: mime });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = filename;
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          setTimeout(() => URL.revokeObjectURL(url), 1500);
+        }
+
+        const allInputsSelector = "input, select, textarea";
+        function collectData() {
+          const data = {
+            meta: { exportedAt: new Date().toISOString(), template: "product-passport-v1" },
+            fields: {},
+          };
+          for (const el of $$(allInputsSelector)) {
+            const name = el.getAttribute("name");
+            if (!name) continue;
+            data.fields[name] = (el.value ?? "").toString();
+          }
+          return data;
+        }
+
+        const exportBtn = $("#btn-export");
+        if (exportBtn)
+          exportBtn.addEventListener("click", () => {
+            download("product-passport.json", JSON.stringify(collectData(), null, 2), "application/json;charset=utf-8");
+            toast("Экспорт JSON готов");
+          });
+
+        const dlBtn = $("#btn-download");
+        if (dlBtn)
+          dlBtn.addEventListener("click", () => {
+            download("product-passport.html", document.documentElement.outerHTML, "text/html;charset=utf-8");
+            toast("HTML скачан");
+          });
+
+        const printBtn = $("#btn-print");
+        if (printBtn) printBtn.addEventListener("click", () => window.print());
+
+        // Scenario rows
+        const scenarioBody = $("#scenario-body");
+        const addScenarioBtn = $("#btn-add-scenario");
+        function nextScenarioIndex() {
+          return $$("#scenario-body tr").length + 1;
+        }
+        function addScenarioRow() {
+          const i = nextScenarioIndex();
+          const tr = document.createElement("tr");
+          tr.innerHTML =
+            '<td><input name="scenario_name_' +
+            i +
+            '" placeholder="Например: Сценарий ' +
+            i +
+            '" /></td>' +
+            '<td><textarea name="scenario_desc_' +
+            i +
+            '" placeholder="Что делает пользователь и какой результат ожидает."></textarea></td>' +
+            '<td><input name="scenario_link_' +
+            i +
+            '" placeholder="Figma / прототип / ссылка" /><small>Ссылка должна открываться у команды.</small></td>' +
+            '<td style="text-align:right"><button class="btn" type="button" data-remove-row title="Удалить строку">✕</button></td>';
+          scenarioBody.appendChild(tr);
+          toast("Сценарий добавлен");
+        }
+        if (addScenarioBtn) addScenarioBtn.addEventListener("click", addScenarioRow);
+
+        document.addEventListener("click", (e) => {
+          const btn = e.target && e.target.closest && e.target.closest("[data-remove-row]");
+          if (!btn) return;
+          const tr = btn.closest("tr");
+          if (tr && tr.parentElement && tr.parentElement.children.length > 1) {
+            tr.remove();
+            toast("Строка удалена");
+          } else {
+            toast("Нужна хотя бы 1 строка");
+          }
+        });
+
+        // Extra links
+        const linksGrid = $("#links-grid");
+        const addLinkBtn = $("#btn-add-link");
+        function addExtraLink() {
+          const idx = $$(".f.extra-link", linksGrid).length + 1;
+          const wrap = document.createElement("div");
+          wrap.className = "f extra-link";
+          wrap.innerHTML =
+            "<label>Доп. ссылка " +
+            idx +
+            "</label>" +
+            '<div style="display:flex;gap:10px;align-items:stretch">' +
+            '<input name="link_extra_' +
+            idx +
+            '" placeholder="Ссылка" style="flex:1" />' +
+            '<button class="btn" type="button" data-remove-extra title="Удалить">✕</button>' +
+            "</div>" +
+            '<small>Например: Confluence, Miro, отчёт, запись интервью, релиз‑ноты.</small>';
+          linksGrid.appendChild(wrap);
+          toast("Ссылка добавлена");
+        }
+        if (addLinkBtn) addLinkBtn.addEventListener("click", addExtraLink);
+
+        document.addEventListener("click", (e) => {
+          const btn = e.target && e.target.closest && e.target.closest("[data-remove-extra]");
+          if (!btn) return;
+          const field = btn.closest(".f");
+          if (field) field.remove();
+          toast("Ссылка удалена");
+        });
+      })();
+    </script>
+  </body>
+</html>
+
