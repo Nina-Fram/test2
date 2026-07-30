@@ -54,15 +54,6 @@
     .slide--light{ background: var(--cream); color: var(--dark); }
     .slide--dark{ background: var(--dark); color: var(--white); }
 
-    .slide-num{
-      position: absolute;
-      bottom: 28px;
-      right: 40px;
-      font-size: 11px;
-      color: var(--muted);
-      letter-spacing: 0.04em;
-    }
-
     /* ── NAV ─────────────────────────────────────────────────────────────── */
     nav{
       position: fixed;
@@ -187,13 +178,13 @@
     .rule-body{
       font-size: 13px;
       line-height: 1.55;
-      color: #666662;
+      color: #3E3E3A;
       display: flex;
       flex-direction: column;
       gap: 8px;
     }
-    .slide--light .rule-body{ color: #666662; }
-    .slide--dark .rule-body{ color: #77777A; }
+    .slide--light .rule-body{ color: #3E3E3A; }
+    .slide--dark .rule-body{ color: #B2B2AB; }
 
     .rule-body ul{ padding-left: 16px; }
     .rule-body li{ margin: 4px 0; }
@@ -224,9 +215,9 @@
     .step-body{
       font-size: 13px;
       line-height: 1.55;
-      color: #666662;
+      color: #3E3E3A;
     }
-    .slide--dark .step-body{ color: #77777A; }
+    .slide--dark .step-body{ color: #B2B2AB; }
 
     /* ── ANIMATIONS ─────────────────────────────────────────────────────── */
     @media (prefers-reduced-motion: no-preference) {
@@ -244,7 +235,6 @@
     }
     @media (max-width: 860px){
       .slide{ padding: 56px 22px; }
-      .slide-num{ right: 22px; }
       .cover__line{ left: 22px; }
       .rules-grid{ grid-template-columns: 1fr; }
       .rule-card{ padding: 16px 16px 14px; }
@@ -255,8 +245,8 @@
   <nav id="nav" aria-label="Навигация по разделам">
     <a href="#s1" title="Обложка"></a>
     <a href="#s2" title="Задача правил"></a>
-    <a href="#s3" title="Правила 1–4"></a>
-    <a href="#s4" title="Правила 5–7"></a>
+    <a href="#s3" title="Правила"></a>
+    <a href="#s4" title="Правила"></a>
     <a href="#s5" title="Как работаем дальше"></a>
   </nav>
 
@@ -268,7 +258,6 @@
       <div class="cover__word">взаимодействия</div>
       <div class="cover__word">дизайнеров</div>
     </div>
-    <div class="slide-num">1 / 5</div>
   </section>
 
   <!-- ══ SLIDE 2: GOAL ════════════════════════════════════════════════════ -->
@@ -283,7 +272,6 @@
       </div>
     </div>
 
-    <div class="slide-num">2 / 5</div>
   </section>
 
   <!-- ══ SLIDE 3: RULES 1-4 ═══════════════════════════════════════════════ -->
@@ -292,7 +280,7 @@
     <div class="slide-title">Как обсуждаем, спорим и фиксируем решения</div>
     <hr class="slide-divider" />
 
-    <div class="rules-grid fade-in" aria-label="Правила 1–4">
+    <div class="rules-grid fade-in" aria-label="Правила">
       <article class="rule-card" style="border-color:var(--green)">
         <div class="rule-title">В спорах обсуждаем решение, а не человека</div>
         <div class="rule-body">
@@ -339,7 +327,6 @@
       </article>
     </div>
 
-    <div class="slide-num">3 / 5</div>
   </section>
 
   <!-- ══ SLIDE 4: RULES 5-7 ═══════════════════════════════════════════════ -->
@@ -348,7 +335,7 @@
     <div class="slide-title">Как даём обратную связь и держим ответственность</div>
     <hr class="slide-divider" />
 
-    <div class="rules-grid fade-in" aria-label="Правила 5–7">
+    <div class="rules-grid fade-in" aria-label="Правила">
       <article class="rule-card" style="border-color:var(--purple)">
         <div class="rule-title">Обратная связь должна быть корректной, понятной и полезной</div>
         <div class="rule-body">
@@ -381,7 +368,6 @@
       </article>
     </div>
 
-    <div class="slide-num">4 / 5</div>
   </section>
 
   <!-- ══ SLIDE 5: HOW WE USE IT ═══════════════════════════════════════════ -->
@@ -401,7 +387,6 @@
       </div>
     </div>
 
-    <div class="slide-num">5 / 5</div>
   </section>
 
   <script>
