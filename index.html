@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Правила взаимодействия команды дизайнеров</title>
+  <meta name="description" content="Документ: правила взаимодействия команды дизайнеров — для понятной, спокойной и предсказуемой коммуникации." />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root{
+      --dark:   #0E0E0E;
+      --dark2:  #161616;
+      --dark3:  #1E1E1E;
+      --cream:  #F5F3EE;
+      --cream2: #EDEAE3;
+      --white:  #FFFFFF;
+      --muted:  #8A8A85;
+      --border: #2E2E2E;
+      --borderl:#DDDAD3;
+
+      --green:  #1D9E75;
+      --amber:  #EF9F27;
+      --red:    #E24B4A;
+      --blue:   #378ADD;
+      --purple: #7F77DD;
+      --pink:   #D4537E;
+      --teal:   #5DCAA5;
+      --peach:  #E8A87C;
+    }
+
+    html { scroll-behavior: smooth; }
+    body{
+      font-family: "Inter", sans-serif;
+      background: var(--dark);
+      color: var(--white);
+      font-size: 16px;
+      line-height: 1.55;
+    }
+
+    /* ── SLIDES ───────────────────────────────────────────────────────────── */
+    .slide{
+      min-height: 100vh;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 64px 72px;
+      position: relative;
+      overflow: hidden;
+    }
+    .slide--light{ background: var(--cream); color: var(--dark); }
+    .slide--dark{ background: var(--dark); color: var(--white); }
+
+    .slide-num{
+      position: absolute;
+      bottom: 28px;
+      right: 40px;
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── NAV ─────────────────────────────────────────────────────────────── */
+    nav{
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      gap: 2px;
+      padding: 0;
+    }
+    nav a{
+      flex: 1;
+      height: 3px;
+      background: rgba(255,255,255,0.12);
+      transition: background 0.3s;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    nav a:hover,
+    nav a.active{ background: var(--green); }
+
+    /* ── COVER ───────────────────────────────────────────────────────────── */
+    .cover{
+      background: var(--dark);
+      justify-content: flex-end;
+      padding-bottom: 100px;
+    }
+    .cover__line{
+      width: 3px;
+      height: 0;
+      background: var(--green);
+      position: absolute;
+      left: 56px;
+      bottom: 88px;
+      animation: growLine 1.2s ease forwards 0.25s;
+    }
+    @keyframes growLine { to { height: 220px; } }
+
+    .cover__words{
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-bottom: 0;
+    }
+    .cover__word{
+      font-size: clamp(44px, 8.4vw, 92px);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+    }
+    .cover__word:nth-child(1){ color: var(--white); margin-left: 0; }
+    .cover__word:nth-child(2){ color: #AAAAAA; margin-left: clamp(18px, 3.6vw, 56px); }
+    .cover__word:nth-child(3){ color: #555552; margin-left: clamp(36px, 7.2vw, 112px); }
+
+    /* ── SECTION HEADER ─────────────────────────────────────────────────── */
+    .section-tag{
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+    .slide-title{
+      font-size: clamp(26px, 4vw, 42px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 18px;
+    }
+    .slide--light .section-tag{ color:#999994; }
+    .slide--light .slide-title{ color: var(--dark); }
+
+    hr.slide-divider{
+      border: none;
+      border-top: 1px solid var(--borderl);
+      margin-bottom: 28px;
+    }
+    .slide--dark hr.slide-divider{ border-color: var(--border); }
+
+    /* ── INTRO ───────────────────────────────────────────────────────────── */
+    .intro{
+      max-width: 980px;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 18px;
+      align-items: start;
+    }
+    .lead{
+      font-size: 15px;
+      color: #2A2A28;
+      line-height: 1.6;
+    }
+    .slide--dark .lead{ color: #CFCFCA; }
+    .note{
+      background: var(--cream2);
+      border-radius: 10px;
+      padding: 16px 16px 14px;
+      border-left: 3px solid var(--green);
+    }
+    .slide--dark .note{
+      background: var(--dark2);
+      border-color: var(--green);
+    }
+    .note__title{
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .note__text{
+      font-size: 13px;
+      line-height: 1.55;
+      color: #2A2A28;
+    }
+    .slide--dark .note__text{ color: #CFCFCA; }
+
+    /* ── RULE CARDS ─────────────────────────────────────────────────────── */
+    .rules-grid{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .rule-card{
+      border-radius: 10px;
+      padding: 18px 20px 16px;
+      border-left: 4px solid transparent;
+      display: grid;
+      grid-template-columns: 40px 1fr;
+      gap: 14px;
+      align-items: start;
+    }
+    .slide--light .rule-card{
+      background: var(--white);
+      color: var(--dark);
+    }
+    .slide--dark .rule-card{
+      background: var(--dark2);
+      color: var(--white);
+    }
+    .rule-num{
+      font-size: 28px;
+      font-weight: 700;
+      line-height: 1;
+      opacity: 0.12;
+      text-align: center;
+      margin-top: 2px;
+    }
+    .slide--dark .rule-num{ color: var(--white); opacity: 0.14; }
+    .slide--light .rule-num{ color: var(--dark); }
+    .rule-title{
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.3;
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+    .rule-body{
+      font-size: 13px;
+      line-height: 1.55;
+      color: #666662;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .slide--light .rule-body{ color: #666662; }
+    .slide--dark .rule-body{ color: #77777A; }
+
+    .rule-body ul{ padding-left: 16px; }
+    .rule-body li{ margin: 4px 0; }
+
+    /* ── NEXT STEPS ─────────────────────────────────────────────────────── */
+    .steps{
+      max-width: 980px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    .step-card{
+      background: var(--white);
+      border-radius: 10px;
+      padding: 18px 20px 16px;
+      border-left: 4px solid var(--green);
+    }
+    .slide--dark .step-card{
+      background: var(--dark2);
+      border-color: var(--green);
+    }
+    .step-title{
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.35;
+      margin-bottom: 8px;
+    }
+    .step-body{
+      font-size: 13px;
+      line-height: 1.55;
+      color: #666662;
+    }
+    .slide--dark .step-body{ color: #77777A; }
+
+    /* ── ANIMATIONS ─────────────────────────────────────────────────────── */
+    @media (prefers-reduced-motion: no-preference) {
+      .fade-in{
+        opacity: 0;
+        transform: translateY(16px);
+        transition: opacity 0.55s ease, transform 0.55s ease;
+      }
+      .fade-in.visible{ opacity: 1; transform: none; }
+    }
+
+    /* ── RESPONSIVE ─────────────────────────────────────────────────────── */
+    @media (max-width: 980px){
+      .intro{ grid-template-columns: 1fr; }
+    }
+    @media (max-width: 860px){
+      .slide{ padding: 56px 22px; }
+      .slide-num{ right: 22px; }
+      .cover__line{ left: 22px; }
+      .rules-grid{ grid-template-columns: 1fr; }
+      .rule-card{ grid-template-columns: 34px 1fr; padding: 16px 16px 14px; }
+    }
+  </style>
+</head>
+<body>
+  <nav id="nav" aria-label="Навигация по разделам">
+    <a href="#s1" title="Обложка"></a>
+    <a href="#s2" title="Задача правил"></a>
+    <a href="#s3" title="Правила 1–4"></a>
+    <a href="#s4" title="Правила 5–7"></a>
+    <a href="#s5" title="Как работаем дальше"></a>
+  </nav>
+
+  <!-- ══ SLIDE 1: COVER ═══════════════════════════════════════════════════ -->
+  <section class="slide cover" id="s1">
+    <div class="cover__line"></div>
+    <div class="cover__words">
+      <div class="cover__word">Правила</div>
+      <div class="cover__word">взаимодействия</div>
+      <div class="cover__word">дизайнеров</div>
+    </div>
+    <div class="slide-num">1 / 5</div>
+  </section>
+
+  <!-- ══ SLIDE 2: GOAL ════════════════════════════════════════════════════ -->
+  <section class="slide slide--light" id="s2">
+    <div class="section-tag">Документ команды</div>
+    <div class="slide-title">Правила взаимодействия команды дизайнеров</div>
+    <hr class="slide-divider" />
+
+    <div class="intro fade-in">
+      <div class="lead">
+        <strong>Задача правил</strong>: сделать коммуникацию, обратную связь и принятие решений более понятными, спокойными и предсказуемыми.
+      </div>
+
+      <aside class="note" aria-label="Заметка">
+        <div class="note__title">Принцип</div>
+        <div class="note__text">
+          Если решение не найдено — у обсуждения должен появиться следующий шаг и понятный участник, который помогает закрыть вопрос.
+        </div>
+      </aside>
+    </div>
+
+    <div class="slide-num">2 / 5</div>
+  </section>
+
+  <!-- ══ SLIDE 3: RULES 1-4 ═══════════════════════════════════════════════ -->
+  <section class="slide slide--dark" id="s3">
+    <div class="section-tag">Правила</div>
+    <div class="slide-title">Как обсуждаем, спорим и фиксируем решения</div>
+    <hr class="slide-divider" />
+
+    <div class="rules-grid fade-in" aria-label="Правила 1–4">
+      <article class="rule-card" style="border-color:var(--green)">
+        <div class="rule-num">1</div>
+        <div>
+          <div class="rule-title">В спорах обсуждаем решение, а не человека</div>
+          <div class="rule-body">
+            <div>В спорных обсуждениях команда опирается на аргументы, а не на эмоции.</div>
+            <ul>
+              <li>Коммуникация строится спокойно, без агрессии и без личных оценок.</li>
+              <li>Вопросы и комментарии помогают двигаться к решению, а не уводят обсуждение в сторону.</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <article class="rule-card" style="border-color:var(--amber)">
+        <div class="rule-num">2</div>
+        <div>
+          <div class="rule-title">Если не договорились — подключаем нужную роль</div>
+          <div class="rule-body">
+            <ul>
+              <li>По вопросам ревью подключается владелец процесса ревью.</li>
+              <li>По продуктовым вопросам — руководитель команды дизайна.</li>
+              <li>По спорным моментам между дизайнерами в части взаимодействия — комьюнити лид.</li>
+              <li>Спор не должен оставаться «висящим»: если решение не найдено, у него должен появиться следующий шаг и понятный участник.</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <article class="rule-card" style="border-color:var(--blue)">
+        <div class="rule-num">3</div>
+        <div>
+          <div class="rule-title">Важные договорённости фиксируем письменно</div>
+          <div class="rule-body">
+            <ul>
+              <li>После встреч и обсуждений, где были приняты решения, делается короткий follow‑up.</li>
+              <li>Особенно это важно для продуктовых и спорных тем.</li>
+              <li>Зафиксированная договорённость считается рабочей опорой, пока не пересмотрена отдельно.</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <article class="rule-card" style="border-color:var(--red)">
+        <div class="rule-num">4</div>
+        <div>
+          <div class="rule-title">Ошибка — это повод улучшить решение или процесс, а не обвинить человека</div>
+          <div class="rule-body">
+            <ul>
+              <li>Ошибка не используется как повод для упрёка или давления.</li>
+              <li>Замеченная ошибка — это вклад в качество работы.</li>
+              <li>Если уместно, разбираем не только саму ошибку, но и её причину, чтобы снизить риск повторения.</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <div class="slide-num">3 / 5</div>
+  </section>
+
+  <!-- ══ SLIDE 4: RULES 5-7 ═══════════════════════════════════════════════ -->
+  <section class="slide slide--light" id="s4">
+    <div class="section-tag">Правила</div>
+    <div class="slide-title">Как даём обратную связь и держим ответственность</div>
+    <hr class="slide-divider" />
+
+    <div class="rules-grid fade-in" aria-label="Правила 5–7">
+      <article class="rule-card" style="border-color:var(--purple)">
+        <div class="rule-num">5</div>
+        <div>
+          <div class="rule-title">Обратная связь должна быть корректной, понятной и полезной</div>
+          <div class="rule-body">
+            <ul>
+              <li>Обратная связь даётся без обвинений и по возможности с практическими рекомендациями.</li>
+              <li>Важно, чтобы человеку было понятно, в чём именно проблема и что можно сделать дальше.</li>
+              <li>Цель обратной связи — помочь улучшить результат, а не создавать дополнительное напряжение.</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <article class="rule-card" style="border-color:var(--teal)">
+        <div class="rule-num">6</div>
+        <div>
+          <div class="rule-title">Ответственность в решениях не смешивается</div>
+          <div class="rule-body">
+            <ul>
+              <li>За решение по задаче и бизнес‑контексту отвечает продакт.</li>
+              <li>За решение по UX и интерфейсу отвечает дизайнер.</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <article class="rule-card" style="border-color:var(--pink)">
+        <div class="rule-num">7</div>
+        <div>
+          <div class="rule-title">В работе опираемся на действующие процессы и стандарты</div>
+          <div class="rule-body">
+            <ul>
+              <li>В кросс‑командных вопросах первичная договорённость строится между продактами, а дизайнеры отвечают каждый за свой контур.</li>
+              <li>Если возникает риск, что дизайн в продукте делается без участия дизайнера, задача дизайнера — вовремя вернуть обсуждение в рабочий процесс и опереться на принятые стандарты компании.</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <div class="slide-num">4 / 5</div>
+  </section>
+
+  <!-- ══ SLIDE 5: HOW WE USE IT ═══════════════════════════════════════════ -->
+  <section class="slide slide--dark" id="s5">
+    <div class="section-tag">Как работаем с документом дальше</div>
+    <div class="slide-title">Используем как рабочую опору и дополняем по мере практики</div>
+    <hr class="slide-divider" />
+
+    <div class="steps fade-in">
+      <div class="step-card">
+        <div class="step-title">Документ используется как рабочая опора в ежедневном взаимодействии</div>
+        <div class="step-body">Делаем на него ссылку в спорных/важных ситуациях и используем как общий ориентир в коммуникации.</div>
+      </div>
+      <div class="step-card" style="border-color:var(--amber)">
+        <div class="step-title">Дополняем или уточняем правила при повторяющихся кейсах</div>
+        <div class="step-body">Если в практике появляется новый повторяющийся кейс, команда может дописать правило или уточнить формулировки.</div>
+      </div>
+    </div>
+
+    <div class="slide-num">5 / 5</div>
+  </section>
+
+  <script>
+    // Nav highlight
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('nav a');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        navLinks.forEach(l => l.classList.remove('active'));
+        const idx = [...sections].indexOf(e.target);
+        if (navLinks[idx]) navLinks[idx].classList.add('active');
+      });
+    }, { threshold: 0.55 });
+    sections.forEach(s => observer.observe(s));
+
+    // Fade-in on scroll
+    const fadeEls = document.querySelectorAll('.fade-in');
+    const fadeObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('visible');
+        fadeObs.unobserve(e.target);
+      });
+    }, { threshold: 0.15 });
+    fadeEls.forEach(el => fadeObs.observe(el));
+  </script>
+</body>
+</html>
