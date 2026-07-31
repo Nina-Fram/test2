@@ -154,6 +154,77 @@
       .quote p { margin: 0; line-height: 1.55; color: var(--white); }
       .quote .who { margin-top: 8px; font-size: 12px; color: rgba(178, 178, 171, 0.9); }
 
+      .kicker-mini{
+        font-size: 11px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: rgba(178, 178, 171, 0.86);
+      }
+
+      .persona {
+        display: grid;
+        grid-template-columns: 56px 1fr;
+        gap: 12px;
+        align-items: start;
+        background: var(--dark3);
+        border: 1px solid rgba(51, 51, 48, 0.95);
+        border-radius: 10px;
+        padding: 14px;
+      }
+      .avatar {
+        width: 56px;
+        height: 56px;
+        border-radius: 14px;
+        background:
+          radial-gradient(18px 18px at 30% 30%, rgba(239,159,39,0.9), transparent 60%),
+          radial-gradient(22px 22px at 70% 35%, rgba(127,119,221,0.9), transparent 60%),
+          radial-gradient(24px 24px at 45% 75%, rgba(29,158,117,0.9), transparent 60%),
+          rgba(255,255,255,0.06);
+        border: 1px solid rgba(255,255,255,0.10);
+      }
+      .persona h3 { margin: 0 0 6px; font-size: 16px; color: var(--white); letter-spacing: -0.02em; }
+      .persona p { margin: 0; color: rgba(255,255,255,0.92); line-height: 1.55; }
+
+      .situations-grid{
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+      .s-card{
+        background: var(--dark3);
+        border: 1px solid rgba(51, 51, 48, 0.95);
+        border-radius: 10px;
+        padding: 14px 14px 12px;
+        border-left: 4px solid rgba(29, 158, 117, 0.85);
+      }
+      .s-title{
+        font-size: 15px;
+        font-weight: 650;
+        letter-spacing: -0.02em;
+        margin: 0 0 8px;
+      }
+      .s-body{ color: rgba(255,255,255,0.92); font-size: 13px; line-height: 1.55; }
+      .s-sub{ margin-top: 10px; color: rgba(178,178,171,0.92); font-size: 12px; }
+      .factline{
+        margin-top: 10px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
+      }
+      .fact{
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 10px;
+        border-radius: 999px;
+        font-size: 12px;
+        border: 1px solid rgba(51, 51, 48, 0.95);
+        color: rgba(178, 178, 171, 0.9);
+        background: rgba(30, 30, 30, 0.75);
+      }
+      .fact b{ color: var(--white); font-weight: 650; }
+
       .steps { width: 100%; border-collapse: collapse; }
       .steps th, .steps td { border-top: 1px solid rgba(46, 46, 46, 0.95); padding: 10px 8px; vertical-align: top; }
       .steps th { text-align: left; font-size: 12px; color: rgba(178, 178, 171, 0.86); font-weight: 650; letter-spacing: 0.12em; text-transform: uppercase; }
@@ -190,6 +261,7 @@
         .metric { grid-column: span 4; }
         .two-col { grid-template-columns: 1fr 1fr; }
         .row { grid-template-columns: 1fr; }
+        .situations-grid{ grid-template-columns: 1fr 1fr; }
       }
 
       @media (max-width: 860px) {
@@ -206,9 +278,9 @@
           <div class="title">Отчет по опросу</div>
         </div>
         <div class="nav">
-          <a class="pill" href="#context">Контекст</a>
-          <a class="pill" href="#findings">Выводы</a>
-          <a class="pill" href="#gaps">Расхождения</a>
+          <a class="pill" href="#story">История</a>
+          <a class="pill" href="#situations">Ситуации</a>
+          <a class="pill" href="#facts">Факты</a>
           <a class="pill" href="#data">Данные</a>
           <a class="pill" href="#appendix">Приложение</a>
         </div>
@@ -217,9 +289,9 @@
 
     <div class="wrap">
       <section class="hero" id="top">
-        <h1>Срез восприятия роли руководителя в дизайн‑команде</h1>
+        <h1>Как роль руководителя считывается командой — и что помогает в ежедневных ситуациях</h1>
         <div class="subtitle">
-          <b>Сопоставление взглядов команды и руководителя</b> по итогам двух опросов.
+          <b>Это не регламент и не «оценка личности».</b> Это шпаргалка, к которой можно возвращаться: какие ситуации встречаются у дизайнера, что в них помогает, и какие сигналы дают два опроса.
           <div style="margin-top:10px; display:flex; gap:10px; flex-wrap:wrap;">
             <span class="badge"><span class="dot team"></span>Команда (среднее)</span>
             <span class="badge"><span class="dot lead"></span>Руководитель (самооценка)</span>
@@ -230,26 +302,73 @@
 
       <section class="grid" id="context">
         <div class="card">
-          <h2>Цель и рамка</h2>
+          <h2>Как пользоваться</h2>
           <div class="subtitle">
-            Цель этого отчёта — сопоставить, как команда и руководитель видят роль руководителя, взаимодействие, контроль и процессы, и на основе расхождений обновить общие договорённости.
-            Отчёт не предназначен для оценки личности или компетенции руководителя.
+            Здесь сначала — <b>история и ситуации</b> (чтобы было «про жизнь»), затем — <b>факты</b> (чтобы можно было опираться на данные), и в конце — <b>полный датасет</b>.
           </div>
           <div class="hr"></div>
           <h3>Методика</h3>
           <div class="metrics" id="methodMetrics"></div>
-          <div class="footer">
-            Примечание: один из пунктов формы у команды продублирован (в исходной анкете). В расчетах он сохранен как отдельный пункт, но при интерпретации объединяется по смыслу.
+          <div class="footer">Примечание: один из пунктов формы у команды продублирован (в исходной анкете). В расчетах он сохранен как отдельный пункт.</div>
+        </div>
+      </section>
+
+      <section class="grid" id="story">
+        <div class="card">
+          <div class="kicker-mini" style="margin-bottom:10px;">мини‑персонаж</div>
+          <h2>История: «Даша, дизайнер»</h2>
+          <div class="subtitle" style="margin-bottom:12px;">
+            Даша ведёт несколько задач, у неё плотный контекст и постоянные переключения. Ей важно понимать <b>что важно сейчас</b>, <b>кто что решает</b>, и <b>когда ждать ответ</b>, чтобы не застревать и не перегреваться.
+          </div>
+
+          <div class="two-col">
+            <div class="persona">
+              <div class="avatar" aria-hidden="true"></div>
+              <div>
+                <h3>Даша · продуктовый дизайнер</h3>
+                <p>«Если я могу обратиться к лиду легко — я обращаюсь. Если каждый раз кажется, что будет торг или напряжение — я скорее буду тянуть до последнего».</p>
+              </div>
+            </div>
+
+            <div class="quote">
+              <p><span class="muted">О чём эта страница:</span> не про «правильно/неправильно», а про то, <b>что помогает</b> в типичных ситуациях. Суть оставляем, подачу делаем лёгкой и прикладной.</p>
+              <div class="who">Заметка к формату</div>
+            </div>
           </div>
         </div>
       </section>
 
-      <section class="grid" id="findings">
+      <section class="grid" id="situations">
         <div class="card">
-          <h2>Ключевые выводы (коротко)</h2>
+          <div class="kicker-mini" style="margin-bottom:10px;">сценарии</div>
+          <h2>Ситуации из жизни дизайнера — и что помогает</h2>
+          <div class="subtitle" style="margin-bottom:12px;">
+            Ниже — короткие карточки «ситуация → что помогает». Они не про контроль, а про <b>снижение трения</b>: ясность, предсказуемость и бережную коммуникацию.
+          </div>
+
+          <div class="situations-grid" id="situationsGrid" aria-label="Ситуации и подсказки"></div>
+        </div>
+      </section>
+
+      <section class="grid" id="facts">
+        <div class="card">
+          <div class="kicker-mini" style="margin-bottom:10px;">факты</div>
+          <h2>Факты и сигналы из опросов</h2>
+          <div class="subtitle" style="margin-bottom:12px;">
+            Здесь — опорные формулировки и графики. Если хочется «проверить себя цифрами» — это сюда.
+          </div>
+
           <div class="two-col">
             <div>
+              <h3>Коротко, по сути</h3>
               <ul class="list" id="keyBullets"></ul>
+              <div class="hr"></div>
+              <h3>Зоны опоры</h3>
+              <ul class="list">
+                <li>Команда описывает руководителя как <b>держателя планки качества и стратегии</b>.</li>
+                <li>Команда отмечает роль в <b>развитии, наставничестве и повышении глубины решений</b>.</li>
+                <li>В образе роли повторяется мотив: <b>задаёт курс и защищает от внешнего шума</b>.</li>
+              </ul>
             </div>
             <div>
               <div class="quote">
@@ -261,77 +380,54 @@
                 <p id="leaderImproveQuote"></p>
                 <div class="who">Самоописание «что улучшить» (из опроса)</div>
               </div>
-            </div>
-          </div>
-          <div class="hr"></div>
-          <h3>Совпадения (зоны опоры)</h3>
-          <div class="two-col">
-            <div>
-              <ul class="list">
-                <li>Команда описывает руководителя как <b>держателя планки качества и стратегии</b>.</li>
-                <li>Команда отмечает роль в <b>развитии, наставничестве и повышении глубины решений</b>.</li>
-                <li>В образе роли повторяется мотив: <b>задаёт курс и защищает от внешнего шума</b>.</li>
-              </ul>
-            </div>
-            <div>
+              <div style="height:12px"></div>
               <div class="quote">
                 <p id="highlightQuote"></p>
-                <div class="who">Одна ключевая формулировка из открытых ответов (команда)</div>
+                <div class="who">Одна формулировка из открытых ответов (команда)</div>
               </div>
             </div>
           </div>
-          <div class="hr"></div>
-          <h3>Где восприятие команды и руководителя расходится по блокам (1–5)</h3>
-          <div class="subtitle" style="margin-bottom:10px;">
-            Положительный разрыв = руководитель оценивает блок выше, чем команда; отрицательный = наоборот.
-          </div>
-          <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-bottom:10px;">
-            <span class="badge"><span class="dot team"></span>Команда</span>
-            <span class="badge"><span class="dot lead"></span>Руководитель</span>
-            <span class="badge"><span class="dot" style="background:rgba(255,255,255,0.18)"></span>Линия = величина разрыва</span>
-          </div>
-          <div class="chart" id="blockChart"></div>
-          <div class="footer" id="blockSummary"></div>
-        </div>
-      </section>
 
-      <section class="grid" id="gaps">
-        <div class="card">
-          <h2>Расхождения и зоны калибровки</h2>
-          <div class="two-col">
-            <div>
-              <h3>Топ‑10 различий (по модулю разрыва)</h3>
-              <div class="chart" id="divergenceList"></div>
+          <div class="hr"></div>
+
+          <details open>
+            <summary style="cursor:pointer; font-weight:650;">Разрывы по блокам (1–5)</summary>
+            <div class="subtitle" style="margin:10px 0 10px;">
+              Положительный разрыв = руководитель оценивает блок выше, чем команда; отрицательный = наоборот.
             </div>
-            <div>
-              <h3>Зоны опоры (минимальные расхождения)</h3>
-              <div class="chart" id="agreementList"></div>
-              <div class="hr"></div>
-              <h3>Повторяющиеся темы в открытых ответах</h3>
+            <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-bottom:10px;">
+              <span class="badge"><span class="dot team"></span>Команда</span>
+              <span class="badge"><span class="dot lead"></span>Руководитель</span>
+              <span class="badge"><span class="dot" style="background:rgba(255,255,255,0.18)"></span>Линия = величина разрыва</span>
+            </div>
+            <div class="chart" id="blockChart"></div>
+            <div class="footer" id="blockSummary"></div>
+          </details>
+
+          <div style="height:10px"></div>
+
+          <details>
+            <summary style="cursor:pointer; font-weight:650;">Топ‑различия и зоны совпадений</summary>
+            <div class="two-col" style="margin-top:12px;">
+              <div>
+                <h3>Топ‑10 различий (по модулю разрыва)</h3>
+                <div class="chart" id="divergenceList"></div>
+              </div>
+              <div>
+                <h3>Зоны опоры (минимальные расхождения)</h3>
+                <div class="chart" id="agreementList"></div>
+              </div>
+            </div>
+          </details>
+
+          <div style="height:10px"></div>
+
+          <details>
+            <summary style="cursor:pointer; font-weight:650;">Темы из открытых ответов</summary>
+            <div style="margin-top:12px;">
               <ul class="list" id="themesList"></ul>
             </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="grid" id="interpretation">
-        <div class="card">
-          <h2>Интерпретация (системно)</h2>
-          <ul class="list">
-            <li><b>Авторитет руководителя подтверждается</b>: команда описывает его как пример и владельца планки качества.</li>
-            <li><b>Основное напряжение — в операционной ясности</b>: обратная связь, статусы, decision rights.</li>
-            <li><b>Ценностного конфликта нет</b>: требуется настройка правил и каналов, а не смена подхода.</li>
-          </ul>
-        </div>
-      </section>
-
-      <section class="grid" id="risks">
-        <div class="card">
-          <h2>Ограничения и оговорки</h2>
-          <ul class="list">
-            <li><b>Это восприятие, а не «объективная истина»</b>: цифры показывают, насколько ясно и предсказуемо это считывается командой.</li>
-            <li><b>Открытые ответы эмоциональны по природе</b>: в отчете они используются только как индикаторы тем, а не как «доказательства» против человека.</li>
-          </ul>
+          </details>
         </div>
       </section>
 
@@ -869,6 +965,146 @@
         }
       }
 
+      function levelFromCount(n) {
+        if (n >= 10) return "часто";
+        if (n >= 4) return "иногда";
+        return "точечно";
+      }
+
+      function qByNum(data, n) {
+        return (data.questions || []).find(q => q.q === n);
+      }
+
+      function qFact(data, n) {
+        const q = qByNum(data, n);
+        if (!q) return null;
+        const gap = q.gap;
+        const gapSign = gap > 0 ? "+" : "";
+        return { label: `Q${q.q}`, text: `команда ${fmt(q.team_avg,2)} · руководитель ${fmt(q.lead,2)} · разрыв ${gapSign}${fmt(gap,2)}` };
+      }
+
+      function themeFact(data, key, label) {
+        const t = (data.open && data.open.themes) ? data.open.themes : {};
+        const n = t[key] ?? 0;
+        return { label, text: `${levelFromCount(n)} · упоминаний: ${n}` };
+      }
+
+      function renderSituations(data) {
+        const grid = el("situationsGrid");
+        if (!grid) return;
+
+        const scenarios = [
+          {
+            color: "var(--green)",
+            title: "Сообщение прочитано — а статуса нет",
+            situation: "Даша пишет в чат, но не понимает: вопрос принят? когда ждать ответ? можно ли идти дальше или лучше остановиться?",
+            helps: [
+              "Короткий статус в чате: «принял», «отвечу до…», «нужно уточнение: …».",
+              "Если ответ требует времени — зафиксировать следующий шаг (кто/когда).",
+              "Если вопрос не по адресу — сразу перекинуть на правильную роль."
+            ],
+            facts: [
+              themeFact(data, "статусы_в_чате", "Статусы в чате"),
+              qFact(data, 15),
+              qFact(data, 7)
+            ]
+          },
+          {
+            color: "var(--amber)",
+            title: "Обратная связь есть, но нерегулярно",
+            situation: "Даша старается, но не понимает, «попадает ли в ожидания» — и начинает либо перепроверять каждое решение, либо откладывать показ результата.",
+            helps: [
+              "Договориться о ритме ОС (короткие слоты чаще, чем редкие «большие»).",
+              "Закрывать петлю: что ок / что поправить / что делать дальше.",
+              "ОС формулировать как помощь результату, а не как давление."
+            ],
+            facts: [
+              themeFact(data, "обратная_связь", "Обратная связь"),
+              qFact(data, 8),
+              qFact(data, 10)
+            ]
+          },
+          {
+            color: "var(--blue)",
+            title: "Неясно, кто что решает (decision rights)",
+            situation: "В задаче есть бизнес‑контекст, UX‑решение и сроки. Если границы не проговорены, обсуждение превращается в торг и выматывает обе стороны.",
+            helps: [
+              "Явно проговаривать: где решение за руководителем, где — за дизайнером.",
+              "Отделять «контекст/риски» от «как именно делать интерфейс».",
+              "Фиксировать решение и критерии пересмотра (когда вернёмся к вопросу)."
+            ],
+            facts: [
+              themeFact(data, "decision_rights", "Decision rights"),
+              qFact(data, 9),
+              qFact(data, 16)
+            ]
+          },
+          {
+            color: "var(--purple)",
+            title: "Требования появляются внезапно или непонятно «зачем»",
+            situation: "Даша получает замечание в последний момент или без контекста. Возникает ощущение непредсказуемости и «я не знаю правил игры».",
+            helps: [
+              "Давать требования заранее и в виде критериев («что считаем готовым»).",
+              "Объяснять «зачем» — коротко: риск, цель, ограничение.",
+              "Если меняется приоритет — проговорить это как изменение, а не как «ошибку»."
+            ],
+            facts: [
+              qFact(data, 12),
+              qFact(data, 14),
+              qFact(data, 13)
+            ]
+          },
+          {
+            color: "var(--pink)",
+            title: "Тон переписки повышает напряжение",
+            situation: "Даже при правильной сути резкий тон делает обращение «тяжёлым». В итоге дизайнеры реже приходят за помощью — и теряется управляемость.",
+            helps: [
+              "Сохранять нейтральный тон (особенно в чате) и спрашивать про контекст.",
+              "Критиковать решение, а не человека; просить уточнения вместо оценки.",
+              "Если эмоции высокие — перенести обсуждение в синк/голос."
+            ],
+            facts: [
+              themeFact(data, "эмпатия_тон", "Тон/эмпатия"),
+              themeFact(data, "обратная_связь", "Обратная связь")
+            ]
+          },
+          {
+            color: "var(--teal)",
+            title: "Процессы превращаются в ритуал без эффекта",
+            situation: "Когда шагов слишком много и непонятно, что они дают, процесс воспринимается как нагрузка — и его начинают обходить.",
+            helps: [
+              "Оставлять только то, что реально снижает риски (качество, сроки, handoff).",
+              "Регулярно задавать «зачем» и упрощать ритуалы без эффекта.",
+              "Договариваться о минимальном «definition of done» вместо контроля каждого шага."
+            ],
+            facts: [
+              themeFact(data, "процессы_ритуалы", "Процессы/ритуалы"),
+              qFact(data, 25),
+              qFact(data, 21)
+            ]
+          }
+        ];
+
+        grid.innerHTML = scenarios.map(s => {
+          const facts = (s.facts || []).filter(Boolean);
+          return `
+            <article class="s-card" style="border-left-color:${s.color}">
+              <div class="s-title">${escapeHtml(s.title)}</div>
+              <div class="s-body">${escapeHtml(s.situation)}</div>
+              <div class="s-sub"><b>Что помогает</b>:</div>
+              <ul class="list" style="margin-top:6px;">
+                ${(s.helps || []).map(h => `<li>${escapeHtml(h)}</li>`).join("")}
+              </ul>
+              ${facts.length ? `
+                <div class="factline" aria-label="Подтверждение данными">
+                  ${facts.map(f => `<span class="fact"><b>${escapeHtml(f.label)}</b> ${escapeHtml(f.text)}</span>`).join("")}
+                </div>
+              ` : ""}
+            </article>
+          `;
+        }).join("");
+      }
+
       function renderReport(data) {
         if (!data || !data.meta) return;
 
@@ -899,10 +1135,10 @@
         if (leaderImproveQuote) leaderImproveQuote.textContent = (data.open && data.open.lead && data.open.lead.missing_daily) ? data.open.lead.missing_daily : "";
 
         const bullets = [
-          "Команда воспринимает руководителя как сильного специалиста и лидера, за которым готова идти в сложные проекты.",
-          "Главный разрыв — в операционной ясности: регулярность обратной связи, статусы в чате, явные decision rights.",
-          "По ценностям (качество, стандарты, ответственность) взгляды команды и руководителя близки; расхождения — в степени формализации и рутинных практиках.",
-          "Задача следующих шагов — обновить договорённости по decision rights, каналам ОС и уровням риска, при которых контроль усиливается."
+          "Команда описывает руководителя как держателя планки качества и направления — это сильная опора.",
+          "Больше всего трения — в ежедневной предсказуемости: ОС, статусы «принял/отвечу до…», ясные decision rights.",
+          "Когда «кто решает» проговорено, обсуждения становятся короче, спокойнее и продуктивнее.",
+          "Цель — не усложнять правила, а сделать взаимодействие удобным: ясность, следующий шаг и уважительный тон."
         ];
         const keyBullets = el("keyBullets");
         if (keyBullets) keyBullets.innerHTML = bullets.map(b => `<li>${escapeHtml(b)}</li>`).join("");
@@ -986,6 +1222,8 @@
             return `<li><b>${escapeHtml(x.label)}</b> — ${escapeHtml(level)} (по открытым ответам), фокус: <span class="muted">${escapeHtml(x.hint)}</span>.</li>`;
           }).join("");
         }
+
+        renderSituations(data);
 
         const fullTable = el("fullTable");
         if (fullTable) {
