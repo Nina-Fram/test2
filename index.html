@@ -4,22 +4,24 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Правила взаимодействия команды дизайнеров</title>
-  <meta name="description" content="Документ: правила взаимодействия команды дизайнеров — для понятной, спокойной и предсказуемой коммуникации." />
+  <meta name="description" content="Шпаргалка: правила взаимодействия команды дизайнеров — лёгкая, современная, понятная." />
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root{
-      --dark:   #0E0E0E;
-      --dark2:  #161616;
-      --dark3:  #1E1E1E;
-      --cream:  #F5F3EE;
-      --cream2: #EDEAE3;
-      --white:  #FFFFFF;
-      --muted:  #8A8A85;
-      --border: #2E2E2E;
-      --borderl:#DDDAD3;
+      --bg: #F7F8FB;
+      --card: rgba(255,255,255,0.78);
+      --card2: rgba(255,255,255,0.92);
+      --text: #0B1220;
+      --muted: rgba(11,18,32,0.62);
+      --muted2: rgba(11,18,32,0.48);
+      --border: rgba(11,18,32,0.10);
+      --shadow: 0 14px 40px rgba(11,18,32,0.10);
+      --shadow2: 0 10px 26px rgba(11,18,32,0.08);
+      --radius: 18px;
+      --max: 1120px;
 
       --green:  #1D9E75;
       --amber:  #EF9F27;
@@ -28,531 +30,434 @@
       --purple: #7F77DD;
       --pink:   #D4537E;
       --teal:   #5DCAA5;
-      --peach:  #E8A87C;
     }
 
     html { scroll-behavior: smooth; }
     body{
-      font-family: "Inter", sans-serif;
-      background: var(--dark);
-      color: var(--white);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(900px 520px at 78% -10%, rgba(55, 138, 221, 0.16), transparent 60%),
+        radial-gradient(850px 520px at 10% 0%, rgba(127, 119, 221, 0.14), transparent 58%),
+        radial-gradient(820px 520px at 10% 110%, rgba(29, 158, 117, 0.14), transparent 60%),
+        var(--bg);
       font-size: 16px;
       line-height: 1.55;
     }
 
-    /* ── SLIDES ───────────────────────────────────────────────────────────── */
-    .slide{
-      min-height: 100vh;
-      width: 100%;
+    a{ color: inherit; text-decoration: none; }
+    a:hover{ text-decoration: underline; }
+
+    .container{ max-width: var(--max); margin: 0 auto; padding: 22px 18px 72px; }
+
+    .topbar{
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      padding: 10px 0;
+      background: rgba(247,248,251,0.70);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(11,18,32,0.06);
+    }
+    .topbar-inner{
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+    .brand{
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      padding: 64px 72px;
-      position: relative;
-      overflow: hidden;
-    }
-    .slide--light{ background: var(--cream); color: var(--dark); }
-    .slide--dark{ background: var(--dark); color: var(--white); }
-
-    /* ── NAV ─────────────────────────────────────────────────────────────── */
-    nav{
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
       gap: 2px;
-      padding: 0;
+      min-width: 220px;
     }
-    nav a{
-      flex: 1;
-      height: 3px;
-      background: rgba(255,255,255,0.12);
-      transition: background 0.3s;
-      cursor: pointer;
-      text-decoration: none;
-    }
-    nav a:hover,
-    nav a.active{ background: var(--green); }
-
-    /* ── COVER ───────────────────────────────────────────────────────────── */
-    .cover{
-      background: var(--dark);
-      justify-content: flex-end;
-      padding-bottom: 100px;
-    }
-    .cover__line{
-      width: 3px;
-      height: 0;
-      background: var(--green);
-      position: absolute;
-      left: 56px;
-      bottom: 88px;
-      animation: growLine 1.2s ease forwards 0.25s;
-    }
-    @keyframes growLine { to { height: 220px; } }
-
-    .cover__words{
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-      margin-bottom: 0;
-    }
-    .cover__word{
-      font-size: clamp(44px, 8.4vw, 92px);
+    .kicker{
+      font-size: 11px;
       font-weight: 700;
-      line-height: 1.05;
-      letter-spacing: -0.03em;
-    }
-    .cover__word:nth-child(1){ color: var(--white); margin-left: 0; }
-    .cover__word:nth-child(2){ color: #AAAAAA; margin-left: clamp(18px, 3.6vw, 56px); }
-    .cover__word:nth-child(3){ color: #555552; margin-left: clamp(36px, 7.2vw, 112px); }
-
-    /* ── SECTION HEADER ─────────────────────────────────────────────────── */
-    .section-tag{
-      font-size: 10px;
-      font-weight: 600;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 12px;
+      color: var(--muted2);
     }
-    .slide-title{
-      font-size: clamp(26px, 4vw, 42px);
+    .brand-title{
+      font-size: 13px;
       font-weight: 700;
-      letter-spacing: -0.02em;
-      line-height: 1.1;
-      margin-bottom: 18px;
+      letter-spacing: -0.01em;
+      color: rgba(11,18,32,0.86);
     }
-    .slide--light .section-tag{ color:#999994; }
-    .slide--light .slide-title{ color: var(--dark); }
 
-    hr.slide-divider{
-      border: none;
-      border-top: 1px solid var(--borderl);
-      margin-bottom: 28px;
+    .nav{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: flex-end;
     }
-    .slide--dark hr.slide-divider{ border-color: var(--border); }
+    .pill{
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid rgba(11,18,32,0.12);
+      background: rgba(255,255,255,0.66);
+      border-radius: 999px;
+      padding: 8px 10px;
+      font-size: 13px;
+      color: rgba(11,18,32,0.74);
+      transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+    }
+    .pill:hover{ transform: translateY(-1px); border-color: rgba(29,158,117,0.40); text-decoration: none; background: rgba(255,255,255,0.82); }
 
-    /* ── INTRO ───────────────────────────────────────────────────────────── */
-    .intro{
-      max-width: 980px;
+    section{ scroll-margin-top: 86px; }
+
+    .hero{
+      padding: 26px 0 14px;
       display: grid;
       grid-template-columns: 1.2fr 0.8fr;
-      gap: 18px;
+      gap: 16px;
       align-items: start;
     }
-    .lead{
+    h1{
+      font-size: clamp(34px, 4.6vw, 56px);
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+      margin-bottom: 12px;
+    }
+    .sub{
+      color: rgba(11,18,32,0.70);
       font-size: 15px;
-      color: #2A2A28;
       line-height: 1.6;
+      max-width: 78ch;
     }
-    .slide--dark .lead{ color: #CFCFCA; }
+    .hero-badges{ margin-top: 14px; display: flex; flex-wrap: wrap; gap: 10px; }
+    .badge{
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border-radius: 999px;
+      padding: 7px 10px;
+      font-size: 12px;
+      border: 1px solid rgba(11,18,32,0.12);
+      background: rgba(255,255,255,0.62);
+      color: rgba(11,18,32,0.74);
+    }
+    .dot{ width: 10px; height: 10px; border-radius: 999px; background: rgba(11,18,32,0.22); }
+    .dot.green{ background: var(--green); }
+    .dot.purple{ background: var(--purple); }
+    .dot.blue{ background: var(--blue); }
 
-    /* ── STORY MODE ───────────────────────────────────────────────────────── */
-    .kicker-mini{
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.55);
-      margin-bottom: 10px;
+    .glass{
+      background: var(--card);
+      border: 1px solid rgba(11,18,32,0.10);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
     }
-    .slide--light .kicker-mini{ color: rgba(14,14,14,0.45); }
+    .hero-card{ padding: 16px; position: relative; }
+    .hero-card::before{
+      content:"";
+      position: absolute;
+      inset: -2px;
+      background: radial-gradient(320px 240px at 22% 20%, rgba(239,159,39,0.24), transparent 60%),
+                  radial-gradient(360px 240px at 70% 10%, rgba(127,119,221,0.22), transparent 62%),
+                  radial-gradient(420px 260px at 40% 90%, rgba(29,158,117,0.20), transparent 60%);
+      pointer-events: none;
+      opacity: 0.9;
+    }
+    .hero-card > *{ position: relative; }
 
     .persona{
       display: grid;
-      grid-template-columns: 64px 1fr;
-      gap: 14px;
+      grid-template-columns: 62px 1fr;
+      gap: 12px;
       align-items: start;
-      border-radius: 10px;
-      padding: 16px;
-      border: 1px solid rgba(255,255,255,0.10);
-      background: rgba(255,255,255,0.05);
-    }
-    .slide--light .persona{
-      border-color: rgba(0,0,0,0.06);
-      background: rgba(255,255,255,0.72);
     }
     .avatar{
-      width: 64px;
-      height: 64px;
-      border-radius: 16px;
+      width: 62px; height: 62px;
+      border-radius: 18px;
       background:
-        radial-gradient(18px 18px at 30% 30%, rgba(239,159,39,0.95), transparent 60%),
-        radial-gradient(22px 22px at 70% 35%, rgba(127,119,221,0.95), transparent 60%),
-        radial-gradient(24px 24px at 45% 75%, rgba(29,158,117,0.95), transparent 60%),
-        rgba(255,255,255,0.10);
-      border: 1px solid rgba(255,255,255,0.12);
+        radial-gradient(18px 18px at 30% 30%, rgba(239,159,39,0.92), transparent 60%),
+        radial-gradient(22px 22px at 70% 35%, rgba(127,119,221,0.85), transparent 60%),
+        radial-gradient(24px 24px at 45% 75%, rgba(29,158,117,0.82), transparent 60%),
+        rgba(11,18,32,0.04);
+      border: 1px solid rgba(11,18,32,0.10);
     }
-    .slide--light .avatar{
-      border-color: rgba(0,0,0,0.08);
-      background:
-        radial-gradient(18px 18px at 30% 30%, rgba(239,159,39,0.75), transparent 60%),
-        radial-gradient(22px 22px at 70% 35%, rgba(127,119,221,0.65), transparent 60%),
-        radial-gradient(24px 24px at 45% 75%, rgba(29,158,117,0.65), transparent 60%),
-        rgba(14,14,14,0.03);
-    }
-    .persona h3{
-      font-size: 16px;
-      font-weight: 700;
-      line-height: 1.2;
-      letter-spacing: -0.02em;
-      margin-bottom: 6px;
-    }
-    .persona p{
+    .p-name{ font-weight: 800; letter-spacing: -0.02em; }
+    .p-role{ color: rgba(11,18,32,0.62); font-size: 12px; margin-top: 2px; }
+    .p-quote{
+      margin-top: 10px;
       font-size: 13px;
+      color: rgba(11,18,32,0.76);
       line-height: 1.55;
-      color: rgba(255,255,255,0.88);
     }
-    .slide--light .persona p{ color: rgba(14,14,14,0.78); }
 
-    .situations-grid{
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-    .s-card{
-      border-radius: 10px;
-      padding: 18px 18px 16px;
-      border-left: 4px solid transparent;
-    }
-    .slide--dark .s-card{
-      background: var(--dark2);
-      border-top: 1px solid rgba(255,255,255,0.06);
-      border-right: 1px solid rgba(255,255,255,0.06);
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-    }
-    .slide--light .s-card{
-      background: var(--white);
-      border-top: 1px solid rgba(0,0,0,0.06);
-      border-right: 1px solid rgba(0,0,0,0.06);
-      border-bottom: 1px solid rgba(0,0,0,0.06);
-    }
-    .s-title{
-      font-size: 15px;
-      font-weight: 700;
+    .section{ padding: 18px 0; }
+    .h2{
+      font-size: 20px;
+      font-weight: 800;
       letter-spacing: -0.02em;
-      line-height: 1.25;
+      margin-bottom: 10px;
+    }
+    .desc{ color: rgba(11,18,32,0.68); font-size: 14px; line-height: 1.6; }
+
+    .grid{
+      margin-top: 14px;
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 14px;
+    }
+    .card{
+      grid-column: span 12;
+      background: var(--card2);
+      border: 1px solid rgba(11,18,32,0.10);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow2);
+      padding: 16px;
+    }
+    .card h3{
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
       margin-bottom: 8px;
     }
-    .s-body{
+    .card p{ color: rgba(11,18,32,0.72); font-size: 13px; line-height: 1.55; }
+    .help{
+      margin-top: 10px;
+      padding-left: 16px;
+      color: rgba(11,18,32,0.76);
       font-size: 13px;
       line-height: 1.55;
-      color: rgba(255,255,255,0.86);
     }
-    .slide--light .s-body{ color: rgba(14,14,14,0.78); }
-    .s-sub{
-      margin-top: 10px;
-      font-size: 12px;
-      color: rgba(255,255,255,0.62);
-    }
-    .slide--light .s-sub{ color: rgba(14,14,14,0.55); }
+    .help li{ margin: 4px 0; }
 
-    .s-card ul{ padding-left: 16px; margin-top: 6px; }
-    .s-card li{ margin: 4px 0; }
+    .accent{ border-left: 5px solid transparent; }
+    .a-green{ border-left-color: rgba(29,158,117,0.95); }
+    .a-amber{ border-left-color: rgba(239,159,39,0.95); }
+    .a-blue{ border-left-color: rgba(55,138,221,0.95); }
+    .a-red{ border-left-color: rgba(226,75,74,0.95); }
+    .a-purple{ border-left-color: rgba(127,119,221,0.95); }
+    .a-teal{ border-left-color: rgba(93,202,165,0.95); }
 
-    details.soft{
+    details{
       margin-top: 12px;
-      border-radius: 10px;
-      border: 1px solid rgba(255,255,255,0.10);
-      background: rgba(255,255,255,0.05);
+      border-radius: 14px;
+      border: 1px solid rgba(11,18,32,0.10);
+      background: rgba(255,255,255,0.70);
       padding: 12px 14px;
     }
-    .slide--light details.soft{
-      border-color: rgba(0,0,0,0.07);
-      background: rgba(255,255,255,0.72);
-    }
-    details.soft > summary{
+    summary{
       cursor: pointer;
-      font-weight: 700;
+      font-weight: 800;
       letter-spacing: -0.01em;
       list-style: none;
     }
-    details.soft > summary::-webkit-details-marker{ display:none; }
-    details.soft > summary span{
-      color: rgba(255,255,255,0.55);
-      font-weight: 600;
-      letter-spacing: 0;
-      margin-left: 6px;
-      font-size: 12px;
-    }
-    .slide--light details.soft > summary span{ color: rgba(14,14,14,0.45); }
+    summary::-webkit-details-marker{ display:none; }
+    .small{ font-size: 12px; color: rgba(11,18,32,0.62); margin-top: 8px; line-height: 1.55; }
 
-    /* ── RULE CARDS ─────────────────────────────────────────────────────── */
-    .rules-grid{
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
+    @media (min-width: 980px){
+      .card.span-6{ grid-column: span 6; }
     }
-    .rule-card{
-      border-radius: 10px;
-      padding: 18px 20px 16px;
-      border-left: 4px solid transparent;
-      display: block;
-    }
-    .slide--light .rule-card{
-      background: var(--white);
-      color: var(--dark);
-    }
-    .slide--dark .rule-card{
-      background: var(--dark2);
-      color: var(--white);
-    }
-    .rule-title{
-      font-size: 15px;
-      font-weight: 600;
-      line-height: 1.3;
-      margin-bottom: 8px;
-      letter-spacing: -0.01em;
-    }
-    .rule-body{
-      font-size: 13px;
-      line-height: 1.55;
-      color: #3E3E3A;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    .slide--light .rule-body{ color: #3E3E3A; }
-    .slide--dark .rule-body{ color: #B2B2AB; }
-
-    .rule-body ul{ padding-left: 16px; }
-    .rule-body li{ margin: 4px 0; }
-
-    /* ── NEXT STEPS ─────────────────────────────────────────────────────── */
-    .steps{
-      max-width: 980px;
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-    }
-    .step-card{
-      background: var(--white);
-      border-radius: 10px;
-      padding: 18px 20px 16px;
-      border-left: 4px solid var(--green);
-    }
-    .slide--dark .step-card{
-      background: var(--dark2);
-      border-color: var(--green);
-    }
-    .step-title{
-      font-size: 15px;
-      font-weight: 600;
-      line-height: 1.35;
-      margin-bottom: 8px;
-    }
-    .step-body{
-      font-size: 13px;
-      line-height: 1.55;
-      color: #3E3E3A;
-    }
-    .slide--dark .step-body{ color: #B2B2AB; }
-
-    /* ── ANIMATIONS ─────────────────────────────────────────────────────── */
-    @media (prefers-reduced-motion: no-preference) {
-      .fade-in{
-        opacity: 0;
-        transform: translateY(16px);
-        transition: opacity 0.55s ease, transform 0.55s ease;
-      }
-      .fade-in.visible{ opacity: 1; transform: none; }
-    }
-
-    /* ── RESPONSIVE ─────────────────────────────────────────────────────── */
     @media (max-width: 980px){
-      .intro{ grid-template-columns: 1fr; }
+      .hero{ grid-template-columns: 1fr; }
+      .brand{ min-width: 0; }
     }
-    @media (max-width: 860px){
-      .slide{ padding: 56px 22px; }
-      .cover__line{ left: 22px; }
-      .rules-grid{ grid-template-columns: 1fr; }
-      .rule-card{ padding: 16px 16px 14px; }
-      .persona{ grid-template-columns: 54px 1fr; padding: 14px; }
-      .avatar{ width: 54px; height: 54px; border-radius: 14px; }
-      .situations-grid{ grid-template-columns: 1fr; }
+
+    @media (prefers-reduced-motion: no-preference){
+      .reveal{ opacity: 0; transform: translateY(10px); transition: opacity 0.45s ease, transform 0.45s ease; }
+      .reveal.in{ opacity: 1; transform: none; }
     }
   </style>
 </head>
 <body>
-  <nav id="nav" aria-label="Навигация по разделам">
-    <a href="#s1" title="Обложка"></a>
-    <a href="#s2" title="Зачем это"></a>
-    <a href="#s3" title="История"></a>
-    <a href="#s4" title="Ситуации"></a>
-    <a href="#s5" title="Как работаем дальше"></a>
-  </nav>
-
-  <!-- ══ SLIDE 1: COVER ═══════════════════════════════════════════════════ -->
-  <section class="slide cover" id="s1">
-    <div class="cover__line"></div>
-    <div class="cover__words">
-      <div class="cover__word">Правила</div>
-      <div class="cover__word">взаимодействия</div>
-      <div class="cover__word">дизайнеров</div>
-    </div>
-  </section>
-
-  <!-- ══ SLIDE 2: GOAL ════════════════════════════════════════════════════ -->
-  <section class="slide slide--light" id="s2">
-    <div class="section-tag">Документ команды</div>
-    <div class="slide-title">Не регламент. Шпаргалка, чтобы было легче взаимодействовать</div>
-    <hr class="slide-divider" />
-
-    <div class="intro fade-in">
-      <div class="lead">
-        <strong>Задача</strong>: сделать коммуникацию, обратную связь и принятие решений более понятными, спокойными и предсказуемыми — чтобы к этому хотелось возвращаться как к <strong>помощи</strong>, а не как к «обязаловке».
+  <div class="topbar" aria-label="Навигация по странице">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="kicker">команда · коммуникация · решения</div>
+        <div class="brand-title">Правила взаимодействия команды дизайнеров</div>
+      </div>
+      <div class="nav">
+        <a class="pill" href="#about">Зачем</a>
+        <a class="pill" href="#cases">Кейсы</a>
+        <a class="pill" href="#rules">Правила</a>
+        <a class="pill" href="#next">Дальше</a>
       </div>
     </div>
+  </div>
 
-  </section>
-
-  <!-- ══ SLIDE 3: STORY ═══════════════════════════════════════════════════ -->
-  <section class="slide slide--dark" id="s3">
-    <div class="section-tag">История</div>
-    <div class="slide-title">Даша, дизайнер. Ей важно обращаться легко — без торга и напряжения</div>
-    <hr class="slide-divider" />
-
-    <div class="kicker-mini fade-in">мини‑персонаж</div>
-
-    <div class="persona fade-in" aria-label="Персонаж">
-      <div class="avatar" aria-hidden="true"></div>
+  <main class="container">
+    <header class="hero" id="top">
       <div>
-        <h3>Даша · продуктовый дизайнер</h3>
-        <p>
-          «Если обращаться к лиду легко — я обращаюсь. Если каждый раз кажется, что будет спор “на личности” или торг — я скорее буду тянуть до последнего».
-        </p>
+        <h1>Лёгкий формат, который привлекает и читается</h1>
+        <div class="sub">
+          Это не «регламент» и не «как надо». Это шпаргалка, которая снижает трение: помогает спокойно спорить, быстрее фиксировать решения и не оставлять вопросы “висящими”.
+        </div>
+        <div class="hero-badges" aria-label="Что внутри">
+          <span class="badge"><span class="dot green"></span>Ситуации из жизни</span>
+          <span class="badge"><span class="dot purple"></span>Что помогает</span>
+          <span class="badge"><span class="dot blue"></span>Короткая выжимка</span>
+        </div>
       </div>
-    </div>
 
-    <details class="soft fade-in">
-      <summary>Зачем этот документ <span>(одним абзацем)</span></summary>
-      <div class="rule-body" style="margin-top:10px;">
-        Это не “как надо”. Это набор опор, которые уменьшают трение: помогают обсуждать решения спокойнее, быстрее находить следующий шаг и оставаться в рабочем процессе — даже когда есть разногласия.
+      <aside class="glass hero-card reveal" id="about" aria-label="Персонаж">
+        <div class="persona">
+          <div class="avatar" aria-hidden="true"></div>
+          <div>
+            <div class="p-name">Даша</div>
+            <div class="p-role">продуктовый дизайнер</div>
+            <div class="p-quote">
+              «Если к лиду можно обратиться легко — я обращаюсь. Если каждый раз кажется, что будет торг или разговор “на личности” — я скорее потяну до последнего».
+            </div>
+          </div>
+        </div>
+        <details>
+          <summary>Зачем это команде</summary>
+          <div class="small">
+            Чтобы коммуникация и решения были <b>понятнее</b>, <b>спокойнее</b> и <b>предсказуемее</b>.
+            Если решение не найдено — у обсуждения появляется <b>следующий шаг</b> и <b>понятный участник</b>, который помогает закрыть вопрос.
+          </div>
+        </details>
+      </aside>
+    </header>
+
+    <section class="section" id="cases">
+      <div class="h2">Ситуации → что помогает</div>
+      <div class="desc">Суть правил та же, но подача — как подсказки к реальным кейсам.</div>
+
+      <div class="grid">
+        <article class="card accent a-green span-6 reveal">
+          <h3>Спор накаляется</h3>
+          <p>Решение важно, но обсуждение скатывается в эмоции и личные оценки.</p>
+          <ul class="help">
+            <li>Обсуждаем решение, а не человека.</li>
+            <li>Опираемся на аргументы, не на эмоции.</li>
+            <li>Вопросы/комментарии двигают к решению, а не в сторону.</li>
+          </ul>
+        </article>
+
+        <article class="card accent a-amber span-6 reveal">
+          <h3>Не договорились и “повисли”</h3>
+          <p>Каждый остаётся при своём, а следующий шаг не понятен.</p>
+          <ul class="help">
+            <li>Подключаем нужную роль: владелец ревью / руководитель дизайна / комьюнити‑лид.</li>
+            <li>Если решения нет — назначаем следующий шаг и участника.</li>
+          </ul>
+        </article>
+
+        <article class="card accent a-blue span-6 reveal">
+          <h3>Решение приняли — а позже все помнят по‑разному</h3>
+          <p>Появляются ожидания, которые никто не закреплял письменно.</p>
+          <ul class="help">
+            <li>Короткий follow‑up после встреч/обсуждений, где было принято решение.</li>
+            <li>Зафиксированная договорённость — опора, пока не пересмотрена отдельно.</li>
+          </ul>
+        </article>
+
+        <article class="card accent a-red span-6 reveal">
+          <h3>Нашли ошибку</h3>
+          <p>Есть риск перейти к упрёкам вместо улучшения результата и процесса.</p>
+          <ul class="help">
+            <li>Ошибка — повод улучшить решение/процесс, а не обвинить человека.</li>
+            <li>Если уместно — ищем причину, чтобы снизить риск повторения.</li>
+          </ul>
+        </article>
+
+        <article class="card accent a-purple span-6 reveal">
+          <h3>Нужно дать обратную связь — без лишнего напряжения</h3>
+          <p>Важно, чтобы человеку было понятно, в чём проблема и что делать дальше.</p>
+          <ul class="help">
+            <li>Без обвинений, по возможности с практическими рекомендациями.</li>
+            <li>Цель — улучшить результат, а не повысить стресс.</li>
+          </ul>
+        </article>
+
+        <article class="card accent a-teal span-6 reveal">
+          <h3>Смешались ответственности</h3>
+          <p>Бизнес‑контекст, UX и процессы перемешались — обсуждение становится тяжёлым.</p>
+          <ul class="help">
+            <li>Продакт отвечает за задачу и бизнес‑контекст.</li>
+            <li>Дизайнер отвечает за UX и интерфейс.</li>
+            <li>В кросс‑командных вопросах первично договариваются продакты; дизайнеры отвечают каждый за свой контур.</li>
+          </ul>
+        </article>
       </div>
-    </details>
+    </section>
 
-  </section>
+    <section class="section" id="rules">
+      <div class="h2">Правила (коротко)</div>
+      <div class="desc">Если хочется видеть “первоисточник” без кейсов — вот выжимка.</div>
 
-  <!-- ══ SLIDE 4: SITUATIONS ══════════════════════════════════════════════ -->
-  <section class="slide slide--light" id="s4">
-    <div class="section-tag">Ситуации</div>
-    <div class="slide-title">Жизненные кейсы → что помогает (и почему к этому хочется возвращаться)</div>
-    <hr class="slide-divider" />
-
-    <div class="situations-grid fade-in" aria-label="Ситуации и опоры">
-      <article class="s-card" style="border-left-color:var(--green)">
-        <div class="s-title">Есть спор, и быстро становится “жарко”</div>
-        <div class="s-body">Решение важно, но обсуждение начинает скатываться в эмоции и личные оценки.</div>
-        <div class="s-sub"><b>Что помогает</b>:</div>
-        <ul class="rule-body">
-          <li>Обсуждаем решение, а не человека: аргументы важнее эмоций.</li>
-          <li>Спокойный тон, без агрессии и личных оценок.</li>
-          <li>Вопросы/комментарии двигают к решению, а не в сторону.</li>
-        </ul>
-      </article>
-
-      <article class="s-card" style="border-left-color:var(--amber)">
-        <div class="s-title">Не можем договориться и “повисли”</div>
-        <div class="s-body">Каждый остаётся при своём, а следующий шаг не понятен.</div>
-        <div class="s-sub"><b>Что помогает</b>:</div>
-        <ul class="rule-body">
-          <li>Подключаем нужную роль: владелец ревью / руководитель дизайна / комьюнити‑лид — по типу вопроса.</li>
-          <li>Спор не остаётся “висящим”: фиксируем следующий шаг и участника.</li>
-        </ul>
-      </article>
-
-      <article class="s-card" style="border-left-color:var(--blue)">
-        <div class="s-title">Решение приняли, а через неделю все помнят по‑разному</div>
-        <div class="s-body">Появляются взаимные ожидания, которые никто не закреплял письменно.</div>
-        <div class="s-sub"><b>Что помогает</b>:</div>
-        <ul class="rule-body">
-          <li>Короткий follow‑up после встреч/обсуждений, где было принято решение.</li>
-          <li>Особенно — для продуктовых и спорных тем.</li>
-          <li>Зафиксированная договорённость — опора, пока не пересмотрена отдельно.</li>
-        </ul>
-      </article>
-
-      <article class="s-card" style="border-left-color:var(--red)">
-        <div class="s-title">Нашли ошибку и напряжение растёт</div>
-        <div class="s-body">Есть риск перейти к упрёкам вместо улучшения результата и процесса.</div>
-        <div class="s-sub"><b>Что помогает</b>:</div>
-        <ul class="rule-body">
-          <li>Ошибка — повод улучшить решение/процесс, а не обвинить человека.</li>
-          <li>Замеченная ошибка — вклад в качество работы.</li>
-          <li>Если уместно, разбираем и причину, чтобы снизить риск повторения.</li>
-        </ul>
-      </article>
-
-      <article class="s-card" style="border-left-color:var(--purple)">
-        <div class="s-title">Нужно дать обратную связь, но не добавить напряжения</div>
-        <div class="s-body">Хочется, чтобы человек понял проблему и следующий шаг — и при этом не “закрылся”.</div>
-        <div class="s-sub"><b>Что помогает</b>:</div>
-        <ul class="rule-body">
-          <li>Без обвинений — по возможности с практическими рекомендациями.</li>
-          <li>Понятно: что именно не так и что можно сделать дальше.</li>
-          <li>Цель — улучшить результат, а не повысить стресс.</li>
-        </ul>
-      </article>
-
-      <article class="s-card" style="border-left-color:var(--teal)">
-        <div class="s-title">Спор “кто решает” и где границы ответственности</div>
-        <div class="s-body">Бизнес‑контекст, UX, стандарты и процессы смешались — и обсуждение становится тяжёлым.</div>
-        <div class="s-sub"><b>Что помогает</b>:</div>
-        <ul class="rule-body">
-          <li>Продакт отвечает за решение по задаче и бизнес‑контексту.</li>
-          <li>Дизайнер отвечает за решение по UX и интерфейсу.</li>
-          <li>В кросс‑командных вопросах первичная договорённость — между продактами; дизайнеры отвечают каждый за свой контур.</li>
-          <li>Если есть риск “делаем без дизайнера” — возвращаем обсуждение в процесс и опираемся на стандарты.</li>
-        </ul>
-      </article>
-    </div>
-
-  </section>
-
-  <!-- ══ SLIDE 5: HOW WE USE IT ═══════════════════════════════════════════ -->
-  <section class="slide slide--dark" id="s5">
-    <div class="section-tag">Как работаем с документом дальше</div>
-    <div class="slide-title">Используем как опору и дополняем по мере практики</div>
-    <hr class="slide-divider" />
-
-    <div class="steps fade-in">
-      <div class="step-card">
-        <div class="step-title">Возвращаемся к нему как к помощи</div>
-        <div class="step-body">Если обсуждение стало тяжёлым или “повисло” — открываем нужный кейс и выбираем следующий шаг.</div>
+      <div class="grid">
+        <div class="card span-6 reveal">
+          <h3>Про споры</h3>
+          <ul class="help">
+            <li>В спорах обсуждаем решение, а не человека.</li>
+            <li>Коммуникация без агрессии и личных оценок.</li>
+          </ul>
+        </div>
+        <div class="card span-6 reveal">
+          <h3>Если не договорились</h3>
+          <ul class="help">
+            <li>Подключаем нужную роль по типу вопроса.</li>
+            <li>У вопроса появляется следующий шаг и участник.</li>
+          </ul>
+        </div>
+        <div class="card span-6 reveal">
+          <h3>Фиксация</h3>
+          <ul class="help">
+            <li>Важные договорённости фиксируем письменно (короткий follow‑up).</li>
+          </ul>
+        </div>
+        <div class="card span-6 reveal">
+          <h3>Ошибки и ОС</h3>
+          <ul class="help">
+            <li>Ошибка — повод улучшить решение/процесс, а не обвинить человека.</li>
+            <li>Обратная связь — корректная, понятная, полезная.</li>
+          </ul>
+        </div>
+        <div class="card span-6 reveal">
+          <h3>Ответственность</h3>
+          <ul class="help">
+            <li>Продакт: задача и бизнес‑контекст.</li>
+            <li>Дизайнер: UX и интерфейс.</li>
+          </ul>
+        </div>
+        <div class="card span-6 reveal">
+          <h3>Процессы и стандарты</h3>
+          <ul class="help">
+            <li>Опираемся на действующие процессы и стандарты.</li>
+            <li>Если дизайн делается без дизайнера — возвращаем обсуждение в процесс.</li>
+          </ul>
+        </div>
       </div>
-      <div class="step-card" style="border-color:var(--amber)">
-        <div class="step-title">Делаем документ живым</div>
-        <div class="step-body">Если появляется новый повторяющийся кейс — добавляем его как ситуацию “что помогает” (с короткими формулировками).</div>
-      </div>
-    </div>
+    </section>
 
-  </section>
+    <section class="section" id="next">
+      <div class="h2">Как работаем дальше</div>
+      <div class="desc">Делаем документ живым: добавляем новые кейсы и обновляем формулировки, если в практике появляется повторяющаяся ситуация.</div>
+
+      <div class="grid">
+        <div class="card span-6 accent a-green reveal">
+          <h3>Возвращаемся к нему как к помощи</h3>
+          <p>Если обсуждение стало тяжёлым или “повисло” — открываем подходящий кейс и выбираем следующий шаг.</p>
+        </div>
+        <div class="card span-6 accent a-amber reveal">
+          <h3>Дополняем по мере практики</h3>
+          <p>Появился повторяющийся кейс — добавляем его в формат “ситуация → что помогает”, максимально коротко.</p>
+        </div>
+      </div>
+    </section>
+  </main>
 
   <script>
-    // Nav highlight
-    const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('nav a');
-    const observer = new IntersectionObserver(entries => {
+    const revealEls = document.querySelectorAll('.reveal');
+    const ro = new IntersectionObserver(entries => {
       entries.forEach(e => {
         if (!e.isIntersecting) return;
-        navLinks.forEach(l => l.classList.remove('active'));
-        const idx = [...sections].indexOf(e.target);
-        if (navLinks[idx]) navLinks[idx].classList.add('active');
+        e.target.classList.add('in');
+        ro.unobserve(e.target);
       });
-    }, { threshold: 0.55 });
-    sections.forEach(s => observer.observe(s));
-
-    // Fade-in on scroll
-    const fadeEls = document.querySelectorAll('.fade-in');
-    const fadeObs = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (!e.isIntersecting) return;
-        e.target.classList.add('visible');
-        fadeObs.unobserve(e.target);
-      });
-    }, { threshold: 0.15 });
-    fadeEls.forEach(el => fadeObs.observe(el));
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => ro.observe(el));
   </script>
 </body>
 </html>
