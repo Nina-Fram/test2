@@ -148,6 +148,136 @@
     }
     .slide--dark .lead{ color: #CFCFCA; }
 
+    /* ── STORY MODE ───────────────────────────────────────────────────────── */
+    .kicker-mini{
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 10px;
+    }
+    .slide--light .kicker-mini{ color: rgba(14,14,14,0.45); }
+
+    .persona{
+      display: grid;
+      grid-template-columns: 64px 1fr;
+      gap: 14px;
+      align-items: start;
+      border-radius: 10px;
+      padding: 16px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.05);
+    }
+    .slide--light .persona{
+      border-color: rgba(0,0,0,0.06);
+      background: rgba(255,255,255,0.72);
+    }
+    .avatar{
+      width: 64px;
+      height: 64px;
+      border-radius: 16px;
+      background:
+        radial-gradient(18px 18px at 30% 30%, rgba(239,159,39,0.95), transparent 60%),
+        radial-gradient(22px 22px at 70% 35%, rgba(127,119,221,0.95), transparent 60%),
+        radial-gradient(24px 24px at 45% 75%, rgba(29,158,117,0.95), transparent 60%),
+        rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+    .slide--light .avatar{
+      border-color: rgba(0,0,0,0.08);
+      background:
+        radial-gradient(18px 18px at 30% 30%, rgba(239,159,39,0.75), transparent 60%),
+        radial-gradient(22px 22px at 70% 35%, rgba(127,119,221,0.65), transparent 60%),
+        radial-gradient(24px 24px at 45% 75%, rgba(29,158,117,0.65), transparent 60%),
+        rgba(14,14,14,0.03);
+    }
+    .persona h3{
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin-bottom: 6px;
+    }
+    .persona p{
+      font-size: 13px;
+      line-height: 1.55;
+      color: rgba(255,255,255,0.88);
+    }
+    .slide--light .persona p{ color: rgba(14,14,14,0.78); }
+
+    .situations-grid{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .s-card{
+      border-radius: 10px;
+      padding: 18px 18px 16px;
+      border-left: 4px solid transparent;
+    }
+    .slide--dark .s-card{
+      background: var(--dark2);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      border-right: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .slide--light .s-card{
+      background: var(--white);
+      border-top: 1px solid rgba(0,0,0,0.06);
+      border-right: 1px solid rgba(0,0,0,0.06);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+    .s-title{
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.25;
+      margin-bottom: 8px;
+    }
+    .s-body{
+      font-size: 13px;
+      line-height: 1.55;
+      color: rgba(255,255,255,0.86);
+    }
+    .slide--light .s-body{ color: rgba(14,14,14,0.78); }
+    .s-sub{
+      margin-top: 10px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.62);
+    }
+    .slide--light .s-sub{ color: rgba(14,14,14,0.55); }
+
+    .s-card ul{ padding-left: 16px; margin-top: 6px; }
+    .s-card li{ margin: 4px 0; }
+
+    details.soft{
+      margin-top: 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.05);
+      padding: 12px 14px;
+    }
+    .slide--light details.soft{
+      border-color: rgba(0,0,0,0.07);
+      background: rgba(255,255,255,0.72);
+    }
+    details.soft > summary{
+      cursor: pointer;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      list-style: none;
+    }
+    details.soft > summary::-webkit-details-marker{ display:none; }
+    details.soft > summary span{
+      color: rgba(255,255,255,0.55);
+      font-weight: 600;
+      letter-spacing: 0;
+      margin-left: 6px;
+      font-size: 12px;
+    }
+    .slide--light details.soft > summary span{ color: rgba(14,14,14,0.45); }
+
     /* ── RULE CARDS ─────────────────────────────────────────────────────── */
     .rules-grid{
       display: grid;
@@ -238,15 +368,18 @@
       .cover__line{ left: 22px; }
       .rules-grid{ grid-template-columns: 1fr; }
       .rule-card{ padding: 16px 16px 14px; }
+      .persona{ grid-template-columns: 54px 1fr; padding: 14px; }
+      .avatar{ width: 54px; height: 54px; border-radius: 14px; }
+      .situations-grid{ grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
   <nav id="nav" aria-label="Навигация по разделам">
     <a href="#s1" title="Обложка"></a>
-    <a href="#s2" title="Задача правил"></a>
-    <a href="#s3" title="Правила"></a>
-    <a href="#s4" title="Правила"></a>
+    <a href="#s2" title="Зачем это"></a>
+    <a href="#s3" title="История"></a>
+    <a href="#s4" title="Ситуации"></a>
     <a href="#s5" title="Как работаем дальше"></a>
   </nav>
 
@@ -263,108 +396,115 @@
   <!-- ══ SLIDE 2: GOAL ════════════════════════════════════════════════════ -->
   <section class="slide slide--light" id="s2">
     <div class="section-tag">Документ команды</div>
-    <div class="slide-title">Правила взаимодействия команды дизайнеров</div>
+    <div class="slide-title">Не регламент. Шпаргалка, чтобы было легче взаимодействовать</div>
     <hr class="slide-divider" />
 
     <div class="intro fade-in">
       <div class="lead">
-        <strong>Задача правил</strong>: сделать коммуникацию, обратную связь и принятие решений более понятными, спокойными и предсказуемыми.
+        <strong>Задача</strong>: сделать коммуникацию, обратную связь и принятие решений более понятными, спокойными и предсказуемыми — чтобы к этому хотелось возвращаться как к <strong>помощи</strong>, а не как к «обязаловке».
       </div>
     </div>
 
   </section>
 
-  <!-- ══ SLIDE 3: RULES 1-4 ═══════════════════════════════════════════════ -->
+  <!-- ══ SLIDE 3: STORY ═══════════════════════════════════════════════════ -->
   <section class="slide slide--dark" id="s3">
-    <div class="section-tag">Правила</div>
-    <div class="slide-title">Как обсуждаем, спорим и фиксируем решения</div>
+    <div class="section-tag">История</div>
+    <div class="slide-title">Даша, дизайнер. Ей важно обращаться легко — без торга и напряжения</div>
     <hr class="slide-divider" />
 
-    <div class="rules-grid fade-in" aria-label="Правила">
-      <article class="rule-card" style="border-color:var(--green)">
-        <div class="rule-title">В спорах обсуждаем решение, а не человека</div>
-        <div class="rule-body">
-          <ul>
-            <li>В спорных обсуждениях команда опирается на аргументы, а не на эмоции.</li>
-            <li>Коммуникация строится спокойно, без агрессии и без личных оценок.</li>
-            <li>Вопросы и комментарии помогают двигаться к решению, а не уводят обсуждение в сторону.</li>
-          </ul>
-        </div>
-      </article>
+    <div class="kicker-mini fade-in">мини‑персонаж</div>
 
-      <article class="rule-card" style="border-color:var(--amber)">
-        <div class="rule-title">Если не договорились — подключаем нужную роль</div>
-        <div class="rule-body">
-          <ul>
-            <li>По вопросам ревью подключается владелец процесса ревью.</li>
-            <li>По продуктовым вопросам — руководитель команды дизайна.</li>
-            <li>По спорным моментам между дизайнерами в части взаимодействия — комьюнити лид.</li>
-            <li>Спор не должен оставаться «висящим»: если решение не найдено, у него должен появиться следующий шаг и понятный участник.</li>
-          </ul>
-        </div>
-      </article>
-
-      <article class="rule-card" style="border-color:var(--blue)">
-        <div class="rule-title">Важные договорённости фиксируем письменно</div>
-        <div class="rule-body">
-          <ul>
-            <li>После встреч и обсуждений, где были приняты решения, делается короткий follow‑up.</li>
-            <li>Особенно это важно для продуктовых и спорных тем.</li>
-            <li>Зафиксированная договорённость считается рабочей опорой, пока не пересмотрена отдельно.</li>
-          </ul>
-        </div>
-      </article>
-
-      <article class="rule-card" style="border-color:var(--red)">
-        <div class="rule-title">Ошибка — это повод улучшить решение или процесс, а не обвинить человека</div>
-        <div class="rule-body">
-          <ul>
-            <li>Ошибка не используется как повод для упрёка или давления.</li>
-            <li>Замеченная ошибка — это вклад в качество работы.</li>
-            <li>Если уместно, разбираем не только саму ошибку, но и её причину, чтобы снизить риск повторения.</li>
-          </ul>
-        </div>
-      </article>
+    <div class="persona fade-in" aria-label="Персонаж">
+      <div class="avatar" aria-hidden="true"></div>
+      <div>
+        <h3>Даша · продуктовый дизайнер</h3>
+        <p>
+          «Если обращаться к лиду легко — я обращаюсь. Если каждый раз кажется, что будет спор “на личности” или торг — я скорее буду тянуть до последнего».
+        </p>
+      </div>
     </div>
+
+    <details class="soft fade-in">
+      <summary>Зачем этот документ <span>(одним абзацем)</span></summary>
+      <div class="rule-body" style="margin-top:10px;">
+        Это не “как надо”. Это набор опор, которые уменьшают трение: помогают обсуждать решения спокойнее, быстрее находить следующий шаг и оставаться в рабочем процессе — даже когда есть разногласия.
+      </div>
+    </details>
 
   </section>
 
-  <!-- ══ SLIDE 4: RULES 5-7 ═══════════════════════════════════════════════ -->
+  <!-- ══ SLIDE 4: SITUATIONS ══════════════════════════════════════════════ -->
   <section class="slide slide--light" id="s4">
-    <div class="section-tag">Правила</div>
-    <div class="slide-title">Как даём обратную связь и держим ответственность</div>
+    <div class="section-tag">Ситуации</div>
+    <div class="slide-title">Жизненные кейсы → что помогает (и почему к этому хочется возвращаться)</div>
     <hr class="slide-divider" />
 
-    <div class="rules-grid fade-in" aria-label="Правила">
-      <article class="rule-card" style="border-color:var(--purple)">
-        <div class="rule-title">Обратная связь должна быть корректной, понятной и полезной</div>
-        <div class="rule-body">
-          <ul>
-            <li>Обратная связь даётся без обвинений и по возможности с практическими рекомендациями.</li>
-            <li>Важно, чтобы человеку было понятно, в чём именно проблема и что можно сделать дальше.</li>
-            <li>Цель обратной связи — помочь улучшить результат, а не создавать дополнительное напряжение.</li>
-          </ul>
-        </div>
+    <div class="situations-grid fade-in" aria-label="Ситуации и опоры">
+      <article class="s-card" style="border-left-color:var(--green)">
+        <div class="s-title">Есть спор, и быстро становится “жарко”</div>
+        <div class="s-body">Решение важно, но обсуждение начинает скатываться в эмоции и личные оценки.</div>
+        <div class="s-sub"><b>Что помогает</b>:</div>
+        <ul class="rule-body">
+          <li>Обсуждаем решение, а не человека: аргументы важнее эмоций.</li>
+          <li>Спокойный тон, без агрессии и личных оценок.</li>
+          <li>Вопросы/комментарии двигают к решению, а не в сторону.</li>
+        </ul>
       </article>
 
-      <article class="rule-card" style="border-color:var(--teal)">
-        <div class="rule-title">Ответственность в решениях не смешивается</div>
-        <div class="rule-body">
-          <ul>
-            <li>За решение по задаче и бизнес‑контексту отвечает продакт.</li>
-            <li>За решение по UX и интерфейсу отвечает дизайнер.</li>
-          </ul>
-        </div>
+      <article class="s-card" style="border-left-color:var(--amber)">
+        <div class="s-title">Не можем договориться и “повисли”</div>
+        <div class="s-body">Каждый остаётся при своём, а следующий шаг не понятен.</div>
+        <div class="s-sub"><b>Что помогает</b>:</div>
+        <ul class="rule-body">
+          <li>Подключаем нужную роль: владелец ревью / руководитель дизайна / комьюнити‑лид — по типу вопроса.</li>
+          <li>Спор не остаётся “висящим”: фиксируем следующий шаг и участника.</li>
+        </ul>
       </article>
 
-      <article class="rule-card" style="border-color:var(--pink)">
-        <div class="rule-title">В работе опираемся на действующие процессы и стандарты</div>
-        <div class="rule-body">
-          <ul>
-            <li>В кросс‑командных вопросах первичная договорённость строится между продактами, а дизайнеры отвечают каждый за свой контур.</li>
-            <li>Если возникает риск, что дизайн в продукте делается без участия дизайнера, задача дизайнера — вовремя вернуть обсуждение в рабочий процесс и опереться на принятые стандарты компании.</li>
-          </ul>
-        </div>
+      <article class="s-card" style="border-left-color:var(--blue)">
+        <div class="s-title">Решение приняли, а через неделю все помнят по‑разному</div>
+        <div class="s-body">Появляются взаимные ожидания, которые никто не закреплял письменно.</div>
+        <div class="s-sub"><b>Что помогает</b>:</div>
+        <ul class="rule-body">
+          <li>Короткий follow‑up после встреч/обсуждений, где было принято решение.</li>
+          <li>Особенно — для продуктовых и спорных тем.</li>
+          <li>Зафиксированная договорённость — опора, пока не пересмотрена отдельно.</li>
+        </ul>
+      </article>
+
+      <article class="s-card" style="border-left-color:var(--red)">
+        <div class="s-title">Нашли ошибку и напряжение растёт</div>
+        <div class="s-body">Есть риск перейти к упрёкам вместо улучшения результата и процесса.</div>
+        <div class="s-sub"><b>Что помогает</b>:</div>
+        <ul class="rule-body">
+          <li>Ошибка — повод улучшить решение/процесс, а не обвинить человека.</li>
+          <li>Замеченная ошибка — вклад в качество работы.</li>
+          <li>Если уместно, разбираем и причину, чтобы снизить риск повторения.</li>
+        </ul>
+      </article>
+
+      <article class="s-card" style="border-left-color:var(--purple)">
+        <div class="s-title">Нужно дать обратную связь, но не добавить напряжения</div>
+        <div class="s-body">Хочется, чтобы человек понял проблему и следующий шаг — и при этом не “закрылся”.</div>
+        <div class="s-sub"><b>Что помогает</b>:</div>
+        <ul class="rule-body">
+          <li>Без обвинений — по возможности с практическими рекомендациями.</li>
+          <li>Понятно: что именно не так и что можно сделать дальше.</li>
+          <li>Цель — улучшить результат, а не повысить стресс.</li>
+        </ul>
+      </article>
+
+      <article class="s-card" style="border-left-color:var(--teal)">
+        <div class="s-title">Спор “кто решает” и где границы ответственности</div>
+        <div class="s-body">Бизнес‑контекст, UX, стандарты и процессы смешались — и обсуждение становится тяжёлым.</div>
+        <div class="s-sub"><b>Что помогает</b>:</div>
+        <ul class="rule-body">
+          <li>Продакт отвечает за решение по задаче и бизнес‑контексту.</li>
+          <li>Дизайнер отвечает за решение по UX и интерфейсу.</li>
+          <li>В кросс‑командных вопросах первичная договорённость — между продактами; дизайнеры отвечают каждый за свой контур.</li>
+          <li>Если есть риск “делаем без дизайнера” — возвращаем обсуждение в процесс и опираемся на стандарты.</li>
+        </ul>
       </article>
     </div>
 
@@ -373,17 +513,17 @@
   <!-- ══ SLIDE 5: HOW WE USE IT ═══════════════════════════════════════════ -->
   <section class="slide slide--dark" id="s5">
     <div class="section-tag">Как работаем с документом дальше</div>
-    <div class="slide-title">Используем как рабочую опору и дополняем по мере практики</div>
+    <div class="slide-title">Используем как опору и дополняем по мере практики</div>
     <hr class="slide-divider" />
 
     <div class="steps fade-in">
       <div class="step-card">
-        <div class="step-title">Документ используется как рабочая опора в ежедневном взаимодействии</div>
-        <div class="step-body">Делаем на него ссылку в спорных/важных ситуациях и используем как общий ориентир в коммуникации.</div>
+        <div class="step-title">Возвращаемся к нему как к помощи</div>
+        <div class="step-body">Если обсуждение стало тяжёлым или “повисло” — открываем нужный кейс и выбираем следующий шаг.</div>
       </div>
       <div class="step-card" style="border-color:var(--amber)">
-        <div class="step-title">Дополняем или уточняем правила при повторяющихся кейсах</div>
-        <div class="step-body">Если в практике появляется новый повторяющийся кейс, команда может дописать правило или уточнить формулировки.</div>
+        <div class="step-title">Делаем документ живым</div>
+        <div class="step-body">Если появляется новый повторяющийся кейс — добавляем его как ситуацию “что помогает” (с короткими формулировками).</div>
       </div>
     </div>
 
