@@ -124,7 +124,12 @@
       display: grid;
       place-items: center;
       border: 1px solid rgba(240,125,47,0.16);
-      font-size: 22px;
+    }
+    .cat-img{
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
     }
     .p-title{
       font-size: 14px;
@@ -197,11 +202,10 @@
       width: 56px;
       height: 56px;
       border-radius: 18px;
-      background: rgba(240,125,47,0.08);
-      border: 1px solid rgba(240,125,47,0.14);
+      background: transparent;
+      border: none;
       display: grid;
       place-items: center;
-      font-size: 34px;
     }
 
     .chip{
@@ -321,7 +325,7 @@
       <div class="intro"><em>Саша</em> — дизайнер. Хорошая. Но иногда попадает в ситуации, которые знакомы каждому в команде. Здесь нет правил. Здесь — то, что помогает.</div>
 
       <div class="persona-card" aria-label="Персонаж">
-        <div class="p-icon" aria-hidden="true">🐱</div>
+        <div class="p-icon" aria-hidden="true"><img class="cat-img" alt="" src="assets/cats/transparent/2026-08-02_18-55-11.png" /></div>
         <div>
           <div class="p-title">Саша, Product Designer 👑 🐱</div>
           <div class="p-sub">«Я просто хочу делать хорошую работу. Помогите мне не теряться.»</div>
@@ -338,7 +342,7 @@
     <section class="story-list" aria-label="Ситуации">
       <article class="story tint-y">
         <div class="story-inner">
-          <div class="story-icon" aria-hidden="true">😵‍💫</div>
+          <div class="story-icon" aria-hidden="true"><img class="cat-img" alt="" src="assets/cats/transparent/2026-08-02_18-55-18.png" /></div>
           <div>
             <div class="chip y">ОБСУЖДЕНИЯ</div>
             <div class="story-title">Спор завис в воздухе</div>
@@ -356,7 +360,7 @@
 
       <article class="story tint-b">
         <div class="story-inner">
-          <div class="story-icon" aria-hidden="true">😌</div>
+          <div class="story-icon" aria-hidden="true"><img class="cat-img" alt="" src="assets/cats/transparent/2026-08-02_18-55-24.png" /></div>
           <div>
             <div class="chip b">ДОГОВОРЁННОСТИ</div>
             <div class="story-title">«Мы же договорились!»</div>
@@ -374,7 +378,7 @@
 
       <article class="story tint-p">
         <div class="story-inner">
-          <div class="story-icon" aria-hidden="true">🤔</div>
+          <div class="story-icon" aria-hidden="true"><img class="cat-img" alt="" src="assets/cats/transparent/2026-08-02_18-55-31.png" /></div>
           <div>
             <div class="chip p">ОБРАТНАЯ СВЯЗЬ</div>
             <div class="story-title">Фидбек прилетел, но непонятно зачем</div>
@@ -392,7 +396,7 @@
 
       <article class="story tint-g">
         <div class="story-inner">
-          <div class="story-icon" aria-hidden="true">🧩</div>
+          <div class="story-icon" aria-hidden="true"><img class="cat-img" alt="" src="assets/cats/transparent/2026-08-02_18-55-57.png" /></div>
           <div>
             <div class="chip g">ЗОНЫ ОТВЕТСТВЕННОСТИ</div>
             <div class="story-title">Кто за это отвечает?</div>
@@ -410,7 +414,7 @@
 
       <article class="story tint-r">
         <div class="story-inner">
-          <div class="story-icon" aria-hidden="true">😾</div>
+          <div class="story-icon" aria-hidden="true"><img class="cat-img" alt="" src="assets/cats/transparent/2026-08-02_18-56-08.png" /></div>
           <div>
             <div class="chip r">ОШИБКИ</div>
             <div class="story-title">Что-то пошло не так</div>
