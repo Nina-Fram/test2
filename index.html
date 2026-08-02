@@ -12,7 +12,7 @@
 
     :root{
       --bg: #EEF3F4;
-      --paper: #FBF7F1;
+      --paper: rgba(255,255,255,0.78);
       --card: #FFFFFF;
       --text: #1A1512;
       --muted: rgba(26,21,18,0.62);
@@ -105,15 +105,15 @@
 
     .persona-card{
       margin: 18px 0 0;
-      background: var(--paper);
-      border: 1px solid rgba(26,21,18,0.10);
+      background: linear-gradient(0deg, rgba(47,193,220,0.06), rgba(47,193,220,0.06)), var(--paper);
+      border: 1px solid rgba(47,193,220,0.22);
       border-radius: 14px;
       padding: 14px 16px;
       display: grid;
       grid-template-columns: 40px 1fr;
       gap: 12px;
       align-items: center;
-      box-shadow: 0 10px 24px rgba(26,21,18,0.08);
+      box-shadow: 0 10px 24px rgba(26,21,18,0.06);
       max-width: none;
       width: 100%;
       text-align: left;
@@ -122,10 +122,10 @@
       width: 40px;
       height: 40px;
       border-radius: 12px;
-      background: rgba(240,125,47,0.12);
+      background: rgba(47,193,220,0.12);
       display: grid;
       place-items: center;
-      border: 1px solid rgba(240,125,47,0.16);
+      border: 1px solid rgba(47,193,220,0.18);
     }
     .cat-img{
       display: block;
