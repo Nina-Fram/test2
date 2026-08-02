@@ -4,9 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Жизненные ситуации дизайнера в продуктовой команде</title>
-  <meta name="description" content="Жизненные ситуации дизайнера в продуктовой команде — это не регламент. Это истории и подсказки, которые помогают." />
+  <meta name="description" content="ЭТО НЕ РЕГЛАМЕНТ — ЭТО ИСТОРИЯ САШИ" />
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&display=swap');
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -17,27 +17,26 @@
       --text: #1A1512;
       --muted: rgba(26,21,18,0.62);
       --muted2: rgba(26,21,18,0.48);
-      --border: rgba(26,21,18,0.10);
+      --line: rgba(26,21,18,0.12);
       --shadow: 0 14px 34px rgba(26,21,18,0.10);
-      --radius: 16px;
-      --max: 780px;
+      --radius: 18px;
+      --max: 760px;
 
       --accent: #F07D2F;
-      --accent2:#F6A054;
 
-      --y: #F7B733;
-      --ybg: rgba(247, 183, 51, 0.12);
-      --b: #3B82F6;
-      --bbg: rgba(59, 130, 246, 0.10);
-      --p: #7C3AED;
-      --pbg: rgba(124, 58, 237, 0.10);
-      --g: #10B981;
-      --gbg: rgba(16, 185, 129, 0.10);
-      --r: #FB7185;
-      --rbg: rgba(251, 113, 133, 0.10);
+      --ybg: rgba(247,183,51,0.10);
+      --bbg: rgba(90,176,255,0.12);
+      --pbg: rgba(167,139,250,0.12);
+      --gbg: rgba(122,227,193,0.16);
+      --rbg: rgba(255,157,176,0.14);
+
+      --y: rgba(140,90,10,0.95);
+      --b: rgba(17,62,140,0.95);
+      --p: rgba(64,20,160,0.95);
+      --g: rgba(5,100,70,0.95);
+      --r: rgba(140,28,60,0.95);
     }
 
-    html { scroll-behavior: smooth; }
     body{
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       color: var(--text);
@@ -46,17 +45,14 @@
       line-height: 1.55;
     }
 
-    a{ color: inherit; text-decoration: none; }
-    a:hover{ text-decoration: underline; }
-
     .page{ max-width: var(--max); margin: 0 auto; padding: 34px 18px 64px; }
-    section{ scroll-margin-top: 18px; }
 
     .kicker{
       display: flex;
+      justify-content: center;
       align-items: center;
       gap: 10px;
-      margin-bottom: 12px;
+      margin-bottom: 16px;
     }
     .kline{
       width: 22px;
@@ -68,50 +64,57 @@
     }
     .ktext{
       font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--accent);
-    }
-
-    .hero{
-      padding: 0 0 18px;
-    }
-    h1{
-      font-size: 40px;
-      line-height: 1.08;
-      letter-spacing: -0.04em;
-      margin-bottom: 12px;
-    }
-    .h1-accent{ color: var(--accent); }
-
-    .super{
-      font-size: 11px;
       font-weight: 800;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: rgba(26,21,18,0.55);
-      margin-bottom: 10px;
+      color: var(--accent);
+      text-align: center;
     }
 
-    .lead{
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.65;
-      max-width: 84ch;
+    .hero{ text-align: center; padding-bottom: 18px; }
+    h1{
+      font-size: 48px;
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+      margin-bottom: 12px;
+      font-weight: 800;
+      color: rgba(26,21,18,0.92);
     }
+    .h1-accent{ color: var(--accent); }
+    .super{
+      margin-top: 10px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(26,21,18,0.40);
+      margin-bottom: 12px;
+    }
+
+    .intro{
+      max-width: 66ch;
+      margin: 12px auto 0;
+      color: rgba(26,21,18,0.62);
+      font-size: 16px;
+      line-height: 1.7;
+      text-align: left;
+      font-style: italic;
+    }
+    .intro em{ font-weight: 600; font-style: italic; color: rgba(26,21,18,0.70); }
 
     .persona-card{
-      margin-top: 16px;
+      margin: 18px auto 0;
       background: var(--paper);
-      border: 1px solid rgba(26,21,18,0.08);
+      border: 1px solid rgba(26,21,18,0.10);
       border-radius: 14px;
-      padding: 14px 14px;
+      padding: 14px 16px;
       display: grid;
       grid-template-columns: 40px 1fr;
       gap: 12px;
-      align-items: start;
+      align-items: center;
       box-shadow: 0 10px 24px rgba(26,21,18,0.08);
+      max-width: 620px;
+      text-align: left;
     }
     .p-icon{
       width: 40px;
@@ -121,26 +124,23 @@
       display: grid;
       place-items: center;
       border: 1px solid rgba(240,125,47,0.16);
+      font-size: 22px;
     }
     .p-title{
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 800;
       letter-spacing: -0.01em;
+      color: rgba(26,21,18,0.88);
     }
     .p-sub{
-      margin-top: 2px;
+      margin-top: 3px;
       font-size: 12px;
-      color: var(--muted2);
-    }
-    .p-quote{
-      margin-top: 8px;
-      font-size: 12px;
-      color: var(--muted);
-      line-height: 1.55;
+      color: rgba(26,21,18,0.55);
+      font-style: italic;
     }
 
     .list-head{
-      margin-top: 18px;
+      margin-top: 28px;
       display: flex;
       align-items: baseline;
       justify-content: space-between;
@@ -156,6 +156,14 @@
     .list-head .count{
       font-size: 11px;
       color: rgba(26,21,18,0.45);
+      white-space: nowrap;
+    }
+    .list-rule{
+      flex: 1;
+      height: 1px;
+      background: rgba(26,21,18,0.10);
+      margin: 0 12px;
+      transform: translateY(-3px);
     }
 
     .story-list{
@@ -167,116 +175,140 @@
 
     .story{
       border-radius: var(--radius);
-      border: 1px solid rgba(26,21,18,0.10);
+      border: 2px solid rgba(26,21,18,0.10);
       background: var(--card);
       box-shadow: var(--shadow);
       overflow: hidden;
     }
-    .story.tint-y{ background: linear-gradient(0deg, var(--ybg), var(--ybg)), var(--card); border-color: rgba(247,183,51,0.28); }
-    .story.tint-b{ background: linear-gradient(0deg, var(--bbg), var(--bbg)), var(--card); border-color: rgba(59,130,246,0.24); }
-    .story.tint-p{ background: linear-gradient(0deg, var(--pbg), var(--pbg)), var(--card); border-color: rgba(124,58,237,0.22); }
-    .story.tint-g{ background: linear-gradient(0deg, var(--gbg), var(--gbg)), var(--card); border-color: rgba(16,185,129,0.22); }
-    .story.tint-r{ background: linear-gradient(0deg, var(--rbg), var(--rbg)), var(--card); border-color: rgba(251,113,133,0.22); }
+    .tint-y{ background: linear-gradient(0deg, var(--ybg), var(--ybg)), var(--card); border-color: rgba(247,183,51,0.45); }
+    .tint-b{ background: linear-gradient(0deg, var(--bbg), var(--bbg)), var(--card); border-color: rgba(90,176,255,0.50); }
+    .tint-p{ background: linear-gradient(0deg, var(--pbg), var(--pbg)), var(--card); border-color: rgba(167,139,250,0.50); }
+    .tint-g{ background: linear-gradient(0deg, var(--gbg), var(--gbg)), var(--card); border-color: rgba(122,227,193,0.55); }
+    .tint-r{ background: linear-gradient(0deg, var(--rbg), var(--rbg)), var(--card); border-color: rgba(255,157,176,0.55); }
 
     .story-inner{
-      padding: 16px;
+      padding: 18px;
       display: grid;
-      grid-template-columns: 44px 1fr;
-      gap: 12px;
+      grid-template-columns: 56px 1fr;
+      gap: 14px;
       align-items: start;
     }
     .story-icon{
-      width: 44px;
-      height: 44px;
-      border-radius: 14px;
-      background: rgba(240,125,47,0.10);
-      border: 1px solid rgba(240,125,47,0.18);
+      width: 56px;
+      height: 56px;
+      border-radius: 18px;
+      background: rgba(240,125,47,0.08);
+      border: 1px solid rgba(240,125,47,0.14);
       display: grid;
       place-items: center;
+      font-size: 34px;
     }
-    .story-kicker{
-      font-size: 10px;
+
+    .chip{
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 11px;
       font-weight: 800;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: rgba(26,21,18,0.55);
-      margin-bottom: 6px;
+      border: 1px solid rgba(26,21,18,0.10);
+      margin-bottom: 8px;
     }
+    .chip.y{ color: var(--y); background: rgba(247,183,51,0.16); border-color: rgba(247,183,51,0.35); }
+    .chip.b{ color: var(--b); background: rgba(90,176,255,0.16); border-color: rgba(90,176,255,0.36); }
+    .chip.p{ color: var(--p); background: rgba(167,139,250,0.16); border-color: rgba(167,139,250,0.36); }
+    .chip.g{ color: var(--g); background: rgba(122,227,193,0.20); border-color: rgba(122,227,193,0.40); }
+    .chip.r{ color: var(--r); background: rgba(255,157,176,0.18); border-color: rgba(255,157,176,0.38); }
+
     .story-title{
-      font-size: 14px;
+      font-size: 18px;
       font-weight: 800;
       letter-spacing: -0.02em;
       margin-bottom: 8px;
+      color: rgba(26,21,18,0.88);
     }
     .story-desc{
-      font-size: 12px;
-      color: rgba(26,21,18,0.62);
-      line-height: 1.55;
-      margin-bottom: 10px;
+      font-size: 14px;
+      color: rgba(26,21,18,0.58);
+      line-height: 1.7;
+      margin-bottom: 14px;
+      font-style: italic;
     }
+    .divider{
+      height: 1px;
+      background: rgba(26,21,18,0.12);
+      margin: 12px 0 14px;
+    }
+
     .help-title{
-      font-size: 10px;
+      font-size: 11px;
       font-weight: 800;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
+    .help-title.y{ color: var(--y); }
+    .help-title.b{ color: var(--b); }
+    .help-title.p{ color: var(--p); }
+    .help-title.g{ color: var(--g); }
+    .help-title.r{ color: var(--r); }
+
     .help{
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 7px;
+      gap: 10px;
     }
     .help li{
       display: grid;
-      grid-template-columns: 16px 1fr;
-      gap: 8px;
+      grid-template-columns: 22px 1fr;
+      gap: 10px;
       align-items: start;
-      color: rgba(26,21,18,0.78);
-      font-size: 12px;
+      color: rgba(26,21,18,0.74);
+      font-size: 14px;
       line-height: 1.55;
     }
     .bicon{
-      width: 16px;
-      height: 16px;
-      border-radius: 6px;
+      width: 22px;
+      height: 22px;
       display: grid;
       place-items: center;
-      font-size: 11px;
-      background: rgba(26,21,18,0.06);
-      color: rgba(26,21,18,0.55);
+      font-size: 16px;
     }
-    .bicon.y{ background: rgba(247,183,51,0.20); color: rgba(140,90,10,0.9); }
-    .bicon.b{ background: rgba(59,130,246,0.18); color: rgba(17,62,140,0.9); }
-    .bicon.p{ background: rgba(124,58,237,0.16); color: rgba(64,20,160,0.9); }
-    .bicon.g{ background: rgba(16,185,129,0.16); color: rgba(5,100,70,0.9); }
-    .bicon.r{ background: rgba(251,113,133,0.16); color: rgba(140,28,60,0.9); }
 
+    .footer-hr{
+      height: 1px;
+      background: rgba(26,21,18,0.10);
+      margin-top: 22px;
+    }
     .footer{
-      margin-top: 16px;
+      margin-top: 18px;
       display: flex;
-      gap: 10px;
+      gap: 12px;
       align-items: flex-start;
       color: rgba(26,21,18,0.70);
-      font-size: 12px;
-      line-height: 1.55;
+      font-size: 14px;
+      line-height: 1.65;
     }
     .footer .ficon{
-      width: 18px; height: 18px;
-      border-radius: 6px;
-      background: rgba(26,21,18,0.06);
+      width: 28px; height: 28px;
+      border-radius: 10px;
+      background: rgba(26,21,18,0.04);
       display: grid;
       place-items: center;
       flex-shrink: 0;
       margin-top: 2px;
+      font-size: 18px;
     }
     .footer b{ color: rgba(26,21,18,0.86); }
 
     @media (max-width: 520px){
-      h1{ font-size: 34px; }
-      .story-inner{ grid-template-columns: 40px 1fr; }
-      .story-icon{ width: 40px; height: 40px; border-radius: 12px; }
+      h1{ font-size: 40px; }
+      .story-inner{ grid-template-columns: 52px 1fr; }
+      .story-icon{ width: 52px; height: 52px; border-radius: 16px; }
+      .help li{ font-size: 13px; }
     }
   </style>
 </head>
@@ -284,58 +316,39 @@
   <main class="page">
     <header class="hero">
       <div class="kicker"><span class="kline" aria-hidden="true"></span><span class="ktext">ДИЗАЙН-КОМАНДА · ГАЙД ПО ВЗАИМОДЕЙСТВИЮ</span></div>
-      <h1>Жизненные ситуации<br/><span class="h1-accent">дизайнера в продуктовой команде</span></h1>
-      <div class="super">ЭТО НЕ РЕГЛАМЕНТ — ЭТО ИСТОРИИ С ЯСНЫМ СМЫСЛОМ</div>
-      <div class="lead">
-        Саша — дизайнер. Хороший. Но иногда попадает в ситуации, которые тяжело закрывать в команде.
-        Здесь нет правил. Здесь — то, что помогает.
-      </div>
+      <h1>Жизненные ситуации<br/><span class="h1-accent">дизайнера в продуктовой</span><br/><span class="h1-accent">команде</span></h1>
+      <div class="super">ЭТО НЕ РЕГЛАМЕНТ — ЭТО ИСТОРИЯ САШИ</div>
+      <div class="intro"><em>Саша</em> — дизайнер. Хорошая. Но иногда попадает в ситуации, которые знакомы каждому в команде. Здесь нет правил. Здесь — то, что помогает.</div>
 
       <div class="persona-card" aria-label="Персонаж">
-        <div class="p-icon" aria-hidden="true">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-            <path d="M7.2 9.1c-1.2-.3-2.7-1.7-3.2-3.3-.2-.6.4-1.2 1-1 1.4.4 2.7 1.3 3.6 2.6.2.3.3.7.2 1.1-.1.4-.4.6-.6.6z" fill="#F07D2F"/>
-            <path d="M16.8 9.1c1.2-.3 2.7-1.7 3.2-3.3.2-.6-.4-1.2-1-1-1.4.4-2.7 1.3-3.6 2.6-.2.3-.3.7-.2 1.1.1.4.4.6.6.6z" fill="#F07D2F"/>
-            <path d="M12 3.8c4.9 0 8.4 3.7 8 8.7-.4 5.1-3.9 9.5-8 9.5s-7.6-4.4-8-9.5c-.4-5 3.1-8.7 8-8.7z" fill="#F07D2F"/>
-            <path d="M8.3 14.3c.7-1 1.9-1.6 3.7-1.6s3 .6 3.7 1.6c.3.4.1.9-.3 1.1-1 .6-2.2 1-3.4 1s-2.4-.4-3.4-1c-.4-.2-.6-.7-.3-1.1z" fill="#fff" opacity="0.85"/>
-            <circle cx="9.5" cy="11.3" r="1.1" fill="#1A1512" opacity="0.85"/>
-            <circle cx="14.5" cy="11.3" r="1.1" fill="#1A1512" opacity="0.85"/>
-          </svg>
-        </div>
+        <div class="p-icon" aria-hidden="true">🐱</div>
         <div>
-          <div class="p-title">Саша · Product Designer 👑</div>
-          <div class="p-sub">«Я просто хочу делать хорошую работу. Пожалуйста — без агрессии и без “торгов”»</div>
-          <div class="p-quote">
-            Смысл — показать <b>ситуации</b>, которые бывают у дизайнера в команде, и <b>что помогает</b> решать их спокойно и предсказуемо.
-          </div>
+          <div class="p-title">Саша, Product Designer 👑 🐱</div>
+          <div class="p-sub">«Я просто хочу делать хорошую работу. Помогите мне не теряться.»</div>
         </div>
       </div>
     </header>
 
     <div class="list-head">
       <div class="h2">ЖИЗНЕННЫЕ СИТУАЦИИ</div>
+      <div class="list-rule" aria-hidden="true"></div>
       <div class="count">5 историй</div>
     </div>
 
     <section class="story-list" aria-label="Ситуации">
       <article class="story tint-y">
         <div class="story-inner">
-          <div class="story-icon" aria-hidden="true">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-              <path d="M5 7.5c0-1 0.8-1.8 1.8-1.8h10.4c1 0 1.8.8 1.8 1.8v6.2c0 1-.8 1.8-1.8 1.8H12l-3.4 2.8c-.6.5-1.6.1-1.6-.7v-2.1H6.8c-1 0-1.8-.8-1.8-1.8V7.5z" fill="#F07D2F" opacity="0.9"/>
-            </svg>
-          </div>
+          <div class="story-icon" aria-hidden="true">😵‍💫</div>
           <div>
-            <div class="story-kicker">ОБСУЖДЕНИЯ</div>
+            <div class="chip y">ОБСУЖДЕНИЯ</div>
             <div class="story-title">Спор завис в воздухе</div>
-            <div class="story-desc">
-              Спор стал слишком “живым”. В обсуждении появляется напряжение, и кажется, что решение становится вторичным.
-            </div>
-            <div class="help-title">ЧТО ПОМОГАЕТ</div>
+            <div class="story-desc">Саша на созвоне. Полчаса обсуждают один и тот же вопрос. Мнения расходятся. Никто не уступает. Встреча заканчивается — решения нет. Через неделю всё начинается сначала.</div>
+            <div class="divider" aria-hidden="true"></div>
+            <div class="help-title y">ЧТО ПОМОГАЕТ</div>
             <ul class="help">
-              <li><span class="bicon y">●</span><span>В спорах обсуждаем решение, а не человека — аргументы важнее эмоций.</span></li>
-              <li><span class="bicon p">♥</span><span>Коммуникация спокойно, без агрессии и без личных оценок.</span></li>
-              <li><span class="bicon b">?</span><span>Вопросы и комментарии двигают к решению, а не уводят обсуждение в сторону.</span></li>
+              <li><span class="bicon">🎯</span><span>Споры о решениях, не о людях — аргументы важнее эмоций</span></li>
+              <li><span class="bicon">📍</span><span>Любой неразрешённый вопрос получает следующий шаг: кто, что, когда</span></li>
+              <li><span class="bicon">🔝</span><span>Не договорились: ревью → владелец ревью‑процесса, продукт → лид дизайна, конфликт → community lead</span></li>
             </ul>
           </div>
         </div>
@@ -343,22 +356,17 @@
 
       <article class="story tint-b">
         <div class="story-inner">
-          <div class="story-icon" aria-hidden="true">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-              <path d="M7 4.5h10a2 2 0 0 1 2 2v10.8a2 2 0 0 1-2 2H9.4L7 22v-2.7H7a2 2 0 0 1-2-2V6.5a2 2 0 0 1 2-2z" fill="#3B82F6" opacity="0.9"/>
-              <path d="M8.2 9.2h7.6M8.2 12h5.6M8.2 14.8h6.8" stroke="#fff" stroke-width="1.4" stroke-linecap="round" opacity="0.9"/>
-            </svg>
-          </div>
+          <div class="story-icon" aria-hidden="true">😌</div>
           <div>
-            <div class="story-kicker">ДОГОВОРЁННОСТИ</div>
-            <div class="story-title">«Мы не договорились»</div>
-            <div class="story-desc">
-              Спор не заканчивается, а просто “останавливается”. Через день‑два он возвращается и начинается заново.
-            </div>
-            <div class="help-title">ЧТО ПОМОГАЕТ</div>
+            <div class="chip b">ДОГОВОРЁННОСТИ</div>
+            <div class="story-title">«Мы же договорились!»</div>
+            <div class="story-desc">Встреча была продуктивной. Все кивали. Разошлись по задачам. Через три дня выясняется: каждый понял по‑своему. Саша переделывает работу, хотя была уверена, что сделала правильно.</div>
+            <div class="divider" aria-hidden="true"></div>
+            <div class="help-title b">ЧТО ПОМОГАЕТ</div>
             <ul class="help">
-              <li><span class="bicon b">↪</span><span>Если не договорились — подключаем нужную роль (владелец ревью / руководитель дизайна / комьюнити‑лид).</span></li>
-              <li><span class="bicon g">✓</span><span>Спор не должен оставаться «висящим»: у него должен появиться следующий шаг и понятный участник.</span></li>
+              <li><span class="bicon">✍️</span><span>После встречи — письменное резюме ключевых договорённостей</span></li>
+              <li><span class="bicon">🧱</span><span>Зафиксированная договорённость — это рабочая опора, к которой можно вернуться</span></li>
+              <li><span class="bicon">🔄</span><span>Если что‑то меняется — фиксируется заново, а не просто обсуждается устно</span></li>
             </ul>
           </div>
         </div>
@@ -366,24 +374,17 @@
 
       <article class="story tint-p">
         <div class="story-inner">
-          <div class="story-icon" aria-hidden="true">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-              <path d="M6.8 6.4h10.4a2 2 0 0 1 2 2V18a2 2 0 0 1-2 2H9l-3.2 2.6c-.7.6-1.8.1-1.8-.8V8.4a2 2 0 0 1 2-2z" fill="#7C3AED" opacity="0.9"/>
-              <path d="M8.4 11.2c1.3-1 5.9-1 7.2 0" stroke="#fff" stroke-width="1.6" stroke-linecap="round" opacity="0.9"/>
-              <path d="M8.4 14.2c1.3 1 5.9 1 7.2 0" stroke="#fff" stroke-width="1.6" stroke-linecap="round" opacity="0.9"/>
-            </svg>
-          </div>
+          <div class="story-icon" aria-hidden="true">🤔</div>
           <div>
-            <div class="story-kicker">ОБРАТНАЯ СВЯЗЬ</div>
+            <div class="chip p">ОБРАТНАЯ СВЯЗЬ</div>
             <div class="story-title">Фидбек прилетел, но непонятно зачем</div>
-            <div class="story-desc">
-              Пришла правка/комментарий, но нет ясности: это must‑fix, это мнение, это риск — или это просто “вкус”.
-            </div>
-            <div class="help-title">ЧТО ПОМОГАЕТ</div>
+            <div class="story-desc">Саша показывает экран. Получает: «Не нравится». Или: «Сделай красивее». Или целый абзац общих слов — без конкретики. Непонятно, что именно не так и что делать дальше.</div>
+            <div class="divider" aria-hidden="true"></div>
+            <div class="help-title p">ЧТО ПОМОГАЕТ</div>
             <ul class="help">
-              <li><span class="bicon p">⚑</span><span>Обратная связь корректная и понятная: что именно проблема и что можно сделать дальше.</span></li>
-              <li><span class="bicon b">✎</span><span>По возможности — с практическими рекомендациями.</span></li>
-              <li><span class="bicon g">◎</span><span>Цель обратной связи — помочь улучшить результат, а не создать дополнительное напряжение.</span></li>
+              <li><span class="bicon">🧘‍♀️</span><span>Фидбек — конкретный и actionable: что именно, почему, как улучшить</span></li>
+              <li><span class="bicon">🚀</span><span>Цель обратной связи — помочь улучшить результат, не оценить человека</span></li>
+              <li><span class="bicon">❓</span><span>Если фидбек непонятен — можно и нужно уточнить: «Что именно ты имеешь в виду?»</span></li>
             </ul>
           </div>
         </div>
@@ -391,24 +392,17 @@
 
       <article class="story tint-g">
         <div class="story-inner">
-          <div class="story-icon" aria-hidden="true">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-              <path d="M12 3.7c4.6 0 8.3 3.7 8.3 8.3S16.6 20.3 12 20.3 3.7 16.6 3.7 12 7.4 3.7 12 3.7z" fill="#10B981" opacity="0.9"/>
-              <path d="M8.3 12h7.4" stroke="#fff" stroke-width="1.6" stroke-linecap="round" opacity="0.95"/>
-              <path d="M12 8.3v7.4" stroke="#fff" stroke-width="1.6" stroke-linecap="round" opacity="0.95"/>
-            </svg>
-          </div>
+          <div class="story-icon" aria-hidden="true">🧩</div>
           <div>
-            <div class="story-kicker">ЗОНЫ ОТВЕТСТВЕННОСТИ</div>
-            <div class="story-title">Кто за что отвечает?</div>
-            <div class="story-desc">
-              В задачах смешались бизнес‑контекст и UX. Начинается ощущение “границы нет”, и всё становится спором.
-            </div>
-            <div class="help-title">ЧТО ПОМОГАЕТ</div>
+            <div class="chip g">ЗОНЫ ОТВЕТСТВЕННОСТИ</div>
+            <div class="story-title">Кто за это отвечает?</div>
+            <div class="story-desc">Продакт вносит правки в интерфейс. Саша случайно принимает бизнес‑решение. Кросс‑командный вопрос — и непонятно, кто должен его решать. Тратится время, хотя это была не её зона.</div>
+            <div class="divider" aria-hidden="true"></div>
+            <div class="help-title g">ЧТО ПОМОГАЕТ</div>
             <ul class="help">
-              <li><span class="bicon g">◆</span><span>За решение по задаче и бизнес‑контексту отвечает продакт.</span></li>
-              <li><span class="bicon b">▦</span><span>За решение по UX и интерфейсу отвечает дизайнер.</span></li>
-              <li><span class="bicon p">↔</span><span>В кросс‑командных вопросах первичная договорённость строится между продактами, дизайнеры отвечают каждый за свой контур.</span></li>
+              <li><span class="bicon">🏷️</span><span>Продуктовые и бизнес‑решения — продакт. UX и интерфейс — дизайнер</span></li>
+              <li><span class="bicon">🤝</span><span>Кросс‑командные вопросы: сначала продакты между собой, дизайнеры — в своей области</span></li>
+              <li><span class="bicon">↩️</span><span>Если дизайн делают без дизайнера — это сигнал вернуть работу в правильное русло</span></li>
             </ul>
           </div>
         </div>
@@ -416,34 +410,29 @@
 
       <article class="story tint-r">
         <div class="story-inner">
-          <div class="story-icon" aria-hidden="true">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-              <path d="M12 3.6c4.7 0 8.4 3.8 8.4 8.4S16.7 20.4 12 20.4 3.6 16.7 3.6 12 7.3 3.6 12 3.6z" fill="#FB7185" opacity="0.9"/>
-              <path d="M9 9l6 6M15 9l-6 6" stroke="#fff" stroke-width="1.6" stroke-linecap="round" opacity="0.95"/>
-            </svg>
-          </div>
+          <div class="story-icon" aria-hidden="true">😾</div>
           <div>
-            <div class="story-kicker">ОШИБКИ</div>
+            <div class="chip r">ОШИБКИ</div>
             <div class="story-title">Что‑то пошло не так</div>
-            <div class="story-desc">
-              Ошибка случилась. Самое легко — начать искать виноватого. Самое полезное — улучшить решение или процесс.
-            </div>
-            <div class="help-title">ЧТО ПОМОГАЕТ</div>
+            <div class="story-desc">Саша допустила ошибку. Не критичную, но заметную. Внутри — тревога: сейчас начнут разбирать, кто виноват. Кажется, что ошибаться нельзя. Но именно это мешает работать честно.</div>
+            <div class="divider" aria-hidden="true"></div>
+            <div class="help-title r">ЧТО ПОМОГАЕТ</div>
             <ul class="help">
-              <li><span class="bicon r">!</span><span>Ошибка — повод улучшить решение или процесс, а не обвинить человека.</span></li>
-              <li><span class="bicon g">⬒</span><span>Замеченная ошибка — вклад в качество работы.</span></li>
-              <li><span class="bicon b">↺</span><span>Если уместно — разбираем причину, чтобы снизить риск повторения.</span></li>
+              <li><span class="bicon">🔍</span><span>Ошибки — повод улучшить процессы, а не найти виноватого</span></li>
+              <li><span class="bicon">💬</span><span>Разбор ошибки — это диалог: что произошло, как не повторить</span></li>
+              <li><span class="bicon">📚</span><span>Документ живёт и обновляется — если ситуация повторяется, её добавляют в правила</span></li>
             </ul>
           </div>
         </div>
       </article>
     </section>
 
+    <div class="footer-hr" aria-hidden="true"></div>
     <div class="footer">
-      <div class="ficon" aria-hidden="true">📘</div>
+      <div class="ficon" aria-hidden="true">📚</div>
       <div>
-        <b>Документ живой, как и Саша</b><br/>
-        Если в практике появляется новый повторяющийся кейс — дополняем истории. Это не про контроль, это про то, чтобы было проще работать и возвращаться к общим опорам.
+        <b>Документ живой, как и Саша</b><br />
+        Если в команде появляется новая повторяющаяся ситуация — она попадает сюда. Это не свод законов. Это общая память о том, как мы работаем лучше вместе.
       </div>
     </div>
   </main>
