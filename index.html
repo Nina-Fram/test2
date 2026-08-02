@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Жизненные ситуации дизайнера в продуктовой команде</title>
+  <meta name="description" content="ЭТО НЕ РЕГЛАМЕНТ — ЭТО ИСТОРИЯ САШИ" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root{
+      --bg: #EEF3F4;
+      --paper: rgba(255,255,255,0.78);
+      --card: #FFFFFF;
+      --text: #1A1512;
+      --muted: rgba(26,21,18,0.62);
+      --muted2: rgba(26,21,18,0.48);
+      --line: rgba(26,21,18,0.12);
+      --shadow: 0 14px 34px rgba(26,21,18,0.10);
+      --radius: 18px;
+      --max: 760px;
+
+      --accent: #2FC1DC;
+
+      /* Cooler “Invitro-ish” palette */
+      --ybg: rgba(47,193,220,0.12);
+      --bbg: rgba(0,117,192,0.10);
+      --pbg: rgba(91,82,230,0.10);
+      --gbg: rgba(26,174,154,0.12);
+      --rbg: rgba(72,97,115,0.08);
+
+      --y: rgba(17,142,166,0.95);
+      --b: rgba(0,104,176,0.95);
+      --p: rgba(72,64,201,0.95);
+      --g: rgba(10,122,108,0.95);
+      --r: rgba(47,70,88,0.92);
+    }
+
+    body{
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      font-size: 16px;
+      line-height: 1.55;
+    }
+
+    .page{ max-width: var(--max); margin: 0 auto; padding: 34px 18px 64px; }
+
+    .kicker{
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .kline{
+      width: 22px;
+      height: 2px;
+      border-radius: 999px;
+      background: var(--accent);
+      flex-shrink: 0;
+      transform: translateY(1px);
+    }
+    .ktext{
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-align: left;
+    }
+
+    .hero{ text-align: left; padding-bottom: 18px; }
+    h1{
+      font-size: 48px;
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+      margin-bottom: 12px;
+      font-weight: 800;
+      color: rgba(26,21,18,0.92);
+    }
+    .h1-accent{ color: var(--accent); }
+    .super{
+      margin-top: 10px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(26,21,18,0.40);
+      margin-bottom: 12px;
+    }
+
+    .intro{
+      max-width: none;
+      margin: 12px 0 0;
+      color: rgba(26,21,18,0.62);
+      font-size: 16px;
+      line-height: 1.7;
+      text-align: left;
+      font-style: italic;
+    }
+    .intro em{ font-weight: 600; font-style: italic; color: rgba(26,21,18,0.70); }
+
+    .persona-card{
+      margin: 18px 0 0;
+      background: linear-gradient(0deg, rgba(47,193,220,0.06), rgba(47,193,220,0.06)), var(--paper);
+      border: 1px solid rgba(47,193,220,0.22);
+      border-radius: 14px;
+      padding: 14px 16px;
+      display: grid;
+      grid-template-columns: 40px 1fr;
+      gap: 12px;
+      align-items: center;
+      box-shadow: 0 10px 24px rgba(26,21,18,0.06);
+      max-width: none;
+      width: 100%;
+      text-align: left;
+    }
+    .p-icon{
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: rgba(47,193,220,0.12);
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(47,193,220,0.18);
+    }
+    .cat-img{
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    .p-title{
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      color: rgba(26,21,18,0.88);
+    }
+    .p-sub{
+      margin-top: 3px;
+      font-size: 12px;
+      color: rgba(26,21,18,0.55);
+      font-style: italic;
+    }
+
+    .list-head{
+      margin-top: 28px;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .list-head .h2{
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(26,21,18,0.55);
+    }
+    .list-head .count{
+      font-size: 11px;
+      color: rgba(26,21,18,0.45);
+      white-space: nowrap;
+    }
+    .list-rule{
+      flex: 1;
+      height: 1px;
+      background: rgba(26,21,18,0.10);
+      margin: 0 12px;
+      transform: translateY(-3px);
+    }
+
+    .story-list{
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .story{
+      border-radius: var(--radius);
+      border: 2px solid rgba(26,21,18,0.10);
+      background: var(--card);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .tint-y{ background: linear-gradient(0deg, var(--ybg), var(--ybg)), var(--card); border-color: rgba(47,193,220,0.55); }
+    .tint-b{ background: linear-gradient(0deg, var(--bbg), var(--bbg)), var(--card); border-color: rgba(0,117,192,0.55); }
+    .tint-p{ background: linear-gradient(0deg, var(--pbg), var(--pbg)), var(--card); border-color: rgba(91,82,230,0.55); }
+    .tint-g{ background: linear-gradient(0deg, var(--gbg), var(--gbg)), var(--card); border-color: rgba(26,174,154,0.55); }
+    .tint-r{ background: linear-gradient(0deg, var(--rbg), var(--rbg)), var(--card); border-color: rgba(72,97,115,0.35); }
+
+    .story-inner{
+      padding: 18px;
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      gap: 14px;
+      align-items: start;
+    }
+    .story-icon{
+      width: 56px;
+      height: 56px;
+      border-radius: 18px;
+      background: transparent;
+      border: none;
+      display: grid;
+      place-items: center;
+    }
+
+    .chip{
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border: 1px solid rgba(26,21,18,0.10);
+      margin-bottom: 8px;
+    }
+    .chip.y{ color: var(--y); background: rgba(47,193,220,0.16); border-color: rgba(47,193,220,0.34); }
+    .chip.b{ color: var(--b); background: rgba(0,117,192,0.14); border-color: rgba(0,117,192,0.32); }
+    .chip.p{ color: var(--p); background: rgba(91,82,230,0.14); border-color: rgba(91,82,230,0.32); }
+    .chip.g{ color: var(--g); background: rgba(26,174,154,0.16); border-color: rgba(26,174,154,0.34); }
+    .chip.r{ color: var(--r); background: rgba(72,97,115,0.10); border-color: rgba(72,97,115,0.26); }
+
+    .story-title{
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+      color: rgba(26,21,18,0.88);
+    }
+    .story-desc{
+      font-size: 14px;
+      color: rgba(26,21,18,0.58);
+      line-height: 1.7;
+      margin-bottom: 14px;
+      font-style: italic;
+    }
+    .divider{
+      height: 1px;
+      background: rgba(26,21,18,0.12);
+      margin: 12px 0 14px;
+    }
+
+    .help-title{
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .help-title.y{ color: var(--y); }
+    .help-title.b{ color: var(--b); }
+    .help-title.p{ color: var(--p); }
+    .help-title.g{ color: var(--g); }
+    .help-title.r{ color: var(--r); }
+
+    .help{
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .help li{
+      display: grid;
+      grid-template-columns: 22px 1fr;
+      gap: 10px;
+      align-items: start;
+      color: rgba(26,21,18,0.74);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+    .bicon{
+      width: 22px;
+      height: 22px;
+      display: grid;
+      place-items: center;
+      font-size: 16px;
+    }
+
+    .footer-hr{
+      height: 1px;
+      background: rgba(26,21,18,0.10);
+      margin-top: 22px;
+    }
+    .footer{
+      margin-top: 18px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      color: rgba(26,21,18,0.70);
+      font-size: 14px;
+      line-height: 1.65;
+    }
+    .footer .ficon{
+      width: 28px; height: 28px;
+      border-radius: 10px;
+      background: rgba(26,21,18,0.04);
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+      font-size: 18px;
+    }
+    .footer b{ color: rgba(26,21,18,0.86); }
+
+    @media (max-width: 520px){
+      h1{ font-size: 40px; }
+      .story-inner{ grid-template-columns: 52px 1fr; }
+      .story-icon{ width: 52px; height: 52px; border-radius: 16px; }
+      .help li{ font-size: 13px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <div class="kicker"><span class="kline" aria-hidden="true"></span><span class="ktext">ДИЗАЙН-КОМАНДА · ГАЙД ПО ВЗАИМОДЕЙСТВИЮ</span></div>
+      <h1>Как не теряться, когда всё идёт не так, как хотелось</h1>
+      <div class="super">Ситуации, в которые попадает каждый дизайнер — и то, что помогает</div>
+      <div class="intro"><em>Саша</em> — дизайнер. Хорошая. Но иногда попадает в ситуации, которые знакомы каждому в команде. Здесь нет правил. Здесь — то, что помогает.</div>
+
+      <div class="persona-card" aria-label="Персонаж">
+        <div class="p-icon" aria-hidden="true"><img class="cat-img" alt="" src="assets/cats/transparent/2026-08-02_18-55-11.png" /></div>
+        <div>
+          <div class="p-title">Саша, Product Designer 👑 🐱</div>
+          <div class="p-sub">«Я просто хочу делать хорошую работу. Помогите мне не теряться.»</div>
+        </div>
+      </div>
+    </header>
+
+    <div class="list-head">
+      <div class="h2">ЖИЗНЕННЫЕ СИТУАЦИИ</div>
+      <div class="list-rule" aria-hidden="true"></div>
+      <div class="count">5 историй</div>
+    </div>
+
+    <section class="story-list" aria-label="Ситуации">
+      <article class="story tint-y">
+        <div class="story-inner">
+          <div class="story-icon" aria-hidden="true"><img class="cat-img" alt="" src="assets/cats/transparent/2026-08-02_18-55-18.png" /></div>
+          <div>
+            <div class="chip y">ОБСУЖДЕНИЯ</div>
+            <div class="story-title">Спор завис в воздухе</div>
+            <div class="story-desc">Саша на созвоне. Полчаса обсуждают один и тот же вопрос. Мнения расходятся. Никто не уступает. Встреча заканчивается — решения нет. Через неделю всё начинается сначала.</div>
+            <div class="divider" aria-hidden="true"></div>
+            <div class="help-title y">ЧТО ПОМОГАЕТ</div>
+            <ul class="help">
+              <li><span class="bicon">🎯</span><span>Споры о решениях, не о людях — аргументы важнее эмоций</span></li>
+              <li><span class="bicon">📍</span><span>Любой неразрешённый вопрос получает следующий шаг: кто, что, когда</span></li>
+              <li><span class="bicon">🔝</span><span>Не договорились: ревью → владелец ревью‑процесса, продукт → лид дизайна, конфликт → community lead</span></li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <article class="story tint-b">
+        <div class="story-inner">
+          <div class="story-icon" aria-hidden="true"><img class="cat-img" alt="" src="assets/cats/transparent/2026-08-02_18-55-24.png" /></div>
+          <div>
+            <div class="chip b">ДОГОВОРЁННОСТИ</div>
+            <div class="story-title">«Мы же договорились!»</div>
+            <div class="story-desc">Встреча была продуктивной. Все кивали. Разошлись по задачам. Через три дня выясняется: каждый понял по‑своему. Саша переделывает работу, хотя была уверена, что сделала правильно.</div>
+            <div class="divider" aria-hidden="true"></div>
+            <div class="help-title b">ЧТО ПОМОГАЕТ</div>
+            <ul class="help">
+              <li><span class="bicon">✍️</span><span>После встречи — письменное резюме ключевых договорённостей</span></li>
+              <li><span class="bicon">🧱</span><span>Зафиксированная договорённость — это рабочая опора, к которой можно вернуться</span></li>
+              <li><span class="bicon">🔄</span><span>Если что‑то меняется — фиксируется заново, а не просто обсуждается устно</span></li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <article class="story tint-p">
+        <div class="story-inner">
+          <div class="story-icon" aria-hidden="true"><img class="cat-img" alt="" src="assets/cats/transparent/2026-08-02_18-55-31.png" /></div>
+          <div>
+            <div class="chip p">ОБРАТНАЯ СВЯЗЬ</div>
+            <div class="story-title">Фидбек прилетел, но непонятно зачем</div>
+            <div class="story-desc">Саша показывает экран. Получает: «Не нравится». Или: «Сделай красивее». Или целый абзац общих слов — без конкретики. Непонятно, что именно не так и что делать дальше.</div>
+            <div class="divider" aria-hidden="true"></div>
+            <div class="help-title p">ЧТО ПОМОГАЕТ</div>
+            <ul class="help">
+              <li><span class="bicon">🧘‍♀️</span><span>Фидбек — конкретный и actionable: что именно, почему, как улучшить</span></li>
+              <li><span class="bicon">🚀</span><span>Цель обратной связи — помочь улучшить результат, не оценить человека</span></li>
+              <li><span class="bicon">❓</span><span>Если фидбек непонятен — можно и нужно уточнить: «Что именно ты имеешь в виду?»</span></li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <article class="story tint-g">
+        <div class="story-inner">
+          <div class="story-icon" aria-hidden="true"><img class="cat-img" alt="" src="assets/cats/transparent/2026-08-02_18-55-57.png" /></div>
+          <div>
+            <div class="chip g">ЗОНЫ ОТВЕТСТВЕННОСТИ</div>
+            <div class="story-title">Кто за это отвечает?</div>
+            <div class="story-desc">Продакт вносит правки в интерфейс. Саша случайно принимает бизнес‑решение. Кросс‑командный вопрос — и непонятно, кто должен его решать. Тратится время, хотя это была не её зона.</div>
+            <div class="divider" aria-hidden="true"></div>
+            <div class="help-title g">ЧТО ПОМОГАЕТ</div>
+            <ul class="help">
+              <li><span class="bicon">🏷️</span><span>Ответственность в решениях не смешивается:<br />— Задача и бизнес-контекст: <b>Продакт</b><br />— UX и интерфейс: <b>Дизайнер</b></span></li>
+              <li><span class="bicon">🤝</span><span>В кросс-командных вопросах первичная договорённость строится между продактами. Дизайнеры при этом отвечают каждый за свой продукт — и опираются на действующие процессы и стандарты.</span></li>
+              <li><span class="bicon">↩️</span><span>Если есть риск, что дизайн в продукте делается без участия дизайнера — задача Саши не промолчать, а вовремя вернуть обсуждение в рабочий процесс.</span></li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <article class="story tint-r">
+        <div class="story-inner">
+          <div class="story-icon" aria-hidden="true"><img class="cat-img" alt="" src="assets/cats/transparent/2026-08-02_18-56-08.png" /></div>
+          <div>
+            <div class="chip r">ОШИБКИ</div>
+            <div class="story-title">Что-то пошло не так</div>
+            <div class="story-desc">Саша допустила ошибку. Не критичную, но заметную. Внутри — тревога: сейчас начнут разбирать, кто виноват. Кажется, что ошибаться нельзя. Но именно это мешает работать честно.</div>
+            <div class="divider" aria-hidden="true"></div>
+            <div class="help-title r">ЧТО ПОМОГАЕТ</div>
+            <ul class="help">
+              <li><span class="bicon">🔍</span><span>Ошибки — повод улучшить решение или процесс, а не обвинить человека. Ошибка не используется как повод для упрёка или давления.</span></li>
+              <li><span class="bicon">💬</span><span>Разбор ошибки — это диалог: что произошло, как не повторить. Замеченная ошибка — это вклад в качество работы, а не повод для стыда.</span></li>
+              <li><span class="bicon">🔎</span><span>Если уместно, разбираем не только саму ошибку, но и её причину — чтобы снизить риск повторения.</span></li>
+            </ul>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <div class="footer-hr" aria-hidden="true"></div>
+    <div class="footer">
+      <div class="ficon" aria-hidden="true">📚</div>
+      <div>
+        <b>Документ живой, как и Саша</b><br />
+        Если в команде появляется новая повторяющаяся ситуация — она попадает сюда. Это не свод законов. Это общая память о том, как мы работаем лучше вместе.
+      </div>
+    </div>
+  </main>
+</body>
+</html>
