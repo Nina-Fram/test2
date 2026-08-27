@@ -1,0 +1,34 @@
+<svg width="1400" height="900" viewBox="0 0 1400 900" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label=";;NAB@0F8O: @57C;LB0BK 8 8AB>@8O">
+  <defs>
+    <linearGradient id="g" x1="240" y1="160" x2="1180" y2="760" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#00A7B8"/>
+      <stop offset="0.62" stop-color="#008DE6"/>
+      <stop offset="1" stop-color="#FF7A00" stop-opacity="0.78"/>
+    </linearGradient>
+    <filter id="s" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="20" stdDeviation="26" flood-color="#0B1220" flood-opacity="0.14"/>
+    </filter>
+  </defs>
+  <rect width="1400" height="900" rx="46" fill="white"/>
+
+  <g filter="url(#s)">
+    <rect x="150" y="170" width="540" height="560" rx="34" fill="white" stroke="#0B1220" stroke-opacity="0.08"/>
+    <rect x="210" y="240" width="420" height="86" rx="22" fill="#F6FBFC" stroke="#0B1220" stroke-opacity="0.06"/>
+    <rect x="210" y="350" width="420" height="86" rx="22" fill="#F6FBFC" stroke="#0B1220" stroke-opacity="0.06"/>
+    <rect x="210" y="460" width="420" height="86" rx="22" fill="#F6FBFC" stroke="#0B1220" stroke-opacity="0.06"/>
+
+    <rect x="760" y="220" width="490" height="520" rx="34" fill="white" stroke="#0B1220" stroke-opacity="0.08"/>
+    <rect x="820" y="280" width="370" height="260" rx="26" fill="#F6FBFC" stroke="#0B1220" stroke-opacity="0.06"/>
+
+    <!-- chart -->
+    <path d="M860 510V330" stroke="#0B1220" stroke-opacity="0.18" stroke-width="10" stroke-linecap="round"/>
+    <path d="M910 510V380" stroke="#0B1220" stroke-opacity="0.16" stroke-width="10" stroke-linecap="round"/>
+    <path d="M960 510V420" stroke="#0B1220" stroke-opacity="0.14" stroke-width="10" stroke-linecap="round"/>
+    <path d="M1010 510V350" stroke="#0B1220" stroke-opacity="0.18" stroke-width="10" stroke-linecap="round"/>
+    <path d="M1060 510V400" stroke="#0B1220" stroke-opacity="0.16" stroke-width="10" stroke-linecap="round"/>
+    <path d="M1110 510V320" stroke="url(#g)" stroke-width="12" stroke-linecap="round" opacity="0.85"/>
+
+    <rect x="820" y="570" width="220" height="70" rx="22" fill="url(#g)" opacity="0.9"/>
+    <rect x="1050" y="570" width="140" height="70" rx="22" fill="white" stroke="#0B1220" stroke-opacity="0.06"/>
+  </g>
+</svg>

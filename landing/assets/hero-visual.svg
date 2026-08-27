@@ -1,0 +1,55 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="1AB@0:B=0O 8;;NAB@0F8O INVITRO">
+  <defs>
+    <linearGradient id="g1" x1="240" y1="140" x2="1420" y2="840" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#00A7B8"/>
+      <stop offset="0.55" stop-color="#008DE6"/>
+      <stop offset="1" stop-color="#FF7A00" stop-opacity="0.85"/>
+    </linearGradient>
+    <radialGradient id="r1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1220 220) rotate(130) scale(520 420)">
+      <stop stop-color="#00A7B8" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#00A7B8" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="r2" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(420 720) rotate(-40) scale(620 480)">
+      <stop stop-color="#008DE6" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#008DE6" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="blur" x="-60%" y="-60%" width="220%" height="220%" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="36"/>
+    </filter>
+    <filter id="softShadow" x="-40%" y="-40%" width="180%" height="180%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="18" stdDeviation="24" flood-color="#0B1220" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="900" fill="white"/>
+
+  <g filter="url(#blur)">
+    <circle cx="1260" cy="200" r="260" fill="url(#r1)"/>
+    <circle cx="420" cy="760" r="300" fill="url(#r2)"/>
+  </g>
+
+  <!-- frames motif -->
+  <g opacity="0.86" filter="url(#softShadow)">
+    <rect x="880" y="140" width="540" height="360" rx="34" fill="white" stroke="#0B1220" stroke-opacity="0.08"/>
+    <rect x="920" y="180" width="460" height="280" rx="28" fill="white" stroke="#0B1220" stroke-opacity="0.08"/>
+    <rect x="960" y="220" width="380" height="200" rx="24" fill="white" stroke="#0B1220" stroke-opacity="0.08"/>
+    <path d="M960 312h160" stroke="url(#g1)" stroke-width="12" stroke-linecap="round" opacity="0.7"/>
+    <path d="M960 348h240" stroke="#0B1220" stroke-opacity="0.18" stroke-width="10" stroke-linecap="round"/>
+    <path d="M960 382h210" stroke="#0B1220" stroke-opacity="0.12" stroke-width="10" stroke-linecap="round"/>
+  </g>
+
+  <!-- medical cross -->
+  <g transform="translate(1140 560) rotate(12)" opacity="0.96" filter="url(#softShadow)">
+    <path d="M110 0c22 0 40 18 40 40v70h70c22 0 40 18 40 40s-18 40-40 40h-70v70c0 22-18 40-40 40s-40-18-40-40v-70H40c-22 0-40-18-40-40s18-40 40-40h70V40c0-22 18-40 40-40Z" fill="url(#g1)"/>
+    <path d="M110 26c8 0 14 6 14 14v96h96c8 0 14 6 14 14s-6 14-14 14h-96v96c0 8-6 14-14 14s-14-6-14-14v-96H40c-8 0-14-6-14-14s6-14 14-14h96V40c0-8 6-14 14-14Z" fill="white" opacity="0.86"/>
+  </g>
+
+  <!-- subtle dots -->
+  <g opacity="0.22">
+    <circle cx="120" cy="120" r="3" fill="#0B1220"/>
+    <circle cx="150" cy="160" r="3" fill="#0B1220"/>
+    <circle cx="200" cy="130" r="3" fill="#0B1220"/>
+    <circle cx="240" cy="180" r="3" fill="#0B1220"/>
+    <circle cx="300" cy="140" r="3" fill="#0B1220"/>
+  </g>
+</svg>
