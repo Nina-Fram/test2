@@ -13,7 +13,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
       rel="stylesheet"
     />
 
@@ -44,217 +44,141 @@
     </header>
 
     <main>
-      <section class="hero hero--yaga" aria-label="Вступление">
-        <div class="hero__bg hero__bg--image" aria-hidden="true"></div>
-
-        <div class="container hero__inner hero__inner--yaga">
-          <div class="hero__copy reveal">
-            <div class="chips" aria-label="Ключевые теги">
-              <span class="chip">B2B</span>
-              <span class="chip">ЛК</span>
-              <span class="chip chip--accent">без рутины</span>
-            </div>
-
-            <h1 class="h1 h1--tight">
-              Один кабинет.<br />
-              Все процессы клиники.
-            </h1>
-            <p class="lead lead--short">
-              Клиника не должна прыгать между АРМПС/сайтом/почтой/мессенджерами. В ЛК КК всё на месте:
-              заказ → штрих‑код → статус → результат.
-            </p>
-
-            <div class="hero__actions">
-              <a class="btn btn--solid btn--lg" href="#product">Показать ценность</a>
-              <a class="btn btn--ghost btn--lg" href="#cases">Кейсы</a>
-            </div>
-
-            <div class="hero__facts" aria-label="Коротко и по делу">
-              <div class="fact">
-                <div class="fact__k">Было</div>
-                <div class="fact__v">ручная рутина + разрозненные каналы</div>
-              </div>
-              <div class="fact fact--accent">
-                <div class="fact__k">Стало</div>
-                <div class="fact__v">единая точка входа для клиники</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="hero__visual reveal" aria-label="Превью интерфейса">
-            <div class="collage">
-              <img class="collage__bg" src="./assets/hero-visual.svg" alt="" loading="eager" />
-              <div class="mock mock--ui">
-                <div class="mock__top" aria-hidden="true">
-                  <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+      <section class="heroInv" aria-label="Вступление">
+        <div class="container container--edge">
+          <div class="heroInv__card reveal">
+            <div class="heroInv__grid">
+              <div class="heroInv__copy">
+                <div class="heroInv__chip">B2B · Личный кабинет</div>
+                <h1 class="heroInv__h">
+                  ЛК корпоративного клиента<br />
+                  ИНВИТРО
+                </h1>
+                <p class="heroInv__p">
+                  Один экран вместо рутины: заказ → штрих‑код → статус → результат.
+                </p>
+                <div class="heroInv__actions">
+                  <a class="btn btn--solid btn--lg" href="#product">Про продукт</a>
+                  <a class="btn btn--ghost btn--lg" href="#cases">Кейсы</a>
                 </div>
-                <img
-                  class="mock__img"
-                  src="./assets/ui-order.png"
-                  alt="Скрин интерфейса: оформление заказа"
-                  loading="eager"
-                />
               </div>
-              <div class="badge badge--a" aria-hidden="true">заявка</div>
-              <div class="badge badge--b" aria-hidden="true">штрих‑код</div>
-              <div class="badge badge--c" aria-hidden="true">результат</div>
+
+              <div class="heroInv__media" aria-label="Скрин интерфейса">
+                <div class="xray xray--hero" aria-hidden="true"></div>
+                <div class="mock mock--ui mock--uiInv">
+                  <div class="mock__top" aria-hidden="true">
+                    <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                  </div>
+                  <img
+                    class="mock__img"
+                    src="./assets/ui-order.png"
+                    alt="Скрин интерфейса: оформление заказа"
+                    loading="eager"
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       <section id="product" class="section">
-        <div class="container">
+        <div class="container container--edge">
           <div class="section__head reveal">
             <h2 class="h2">Продукт</h2>
             <p class="sub">
-              Мы делаем ЛК единым “домом” для взаимодействия клиники с ИНВИТРО — чтобы процесс ощущался
-              быстрым, чистым и предсказуемым.
+              Это B2B‑кабинет для клиник. Он забирает на себя рутину и возвращает сотрудникам время.
             </p>
           </div>
 
-          <div class="tiles reveal" aria-label="Кто пользуется">
-            <article class="tile">
-              <div class="tile__t">Администратор / медсестра</div>
-              <div class="tile__p">Заказ, печать, статусы, результаты — “всё в одной ладони”.</div>
+          <div class="how reveal" aria-label="Кому полезно">
+            <article class="how__card">
+              <div class="how__ico" aria-hidden="true"></div>
+              <div class="how__t">Администратор / медсестра</div>
+              <div class="how__p">Оформляет заказ, печатает штрих‑код, отслеживает статус.</div>
             </article>
-            <article class="tile">
-              <div class="tile__t">Врач</div>
-              <div class="tile__p">Результаты без поисковых квестов. История рядом.</div>
+            <article class="how__card">
+              <div class="how__ico how__ico--a" aria-hidden="true"></div>
+              <div class="how__t">Врач</div>
+              <div class="how__p">Смотрит результаты и историю — быстро и без лишних экранов.</div>
             </article>
-            <article class="tile">
-              <div class="tile__t">Управляющий</div>
-              <div class="tile__p">Финансы, объёмы, договоры — наглядно и без Excel-магии.</div>
+            <article class="how__card">
+              <div class="how__ico how__ico--b" aria-hidden="true"></div>
+              <div class="how__t">Управляющий</div>
+              <div class="how__p">Видит объёмы, стоимость исследований и документы.</div>
             </article>
           </div>
 
           <div class="kpis reveal" aria-label="Метрики">
             <div class="kpi">
               <div class="kpi__n">Выручка</div>
-              <div class="kpi__d">больше клиник остаются и масштабируются</div>
+              <div class="kpi__d">рост B2B за счёт удобного сервиса</div>
             </div>
             <div class="kpi">
               <div class="kpi__n">Экономия</div>
-              <div class="kpi__d">меньше ручных действий и обращений</div>
+              <div class="kpi__d">меньше ручного и обращений в поддержку</div>
             </div>
             <div class="kpi">
               <div class="kpi__n">Охват</div>
-              <div class="kpi__d">больше КК реально работают в ЛК</div>
+              <div class="kpi__d">сколько КК реально работают в ЛК</div>
             </div>
           </div>
 
-          <div class="value value--yaga reveal" aria-label="Ценность">
-            <div class="value__card">
-              <div class="value__t">Скорость</div>
-              <div class="value__p">Меньше кликов. Больше “дела”.</div>
+          <div class="oneStep reveal" aria-label="Один шаг до выгоды">
+            <div class="oneStep__media">
+              <img src="./assets/xray/xray-organic.svg" alt="" loading="lazy" />
             </div>
-            <div class="value__card">
-              <div class="value__t">Прозрачность</div>
-              <div class="value__p">Статусы понятны не только нам.</div>
-            </div>
-            <div class="value__card">
-              <div class="value__t">Интеграции</div>
-              <div class="value__p">Встраиваемся в процессы клиник.</div>
+            <div class="oneStep__text">
+              <div class="oneStep__t">Один шаг до порядка</div>
+              <ul class="oneStep__list">
+                <li>Оформление заказа без прыжков по системам</li>
+                <li>Печать штрих‑кодов прямо в процессе</li>
+                <li>Статусы и результаты — всегда под рукой</li>
+              </ul>
+              <a class="btn btn--solid" href="#next">Что дальше</a>
             </div>
           </div>
         </div>
       </section>
 
       <section id="cases" class="section section--alt">
-        <div class="container">
+        <div class="container container--edge">
           <div class="section__head reveal">
             <h2 class="h2">Кейсы</h2>
             <p class="sub">
-              Коротко. Визуально. По делу. Сейчас — черновик структуры, дальше подставим ваши цифры и
-              истории.
+              По структуре как в референсе: крупный блок + карточки. Текст — минимальный, визуал — главный.
             </p>
           </div>
 
-          <div class="caseBands">
-            <article class="band reveal">
-              <div class="band__text">
-                <div class="band__no">01</div>
-                <h3 class="band__t">Коммуникации в одном месте</h3>
-                <p class="band__p">Чтобы клиника не искала “где это обсуждали”.</p>
-
-                <div class="pillRow" aria-label="Состав кейса">
-                  <span class="pill"><b>цель</b> один канал</span>
-                  <span class="pill"><b>подход</b> сценарии + статусы</span>
-                  <span class="pill"><b>процесс</b> тесты + итерации</span>
-                  <span class="pill"><b>результат</b> меньше хаоса</span>
-                </div>
-
-                <div class="miniBA" aria-label="Было стало">
-                  <div class="miniBA__col">
-                    <div class="miniBA__h">Было</div>
-                    <div class="miniBA__v">почта/телефон/мессенджеры + потерянный контекст</div>
-                  </div>
-                  <div class="miniBA__col miniBA__col--accent">
-                    <div class="miniBA__h">Стало</div>
-                    <div class="miniBA__v">обращения, история и статус — прямо в ЛК</div>
-                  </div>
-                </div>
+          <div class="caseGrid">
+            <article class="caseCard reveal">
+              <div class="caseCard__head">
+                <div class="caseCard__no">01</div>
+                <div class="caseCard__t">Коммуникации</div>
+                <div class="caseCard__p">Один канал вместо “куда написать?”.</div>
               </div>
-              <div class="band__media">
-                <img src="./assets/case-1-communication.svg" alt="" loading="lazy" />
+              <div class="caseCard__media">
+                <img src="./assets/xray/xray-lungs.svg" alt="" loading="lazy" />
               </div>
             </article>
-
-            <article class="band band--reverse reveal">
-              <div class="band__text">
-                <div class="band__no">02</div>
-                <h3 class="band__t">Заказ и штрих‑коды без “танцев”</h3>
-                <p class="band__p">Чем меньше ручного — тем меньше ошибок.</p>
-
-                <div class="pillRow">
-                  <span class="pill"><b>цель</b> быстрее оформить</span>
-                  <span class="pill"><b>подход</b> короткий поток</span>
-                  <span class="pill"><b>процесс</b> пилот → масштаб</span>
-                  <span class="pill"><b>результат</b> стабильнее качество</span>
-                </div>
-
-                <div class="miniBA">
-                  <div class="miniBA__col">
-                    <div class="miniBA__h">Было</div>
-                    <div class="miniBA__v">много шагов, перепроверки, обучение “вручную”</div>
-                  </div>
-                  <div class="miniBA__col miniBA__col--accent">
-                    <div class="miniBA__h">Стало</div>
-                    <div class="miniBA__v">поток из коротких экранов + защита от ошибок</div>
-                  </div>
-                </div>
+            <article class="caseCard reveal">
+              <div class="caseCard__head">
+                <div class="caseCard__no">02</div>
+                <div class="caseCard__t">Заказ + штрих‑коды</div>
+                <div class="caseCard__p">Короткий поток, меньше ошибок.</div>
               </div>
-              <div class="band__media">
-                <img src="./assets/case-2-barcode.svg" alt="" loading="lazy" />
+              <div class="caseCard__media">
+                <img src="./assets/xray/xray-knee.svg" alt="" loading="lazy" />
               </div>
             </article>
-
-            <article class="band reveal">
-              <div class="band__text">
-                <div class="band__no">03</div>
-                <h3 class="band__t">Результаты и история — “как хочется врачу”</h3>
-                <p class="band__p">Найти. Сравнить. Скачать. Без лишнего.</p>
-
-                <div class="pillRow">
-                  <span class="pill"><b>цель</b> быстрый поиск</span>
-                  <span class="pill"><b>подход</b> фильтры + контекст</span>
-                  <span class="pill"><b>процесс</b> гипотезы → тест</span>
-                  <span class="pill"><b>результат</b> меньше “где файл?”</span>
-                </div>
-
-                <div class="miniBA">
-                  <div class="miniBA__col">
-                    <div class="miniBA__h">Было</div>
-                    <div class="miniBA__v">поиск по заказам превращался в квест</div>
-                  </div>
-                  <div class="miniBA__col miniBA__col--accent">
-                    <div class="miniBA__h">Стало</div>
-                    <div class="miniBA__v">история, фильтры и быстрые действия рядом</div>
-                  </div>
-                </div>
+            <article class="caseCard reveal">
+              <div class="caseCard__head">
+                <div class="caseCard__no">03</div>
+                <div class="caseCard__t">Результаты</div>
+                <div class="caseCard__p">Найти и скачать — без квестов.</div>
               </div>
-              <div class="band__media">
-                <img src="./assets/case-3-results.svg" alt="" loading="lazy" />
+              <div class="caseCard__media">
+                <img src="./assets/xray/xray-organic.svg" alt="" loading="lazy" />
               </div>
             </article>
           </div>

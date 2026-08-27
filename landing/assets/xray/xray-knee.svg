@@ -1,0 +1,38 @@
+<svg width="1200" height="900" viewBox="0 0 1200 900" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label=" 5=B35=-3@0D8:0: ACAB02">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="900" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#071824"/>
+      <stop offset="1" stop-color="#06202B"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(620 460) rotate(90) scale(420 360)">
+      <stop stop-color="#00A7B8" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#00A7B8" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="soft" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="6"/>
+    </filter>
+    <filter id="bloom" x="-60%" y="-60%" width="220%" height="220%" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="18"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="900" fill="url(#bg)"/>
+  <ellipse cx="620" cy="460" rx="420" ry="360" fill="url(#glow)" filter="url(#bloom)"/>
+
+  <!-- X-ray style strokes: monochrome teal, layered opacity -->
+  <g opacity="0.95">
+    <path d="M515 120c-42 80-78 178-88 280-12 118 12 212 60 274 52 68 130 114 244 116 116 2 200-44 252-114 46-62 70-156 58-274-10-102-46-200-88-280" stroke="#00A7B8" stroke-opacity="0.46" stroke-width="22" stroke-linecap="round" filter="url(#soft)"/>
+    <path d="M540 168c-34 66-62 148-70 232-10 98 8 176 48 228 42 54 106 90 200 92 96 2 166-34 208-90 38-52 56-130 46-228-8-84-36-166-70-232" stroke="#00A7B8" stroke-opacity="0.62" stroke-width="14" stroke-linecap="round" filter="url(#soft)"/>
+
+    <!-- joint capsule -->
+    <path d="M458 462c50-74 114-118 192-124 88-6 166 34 232 124-62 90-140 136-232 132-86-4-148-48-192-132Z" fill="#00A7B8" fill-opacity="0.18"/>
+    <path d="M482 462c44-62 100-98 168-102 76-6 144 28 202 102-54 76-120 114-202 110-74-4-126-42-168-110Z" fill="#00A7B8" fill-opacity="0.22"/>
+
+    <!-- bone cores -->
+    <path d="M520 422c18-54 44-98 82-130 30-26 66-40 110-40 44 0 80 14 110 40 38 32 64 76 82 130-42 12-112 20-192 20s-150-8-192-20Z" fill="#00A7B8" fill-opacity="0.12"/>
+    <path d="M520 502c42-12 112-20 192-20s150 8 192 20c-18 54-44 98-82 130-30 26-66 40-110 40-44 0-80-14-110-40-38-32-64-76-82-130Z" fill="#00A7B8" fill-opacity="0.12"/>
+  </g>
+
+  <!-- subtle crop frame -->
+  <rect x="24" y="24" width="1152" height="852" rx="46" stroke="#00A7B8" stroke-opacity="0.16" stroke-width="2"/>
+</svg>

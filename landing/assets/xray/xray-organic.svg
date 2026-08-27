@@ -1,0 +1,32 @@
+<svg width="1200" height="900" viewBox="0 0 1200 900" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label=" 5=B35=-3@0D8:0: >@30=8:0">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="900" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#041822"/>
+      <stop offset="1" stop-color="#05212B"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(700 420) rotate(90) scale(520 460)">
+      <stop stop-color="#00A7B8" stop-opacity="0.48"/>
+      <stop offset="1" stop-color="#00A7B8" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="soft" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="6"/>
+    </filter>
+    <filter id="bloom" x="-60%" y="-60%" width="220%" height="220%" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="18"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="900" fill="url(#bg)"/>
+  <ellipse cx="700" cy="420" rx="520" ry="460" fill="url(#glow)" filter="url(#bloom)"/>
+
+  <!-- organic, cropped x-ray layers -->
+  <g opacity="0.96" filter="url(#soft)">
+    <path d="M395 220c54-74 146-118 262-116 120 2 214 58 270 150 60 98 70 220 18 324-48 98-144 170-278 194-132 22-256-24-328-110-76-92-88-236 56-442Z" stroke="#00A7B8" stroke-opacity="0.52" stroke-width="20" stroke-linecap="round"/>
+    <path d="M440 252c46-62 124-98 222-96 102 2 180 50 228 126 50 80 58 178 16 262-40 82-120 140-234 160-110 18-214-20-270-92-62-78-70-198 38-360Z" fill="#00A7B8" fill-opacity="0.12"/>
+    <path d="M502 300c34-44 88-68 154-66 70 2 124 34 158 86 36 56 42 122 12 178-28 54-84 92-166 106-78 12-150-14-190-64-44-56-50-142 32-276Z" fill="#00A7B8" fill-opacity="0.16"/>
+    <path d="M560 362c22-26 52-38 90-36 40 2 70 18 90 42 22 28 24 60 10 88-14 26-40 44-82 50-40 6-76-6-96-28-22-26-24-68-22-116Z" fill="#00A7B8" fill-opacity="0.2"/>
+  </g>
+
+  <!-- crop line -->
+  <rect x="24" y="24" width="1152" height="852" rx="46" stroke="#00A7B8" stroke-opacity="0.16" stroke-width="2"/>
+</svg>
