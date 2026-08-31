@@ -238,85 +238,148 @@ a {
 }
 
 /* Hero */
-/* Hero in INVITRO loyalty style */
-.heroInv {
-  padding: 18px 0 6px;
+/* Hero like Yaga composition (but INVITRO tokens) */
+.heroY {
+  padding: 22px 0 10px;
 }
-.heroInv__card {
-  border-radius: 22px;
-  background: var(--accent);
-  box-shadow: 0 18px 60px rgba(47, 193, 220, 0.22);
-  overflow: hidden;
+.heroY__wrap {
+  border-radius: 44px;
+  background: var(--bg-b);
+  padding: clamp(18px, 3vw, 34px);
   position: relative;
+  overflow: hidden;
 }
-.heroInv__card::after {
+.heroY__wrap::before {
   content: "";
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.16), transparent 54%),
-    radial-gradient(circle at 80% 10%, rgba(255, 255, 255, 0.12), transparent 56%);
+    radial-gradient(circle at 60% 30%, rgba(47, 193, 220, 0.18), transparent 56%),
+    radial-gradient(circle at 80% 60%, rgba(47, 193, 220, 0.12), transparent 58%);
   pointer-events: none;
 }
-.heroInv__grid {
+.heroY__grid {
   position: relative;
   display: grid;
-  grid-template-columns: 1.05fr 0.95fr;
-  gap: 18px;
-  padding: clamp(18px, 3vw, 28px);
-  align-items: center;
+  grid-template-columns: 1fr 1.25fr;
+  gap: 20px;
+  align-items: start;
 }
-.heroInv__chip {
-  display: inline-flex;
-  padding: 6px 10px;
-  border-radius: 999px;
+.heroY__h {
+  margin: 0;
   font-weight: 900;
-  font-size: 12px;
-  letter-spacing: 0.02em;
-  background: rgba(255, 255, 255, 0.18);
-  color: rgba(255, 255, 255, 0.95);
-  border: 1px solid rgba(255, 255, 255, 0.22);
-}
-.heroInv__h {
-  margin: 12px 0 0;
-  font-size: clamp(30px, 4vw, 44px);
-  line-height: 1.05;
   letter-spacing: -0.02em;
-  color: white;
-  font-weight: 900;
+  line-height: 0.95;
+  text-transform: uppercase;
+  font-size: clamp(34px, 4.8vw, 58px);
 }
-.heroInv__p {
-  margin: 12px 0 0;
-  color: rgba(255, 255, 255, 0.92);
-  font-weight: 650;
-  max-width: 54ch;
-}
-.heroInv__actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+.heroY__sub {
   margin-top: 14px;
+  color: var(--muted);
+  max-width: 44ch;
+  font-weight: 650;
+  font-size: 13px;
 }
-.heroInv__media {
+.heroY__actions {
+  margin-top: 16px;
+}
+
+.heroY__visual {
   position: relative;
-  min-height: 320px;
-  display: grid;
-  align-items: center;
-  justify-items: end;
+  min-height: 420px;
 }
-.xray {
+.heroY__xray {
   position: absolute;
-  inset: -30px -30px -30px -30px;
-  opacity: 0.92;
-  pointer-events: none;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+  inset: -34px -34px -34px -34px;
+  background: url("./assets/xray/xray-lungs.svg") center/cover no-repeat;
+  opacity: 0.65;
   filter: saturate(1.02);
+  pointer-events: none;
+  border-radius: 46px;
 }
-.xray--hero {
-  background-image: url("./assets/xray/xray-lungs.svg");
-  opacity: 0.7;
+.heroY__mock {
+  position: absolute;
+  left: 14%;
+  top: 20%;
+  width: min(640px, 86%);
+}
+
+.heroY__float {
+  position: absolute;
+}
+.heroY__float--left {
+  position: relative;
+  margin-top: 18px;
+}
+.heroY__float--right {
+  right: 0;
+  top: 10%;
+  width: min(260px, 42%);
+}
+
+.floatCard {
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(34, 44, 46, 0.08);
+  box-shadow: 0 18px 46px rgba(34, 44, 46, 0.14);
+  padding: 16px;
+  backdrop-filter: blur(10px);
+}
+.floatCard--soft {
+  background: rgba(238, 243, 244, 0.82);
+}
+.floatCard__ico {
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  background: rgba(47, 193, 220, 0.18);
+  border: 1px solid rgba(47, 193, 220, 0.28);
+}
+.floatCard__t {
+  margin-top: 10px;
+  font-weight: 900;
+  letter-spacing: -0.01em;
+}
+.floatCard__p {
+  margin-top: 6px;
+  color: var(--muted);
+  font-weight: 650;
+  font-size: 12px;
+}
+.floatCard__lines {
+  margin-top: 12px;
+  display: grid;
+  gap: 8px;
+}
+.floatCard__lines span {
+  height: 2px;
+  width: 100%;
+  border-radius: 999px;
+  background: rgba(34, 44, 46, 0.18);
+}
+.floatCard__lines span:nth-child(2) {
+  width: 76%;
+}
+.floatCard__lines span:nth-child(3) {
+  width: 58%;
+}
+
+.heroY__tag {
+  position: absolute;
+  right: 18%;
+  top: 52%;
+  transform: rotate(-18deg);
+  background: var(--accent);
+  color: #fff;
+  border-radius: 14px;
+  padding: 10px 14px;
+  font-weight: 900;
+  box-shadow: 0 18px 46px rgba(47, 193, 220, 0.28);
+}
+.heroY__tagInner {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .mock {
@@ -686,10 +749,24 @@ a {
   box-shadow: var(--shadow-soft);
   padding: 16px;
 }
-.caseText__h {
-  margin: 0;
-  font-size: 18px;
+.caseText__sum {
+  cursor: pointer;
+  list-style: none;
+  font-weight: 900;
+  font-size: 16px;
   letter-spacing: -0.01em;
+}
+.caseText__sum::-webkit-details-marker {
+  display: none;
+}
+.caseText__sum::after {
+  content: "▾";
+  float: right;
+  color: rgba(34, 44, 46, 0.6);
+  transition: transform 180ms ease;
+}
+details[open] > .caseText__sum::after {
+  transform: rotate(180deg);
 }
 .caseText__grid {
   margin-top: 10px;
@@ -789,8 +866,8 @@ a {
   height: 14px;
   margin-top: 4px;
   border-radius: 6px;
-  background: linear-gradient(135deg, var(--brand), var(--brand-2));
-  box-shadow: 0 14px 38px rgba(0, 167, 184, 0.24);
+  background: var(--accent);
+  box-shadow: 0 14px 38px rgba(47, 193, 220, 0.24);
   border: 1px solid rgba(255, 255, 255, 0.6);
 }
 .step__t {
@@ -811,9 +888,9 @@ a {
 .contact__frame {
   position: relative;
   border-radius: calc(var(--r-lg) + 2px);
-  border: 1px solid rgba(0, 167, 184, 0.26);
-  background: linear-gradient(135deg, rgba(0, 167, 184, 0.16), rgba(0, 141, 230, 0.08));
-  box-shadow: 0 40px 120px rgba(0, 167, 184, 0.16);
+  border: 1px solid rgba(47, 193, 220, 0.26);
+  background: linear-gradient(135deg, rgba(47, 193, 220, 0.16), rgba(47, 193, 220, 0.06));
+  box-shadow: 0 40px 120px rgba(47, 193, 220, 0.14);
   padding: 22px;
   overflow: hidden;
 }
@@ -889,6 +966,65 @@ a {
   box-shadow: 0 18px 50px rgba(11, 18, 32, 0.08);
 }
 
+/* Bottom dock like Yaga */
+.dock {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 16px;
+  z-index: 60;
+  pointer-events: none;
+  display: grid;
+  place-items: center;
+}
+.dock__inner {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 18px;
+  background: rgba(34, 44, 46, 0.92);
+  box-shadow: 0 18px 56px rgba(34, 44, 46, 0.22);
+}
+.dock__link {
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 800;
+  font-size: 12px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  transition: background 160ms ease, color 160ms ease;
+}
+.dock__link:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+.dock__cta {
+  height: 40px;
+  border-radius: 14px;
+}
+.dock__up {
+  pointer-events: auto;
+  position: absolute;
+  right: max(12px, var(--gutter));
+  bottom: 0;
+  transform: translateY(-2px);
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: rgba(34, 44, 46, 0.92);
+  color: rgba(255, 255, 255, 0.92);
+  display: grid;
+  place-items: center;
+  font-weight: 1000;
+  box-shadow: 0 18px 56px rgba(34, 44, 46, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* Make room for fixed dock */
+body {
+  padding-bottom: 92px;
+}
+
 /* Reveal */
 .reveal {
   opacity: 0;
@@ -932,14 +1068,28 @@ a {
     justify-content: center;
   }
 
-  .heroInv__grid {
+  .heroY__grid {
     grid-template-columns: 1fr;
   }
-  .heroInv__media {
-    justify-items: start;
+  .heroY__visual {
+    min-height: 420px;
   }
-  .mock--uiInv {
+  .heroY__mock {
+    position: relative;
+    left: 0;
+    top: 0;
     width: 100%;
+    margin-top: 14px;
+  }
+  .heroY__float--right {
+    position: relative;
+    width: 100%;
+    margin-top: 12px;
+    top: auto;
+    right: auto;
+  }
+  .heroY__tag {
+    display: none;
   }
   .oneStep {
     grid-template-columns: 1fr;
@@ -959,5 +1109,19 @@ a {
   }
   .caseCard__media img {
     height: 220px;
+  }
+}
+
+@media (max-width: 560px) {
+  .dock__inner {
+    gap: 6px;
+    padding: 8px 10px;
+    border-radius: 16px;
+    max-width: calc(100% - (var(--gutter) * 2));
+    overflow-x: auto;
+  }
+  .dock__link {
+    padding: 9px 10px;
+    white-space: nowrap;
   }
 }
