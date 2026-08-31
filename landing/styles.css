@@ -261,14 +261,15 @@ a {
 }
 .heroY__microscope {
   position: absolute;
-  z-index: 1;
-  right: -2%;
-  top: -6%;
-  width: min(980px, 132%);
+  z-index: 6;
+  right: 4%;
+  top: -4%;
+  width: min(1100px, 132%);
   height: auto;
-  opacity: 0.98;
-  transform: rotate(8deg);
-  filter: drop-shadow(0 26px 80px rgba(0, 0, 0, 0.22));
+  opacity: 1;
+  transform: rotate(6deg);
+  filter: drop-shadow(0 30px 90px rgba(0, 0, 0, 0.26));
+  pointer-events: none;
 }
 /* main mockup moved to its own section */
 
