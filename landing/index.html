@@ -37,14 +37,14 @@
         </nav>
 
         <div class="top__cta">
-          <a class="btn btn--ghost" href="#cases">Кейсы</a>
-          <a class="btn btn--solid" href="#contact">Давайте соберём вау</a>
+          <a class="btn btn--secondary btn--withPlus" href="#cases">Кейсы</a>
+          <a class="btn btn--primary btn--withPlus" href="#contact">Связаться</a>
         </div>
       </div>
     </header>
 
     <main>
-      <section class="heroInv" aria-label="Вступление">
+      <section class="heroInv bg-a" aria-label="Вступление">
         <div class="container container--edge">
           <div class="heroInv__card reveal">
             <div class="heroInv__grid">
@@ -58,8 +58,8 @@
                   Один экран вместо рутины: заказ → штрих‑код → статус → результат.
                 </p>
                 <div class="heroInv__actions">
-                  <a class="btn btn--solid btn--lg" href="#product">Про продукт</a>
-                  <a class="btn btn--ghost btn--lg" href="#cases">Кейсы</a>
+                  <a class="btn btn--primaryAlt btn--lg btn--withPlus" href="#product">Про продукт</a>
+                  <a class="btn btn--secondary btn--lg btn--withPlus" href="#cases">Кейсы</a>
                 </div>
               </div>
 
@@ -82,7 +82,7 @@
         </div>
       </section>
 
-      <section id="product" class="section">
+      <section id="product" class="section bg-b">
         <div class="container container--edge">
           <div class="section__head reveal">
             <h2 class="h2">Продукт</h2>
@@ -135,18 +135,18 @@
                 <li>Печать штрих‑кодов прямо в процессе</li>
                 <li>Статусы и результаты — всегда под рукой</li>
               </ul>
-              <a class="btn btn--solid" href="#next">Что дальше</a>
+              <a class="btn btn--primary btn--withPlus" href="#next">Что дальше</a>
             </div>
           </div>
         </div>
       </section>
 
-      <section id="cases" class="section section--alt">
+      <section id="cases" class="section bg-a">
         <div class="container container--edge">
           <div class="section__head reveal">
-            <h2 class="h2">Кейсы</h2>
+            <h2 class="h2">Кейсы (выжимка из отчёта)</h2>
             <p class="sub">
-              По структуре как в референсе: крупный блок + карточки. Текст — минимальный, визуал — главный.
+              Контекст → вклад → результат → масштаб. Коротко. По делу.
             </p>
           </div>
 
@@ -154,8 +154,8 @@
             <article class="caseCard reveal">
               <div class="caseCard__head">
                 <div class="caseCard__no">01</div>
-                <div class="caseCard__t">Коммуникации</div>
-                <div class="caseCard__p">Один канал вместо “куда написать?”.</div>
+                <div class="caseCard__t">Релиз «Заказы» и «Оформление заказа»</div>
+                <div class="caseCard__p">От “переноса” из АРМПС — к проверенным сценариям.</div>
               </div>
               <div class="caseCard__media">
                 <img src="./assets/xray/xray-lungs.svg" alt="" loading="lazy" />
@@ -164,8 +164,8 @@
             <article class="caseCard reveal">
               <div class="caseCard__head">
                 <div class="caseCard__no">02</div>
-                <div class="caseCard__t">Заказ + штрих‑коды</div>
-                <div class="caseCard__p">Короткий поток, меньше ошибок.</div>
+                <div class="caseCard__t">Системные улучшения вне плана</div>
+                <div class="caseCard__p">Дизайн‑система, структура ЛК, критичные улучшения.</div>
               </div>
               <div class="caseCard__media">
                 <img src="./assets/xray/xray-knee.svg" alt="" loading="lazy" />
@@ -174,19 +174,78 @@
             <article class="caseCard reveal">
               <div class="caseCard__head">
                 <div class="caseCard__no">03</div>
-                <div class="caseCard__t">Результаты</div>
-                <div class="caseCard__p">Найти и скачать — без квестов.</div>
+                <div class="caseCard__t">Изменения в дизайн‑процессе</div>
+                <div class="caseCard__p">DoR/DoD, исследования, UX‑feedback — системно.</div>
               </div>
               <div class="caseCard__media">
                 <img src="./assets/xray/xray-organic.svg" alt="" loading="lazy" />
               </div>
             </article>
           </div>
+
+          <div class="caseText reveal" aria-label="Детали кейсов">
+            <div class="caseText__block">
+              <h3 class="caseText__h">Кейс 01. Релиз «Заказы» и «Оформление заказа»</h3>
+              <div class="caseText__grid">
+                <div class="caseText__col">
+                  <div class="caseText__k">Контекст</div>
+                  <div class="caseText__v">
+                    На старте не было аналитики, подтверждённых пользовательских данных и цельных сценариев для
+                    нового кабинета. Параллельно нужно было адаптироваться под новую палитру перед релизом.
+                  </div>
+                </div>
+                <div class="caseText__col">
+                  <div class="caseText__k">Мой вклад</div>
+                  <div class="caseText__v">
+                    Собрала разрозненные данные со стейкхолдерами, спроектировала ключевые сценарии (оформление
+                    заказа, пациент, рекомендации, медицинские данные, печать, курьер, «Заказы», отмена/повтор/
+                    дозаказ), подготовила UX‑тексты и сопровождала разработку до прод.
+                  </div>
+                </div>
+              </div>
+              <div class="caseText__stats" aria-label="Масштаб">
+                <div class="statPill"><b>20</b> задач</div>
+                <div class="statPill"><b>1000+</b> экранов</div>
+                <div class="statPill"><b>3</b> исследования</div>
+                <div class="statPill"><b>5</b> итераций (оформление)</div>
+              </div>
+            </div>
+
+            <div class="caseText__block">
+              <h3 class="caseText__h">Кейс 02. Системные улучшения</h3>
+              <div class="caseText__list">
+                <div class="caseText__item">
+                  <b>Подготовка к дизайн‑системе</b>: план миграции, перенос интерфейса в Figma и токенизация на 100%.
+                </div>
+                <div class="caseText__item">
+                  <b>Новая структура ЛК</b>: инициировала переработку шапки и базовой вёрстки — чтобы новые функции
+                  не упирались в legacy‑лейаут.
+                </div>
+                <div class="caseText__item">
+                  <b>Внеплановые задачи</b>: расходники, вызов курьера, безопасность аккаунтов, центр уведомлений,
+                  редизайн баннера и т.д.
+                </div>
+              </div>
+            </div>
+
+            <div class="caseText__block">
+              <h3 class="caseText__h">Кейс 03. Дизайн‑процесс</h3>
+              <div class="caseText__list">
+                <div class="caseText__item">
+                  <b>Входные требования к задачам</b>: сформировала и внедрила DoR/DoD — меньше риска начинать “вслепую”.
+                </div>
+                <div class="caseText__item">
+                  <b>Исследования и UX Feedback</b>: проверки до релиза + системный сбор обратной связи после релиза и
+                  перевод её в улучшения и бэклог.
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section id="next" class="section">
-        <div class="container">
+      <section id="next" class="section bg-b">
+        <div class="container container--edge">
           <div class="section__head reveal">
             <h2 class="h2">Что будет сделано дальше</h2>
             <p class="sub">
@@ -243,12 +302,11 @@
                 </div>
               </div>
               <div class="contact__actions">
-                <a class="btn btn--solid btn--lg" href="mailto:your.email@invitro.ru?subject=ЛК%20КК%20—%20кейсы%20для%20лендинга"
+                <a class="btn btn--primary btn--lg btn--withPlus" href="mailto:your.email@invitro.ru?subject=ЛК%20КК%20—%20кейсы%20для%20лендинга"
                   >Отправить кейсы</a
                 >
-                <a class="btn btn--ghost btn--lg" href="#cases">Вернуться к кейсам</a>
+                <a class="btn btn--secondary btn--lg btn--withPlus" href="#cases">Вернуться к кейсам</a>
               </div>
-              <div class="frame__corners" aria-hidden="true"></div>
             </div>
           </div>
         </div>
