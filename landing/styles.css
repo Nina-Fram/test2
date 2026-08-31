@@ -262,17 +262,44 @@ a {
   margin-top: 16px;
 }
 
+.heroCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  font-weight: 900;
+  font-size: 18px;
+  letter-spacing: -0.01em;
+  box-shadow: 0 20px 64px rgba(34, 44, 46, 0.16);
+  backdrop-filter: blur(12px);
+}
+.heroCta__plus {
+  width: 34px;
+  height: 34px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  font-weight: 1000;
+}
+
 .heroY__visual {
   position: relative;
   min-height: 420px;
 }
 .heroY__microscope {
   position: absolute;
+  z-index: 1;
   right: -6%;
   top: -10%;
   width: min(820px, 120%);
   height: auto;
-  opacity: 0.92;
+  opacity: 0.98;
   transform: rotate(6deg);
 }
 /* main mockup moved to its own section */
@@ -284,91 +311,106 @@ a {
   position: relative;
   margin-top: 18px;
 }
-.heroY__float--right {
-  right: 0;
-  top: 10%;
-  width: min(260px, 42%);
+
+/* Yaga-like square carousel card */
+.yCarousel {
+  position: relative;
+  width: 320px;
+  height: 320px;
+}
+.yCarousel__slide {
+  position: absolute;
+  inset: 0;
+  border-radius: 34px;
+  background: #c7d2e5;
+  color: #fff;
+  padding: 26px;
+  box-shadow: 0 18px 70px rgba(34, 44, 46, 0.18);
+  opacity: 0;
+  transform: translateY(6px);
+  animation: ySlide 12s infinite;
+}
+.yCarousel__slide--1 {
+  animation-delay: 0s;
+}
+.yCarousel__slide--2 {
+  animation-delay: 4s;
+}
+.yCarousel__slide--3 {
+  animation-delay: 8s;
 }
 
-/* Yaga-like card */
-.yCard {
-  border-radius: 22px;
-  background: rgba(255, 255, 255, 0.22);
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  box-shadow: 0 22px 70px rgba(34, 44, 46, 0.18);
-  padding: 16px;
-  backdrop-filter: blur(12px);
-  color: #fff;
+@keyframes ySlide {
+  0% {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  8% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  28% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  36% {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  100% {
+    opacity: 0;
+  }
 }
-.yCard--soft {
-  background: rgba(255, 255, 255, 0.18);
-}
-.yCard__head {
+
+.yCarousel__head {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 14px;
 }
-.yCard__ico {
-  width: 34px;
-  height: 34px;
-  border-radius: 12px;
+.yCarousel__ico {
+  width: 46px;
+  height: 46px;
+  border-radius: 18px;
   display: grid;
   place-items: center;
-  background: rgba(255, 255, 255, 0.16);
-  border: 1px solid rgba(255, 255, 255, 0.18);
   font-weight: 1000;
+  background: rgba(255, 255, 255, 0.08);
 }
-.yCard__title {
-  font-weight: 900;
+.yCarousel__title {
+  font-weight: 800;
+  font-size: 30px;
+  letter-spacing: -0.01em;
 }
-.yCard__sub {
-  margin-top: 10px;
+.yCarousel__text {
+  margin-top: 20px;
   font-weight: 650;
-  font-size: 12px;
+  font-size: 20px;
+  line-height: 1.25;
   color: rgba(255, 255, 255, 0.9);
 }
-.yCard__lines {
-  margin-top: 14px;
+.yCarousel__bars {
+  position: absolute;
+  left: 26px;
+  right: 26px;
+  bottom: 26px;
   display: grid;
-  gap: 8px;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 18px;
 }
-.yCard__lines span {
-  height: 2px;
-  width: 100%;
+.yCarousel__bars span {
+  height: 4px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.7);
 }
-.yCard__lines span:nth-child(2) {
-  width: 76%;
-}
-.yCard__lines span:nth-child(3) {
-  width: 58%;
-}
-.yCard__mini {
-  margin-top: 14px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-}
-.yMini {
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.14);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  padding: 10px;
-}
-.yMini__t {
-  font-weight: 900;
-  font-size: 12px;
-}
-.yMini__p {
-  margin-top: 6px;
-  font-weight: 650;
-  font-size: 11px;
-  color: rgba(255, 255, 255, 0.86);
+.yCarousel__slide--1 .yCarousel__bars span:nth-child(1),
+.yCarousel__slide--2 .yCarousel__bars span:nth-child(2),
+.yCarousel__slide--3 .yCarousel__bars span:nth-child(3) {
+  background: rgba(0, 0, 0, 0.86);
 }
 
 .heroY__tag {
   position: absolute;
+  z-index: 3;
   right: 18%;
   top: 52%;
   transform: rotate(-18deg);
