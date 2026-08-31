@@ -23,26 +23,6 @@
   <body>
     <a class="skip" href="#product">Перейти к содержанию</a>
 
-    <header class="top">
-      <div class="container top__inner">
-        <div class="brand" aria-label="INVITRO">
-          <span class="brand__mark" aria-hidden="true"></span>
-          <span class="brand__name">ИНВИТРО</span>
-        </div>
-
-        <nav class="nav" aria-label="Навигация">
-          <a class="nav__link" href="#product">Продукт</a>
-          <a class="nav__link" href="#cases">Кейсы</a>
-          <a class="nav__link" href="#next">Дальше</a>
-        </nav>
-
-        <div class="top__cta">
-          <a class="btn btn--secondary btn--withPlus" href="#cases">Кейсы</a>
-          <a class="btn btn--primary btn--withPlus" href="#contact">Связаться</a>
-        </div>
-      </div>
-    </header>
-
     <main>
       <section id="home" class="heroY bg-b" aria-label="Вступление">
         <div class="container container--edge">
@@ -75,19 +55,6 @@
 
               <div class="heroY__visual" aria-label="Визуал">
                 <div class="heroY__xray" aria-hidden="true"></div>
-                <div class="heroY__mock">
-                  <div class="mock mock--ui mock--uiInv">
-                    <div class="mock__top" aria-hidden="true">
-                      <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-                    </div>
-                    <img
-                      class="mock__img"
-                      src="./assets/ui-order.png"
-                      alt="Скрин интерфейса: оформление заказа"
-                      loading="eager"
-                    />
-                  </div>
-                </div>
 
                 <div class="heroY__float heroY__float--right" aria-hidden="true">
                   <div class="floatCard floatCard--soft">
@@ -100,6 +67,26 @@
                 <div class="heroY__tag" aria-hidden="true">
                   <span class="heroY__tagInner">+ Создать заказ</span>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="mockup" class="section bg-a" aria-label="Мокап интерфейса">
+        <div class="container container--edge">
+          <div class="mockSection reveal">
+            <div class="mockSection__inner">
+              <div class="mockFrame">
+                <div class="mockFrame__chrome" aria-hidden="true">
+                  <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                </div>
+                <img
+                  class="mockFrame__img"
+                  src="./assets/ui-order.png"
+                  alt="ЛК КК: оформление заказа"
+                  loading="lazy"
+                />
               </div>
             </div>
           </div>
@@ -330,25 +317,10 @@
       </section>
     </main>
 
-    <footer class="footer">
-      <div class="container footer__inner">
-        <div class="footer__left">
-          <div class="brand brand--muted">
-            <span class="brand__mark" aria-hidden="true"></span>
-            <span class="brand__name">ИНВИТРО</span>
-          </div>
-          <div class="footer__note">Лендинг продукта · статическая HTML‑страница</div>
-        </div>
-        <div class="footer__right">
-          <a class="footer__link" href="#product">Наверх</a>
-        </div>
-      </div>
-    </footer>
-
     <nav class="dock" aria-label="Навигация по странице">
       <div class="dock__inner">
-        <a class="dock__link" href="#home">Главная</a>
-        <a class="dock__link" href="#product">Продукт</a>
+        <a class="dock__link" href="#mockup">Демозона</a>
+        <a class="dock__link" href="#product">Возможности</a>
         <a class="dock__link" href="#cases">Кейсы</a>
         <a class="dock__link" href="#next">Дальше</a>
         <a class="dock__cta btn btn--primary btn--withPlus" href="#contact">Оставить заявку</a>
