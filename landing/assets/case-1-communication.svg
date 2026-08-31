@@ -1,0 +1,29 @@
+<svg width="1400" height="900" viewBox="0 0 1400 900" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label=";;NAB@0F8O: :><<C=8:0F88">
+  <defs>
+    <linearGradient id="g" x1="220" y1="160" x2="1180" y2="760" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#00A7B8"/>
+      <stop offset="0.62" stop-color="#008DE6"/>
+      <stop offset="1" stop-color="#FF7A00" stop-opacity="0.8"/>
+    </linearGradient>
+    <filter id="s" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="20" stdDeviation="26" flood-color="#0B1220" flood-opacity="0.14"/>
+    </filter>
+  </defs>
+  <rect width="1400" height="900" rx="46" fill="white"/>
+
+  <g filter="url(#s)">
+    <rect x="160" y="170" width="520" height="560" rx="34" fill="white" stroke="#0B1220" stroke-opacity="0.08"/>
+    <rect x="220" y="240" width="400" height="86" rx="22" fill="#F6FBFC" stroke="#0B1220" stroke-opacity="0.06"/>
+    <rect x="220" y="350" width="330" height="66" rx="20" fill="#F6FBFC" stroke="#0B1220" stroke-opacity="0.06"/>
+    <rect x="220" y="440" width="410" height="66" rx="20" fill="#F6FBFC" stroke="#0B1220" stroke-opacity="0.06"/>
+    <rect x="220" y="530" width="290" height="66" rx="20" fill="#F6FBFC" stroke="#0B1220" stroke-opacity="0.06"/>
+
+    <circle cx="880" cy="310" r="140" fill="url(#g)" opacity="0.92"/>
+    <path d="M820 270c0-22 18-40 40-40h90c22 0 40 18 40 40v70c0 22-18 40-40 40h-38l-52 45c-8 7-20 1-20-10v-35h-20c-22 0-40-18-40-40v-70Z" fill="white" opacity="0.9"/>
+    <path d="M790 470c0-20 16-36 36-36h128c20 0 36 16 36 36v56c0 20-16 36-36 36h-52l-52 42c-8 7-20 1-20-10v-32h-24c-20 0-36-16-36-36v-56Z" fill="white" opacity="0.86"/>
+
+    <path d="M660 640c0-22 18-40 40-40h420c22 0 40 18 40 40v70c0 22-18 40-40 40H830l-80 64c-10 8-24 1-24-12v-52H700c-22 0-40-18-40-40v-70Z" fill="#F6FBFC" stroke="#0B1220" stroke-opacity="0.06"/>
+    <path d="M720 672h240" stroke="#0B1220" stroke-opacity="0.18" stroke-width="12" stroke-linecap="round"/>
+    <path d="M720 712h180" stroke="#0B1220" stroke-opacity="0.12" stroke-width="12" stroke-linecap="round"/>
+  </g>
+</svg>
