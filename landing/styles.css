@@ -209,6 +209,7 @@ a {
   border-radius: 0 0 44px 44px;
   background: #00b3c6;
   padding: clamp(22px, 3vw, 44px);
+  padding-bottom: clamp(26px, 3.6vw, 56px);
   position: relative;
   overflow: hidden;
 }
@@ -227,8 +228,8 @@ a {
 .heroY__grid {
   position: relative;
   display: grid;
-  grid-template-columns: 1fr 1.25fr;
-  gap: 20px;
+  grid-template-columns: minmax(420px, 1fr) minmax(220px, 0.42fr) minmax(440px, 1.18fr);
+  gap: 28px;
   align-items: start;
 }
 .heroY__h {
@@ -237,17 +238,18 @@ a {
   font-style: italic;
   font-weight: 900;
   letter-spacing: -0.02em;
-  line-height: 0.95;
+  line-height: 0.92;
   text-transform: uppercase;
-  font-size: clamp(34px, 4.8vw, 58px);
+  font-size: clamp(44px, 4.9vw, 88px);
   color: #fff;
 }
-.heroY__sub {
-  margin-top: 14px;
-  color: rgba(255, 255, 255, 0.92);
-  max-width: 44ch;
-  font-weight: 650;
+.heroY__desc {
+  padding-top: clamp(34px, 4.1vw, 62px);
+  color: rgba(255, 255, 255, 0.9);
   font-size: 14px;
+  line-height: 1.35;
+  max-width: 26ch;
+  font-weight: 650;
 }
 .heroY__actions {
   margin-top: 16px;
@@ -262,13 +264,13 @@ a {
 .heroY__microscope {
   position: absolute;
   z-index: 6;
-  right: 4%;
-  top: -4%;
-  width: min(1100px, 132%);
+  right: -2%;
+  top: -10%;
+  width: min(1220px, 150%);
   height: auto;
-  opacity: 1;
+  opacity: 0.98;
   transform: rotate(6deg);
-  filter: drop-shadow(0 30px 90px rgba(0, 0, 0, 0.26));
+  filter: drop-shadow(0 34px 120px rgba(0, 0, 0, 0.32));
   pointer-events: none;
 }
 /* main mockup moved to its own section */
@@ -277,8 +279,10 @@ a {
   position: absolute;
 }
 .heroY__float--left {
-  position: relative;
-  margin-top: 18px;
+  position: absolute;
+  left: clamp(12px, 2vw, 22px);
+  top: clamp(180px, 18vw, 286px);
+  z-index: 8;
 }
 
 /* Yaga-like square carousel card */
@@ -931,7 +935,7 @@ details[open] > .caseText__sum::after {
 
 /* Mockup section (Yaga-like: big rounded container + big white frame) */
 .heroY__mockup {
-  margin-top: -120px;
+  margin-top: -78px;
   position: relative;
   z-index: 5;
   padding-inline: var(--gutter);
@@ -1042,16 +1046,19 @@ body {
   .heroY__grid {
     grid-template-columns: 1fr;
   }
+  .heroY__desc {
+    padding-top: 0;
+    max-width: 46ch;
+  }
   .heroY__visual {
     min-height: 420px;
   }
   .heroY__microscope {
-    position: relative;
-    right: 0;
-    top: 0;
-    width: 100%;
-    transform: none;
-    margin-top: 10px;
+    position: absolute;
+    right: -18%;
+    top: -14%;
+    width: min(980px, 140%);
+    transform: rotate(6deg);
   }
   .heroY__float--right {
     position: relative;
