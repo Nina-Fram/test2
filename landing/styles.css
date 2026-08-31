@@ -207,10 +207,31 @@ a {
 }
 .heroY__wrap {
   border-radius: 44px;
-  background: var(--bg-b);
+  background: #00b3c6;
   padding: clamp(18px, 3vw, 34px);
   position: relative;
   overflow: hidden;
+}
+/* diagonal white stripe like reference */
+.heroY__wrap::before {
+  content: "";
+  position: absolute;
+  left: -10%;
+  top: 34px;
+  width: 130%;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.9);
+  transform: rotate(-8deg);
+  border-radius: 999px;
+  opacity: 0.95;
+}
+.heroY__wrap::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 44px;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+  pointer-events: none;
 }
 .heroY__grid {
   position: relative;
@@ -228,10 +249,11 @@ a {
   line-height: 0.95;
   text-transform: uppercase;
   font-size: clamp(34px, 4.8vw, 58px);
+  color: #fff;
 }
 .heroY__sub {
   margin-top: 14px;
-  color: var(--muted);
+  color: rgba(255, 255, 255, 0.92);
   max-width: 44ch;
   font-weight: 650;
   font-size: 14px;
@@ -244,14 +266,14 @@ a {
   position: relative;
   min-height: 420px;
 }
-.heroY__xray {
+.heroY__microscope {
   position: absolute;
-  inset: -34px -34px -34px -34px;
-  background: url("./assets/xray/xray-lungs.svg") center/cover no-repeat;
-  opacity: 0.65;
-  filter: saturate(1.02);
-  pointer-events: none;
-  border-radius: 46px;
+  right: -6%;
+  top: -10%;
+  width: min(820px, 120%);
+  height: auto;
+  opacity: 0.92;
+  transform: rotate(6deg);
 }
 /* main mockup moved to its own section */
 
@@ -268,51 +290,81 @@ a {
   width: min(260px, 42%);
 }
 
-.floatCard {
-  border-radius: 20px;
-  background: rgba(255, 255, 255, 0.78);
-  border: 1px solid rgba(34, 44, 46, 0.08);
-  box-shadow: 0 18px 46px rgba(34, 44, 46, 0.14);
+/* Yaga-like card */
+.yCard {
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 22px 70px rgba(34, 44, 46, 0.18);
   padding: 16px;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(12px);
+  color: #fff;
 }
-.floatCard--soft {
-  background: rgba(238, 243, 244, 0.82);
+.yCard--soft {
+  background: rgba(255, 255, 255, 0.18);
 }
-.floatCard__ico {
-  width: 42px;
-  height: 42px;
-  border-radius: 14px;
-  background: rgba(47, 193, 220, 0.18);
-  border: 1px solid rgba(47, 193, 220, 0.28);
+.yCard__head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
-.floatCard__t {
-  margin-top: 10px;
+.yCard__ico {
+  width: 34px;
+  height: 34px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  font-weight: 1000;
+}
+.yCard__title {
   font-weight: 900;
-  letter-spacing: -0.01em;
 }
-.floatCard__p {
-  margin-top: 6px;
-  color: var(--muted);
+.yCard__sub {
+  margin-top: 10px;
   font-weight: 650;
   font-size: 12px;
+  color: rgba(255, 255, 255, 0.9);
 }
-.floatCard__lines {
-  margin-top: 12px;
+.yCard__lines {
+  margin-top: 14px;
   display: grid;
   gap: 8px;
 }
-.floatCard__lines span {
+.yCard__lines span {
   height: 2px;
   width: 100%;
   border-radius: 999px;
-  background: rgba(34, 44, 46, 0.18);
+  background: rgba(255, 255, 255, 0.5);
 }
-.floatCard__lines span:nth-child(2) {
+.yCard__lines span:nth-child(2) {
   width: 76%;
 }
-.floatCard__lines span:nth-child(3) {
+.yCard__lines span:nth-child(3) {
   width: 58%;
+}
+.yCard__mini {
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.yMini {
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  padding: 10px;
+}
+.yMini__t {
+  font-weight: 900;
+  font-size: 12px;
+}
+.yMini__p {
+  margin-top: 6px;
+  font-weight: 650;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.86);
 }
 
 .heroY__tag {
@@ -320,12 +372,12 @@ a {
   right: 18%;
   top: 52%;
   transform: rotate(-18deg);
-  background: var(--accent);
+  background: rgba(34, 44, 46, 0.92);
   color: #fff;
   border-radius: 14px;
   padding: 10px 14px;
   font-weight: 900;
-  box-shadow: 0 18px 46px rgba(47, 193, 220, 0.28);
+  box-shadow: 0 18px 46px rgba(34, 44, 46, 0.24);
 }
 .heroY__tagInner {
   display: inline-flex;
@@ -873,29 +925,23 @@ details[open] > .caseText__sum::after {
 /* Footer removed by request */
 
 /* Mockup section (Yaga-like: big rounded container + big white frame) */
-.mockSection {
-  border-radius: 44px;
-  background: var(--bg-b);
-  padding: clamp(18px, 3vw, 34px);
-}
-.mockSection__inner {
-  display: grid;
-  place-items: center;
+.heroY__mockup {
+  margin-top: -120px;
+  position: relative;
+  z-index: 5;
+  padding-inline: var(--gutter);
 }
 .mockFrame {
-  width: min(1260px, 100%);
+  width: min(1240px, 100%);
+  margin-inline: auto;
   border-radius: 22px;
-  background: var(--card-a);
-  border: 1px solid rgba(34, 44, 46, 0.1);
+  background: #fff;
+  border: 1px solid rgba(34, 44, 46, 0.16);
   box-shadow: 0 24px 76px rgba(34, 44, 46, 0.16);
   overflow: hidden;
 }
-.mockFrame__chrome {
-  display: flex;
-  gap: 8px;
-  padding: 12px 14px;
-  border-bottom: 1px solid rgba(34, 44, 46, 0.06);
-  background: rgba(238, 243, 244, 0.9);
+.mockFrame--thin {
+  border-width: 1px;
 }
 .mockFrame__img {
   display: block;
@@ -994,6 +1040,14 @@ body {
   .heroY__visual {
     min-height: 420px;
   }
+  .heroY__microscope {
+    position: relative;
+    right: 0;
+    top: 0;
+    width: 100%;
+    transform: none;
+    margin-top: 10px;
+  }
   .heroY__float--right {
     position: relative;
     width: 100%;
@@ -1003,6 +1057,9 @@ body {
   }
   .heroY__tag {
     display: none;
+  }
+  .heroY__mockup {
+    margin-top: -60px;
   }
   .oneStep {
     grid-template-columns: 1fr;

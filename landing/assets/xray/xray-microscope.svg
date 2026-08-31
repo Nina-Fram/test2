@@ -1,0 +1,52 @@
+<svg width="1600" height="1200" viewBox="0 0 1600 1200" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label=" 5=B35=-3@0D8:0: <8:@>A:>?">
+  <defs>
+    <radialGradient id="g" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(920 560) rotate(90) scale(520 520)">
+      <stop stop-color="#2FC1DC" stop-opacity="0.42"/>
+      <stop offset="1" stop-color="#2FC1DC" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="bloom" x="-60%" y="-60%" width="220%" height="220%" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="18"/>
+    </filter>
+    <filter id="soft" x="-40%" y="-40%" width="180%" height="180%" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="6"/>
+    </filter>
+  </defs>
+
+  <g opacity="0.96">
+    <ellipse cx="920" cy="560" rx="540" ry="520" fill="url(#g)" filter="url(#bloom)"/>
+  </g>
+
+  <!-- X-ray strokes: monochrome cyan layers, no background -->
+  <g opacity="0.96" filter="url(#soft)">
+    <!-- base -->
+    <path d="M500 950c0-40 32-72 72-72h620c40 0 72 32 72 72v34c0 46-38 84-84 84H584c-46 0-84-38-84-84v-34Z" fill="#2FC1DC" fill-opacity="0.14"/>
+    <path d="M540 910c0-28 22-50 50-50h560c28 0 50 22 50 50v18c0 34-28 62-62 62H602c-34 0-62-28-62-62v-18Z" stroke="#2FC1DC" stroke-opacity="0.5" stroke-width="18" stroke-linecap="round"/>
+
+    <!-- stage -->
+    <path d="M760 820c0-26 20-46 46-46h300c26 0 46 20 46 46v78c0 26-20 46-46 46H806c-26 0-46-20-46-46v-78Z" fill="#2FC1DC" fill-opacity="0.12"/>
+    <path d="M820 834h190" stroke="#2FC1DC" stroke-opacity="0.36" stroke-width="14" stroke-linecap="round"/>
+    <path d="M820 872h240" stroke="#2FC1DC" stroke-opacity="0.26" stroke-width="14" stroke-linecap="round"/>
+
+    <!-- column -->
+    <path d="M640 900c0-60 48-108 108-108h60c60 0 108 48 108 108v56c0 22-18 40-40 40H680c-22 0-40-18-40-40v-56Z" fill="#2FC1DC" fill-opacity="0.1"/>
+    <path d="M694 904c0-36 30-66 66-66h36c36 0 66 30 66 66v66H694v-66Z" stroke="#2FC1DC" stroke-opacity="0.46" stroke-width="16" stroke-linecap="round"/>
+
+    <!-- arm -->
+    <path d="M760 340c56-74 126-114 210-112 100 2 172 54 224 142 18 30 22 70 8 102-18 44-70 58-112 32-10-6-18-14-24-24-40-64-86-96-138-96-52 0-96 28-136 82-20 28-54 40-86 32-50-12-70-70-46-116 26-50 54-98 100-144Z" fill="#2FC1DC" fill-opacity="0.12"/>
+    <path d="M788 372c44-56 96-86 156-86 74 0 132 40 178 122" stroke="#2FC1DC" stroke-opacity="0.52" stroke-width="18" stroke-linecap="round"/>
+
+    <!-- head -->
+    <path d="M1006 208c0-34 28-62 62-62h128c34 0 62 28 62 62v40c0 34-28 62-62 62h-128c-34 0-62-28-62-62v-40Z" fill="#2FC1DC" fill-opacity="0.12"/>
+    <path d="M1040 216c0-18 14-32 32-32h120c18 0 32 14 32 32v24c0 18-14 32-32 32h-120c-18 0-32-14-32-32v-24Z" stroke="#2FC1DC" stroke-opacity="0.52" stroke-width="14" stroke-linecap="round"/>
+
+    <!-- eyepiece -->
+    <path d="M1140 120c0-22 18-40 40-40h90c22 0 40 18 40 40v30c0 22-18 40-40 40h-90c-22 0-40-18-40-40v-30Z" fill="#2FC1DC" fill-opacity="0.12"/>
+    <path d="M1168 126c0-12 10-22 22-22h78c12 0 22 10 22 22v18c0 12-10 22-22 22h-78c-12 0-22-10-22-22v-18Z" stroke="#2FC1DC" stroke-opacity="0.46" stroke-width="12" stroke-linecap="round"/>
+
+    <!-- knobs -->
+    <circle cx="920" cy="640" r="72" fill="#2FC1DC" fill-opacity="0.1"/>
+    <circle cx="920" cy="640" r="44" stroke="#2FC1DC" stroke-opacity="0.46" stroke-width="14"/>
+    <circle cx="1010" cy="700" r="52" fill="#2FC1DC" fill-opacity="0.08"/>
+    <circle cx="1010" cy="700" r="30" stroke="#2FC1DC" stroke-opacity="0.4" stroke-width="12"/>
+  </g>
+</svg>
