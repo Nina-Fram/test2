@@ -1,0 +1,24 @@
+/*
+	This font software is the property of Commercial Type.
+
+	You may not modify the font software, use it on another website, or install it on a computer.
+
+	License information is available at http://commercialtype.com/eula
+	For more information please visit Commercial Type at http://commercialtype.com or email us at info[at]commercialtype.com
+
+	Copyright (C) 2016 Schwartzco Inc.
+	
+*/
+
+.DrukWideInvitro-SuperItalicCyr-Web {
+    font-family: 'Druk Wide Invitro Web';
+    font-weight: 900;
+    font-style: italic;
+    }
+
+@font-face {
+    font-family: 'Druk Wide Invitro Web';
+    src: url('DrukWideInvitro-SuperItalicCyr-Web.woff2') format('woff2');
+    font-weight: 900;
+    font-style: italic;
+    }
