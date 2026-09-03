@@ -300,7 +300,6 @@ h2 {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 12px;
-  margin-top: 12px;
 }
 
 .takeaway {

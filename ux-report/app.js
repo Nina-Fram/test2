@@ -28,20 +28,6 @@
     return dash;
   };
 
-  document.getElementById("kpis").innerHTML = [
-    { num: fmtN(report.kpis.responses), label: "Всего обращений по 6 опросам" },
-    { num: report.kpis.surveys, label: "Кампаний в выгрузке" },
-    { num: pct(report.kpis.cesNegativeShare), label: "Негатив в CES-опросах" },
-    { num: report.kpis.p0p1, label: "Тем уровня P0–P1 в очереди" },
-  ]
-    .map(
-      (k) => `<article class="kpi">
-        <div class="num">${k.num}</div>
-        <div class="label">${k.label}</div>
-      </article>`
-    )
-    .join("");
-
   document.getElementById("takeaways").innerHTML = report.takeaways
     .map(
       (t) => `<article class="takeaway ${t.level}">
