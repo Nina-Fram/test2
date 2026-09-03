@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light" />
+    <title>Сводный UX-отчёт — ЛК корпоративного клиента ИНВИТРО</title>
+    <meta
+      name="description"
+      content="Сводка обращений из UX Feedback по личному кабинету корпоративного клиента ИНВИТРО: объём по опросам и ранжирование по критичности."
+    />
+    <link rel="stylesheet" href="./styles.css" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232FC1DC'/%3E%3C/svg%3E"
+    />
+  </head>
+  <body>
+    <a class="skip" href="#content">К содержанию</a>
+    <div class="app">
+      <aside class="nav" aria-label="Навигация по отчёту">
+        <div class="brand">
+          <div class="brand__mark" aria-hidden="true">IN</div>
+          <div class="brand__kicker">UX Feedback</div>
+          <div class="brand__name">Сводный отчёт</div>
+        </div>
+        <nav class="nav__list">
+          <a href="#overview">Обзор</a>
+          <a href="#volume">Объём по опросам</a>
+          <a href="#ranking">Критичность</a>
+          <a href="#surveys">Кампании</a>
+          <a href="#issues">Проблемы</a>
+          <a href="#method">Методика</a>
+        </nav>
+        <p class="nav__foot">Для продакта ЛК КК. Источник — UX Feedback. Печать через браузер сохраняет верстку.</p>
+      </aside>
+
+      <main id="content">
+        <header class="hero">
+          <div class="eyebrow">
+            <span class="pill pill--accent">ИНВИТРО · B2B</span>
+            <span class="pill" id="status-pill">Ожидает выгрузку</span>
+          </div>
+          <h1>Что говорят пользователи ЛК</h1>
+          <p class="lede" id="lede">
+            Сводка обращений из UX Feedback: сколько ответов по каждому опросу и какие темы требуют действий в первую
+            очередь.
+          </p>
+          <div class="hero__meta">
+            <div class="meta-item">
+              <div class="k">Продукт</div>
+              <div class="v">ЛК корпоративного клиента</div>
+            </div>
+            <div class="meta-item">
+              <div class="k">Период</div>
+              <div class="v" id="period">После релиза «Заказы»</div>
+            </div>
+            <div class="meta-item">
+              <div class="k">Источник</div>
+              <div class="v">UX Feedback</div>
+            </div>
+            <div class="meta-item">
+              <div class="k">Дата отчёта</div>
+              <div class="v" id="generated">3 сентября 2026</div>
+            </div>
+          </div>
+          <div class="banner" id="data-banner" hidden></div>
+          <div class="actions" style="margin-top: 18px">
+            <button class="btn btn--primary" type="button" onclick="window.print()">Печать / PDF</button>
+            <a class="btn btn--ghost" href="#method">Как считаем критичность</a>
+          </div>
+        </header>
+
+        <section id="overview" aria-labelledby="overview-title">
+          <div class="section-head">
+            <h2 id="overview-title">Срез для продакта</h2>
+            <p>Четыре цифры, с которых начинать разговор. Дальше — объём и очередь по критичности.</p>
+          </div>
+          <div class="kpis" id="kpis"></div>
+        </section>
+
+        <section id="volume" aria-labelledby="volume-title">
+          <div class="section-head">
+            <h2 id="volume-title">Обращения по опросам</h2>
+            <p>Сравнение кампаний по числу ответов. Сначала смотрим, где пользователи вообще откликаются.</p>
+          </div>
+          <div class="card">
+            <div class="bars" id="bars"></div>
+          </div>
+        </section>
+
+        <section id="ranking" aria-labelledby="ranking-title">
+          <div class="section-head">
+            <h2 id="ranking-title">Ранжирование по критичности</h2>
+            <p>Очередь для бэклога: не «где больше ответов», а «что ломает работу клиники».</p>
+          </div>
+          <div class="card">
+            <div class="legend" aria-hidden="true">
+              <span><i class="swatch" style="background: var(--p0)"></i>P0 блокер</span>
+              <span><i class="swatch" style="background: var(--p1)"></i>P1 критично</span>
+              <span><i class="swatch" style="background: var(--p2)"></i>P2 важно</span>
+              <span><i class="swatch" style="background: var(--p3)"></i>P3 наблюдать</span>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th style="width: 48px">#</th>
+                    <th>Опрос / зона</th>
+                    <th>Обращений</th>
+                    <th>Негатив</th>
+                    <th>Вес сценария</th>
+                    <th>Уровень</th>
+                  </tr>
+                </thead>
+                <tbody id="rank-body"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section id="surveys" aria-labelledby="surveys-title">
+          <div class="section-head">
+            <h2 id="surveys-title">Кампании UX Feedback</h2>
+            <p>Карточки опросов, которые закрывают ключевые сценарии после релиза заказов.</p>
+          </div>
+          <div class="survey-grid" id="survey-grid"></div>
+        </section>
+
+        <section id="issues" aria-labelledby="issues-title">
+          <div class="section-head">
+            <h2 id="issues-title">Темы и цитаты</h2>
+            <p>Кластеры проблем из открытых ответов — то, что продакт кладёт в бэклог.</p>
+          </div>
+          <div class="card" id="issues-card"></div>
+        </section>
+
+        <section id="method" aria-labelledby="method-title">
+          <div class="section-head">
+            <h2 id="method-title">Методика</h2>
+            <p>Чтобы цифры можно было защитить на продуктовом синке, а не спорить «на глаз».</p>
+          </div>
+          <div class="card">
+            <p class="formula" id="formula"></p>
+            <div class="factors" id="factors"></div>
+            <div class="levels" id="levels"></div>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script src="./data.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
