@@ -1,6 +1,7 @@
 (function () {
-  const report = window.UX_REPORT;
-  if (!report) return;
+  const boot = () => {
+    const report = window.UX_REPORT;
+    if (!report) return;
 
   const dash = "—";
   const levelLabel = {
@@ -210,6 +211,13 @@
       a.setAttribute("aria-current", a.getAttribute("href") === `#${current.id}` ? "true" : "false");
     });
   };
-  setCurrent();
-  window.addEventListener("scroll", setCurrent, { passive: true });
+    setCurrent();
+    window.addEventListener("scroll", setCurrent, { passive: true });
+  };
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", boot);
+  } else {
+    boot();
+  }
 })();

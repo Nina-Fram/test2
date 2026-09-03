@@ -387,7 +387,7 @@ h2 {
 
 .bar-row {
   display: grid;
-  grid-template-columns: minmax(120px, 180px) 1fr auto;
+  grid-template-columns: minmax(180px, 280px) 1fr auto;
   gap: 12px;
   align-items: center;
 }
