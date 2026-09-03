@@ -186,19 +186,51 @@
       .join("")}</tbody>
   </table></div>`;
 
-  document.getElementById("formula").textContent = report.methodology.formula;
-  document.getElementById("factors").innerHTML = report.methodology.factors
-    .map((f) => `<article class="factor"><h3>${f.name}</h3><p>${f.detail}</p></article>`)
-    .join("");
-  document.getElementById("levels").innerHTML = report.methodology.levels
-    .map(
-      (l) => `<article class="level">
-        <div class="t">${l.label}</div>
-        <div class="d">${l.hint}</div>
-      </article>`
-    )
-    .join("");
-  document.getElementById("sample-note").textContent = report.meta.sampleNote;
+  const escape = (s) =>
+    String(s)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+
+  const answers = window.UX_ANSWERS || [];
+  const acc = document.getElementById("answers-acc");
+  if (acc) {
+    acc.innerHTML = answers
+      .map((g) => {
+        const items = g.answers
+          .map(
+            (a) => `<article class="answer">
+              <div class="meta">
+                <span class="pill">${escape(a.score)}</span>
+                <span class="muted">${escape(a.domain)} · ${escape(a.kind)}</span>
+              </div>
+              <p class="text">${escape(a.text)}</p>
+            </article>`
+          )
+          .join("");
+        return `<details class="acc">
+          <summary>${escape(g.name)} <span class="count">${g.answers.length}</span></summary>
+          <div class="acc-body">${items || `<p class="muted" style="padding:12px">Нет формулировок для доработок</p>`}</div>
+        </details>`;
+      })
+      .join("");
+    document.getElementById("acc-open")?.addEventListener("click", () => {
+      acc.querySelectorAll("details").forEach((d) => {
+        d.open = true;
+      });
+    });
+    document.getElementById("acc-close")?.addEventListener("click", () => {
+      acc.querySelectorAll("details").forEach((d) => {
+        d.open = false;
+      });
+    });
+    window.addEventListener("beforeprint", () => {
+      acc.querySelectorAll("details").forEach((d) => {
+        d.open = true;
+      });
+    });
+  }
 
   const links = document.querySelectorAll(".nav__list a");
   const sections = [...links].map((a) => document.querySelector(a.getAttribute("href"))).filter(Boolean);
