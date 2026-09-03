@@ -7,7 +7,7 @@
     <title>Сводный UX-отчёт — ЛК корпоративного клиента ИНВИТРО</title>
     <meta
       name="description"
-      content="Сводка обращений из UX Feedback по личному кабинету корпоративного клиента ИНВИТРО: объём по опросам и ранжирование по критичности."
+      content="Сводка 1970 обращений из UX Feedback: объём по опросам и ранжирование по критичности для продакта ЛК КК ИНВИТРО."
     />
     <link rel="stylesheet" href="./styles.css" />
     <link
@@ -26,25 +26,28 @@
         </div>
         <nav class="nav__list">
           <a href="#overview">Обзор</a>
-          <a href="#volume">Объём по опросам</a>
+          <a href="#volume">Объём</a>
           <a href="#ranking">Критичность</a>
-          <a href="#surveys">Кампании</a>
-          <a href="#issues">Проблемы</a>
+          <a href="#issues">Очередь проблем</a>
+          <a href="#features">Приоритеты фич</a>
+          <a href="#ces">CES</a>
+          <a href="#quotes">Цитаты</a>
+          <a href="#actions">Что делать</a>
           <a href="#method">Методика</a>
         </nav>
-        <p class="nav__foot">Для продакта ЛК КК. Источник — UX Feedback. Печать через браузер сохраняет верстку.</p>
+        <p class="nav__foot">Для продакта ЛК КК. Источник — выгрузка UX Feedback от 03.09.2026. Печать сохраняет вёрстку.</p>
       </aside>
 
       <main id="content">
         <header class="hero">
           <div class="eyebrow">
             <span class="pill pill--accent">ИНВИТРО · B2B</span>
-            <span class="pill" id="status-pill">Ожидает выгрузку</span>
+            <span class="pill pill--accent">Данные UX Feedback</span>
           </div>
           <h1>Что говорят пользователи ЛК</h1>
-          <p class="lede" id="lede">
-            Сводка обращений из UX Feedback: сколько ответов по каждому опросу и какие темы требуют действий в первую
-            очередь.
+          <p class="lede">
+            Сводка для продакта: сколько обращений по каждому опросу и что ставить в очередь раньше — не по громкости, а
+            по критичности для работы клиники.
           </p>
           <div class="hero__meta">
             <div class="meta-item">
@@ -53,36 +56,36 @@
             </div>
             <div class="meta-item">
               <div class="k">Период</div>
-              <div class="v" id="period">После релиза «Заказы»</div>
+              <div class="v">23.10.2025 — 03.09.2026</div>
             </div>
             <div class="meta-item">
               <div class="k">Источник</div>
-              <div class="v">UX Feedback</div>
+              <div class="v">6 кампаний UX Feedback</div>
             </div>
             <div class="meta-item">
               <div class="k">Дата отчёта</div>
-              <div class="v" id="generated">3 сентября 2026</div>
+              <div class="v">3 сентября 2026</div>
             </div>
           </div>
-          <div class="banner" id="data-banner" hidden></div>
           <div class="actions" style="margin-top: 18px">
             <button class="btn btn--primary" type="button" onclick="window.print()">Печать / PDF</button>
-            <a class="btn btn--ghost" href="#method">Как считаем критичность</a>
+            <a class="btn btn--ghost" href="#ranking">К очереди по критичности</a>
           </div>
         </header>
 
         <section id="overview" aria-labelledby="overview-title">
           <div class="section-head">
-            <h2 id="overview-title">Срез для продакта</h2>
-            <p>Четыре цифры, с которых начинать разговор. Дальше — объём и очередь по критичности.</p>
+            <h2 id="overview-title">Срез за 60 секунд</h2>
+            <p>Три вывода, с которых начинать синк. Цифры ниже — по всем 1 970 ответам.</p>
           </div>
           <div class="kpis" id="kpis"></div>
+          <div class="takeaways" id="takeaways"></div>
         </section>
 
         <section id="volume" aria-labelledby="volume-title">
           <div class="section-head">
             <h2 id="volume-title">Обращения по опросам</h2>
-            <p>Сравнение кампаний по числу ответов. Сначала смотрим, где пользователи вообще откликаются.</p>
+            <p>Где пользователи отвечают чаще. Это ещё не приоритет — приоритет в следующем блоке.</p>
           </div>
           <div class="card">
             <div class="bars" id="bars"></div>
@@ -92,7 +95,7 @@
         <section id="ranking" aria-labelledby="ranking-title">
           <div class="section-head">
             <h2 id="ranking-title">Ранжирование по критичности</h2>
-            <p>Очередь для бэклога: не «где больше ответов», а «что ломает работу клиники».</p>
+            <p>Очередь для бэклога: частота × боль × вес сценария. Предзаказ с 9 ответами в конце — данных мало.</p>
           </div>
           <div class="card">
             <div class="legend" aria-hidden="true">
@@ -106,10 +109,10 @@
                 <thead>
                   <tr>
                     <th style="width: 48px">#</th>
-                    <th>Опрос / зона</th>
+                    <th>Опрос</th>
                     <th>Обращений</th>
-                    <th>Негатив</th>
-                    <th>Вес сценария</th>
+                    <th>Боль</th>
+                    <th>CES / успех</th>
                     <th>Уровень</th>
                   </tr>
                 </thead>
@@ -119,31 +122,68 @@
           </div>
         </section>
 
-        <section id="surveys" aria-labelledby="surveys-title">
-          <div class="section-head">
-            <h2 id="surveys-title">Кампании UX Feedback</h2>
-            <p>Карточки опросов, которые закрывают ключевые сценарии после релиза заказов.</p>
-          </div>
-          <div class="survey-grid" id="survey-grid"></div>
-        </section>
-
         <section id="issues" aria-labelledby="issues-title">
           <div class="section-head">
-            <h2 id="issues-title">Темы и цитаты</h2>
-            <p>Кластеры проблем из открытых ответов — то, что продакт кладёт в бэклог.</p>
+            <h2 id="issues-title">Очередь проблем</h2>
+            <p>Кластеры из открытых ответов — то, что продакт кладёт в бэклог с формулировкой и цитатой.</p>
           </div>
           <div class="card" id="issues-card"></div>
         </section>
 
+        <section id="features" aria-labelledby="features-title">
+          <div class="section-head">
+            <h2 id="features-title">Чего не хватает в кабинете</h2>
+            <p>292 ответа, конец октября — середина ноября 2025. Сортировка по числу выборов «1-е место».</p>
+          </div>
+          <div class="card">
+            <div class="bars" id="feature-bars"></div>
+          </div>
+        </section>
+
+        <section id="ces" aria-labelledby="ces-title">
+          <div class="section-head">
+            <h2 id="ces-title">Распределение CES</h2>
+            <p>Пять градаций от «Отлично» до «Ужасно». Курьер — единственный опрос с заметным «хвостом» негатива.</p>
+          </div>
+          <div class="card">
+            <div class="legend" aria-hidden="true">
+              <span><i class="swatch" style="background: var(--ok)"></i>Отлично</span>
+              <span><i class="swatch" style="background: #7bc9b0"></i>Хорошо</span>
+              <span><i class="swatch" style="background: var(--p2)"></i>Нормально</span>
+              <span><i class="swatch" style="background: var(--p1)"></i>Плохо</span>
+              <span><i class="swatch" style="background: var(--p0)"></i>Ужасно</span>
+            </div>
+            <div class="bars" id="ces-bars"></div>
+            <p class="note" id="ces-note"></p>
+          </div>
+        </section>
+
+        <section id="quotes" aria-labelledby="quotes-title">
+          <div class="section-head">
+            <h2 id="quotes-title">Голоса пользователей</h2>
+            <p>Формулировки как есть, без правки тона. Имена пациентов в выгрузке не переносим.</p>
+          </div>
+          <div class="quotes" id="quotes"></div>
+        </section>
+
+        <section id="actions" aria-labelledby="actions-title">
+          <div class="section-head">
+            <h2 id="actions-title">Что делать дальше</h2>
+            <p>Предложение дизайн-команды: сначала ежедневные операции, потом пробелы продукта.</p>
+          </div>
+          <div class="card" id="actions-card"></div>
+        </section>
+
         <section id="method" aria-labelledby="method-title">
           <div class="section-head">
-            <h2 id="method-title">Методика</h2>
-            <p>Чтобы цифры можно было защитить на продуктовом синке, а не спорить «на глаз».</p>
+            <h2 id="method-title">Методика и оговорки</h2>
+            <p>Чтобы цифры можно было защитить на синке, а не спорить «на глаз».</p>
           </div>
           <div class="card">
             <p class="formula" id="formula"></p>
             <div class="factors" id="factors"></div>
             <div class="levels" id="levels"></div>
+            <p class="note" id="sample-note"></p>
           </div>
         </section>
       </main>

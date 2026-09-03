@@ -296,6 +296,46 @@ h2 {
   text-align: right;
 }
 
+.takeaways {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.takeaway {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 18px 18px 16px;
+  border-top: 3px solid var(--accent);
+}
+
+.takeaway.p0 { border-top-color: var(--p0); }
+.takeaway.p1 { border-top-color: var(--p1); }
+.takeaway.p2 { border-top-color: var(--p2); }
+
+.takeaway .id {
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.takeaway h3 {
+  margin: 8px 0 8px;
+  font-size: 16px;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+}
+
+.takeaway p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
 .kpis {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -630,6 +670,66 @@ tr:last-child td {
   color: var(--muted);
 }
 
+.note {
+  margin: 16px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.stack {
+  display: flex;
+  height: 14px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+.stack span {
+  display: block;
+  height: 100%;
+}
+
+.quotes {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+figure.quote {
+  margin: 0;
+}
+
+.quote {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 16px 18px;
+  border-left: 3px solid var(--accent);
+}
+
+.quote p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.quote .meta {
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--muted);
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.why {
+  color: var(--muted);
+  font-size: 13px;
+  margin-top: 4px;
+}
+
 .formula {
   font-weight: 700;
   letter-spacing: -0.02em;
@@ -666,7 +766,9 @@ tr:last-child td {
   .grid-2,
   .factors,
   .levels,
-  .survey-grid {
+  .survey-grid,
+  .takeaways,
+  .quotes {
     grid-template-columns: 1fr;
   }
   .bar-row {
