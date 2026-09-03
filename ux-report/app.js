@@ -195,22 +195,46 @@
 
   const answers = window.UX_ANSWERS || [];
   const acc = document.getElementById("answers-acc");
+  const renderAnswer = (a) => {
+    const also = (a.also || [])
+      .map((x) => `<span class="pill">${escape(x)}</span>`)
+      .join("");
+    return `<article class="answer">
+      <div class="meta">
+        <span class="pill">${escape(a.score)}</span>
+        <span class="muted">${escape(a.domain)}${a.kind ? ` · ${escape(a.kind)}` : ""}</span>
+      </div>
+      <div>
+        <p class="text">${escape(a.text)}</p>
+        ${also ? `<div class="also"><span class="muted">Ещё выбирали:</span> ${also}</div>` : ""}
+      </div>
+    </article>`;
+  };
   if (acc) {
     acc.innerHTML = answers
       .map((g) => {
-        const items = g.answers
-          .map(
-            (a) => `<article class="answer">
-              <div class="meta">
-                <span class="pill">${escape(a.score)}</span>
-                <span class="muted">${escape(a.domain)} · ${escape(a.kind)}</span>
-              </div>
-              <p class="text">${escape(a.text)}</p>
-            </article>`
-          )
-          .join("");
+        let items;
+        if (g.grouped && g.groups) {
+          const hint = g.question
+            ? `<p class="acc-hint">${escape(g.question)} Комментарий привязан к варианту, который человек выбрал или поставил первым.</p>`
+            : "";
+          items =
+            hint +
+            g.groups
+              .filter((sub) => sub.answers.length)
+              .map(
+                (sub) => `<details class="acc acc--nested">
+                  <summary>${escape(sub.option)} <span class="count">${sub.answers.length}</span></summary>
+                  <div class="acc-body">${sub.answers.map(renderAnswer).join("")}</div>
+                </details>`
+              )
+              .join("");
+        } else {
+          items = (g.answers || []).map(renderAnswer).join("");
+        }
+        const n = g.grouped ? (g.answers || []).length : (g.answers || []).length;
         return `<details class="acc">
-          <summary>${escape(g.name)} <span class="count">${g.answers.length}</span></summary>
+          <summary>${escape(g.name)} <span class="count">${n}</span></summary>
           <div class="acc-body">${items || `<p class="muted" style="padding:12px">Нет формулировок для доработок</p>`}</div>
         </details>`;
       })

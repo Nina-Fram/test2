@@ -793,6 +793,32 @@ figure.quote {
   padding: 4px 8px 10px;
 }
 
+.acc-hint {
+  margin: 12px 10px 8px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.acc--nested {
+  margin: 8px;
+  border-radius: 12px;
+  box-shadow: none;
+}
+
+.acc--nested > summary {
+  font-size: 14px;
+  padding: 12px 14px;
+}
+
+.also {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  margin-top: 8px;
+}
+
 .answer {
   display: grid;
   grid-template-columns: 140px 1fr;
