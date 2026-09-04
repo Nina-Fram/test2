@@ -9,7 +9,7 @@
       name="description"
       content="Сводка 1970 обращений из UX Feedback: объём по опросам и ранжирование по критичности для продакта ЛК КК ИНВИТРО."
     />
-    <link rel="stylesheet" href="./styles.css?v=5" />
+    <link rel="stylesheet" href="./styles.css?v=6" />
     <link
       rel="icon"
       href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232FC1DC'/%3E%3C/svg%3E"
@@ -78,9 +78,13 @@
         <section id="volume" aria-labelledby="volume-title">
           <div class="section-head">
             <h2 id="volume-title">Обращения по опросам</h2>
-            <p>Где пользователи отвечают чаще. Это ещё не приоритет — приоритет в следующем блоке.</p>
+            <p>Каждый опрос разделён: сколько ответов собрали в ИНВИТРО и сколько в VetUnion.</p>
           </div>
           <div class="card">
+            <div class="legend" aria-hidden="true">
+              <span><i class="swatch" style="background: var(--accent)"></i>ИНВИТРО</span>
+              <span><i class="swatch" style="background: #5a6d71"></i>VetUnion</span>
+            </div>
             <div class="bars" id="bars"></div>
           </div>
         </section>
@@ -103,7 +107,8 @@
                   <tr>
                     <th style="width: 48px">#</th>
                     <th>Опрос</th>
-                    <th>Обращений</th>
+                    <th>ИНВИТРО</th>
+                    <th>VetUnion</th>
                     <th>Боль</th>
                     <th>CES / успех</th>
                     <th>Уровень</th>
@@ -170,7 +175,7 @@
         <section id="answers" aria-labelledby="answers-title">
           <div class="section-head">
             <h2 id="answers-title">Ответы для доработок</h2>
-            <p>Только формулировки, по которым можно ставить задачу. В приоритезации комментарий лежит внутри выбранного варианта.</p>
+            <p>Только формулировки для доработок. В каждом опросе две группы: ИНВИТРО и VetUnion. У ответа — дата.</p>
           </div>
           <div class="actions" style="margin-bottom: 12px">
             <button class="btn btn--ghost" type="button" id="acc-open">Раскрыть все</button>
@@ -180,8 +185,8 @@
         </section>
       </main>
     </div>
-    <script src="./data.js?v=5"></script>
-    <script src="./answers.js?v=5"></script>
-    <script src="./app.js?v=5"></script>
+    <script src="./data.js?v=6"></script>
+    <script src="./answers.js?v=6"></script>
+    <script src="./app.js?v=6"></script>
   </body>
 </html>

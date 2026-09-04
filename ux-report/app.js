@@ -38,16 +38,25 @@
     )
     .join("");
 
-  const maxN = Math.max(...report.surveys.map((s) => s.responses));
   const byVolume = [...report.surveys].sort((a, b) => b.responses - a.responses);
 
   document.getElementById("bars").innerHTML = byVolume
     .map((s) => {
-      const width = Math.max(8, Math.round((s.responses / maxN) * 100));
+      const inv = (s.domains && s.domains.invitro) || 0;
+      const vet = (s.domains && s.domains.vetunion) || 0;
+      const invW = s.responses ? Math.round((inv / s.responses) * 100) : 0;
+      const vetW = invW === 100 ? 0 : s.responses ? 100 - invW : 0;
+      const fills = [
+        invW ? `<div class="fill fill--inv" style="width:${invW}%"></div>` : "",
+        vetW ? `<div class="fill fill--vet" style="width:${vetW}%"></div>` : "",
+      ].join("");
       return `<div class="bar-row">
         <div class="name">${s.short}<span class="sub">${s.area} · ${s.period}</span></div>
-        <div class="track" aria-hidden="true"><div class="fill" style="width:${width}%"></div></div>
-        <div class="count">${fmtN(s.responses)}</div>
+        <div class="track track--split" aria-hidden="true">${fills}</div>
+        <div class="count count--split">
+          <span>${fmtN(inv)}</span>
+          <span class="muted">${fmtN(vet)}</span>
+        </div>
       </div>`;
     })
     .join("");
@@ -67,7 +76,8 @@
           <strong>${s.name}</strong>
           <div class="why">${s.why}</div>
         </td>
-        <td>${fmtN(s.responses)}</td>
+        <td>${fmtN((s.domains && s.domains.invitro) || 0)}</td>
+        <td>${fmtN((s.domains && s.domains.vetunion) || 0)}</td>
         <td>${painLabel(s)}</td>
         <td>${successLabel(s)}</td>
         <td><span class="sev sev--${s.level}">${levelLabel[s.level]}</span></td>
@@ -188,7 +198,8 @@
     return `<article class="answer">
       <div class="meta">
         <span class="pill">${escape(a.score)}</span>
-        <span class="muted">${escape(a.domain)}${a.kind ? ` · ${escape(a.kind)}` : ""}</span>
+        <span class="muted">${escape(a.date || "—")}</span>
+        ${a.kind ? `<span class="muted">${escape(a.kind)}</span>` : ""}
       </div>
       <div>
         <p class="text">${escape(a.text)}</p>
@@ -196,32 +207,55 @@
       </div>
     </article>`;
   };
+  const renderGrouped = (groups, question) => {
+    const hint = question
+      ? `<p class="acc-hint">${escape(question)} Комментарий привязан к варианту, который человек выбрал или поставил первым.</p>`
+      : "";
+    const body = (groups || [])
+      .filter((sub) => sub.answers.length)
+      .map(
+        (sub) => `<details class="acc acc--nested">
+          <summary>${escape(sub.option)} <span class="count">${sub.answers.length}</span></summary>
+          <div class="acc-body">${sub.answers.map(renderAnswer).join("")}</div>
+        </details>`
+      )
+      .join("");
+    return hint + (body || `<p class="muted" style="padding:12px">Нет формулировок для доработок</p>`);
+  };
+  const renderProductBody = (g, product) => {
+    if (!product.answers.length) {
+      return `<p class="muted" style="padding:12px">В этом продукте нет формулировок для доработок</p>`;
+    }
+    if (g.grouped) {
+      return renderGrouped(product.groups || g.groups, null);
+    }
+    return product.answers.map(renderAnswer).join("");
+  };
   if (acc) {
     acc.innerHTML = answers
       .map((g) => {
-        let items;
-        if (g.grouped && g.groups) {
-          const hint = g.question
+        const products = g.products || [
+          { name: "ИНВИТРО", answers: (g.answers || []).filter((a) => a.domain === "ИНВИТРО") },
+          { name: "VetUnion", answers: (g.answers || []).filter((a) => a.domain === "VetUnion") },
+        ];
+        const hint =
+          g.grouped && g.question
             ? `<p class="acc-hint">${escape(g.question)} Комментарий привязан к варианту, который человек выбрал или поставил первым.</p>`
             : "";
-          items =
-            hint +
-            g.groups
-              .filter((sub) => sub.answers.length)
-              .map(
-                (sub) => `<details class="acc acc--nested">
-                  <summary>${escape(sub.option)} <span class="count">${sub.answers.length}</span></summary>
-                  <div class="acc-body">${sub.answers.map(renderAnswer).join("")}</div>
-                </details>`
-              )
-              .join("");
-        } else {
-          items = (g.answers || []).map(renderAnswer).join("");
-        }
-        const n = g.grouped ? (g.answers || []).length : (g.answers || []).length;
+        const items =
+          hint +
+          products
+            .map(
+              (p) => `<details class="acc acc--nested">
+                <summary>${escape(p.name)} <span class="count">${p.answers.length}</span></summary>
+                <div class="acc-body">${renderProductBody(g, p)}</div>
+              </details>`
+            )
+            .join("");
+        const n = (g.answers || []).length;
         return `<details class="acc">
           <summary>${escape(g.name)} <span class="count">${n}</span></summary>
-          <div class="acc-body">${items || `<p class="muted" style="padding:12px">Нет формулировок для доработок</p>`}</div>
+          <div class="acc-body">${items}</div>
         </details>`;
       })
       .join("");

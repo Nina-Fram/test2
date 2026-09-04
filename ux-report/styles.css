@@ -411,6 +411,33 @@ h2 {
   overflow: hidden;
 }
 
+.track--split {
+  display: flex;
+}
+
+.fill--inv {
+  background: var(--accent);
+  border-radius: 999px 0 0 999px;
+}
+
+.fill--vet {
+  background: #5a6d71;
+  border-radius: 0 999px 999px 0;
+}
+
+.fill--inv:only-child,
+.fill--vet:only-child {
+  border-radius: 999px;
+}
+
+.count--split {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  line-height: 1.2;
+  min-width: 4.5ch;
+}
+
 .fill {
   height: 100%;
   width: 0;
@@ -805,9 +832,8 @@ figure.quote {
   box-shadow: none;
 }
 
-.acc--nested > summary {
-  font-size: 14px;
-  padding: 12px 14px;
+.acc--nested .acc--nested {
+  background: var(--bg);
 }
 
 .also {
