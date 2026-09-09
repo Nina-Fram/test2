@@ -1,0 +1,795 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Vet Union — UX test presentation (SVG export)</title>
+    <style>
+      :root{
+        --bg:#F8F7F4;
+        --ink:#263238;
+        --teal:#0F6B68;
+        --mint:#BFE1D7;
+        --sky:#DCE8EA;
+        --warm:#D9795B;
+        --warm-2:#F5E3DA;
+        --line:#D9DEDC;
+      }
+      html,body{height:100%;}
+      body{
+        margin:0;
+        font-family: Arial, Helvetica, sans-serif;
+        background: #0d1112;
+        color: #e7ecec;
+      }
+      .wrap{
+        max-width: 1120px;
+        margin: 28px auto 110px;
+        padding: 0 18px;
+      }
+      .note{
+        color:#c8d2d2;
+        font-size:14px;
+        line-height:1.5;
+        margin: 0 0 14px;
+      }
+      .deck{
+        display:flex;
+        flex-direction:column;
+        gap:18px;
+      }
+      .slide{
+        background: #0b0f10;
+        border: 1px solid rgba(255,255,255,.08);
+        border-radius: 16px;
+        padding: 12px;
+      }
+      .slide .label{
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        color:#aebcbc;
+        font-size:13px;
+        margin: 4px 6px 10px;
+      }
+      .slide svg{
+        width:100%;
+        height:auto;
+        display:block;
+        border-radius: 12px;
+        background: var(--bg);
+      }
+      .export-panel{
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(12,16,17,.92);
+        backdrop-filter: blur(8px);
+        border-top: 1px solid rgba(255,255,255,.10);
+      }
+      .export-panel .inner{
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 14px 18px;
+        display:flex;
+        flex-wrap:wrap;
+        gap:10px;
+        align-items:center;
+        justify-content:space-between;
+      }
+      .export-panel .buttons{
+        display:flex;
+        flex-wrap:wrap;
+        gap:10px;
+      }
+      button{
+        font-family: Arial, Helvetica, sans-serif;
+        appearance:none;
+        border: 1px solid rgba(255,255,255,.14);
+        background: rgba(255,255,255,.06);
+        color:#eaf1f1;
+        padding: 10px 12px;
+        border-radius: 12px;
+        font-size: 13px;
+        cursor:pointer;
+        letter-spacing: .2px;
+        white-space: nowrap;
+      }
+      button:hover{ background: rgba(255,255,255,.10); }
+      button:active{ transform: translateY(1px); }
+      .hint{
+        color:#b8c6c6;
+        font-size: 13px;
+        line-height:1.35;
+      }
+      .hint b{ color:#eaf1f1; font-weight:700; }
+      @media (max-width: 820px){
+        .export-panel .inner{ justify-content:flex-start; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <p class="note">
+        Ниже — 6 отдельных SVG‑слайдов (1920×1080). Кнопки экспорта скачивают каждый слайд отдельным файлом, который можно импортировать в Figma как редактируемый вектор.
+      </p>
+
+      <div class="deck">
+        <div class="slide">
+          <div class="label"><span>Слайд 01</span><span>01-main-conclusion.svg</span></div>
+          <svg id="slide-01" width="1920" height="1080" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg">
+            <style>
+              .bg{fill:#F8F7F4;}
+              .ink{fill:#263238;}
+              .teal{fill:#0F6B68;}
+              .mint{fill:#BFE1D7;}
+              .sky{fill:#DCE8EA;}
+              .warm{fill:#D9795B;}
+              .line{stroke:#D9DEDC;stroke-width:2;}
+              .stroke-ink{stroke:#263238;stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+              .stroke-teal{stroke:#0F6B68;stroke-width:5;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+              .stroke-teal-thin{stroke:#0F6B68;stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+              .t-brand{font-family:Arial, Helvetica, sans-serif;font-size:20px;fill:#263238;}
+              .t-h1{font-family:Arial, Helvetica, sans-serif;font-size:70px;font-weight:700;fill:#263238;}
+              .t-sub{font-family:Arial, Helvetica, sans-serif;font-size:32px;fill:#263238;}
+              .t-body{font-family:Arial, Helvetica, sans-serif;font-size:28px;fill:#263238;}
+              .t-chip{font-family:Arial, Helvetica, sans-serif;font-size:24px;font-weight:700;fill:#0F6B68;}
+              .t-foot{font-family:Arial, Helvetica, sans-serif;font-size:20px;fill:#263238;}
+            </style>
+
+            <rect class="bg" x="0" y="0" width="1920" height="1080"/>
+
+            <text class="t-brand" x="120" y="120">Vet Union / UX research</text>
+            <text class="t-foot" x="1800" y="990" text-anchor="end">01 / 06</text>
+
+            <g>
+              <text class="t-h1" x="120" y="240">Пользователи понимают, как добавить животное в заказ</text>
+              <text class="t-sub" x="120" y="300">Немодерируемый UX‑тест десктопного прототипа · 25 респондентов</text>
+
+              <text class="t-body" x="120" y="392">
+                <tspan x="120" dy="0">Базовая логика сценария считывается: пользователь выбирает владельца,</tspan>
+                <tspan x="120" dy="38">находит или добавляет животное и продолжает оформление заказа.</tspan>
+                <tspan x="120" dy="58">Перед запуском стоит усилить вход в сценарий и подтверждение выбранного животного.</tspan>
+              </text>
+
+              <g>
+                <rect x="120" y="560" width="420" height="78" rx="28" fill="#FFFFFF" stroke="#D9DEDC" stroke-width="2"/>
+                <text class="t-chip" x="150" y="610">Логику не меняем</text>
+              </g>
+              <g>
+                <rect x="560" y="560" width="560" height="78" rx="28" fill="#FFFFFF" stroke="#D9DEDC" stroke-width="2"/>
+                <text class="t-chip" x="590" y="610">Усиливаем понятность действий</text>
+              </g>
+            </g>
+
+            <!-- Abstract chain: owner → animal → order -->
+            <g>
+              <ellipse class="mint" cx="1320" cy="520" rx="210" ry="180" fill-opacity="0.55"/>
+
+              <!-- owner node -->
+              <circle cx="1120" cy="420" r="120" fill="#FFFFFF" stroke="#D9DEDC" stroke-width="2"/>
+              <circle cx="1120" cy="390" r="26" fill="none" stroke="#263238" stroke-width="5"/>
+              <path d="M1078 492 C1098 448, 1142 448, 1162 492" class="stroke-ink"/>
+              <path d="M1090 492 C1088 540, 1152 540, 1150 492" class="stroke-ink"/>
+
+              <!-- animal node -->
+              <circle cx="1320" cy="520" r="140" fill="#FFFFFF" stroke="#D9DEDC" stroke-width="2"/>
+              <path d="M1258 562 C1266 528, 1288 504, 1318 500 C1354 494, 1376 516, 1386 544 C1392 560, 1386 580, 1366 590 C1346 600, 1328 592, 1314 582 C1292 566, 1278 582, 1258 562 Z"
+                    fill="none" stroke="#263238" stroke-width="5" stroke-linejoin="round"/>
+              <path d="M1378 512 C1396 500, 1412 500, 1422 514" class="stroke-ink"/>
+
+              <!-- order node -->
+              <circle cx="1540" cy="640" r="120" fill="#FFFFFF" stroke="#D9DEDC" stroke-width="2"/>
+              <rect x="1500" y="592" width="88" height="118" rx="12" fill="none" stroke="#263238" stroke-width="5"/>
+              <line x1="1516" y1="622" x2="1572" y2="622" class="stroke-ink"/>
+              <line x1="1516" y1="646" x2="1572" y2="646" class="stroke-ink"/>
+              <line x1="1516" y1="670" x2="1556" y2="670" class="stroke-ink"/>
+              <path d="M1518 690 L1532 704 L1560 676" class="stroke-ink"/>
+
+              <!-- connector -->
+              <path d="M1200 440 C1248 468, 1270 486, 1302 500" class="stroke-teal"/>
+              <polyline points="1292,486 1312,502 1288,510" fill="none" stroke="#0F6B68" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+
+              <path d="M1428 560 C1476 590, 1500 606, 1520 626" class="stroke-teal"/>
+              <polyline points="1510,608 1524,630 1502,634" fill="none" stroke="#0F6B68" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+
+              <text class="t-foot" x="1120" y="580" text-anchor="middle">владелец</text>
+              <text class="t-foot" x="1320" y="710" text-anchor="middle">животное</text>
+              <text class="t-foot" x="1540" y="820" text-anchor="middle">заказ</text>
+            </g>
+          </svg>
+        </div>
+
+        <div class="slide">
+          <div class="label"><span>Слайд 02</span><span>02-test-scenarios.svg</span></div>
+          <svg id="slide-02" width="1920" height="1080" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg">
+            <style>
+              .bg{fill:#F8F7F4;}
+              .ink{fill:#263238;}
+              .teal{fill:#0F6B68;}
+              .mint{fill:#BFE1D7;}
+              .sky{fill:#DCE8EA;}
+              .warm{fill:#D9795B;}
+              .line{stroke:#D9DEDC;stroke-width:2;}
+              .stroke-ink{stroke:#263238;stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+              .stroke-teal{stroke:#0F6B68;stroke-width:4;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+              .stroke-muted{stroke:#9CB0B2;stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+              .t-brand{font-family:Arial, Helvetica, sans-serif;font-size:20px;fill:#263238;}
+              .t-h1{font-family:Arial, Helvetica, sans-serif;font-size:70px;font-weight:700;fill:#263238;}
+              .t-sub{font-family:Arial, Helvetica, sans-serif;font-size:32px;fill:#263238;}
+              .t-num{font-family:Arial, Helvetica, sans-serif;font-size:64px;font-weight:700;fill:#0F6B68;}
+              .t-card-h{font-family:Arial, Helvetica, sans-serif;font-size:34px;font-weight:700;fill:#263238;}
+              .t-body{font-family:Arial, Helvetica, sans-serif;font-size:26px;fill:#263238;}
+              .t-foot{font-family:Arial, Helvetica, sans-serif;font-size:20px;fill:#263238;}
+            </style>
+
+            <rect class="bg" x="0" y="0" width="1920" height="1080"/>
+            <text class="t-brand" x="120" y="120">Vet Union / UX research</text>
+            <text class="t-foot" x="1800" y="990" text-anchor="end">02 / 06</text>
+
+            <text class="t-h1" x="120" y="240">Проверили три ситуации из реальной работы регистратора</text>
+            <text class="t-sub" x="120" y="300">Цель — понять, может ли пользователь самостоятельно выбрать, заменить или создать животное в новом лабораторном заказе.</text>
+
+            <!-- soft trajectory connecting scenarios -->
+            <path d="M140 610 C460 520, 720 700, 960 610 C1200 520, 1450 700, 1780 600" class="stroke-teal" stroke-opacity="0.25"/>
+
+            <!-- cards row (3 x 520 + 2 x 60 = 1680) -->
+            <g>
+              <g transform="translate(120,360)">
+                <rect x="0" y="0" width="520" height="560" rx="30" fill="#FFFFFF" stroke="#D9DEDC" stroke-width="2"/>
+                <text class="t-num" x="36" y="92">01</text>
+                <text class="t-card-h" x="36" y="152">Выбрать</text>
+                <text class="t-body" x="36" y="206">
+                  <tspan x="36" dy="0">Оформить заказ для существующего клиента</tspan>
+                  <tspan x="36" dy="34">и его животного</tspan>
+                </text>
+                <text class="t-body" x="36" y="304" fill="#0F6B68">Анна Смирнова → Ричи</text>
+
+                <!-- metaphor: human + dog connected -->
+                <g transform="translate(70,360)">
+                  <circle cx="62" cy="60" r="52" fill="#DCE8EA" fill-opacity="0.75"/>
+                  <circle cx="62" cy="44" r="14" fill="none" stroke="#263238" stroke-width="4"/>
+                  <path d="M42 96 C52 74, 72 74, 82 96" class="stroke-ink" stroke-width="4"/>
+                  <path d="M48 96 C46 126, 78 126, 76 96" class="stroke-ink" stroke-width="4"/>
+
+                  <circle cx="260" cy="72" r="52" fill="#BFE1D7" fill-opacity="0.7"/>
+                  <path d="M230 100 C236 78, 252 64, 272 62 C294 60, 310 74, 316 92 C320 104, 314 118, 300 124 C284 132, 270 126, 260 118 C246 106, 238 114, 230 100 Z"
+                        fill="none" stroke="#263238" stroke-width="4" stroke-linejoin="round"/>
+                  <path d="M310 68 C322 60, 334 62, 340 72" class="stroke-ink" stroke-width="4"/>
+
+                  <path d="M116 72 C150 72, 188 72, 212 72" class="stroke-teal" stroke-width="4"/>
+                  <polyline points="202,60 216,72 202,84" fill="none" stroke="#0F6B68" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                </g>
+              </g>
+
+              <g transform="translate(700,360)">
+                <rect x="0" y="0" width="520" height="560" rx="30" fill="#FFFFFF" stroke="#D9DEDC" stroke-width="2"/>
+                <text class="t-num" x="36" y="92">02</text>
+                <text class="t-card-h" x="36" y="152">Исправить</text>
+                <text class="t-body" x="36" y="206">
+                  <tspan x="36" dy="0">Заменить животное, если в заказе</tspan>
+                  <tspan x="36" dy="34">выбрали не того пациента</tspan>
+                </text>
+                <text class="t-body" x="36" y="304" fill="#0F6B68">Ричи → Риф</text>
+
+                <!-- metaphor: swap animals -->
+                <g transform="translate(80,372)">
+                  <circle cx="90" cy="74" r="56" fill="#DCE8EA" fill-opacity="0.75"/>
+                  <path d="M62 104 C68 82, 84 68, 104 66 C126 64, 142 78, 148 96 C152 110, 146 124, 132 130 C116 138, 102 132, 92 124 C78 112, 70 118, 62 104 Z"
+                        fill="none" stroke="#263238" stroke-width="4" stroke-linejoin="round"/>
+
+                  <circle cx="320" cy="74" r="56" fill="#BFE1D7" fill-opacity="0.7"/>
+                  <path d="M292 104 C298 82, 314 68, 334 66 C356 64, 372 78, 378 96 C382 110, 376 124, 362 130 C346 138, 332 132, 322 124 C308 112, 300 118, 292 104 Z"
+                        fill="none" stroke="#263238" stroke-width="4" stroke-linejoin="round"/>
+
+                  <path d="M168 74 C200 74, 232 74, 252 74" class="stroke-teal" stroke-width="4"/>
+                  <polyline points="240,60 256,74 240,88" fill="none" stroke="#0F6B68" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M252 102 C220 102, 188 102, 168 102" class="stroke-teal" stroke-width="4"/>
+                  <polyline points="180,88 164,102 180,116" fill="none" stroke="#0F6B68" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                </g>
+              </g>
+
+              <g transform="translate(1280,360)">
+                <rect x="0" y="0" width="520" height="560" rx="30" fill="#FFFFFF" stroke="#D9DEDC" stroke-width="2"/>
+                <text class="t-num" x="36" y="92">03</text>
+                <text class="t-card-h" x="36" y="152">Создать</text>
+                <text class="t-body" x="36" y="206">
+                  <tspan x="36" dy="0">Добавить нового владельца и новое животное</tspan>
+                </text>
+                <text class="t-body" x="36" y="304" fill="#0F6B68">Мария Петрова → Мия</text>
+
+                <!-- metaphor: plus + human + cat -->
+                <g transform="translate(76,372)">
+                  <circle cx="78" cy="78" r="54" fill="#F5E3DA" fill-opacity="0.9"/>
+                  <line x1="52" y1="78" x2="104" y2="78" class="stroke-ink" stroke-width="6"/>
+                  <line x1="78" y1="52" x2="78" y2="104" class="stroke-ink" stroke-width="6"/>
+
+                  <circle cx="220" cy="78" r="54" fill="#DCE8EA" fill-opacity="0.75"/>
+                  <circle cx="220" cy="62" r="14" fill="none" stroke="#263238" stroke-width="4"/>
+                  <path d="M200 114 C210 92, 230 92, 240 114" class="stroke-ink" stroke-width="4"/>
+                  <path d="M206 114 C204 144, 236 144, 234 114" class="stroke-ink" stroke-width="4"/>
+
+                  <circle cx="360" cy="78" r="54" fill="#BFE1D7" fill-opacity="0.7"/>
+                  <path d="M336 98 C338 80, 350 70, 364 70 C380 70, 392 82, 392 98 C392 114, 380 126, 364 126 C350 126, 338 116, 336 98 Z"
+                        fill="none" stroke="#263238" stroke-width="4"/>
+                  <path d="M350 72 L340 60" class="stroke-ink" stroke-width="4"/>
+                  <path d="M378 72 L388 60" class="stroke-ink" stroke-width="4"/>
+
+                  <path d="M114 78 C140 78, 168 78, 190 78" class="stroke-teal" stroke-width="4"/>
+                  <polyline points="178,64 194,78 178,92" fill="none" stroke="#0F6B68" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M274 78 C296 78, 322 78, 330 78" class="stroke-teal" stroke-width="4"/>
+                  <polyline points="318,64 334,78 318,92" fill="none" stroke="#0F6B68" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                </g>
+              </g>
+            </g>
+
+            <text class="t-foot" x="960" y="960" text-anchor="middle">В анализ включены только десктопные прохождения</text>
+          </svg>
+        </div>
+
+        <div class="slide">
+          <div class="label"><span>Слайд 03</span><span>03-validated-model.svg</span></div>
+          <svg id="slide-03" width="1920" height="1080" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg">
+            <style>
+              .bg{fill:#F8F7F4;}
+              .ink{fill:#263238;}
+              .teal{fill:#0F6B68;}
+              .mint{fill:#BFE1D7;}
+              .sky{fill:#DCE8EA;}
+              .line{stroke:#D9DEDC;stroke-width:2;}
+              .stroke-ink{stroke:#263238;stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+              .stroke-teal{stroke:#0F6B68;stroke-width:5;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+              .t-brand{font-family:Arial, Helvetica, sans-serif;font-size:20px;fill:#263238;}
+              .t-h1{font-family:Arial, Helvetica, sans-serif;font-size:70px;font-weight:700;fill:#263238;}
+              .t-body{font-family:Arial, Helvetica, sans-serif;font-size:28px;fill:#263238;}
+              .t-small{font-family:Arial, Helvetica, sans-serif;font-size:22px;fill:#263238;}
+              .t-cap{font-family:Arial, Helvetica, sans-serif;font-size:24px;font-weight:700;fill:#0F6B68;}
+              .t-foot{font-family:Arial, Helvetica, sans-serif;font-size:20px;fill:#263238;}
+            </style>
+
+            <rect class="bg" x="0" y="0" width="1920" height="1080"/>
+            <text class="t-brand" x="120" y="120">Vet Union / UX research</text>
+            <text class="t-foot" x="1800" y="990" text-anchor="end">03 / 06</text>
+
+            <text class="t-h1" x="120" y="240">Модель «владелец → животное → заказ» понятна</text>
+            <text class="t-body" x="120" y="312">Участники в целом понимают связь между владельцем, его животным и лабораторным заказом.</text>
+
+            <!-- Quote card -->
+            <g>
+              <rect x="1360" y="320" width="440" height="210" rx="28" fill="#FFFFFF" stroke="#D9DEDC" stroke-width="2"/>
+              <text class="t-small" x="1400" y="386" fill="#0F6B68" font-weight="700">Цитата</text>
+              <text class="t-body" x="1400" y="432">
+                <tspan x="1400" dy="0">«Все понятно и легко</tspan>
+                <tspan x="1400" dy="38">заполняется»</tspan>
+              </text>
+            </g>
+
+            <!-- Central path diagram -->
+            <g>
+              <path d="M520 560 C650 440, 770 440, 900 560 C1040 690, 1180 690, 1320 560" class="stroke-teal"/>
+
+              <ellipse cx="520" cy="560" rx="160" ry="130" fill="#FFFFFF" stroke="#D9DEDC" stroke-width="2"/>
+              <circle cx="520" cy="524" r="22" fill="none" stroke="#263238" stroke-width="5"/>
+              <path d="M486 610 C504 568, 536 568, 554 610" class="stroke-ink" stroke-width="5"/>
+              <path d="M498 610 C496 648, 544 648, 542 610" class="stroke-ink" stroke-width="5"/>
+
+              <ellipse cx="920" cy="560" rx="175" ry="145" fill="#FFFFFF" stroke="#D9DEDC" stroke-width="2"/>
+              <ellipse cx="920" cy="560" rx="210" ry="170" fill="#BFE1D7" fill-opacity="0.25"/>
+              <path d="M842 600 C850 562, 878 536, 916 530 C960 524, 990 548, 1002 580 C1010 602, 1002 628, 978 642 C952 658, 930 648, 912 634 C884 612, 866 632, 842 600 Z"
+                    fill="none" stroke="#263238" stroke-width="5" stroke-linejoin="round"/>
+              <path d="M992 544 C1012 530, 1030 532, 1042 548" class="stroke-ink" stroke-width="5"/>
+
+              <ellipse cx="1320" cy="560" rx="160" ry="130" fill="#FFFFFF" stroke="#D9DEDC" stroke-width="2"/>
+              <rect x="1278" y="520" width="86" height="116" rx="12" fill="none" stroke="#263238" stroke-width="5"/>
+              <line x1="1294" y1="550" x2="1350" y2="550" class="stroke-ink" stroke-width="5"/>
+              <line x1="1294" y1="574" x2="1350" y2="574" class="stroke-ink" stroke-width="5"/>
+              <path d="M1296 598 L1310 612 L1336 586" class="stroke-ink" stroke-width="5"/>
+
+              <!-- Labels -->
+              <text class="t-cap" x="520" y="756" text-anchor="middle">Владелец</text>
+              <text class="t-small" x="520" y="796" text-anchor="middle">
+                <tspan x="520" dy="0">Пользователь ожидает начать с поиска</tspan>
+                <tspan x="520" dy="28">или добавления клиента.</tspan>
+              </text>
+
+              <text class="t-cap" x="920" y="756" text-anchor="middle">Животное</text>
+              <text class="t-small" x="920" y="796" text-anchor="middle">
+                <tspan x="920" dy="0">Питомец выбирается из данных владельца</tspan>
+                <tspan x="920" dy="28">или создаётся для него.</tspan>
+              </text>
+
+              <text class="t-cap" x="1320" y="756" text-anchor="middle">Заказ</text>
+              <text class="t-small" x="1320" y="796" text-anchor="middle">
+                <tspan x="1320" dy="0">Животное воспринимается как важная часть</tspan>
+                <tspan x="1320" dy="28">оформления заказа.</tspan>
+              </text>
+            </g>
+
+            <!-- What works band -->
+            <g>
+              <rect x="120" y="880" width="1680" height="120" rx="32" fill="#BFE1D7"/>
+              <text class="t-cap" x="160" y="934" fill="#263238">Что работает</text>
+
+              <g>
+                <text class="t-small" x="520" y="958">Замена выбранного животного воспринимается естественно</text>
+                <circle cx="1110" cy="952" r="6" fill="#0F6B68"/>
+                <text class="t-small" x="1130" y="958">Данные животного в целом понятны</text>
+                <circle cx="1516" cy="952" r="6" fill="#0F6B68"/>
+                <text class="t-small" x="1536" y="958">Сценарий воспринимается как понятный</text>
+              </g>
+            </g>
+          </svg>
+        </div>
+
+        <div class="slide">
+          <div class="label"><span>Слайд 04</span><span>04-points-of-friction.svg</span></div>
+          <svg id="slide-04" width="1920" height="1080" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg">
+            <style>
+              .bg{fill:#F8F7F4;}
+              .ink{fill:#263238;}
+              .teal{fill:#0F6B68;}
+              .mint{fill:#BFE1D7;}
+              .sky{fill:#DCE8EA;}
+              .warm{fill:#D9795B;}
+              .warm2{fill:#F5E3DA;}
+              .line{stroke:#D9DEDC;stroke-width:2;}
+              .stroke-ink{stroke:#263238;stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+              .stroke-teal{stroke:#0F6B68;stroke-width:4;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+              .stroke-muted{stroke:#9CB0B2;stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+              .t-brand{font-family:Arial, Helvetica, sans-serif;font-size:20px;fill:#263238;}
+              .t-h1{font-family:Arial, Helvetica, sans-serif;font-size:70px;font-weight:700;fill:#263238;}
+              .t-h2{font-family:Arial, Helvetica, sans-serif;font-size:34px;font-weight:700;fill:#263238;}
+              .t-body{font-family:Arial, Helvetica, sans-serif;font-size:26px;fill:#263238;}
+              .t-quote{font-family:Arial, Helvetica, sans-serif;font-size:22px;fill:#263238;}
+              .t-foot{font-family:Arial, Helvetica, sans-serif;font-size:20px;fill:#263238;}
+              .t-tag{font-family:Arial, Helvetica, sans-serif;font-size:22px;font-weight:700;fill:#0F6B68;}
+            </style>
+
+            <rect class="bg" x="0" y="0" width="1920" height="1080"/>
+            <text class="t-brand" x="120" y="120">Vet Union / UX research</text>
+            <text class="t-foot" x="1800" y="990" text-anchor="end">04 / 06</text>
+
+            <text class="t-h1" x="120" y="240">Первый опыт требует более явных подсказок</text>
+
+            <line x1="960" y1="300" x2="960" y2="960" class="line"/>
+
+            <!-- Left: start action -->
+            <g>
+              <text class="t-h2" x="120" y="360">Не всегда сразу понятно, с какого действия начать</text>
+              <text class="t-body" x="120" y="416">
+                <tspan x="120" dy="0">На первом взаимодействии часть участников тратит время,</tspan>
+                <tspan x="120" dy="34">чтобы понять, куда нажать и как перейти к нужному действию.</tspan>
+              </text>
+              <text class="t-body" x="120" y="520" font-weight="700" fill="#0F6B68">Старт сценария происходит менее уверенно.</text>
+
+              <rect x="120" y="560" width="780" height="120" rx="28" fill="#FFFFFF" stroke="#D9DEDC" stroke-width="2"/>
+              <text class="t-quote" x="160" y="610">
+                <tspan x="160" dy="0">«В первый раз требуется время, чтобы понять, куда нужно нажать,</tspan>
+                <tspan x="160" dy="30">затем в программе будет легко работать»</tspan>
+              </text>
+
+              <!-- Route metaphor: branches + cursor to target -->
+              <g transform="translate(120,720)">
+                <rect x="0" y="0" width="780" height="210" rx="32" fill="#DCE8EA" fill-opacity="0.25" stroke="#D9DEDC" stroke-width="2"/>
+
+                <!-- neutral branches -->
+                <path d="M110 160 C160 126, 210 120, 260 120" class="stroke-muted"/>
+                <path d="M110 160 C160 160, 210 170, 260 188" class="stroke-muted"/>
+                <path d="M260 120 C340 90, 420 100, 500 126" class="stroke-muted"/>
+                <path d="M260 188 C340 216, 420 206, 500 184" class="stroke-muted"/>
+
+                <circle cx="110" cy="160" r="8" fill="#9CB0B2"/>
+                <circle cx="260" cy="120" r="8" fill="#9CB0B2"/>
+                <circle cx="260" cy="188" r="8" fill="#9CB0B2"/>
+
+                <!-- moment of doubt -->
+                <circle cx="320" cy="154" r="10" fill="#D9795B"/>
+                <circle cx="320" cy="154" r="22" fill="#F5E3DA" fill-opacity="0.9"/>
+
+                <!-- target point -->
+                <circle cx="620" cy="150" r="12" fill="#0F6B68"/>
+                <circle cx="620" cy="150" r="34" fill="#BFE1D7" fill-opacity="0.8"/>
+
+                <!-- cursor & guidance -->
+                <path d="M420 178 C468 160, 520 152, 576 150" class="stroke-teal" stroke-opacity="0.65"/>
+                <path d="M390 170 L414 208 L426 188 L446 212 Z" fill="#263238" fill-opacity="0.85"/>
+                <path d="M426 188 L414 208" class="stroke-ink" stroke-opacity="0.55"/>
+              </g>
+            </g>
+
+            <!-- Right: selected state visibility -->
+            <g>
+              <text class="t-h2" x="1020" y="360">Выбранное состояние недостаточно заметно</text>
+              <text class="t-body" x="1020" y="416">
+                <tspan x="1020" dy="0">Пользователь может не сразу увидеть, что нужное животное уже выбрано.</tspan>
+              </text>
+              <text class="t-body" x="1020" y="486" font-weight="700" fill="#0F6B68">Появляется сомнение: выбор сохранён или действие нужно повторить.</text>
+
+              <rect x="1020" y="520" width="780" height="90" rx="28" fill="#FFFFFF" stroke="#D9DEDC" stroke-width="2"/>
+              <text class="t-quote" x="1060" y="576">«Сложно увидеть галочку»</text>
+
+              <!-- two abstract cards -->
+              <g transform="translate(1020,650)">
+                <!-- weak -->
+                <rect x="0" y="0" width="360" height="300" rx="28" fill="#FFFFFF" stroke="#D9DEDC" stroke-width="2"/>
+                <text class="t-tag" x="28" y="56" fill="#263238">слабый сигнал</text>
+                <circle cx="92" cy="160" r="52" fill="#DCE8EA" fill-opacity="0.65"/>
+                <path d="M66 184 C70 166, 82 156, 96 156 C112 156, 124 168, 124 184 C124 200, 112 212, 96 212 C82 212, 70 202, 66 184 Z"
+                      fill="none" stroke="#263238" stroke-width="4"/>
+                <path d="M260 74 L274 88 L304 58" class="stroke-ink" stroke-width="4" stroke-opacity="0.25"/>
+
+                <!-- strong -->
+                <rect x="420" y="0" width="360" height="300" rx="28" fill="#BFE1D7" fill-opacity="0.55" stroke="#0F6B68" stroke-width="3"/>
+                <text class="t-tag" x="448" y="56">ясное подтверждение</text>
+                <circle cx="512" cy="160" r="52" fill="#FFFFFF" fill-opacity="0.9"/>
+                <path d="M486 184 C490 166, 502 156, 516 156 C532 156, 544 168, 544 184 C544 200, 532 212, 516 212 C502 212, 490 202, 486 184 Z"
+                      fill="none" stroke="#263238" stroke-width="4"/>
+                <circle cx="710" cy="78" r="34" fill="#0F6B68"/>
+                <path d="M694 78 L706 90 L728 66" fill="none" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+              </g>
+            </g>
+          </svg>
+        </div>
+
+        <div class="slide">
+          <div class="label"><span>Слайд 05</span><span>05-improvements.svg</span></div>
+          <svg id="slide-05" width="1920" height="1080" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg">
+            <style>
+              .bg{fill:#F8F7F4;}
+              .ink{fill:#263238;}
+              .teal{fill:#0F6B68;}
+              .mint{fill:#BFE1D7;}
+              .sky{fill:#DCE8EA;}
+              .warm{fill:#D9795B;}
+              .line{stroke:#D9DEDC;stroke-width:2;}
+              .stroke-ink{stroke:#263238;stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+              .stroke-teal{stroke:#0F6B68;stroke-width:4;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+              .stroke-muted{stroke:#9CB0B2;stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+              .t-brand{font-family:Arial, Helvetica, sans-serif;font-size:20px;fill:#263238;}
+              .t-h1{font-family:Arial, Helvetica, sans-serif;font-size:70px;font-weight:700;fill:#263238;}
+              .t-h2{font-family:Arial, Helvetica, sans-serif;font-size:34px;font-weight:700;fill:#263238;}
+              .t-body{font-family:Arial, Helvetica, sans-serif;font-size:26px;fill:#263238;}
+              .t-small{font-family:Arial, Helvetica, sans-serif;font-size:22px;fill:#263238;}
+              .t-num{font-family:Arial, Helvetica, sans-serif;font-size:52px;font-weight:700;fill:#0F6B68;}
+              .t-foot{font-family:Arial, Helvetica, sans-serif;font-size:20px;fill:#263238;}
+            </style>
+
+            <rect class="bg" x="0" y="0" width="1920" height="1080"/>
+            <text class="t-brand" x="120" y="120">Vet Union / UX research</text>
+            <text class="t-foot" x="1800" y="990" text-anchor="end">05 / 06</text>
+
+            <text class="t-h1" x="120" y="240">Две точечные доработки вместо перестройки сценария</text>
+
+            <!-- subtle large "2" -->
+            <text x="960" y="780" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="620" font-weight="700" fill="#0F6B68" fill-opacity="0.06">2</text>
+
+            <!-- two big cards (780 + 120 gap + 780 = 1680) -->
+            <g>
+              <!-- card left -->
+              <g transform="translate(120,320)">
+                <rect x="0" y="0" width="780" height="600" rx="32" fill="#FFFFFF" stroke="#D9DEDC" stroke-width="2"/>
+                <text class="t-num" x="44" y="92">01</text>
+                <text class="t-h2" x="130" y="90">Сделать вход в действие заметнее</text>
+                <text class="t-body" x="44" y="148">
+                  <tspan x="44" dy="0">Усилить визуальный вес основного действия:</tspan>
+                  <tspan x="44" dy="34">контраст, размер, расположение и понятность формулировки.</tspan>
+                </text>
+                <text class="t-body" x="44" y="254" fill="#0F6B68" font-weight="700">Ожидаемый эффект:</text>
+                <text class="t-body" x="270" y="254">Пользователь быстрее начинает сценарий без поиска и паузы.</text>
+
+                <!-- metaphor: before/after dots -->
+                <g transform="translate(44,320)">
+                  <rect x="0" y="0" width="692" height="240" rx="28" fill="#DCE8EA" fill-opacity="0.22" stroke="#D9DEDC" stroke-width="2"/>
+
+                  <text class="t-small" x="30" y="58" fill="#263238" font-weight="700">до</text>
+                  <circle cx="120" cy="120" r="10" fill="#9CB0B2"/>
+                  <circle cx="170" cy="150" r="10" fill="#9CB0B2"/>
+                  <circle cx="220" cy="110" r="10" fill="#9CB0B2"/>
+                  <circle cx="250" cy="170" r="10" fill="#9CB0B2"/>
+                  <circle cx="200" cy="210" r="10" fill="#9CB0B2"/>
+                  <circle cx="138" cy="198" r="10" fill="#9CB0B2"/>
+                  <circle cx="190" cy="134" r="10" fill="#9CB0B2"/>
+                  <circle cx="160" cy="92" r="10" fill="#9CB0B2"/>
+                  <circle cx="210" cy="160" r="10" fill="#9CB0B2"/>
+                  <circle cx="140" cy="156" r="10" fill="#9CB0B2"/>
+                  <circle cx="242" cy="120" r="10" fill="#9CB0B2"/>
+                  <circle cx="152" cy="180" r="10" fill="#9CB0B2"/>
+                  <circle cx="205" cy="90" r="10" fill="#9CB0B2"/>
+                  <circle cx="120" cy="120" r="26" fill="#F5E3DA" fill-opacity="0.85"/>
+                  <circle cx="120" cy="120" r="10" fill="#9CB0B2"/>
+
+                  <text class="t-small" x="384" y="58" fill="#263238" font-weight="700">после</text>
+                  <path d="M320 190 C380 150, 450 132, 520 120" class="stroke-teal" stroke-opacity="0.65"/>
+                  <path d="M356 178 L372 208 L386 190 L404 214 Z" fill="#263238" fill-opacity="0.85"/>
+                  <circle cx="520" cy="120" r="10" fill="#9CB0B2"/>
+                  <circle cx="470" cy="150" r="10" fill="#9CB0B2"/>
+                  <circle cx="430" cy="180" r="10" fill="#9CB0B2"/>
+                  <circle cx="560" cy="160" r="10" fill="#9CB0B2"/>
+                  <circle cx="600" cy="122" r="10" fill="#9CB0B2"/>
+                  <circle cx="520" cy="120" r="34" fill="#BFE1D7" fill-opacity="0.85"/>
+                  <circle cx="520" cy="120" r="12" fill="#0F6B68"/>
+                </g>
+              </g>
+
+              <!-- card right -->
+              <g transform="translate(1020,320)">
+                <rect x="0" y="0" width="780" height="600" rx="32" fill="#FFFFFF" stroke="#D9DEDC" stroke-width="2"/>
+                <text class="t-num" x="44" y="92">02</text>
+                <text class="t-h2" x="130" y="90">Усилить обратную связь о выборе</text>
+                <text class="t-body" x="44" y="148">
+                  <tspan x="44" dy="0">Сделать выбранное животное более заметным:</tspan>
+                  <tspan x="44" dy="34">через контраст, фон, контур или ясный знак подтверждения.</tspan>
+                </text>
+                <text class="t-body" x="44" y="254" fill="#0F6B68" font-weight="700">Ожидаемый эффект:</text>
+                <text class="t-body" x="270" y="254">
+                  <tspan x="270" dy="0">Пользователь уверен, что выбрал верного пациента,</tspan>
+                  <tspan x="270" dy="34">и спокойно продолжает оформление.</tspan>
+                </text>
+
+                <!-- metaphor: neutral vs selected state -->
+                <g transform="translate(44,320)">
+                  <rect x="0" y="0" width="692" height="240" rx="28" fill="#DCE8EA" fill-opacity="0.22" stroke="#D9DEDC" stroke-width="2"/>
+
+                  <g transform="translate(40,40)">
+                    <rect x="0" y="0" width="260" height="160" rx="26" fill="#FFFFFF" stroke="#D9DEDC" stroke-width="2"/>
+                    <circle cx="78" cy="80" r="44" fill="#DCE8EA" fill-opacity="0.65"/>
+                    <path d="M54 102 C56 84, 68 74, 82 74 C98 74, 110 86, 110 102 C110 118, 98 130, 82 130 C68 130, 56 120, 54 102 Z"
+                          fill="none" stroke="#263238" stroke-width="4"/>
+                    <path d="M192 32 L202 42 L220 24" class="stroke-ink" stroke-width="4" stroke-opacity="0.25"/>
+                    <text class="t-small" x="0" y="196" fill="#263238">нейтрально</text>
+                  </g>
+
+                  <g transform="translate(360,40)">
+                    <rect x="0" y="0" width="260" height="160" rx="26" fill="#BFE1D7" fill-opacity="0.55" stroke="#0F6B68" stroke-width="3"/>
+                    <circle cx="78" cy="80" r="44" fill="#FFFFFF" fill-opacity="0.9"/>
+                    <path d="M54 102 C56 84, 68 74, 82 74 C98 74, 110 86, 110 102 C110 118, 98 130, 82 130 C68 130, 56 120, 54 102 Z"
+                          fill="none" stroke="#263238" stroke-width="4"/>
+                    <circle cx="214" cy="38" r="26" fill="#0F6B68"/>
+                    <path d="M202 38 L212 48 L228 30" fill="none" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+                    <text class="t-small" x="0" y="196" fill="#263238">выбрано</text>
+                  </g>
+                </g>
+              </g>
+            </g>
+
+            <text class="t-body" x="960" y="980" text-anchor="middle">Логику сценария сохраняем. Улучшаем только точки принятия решения.</text>
+          </svg>
+        </div>
+
+        <div class="slide">
+          <div class="label"><span>Слайд 06</span><span>06-next-step.svg</span></div>
+          <svg id="slide-06" width="1920" height="1080" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg">
+            <style>
+              .bg{fill:#F8F7F4;}
+              .ink{fill:#263238;}
+              .teal{fill:#0F6B68;}
+              .mint{fill:#BFE1D7;}
+              .sky{fill:#DCE8EA;}
+              .line{stroke:#D9DEDC;stroke-width:2;}
+              .stroke-ink{stroke:#263238;stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+              .stroke-teal{stroke:#0F6B68;stroke-width:5;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+              .stroke-muted{stroke:#9CB0B2;stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+              .t-brand{font-family:Arial, Helvetica, sans-serif;font-size:20px;fill:#263238;}
+              .t-h1{font-family:Arial, Helvetica, sans-serif;font-size:70px;font-weight:700;fill:#263238;}
+              .t-key{font-family:Arial, Helvetica, sans-serif;font-size:60px;font-weight:700;fill:#0F6B68;}
+              .t-body{font-family:Arial, Helvetica, sans-serif;font-size:28px;fill:#263238;}
+              .t-step{font-family:Arial, Helvetica, sans-serif;font-size:24px;fill:#263238;}
+              .t-step-h{font-family:Arial, Helvetica, sans-serif;font-size:30px;font-weight:700;fill:#263238;}
+              .t-foot{font-family:Arial, Helvetica, sans-serif;font-size:20px;fill:#263238;}
+            </style>
+
+            <rect class="bg" x="0" y="0" width="1920" height="1080"/>
+            <text class="t-brand" x="120" y="120">Vet Union / UX research</text>
+            <text class="t-foot" x="1800" y="990" text-anchor="end">06 / 06</text>
+
+            <text class="t-h1" x="120" y="240">Сценарий готов к точечной доработке и ретесту</text>
+            <text class="t-key" x="120" y="340">Логику добавления животного не нужно пересобирать.</text>
+            <text class="t-body" x="120" y="410">
+              <tspan x="120" dy="0">Дорабатываем ясность первого действия и выбранного состояния,</tspan>
+              <tspan x="120" dy="38">затем проверяем обновлённый сценарий на целевой аудитории.</tspan>
+            </text>
+
+            <!-- Trajectory with 3 points -->
+            <g>
+              <path d="M240 700 C520 620, 760 620, 960 700 C1160 780, 1380 780, 1660 700" class="stroke-teal" stroke-opacity="0.35"/>
+              <path d="M300 700 C560 660, 760 660, 960 700 C1160 740, 1360 740, 1620 700" class="stroke-teal"/>
+
+              <!-- point 1 -->
+              <circle cx="300" cy="700" r="58" fill="#FFFFFF" stroke="#D9DEDC" stroke-width="2"/>
+              <path d="M280 690 L304 742 L316 722 L336 746 Z" fill="#263238" fill-opacity="0.9"/>
+              <text class="t-step-h" x="300" y="804" text-anchor="middle">1. Доработать</text>
+              <text class="t-step" x="300" y="842" text-anchor="middle">
+                <tspan x="300" dy="0">Усилить вход в действие</tspan>
+                <tspan x="300" dy="28">и выбранное состояние</tspan>
+              </text>
+
+              <!-- point 2 -->
+              <circle cx="960" cy="700" r="58" fill="#FFFFFF" stroke="#D9DEDC" stroke-width="2"/>
+              <rect x="932" y="678" width="56" height="38" rx="8" fill="none" stroke="#263238" stroke-width="4"/>
+              <rect x="952" y="718" width="16" height="10" rx="2" fill="#263238"/>
+              <line x1="940" y1="684" x2="980" y2="684" class="stroke-ink" stroke-width="3"/>
+              <text class="t-step-h" x="960" y="804" text-anchor="middle">2. Проверить</text>
+              <text class="t-step" x="960" y="842" text-anchor="middle">
+                <tspan x="960" dy="0">Короткий ретест на 5–6</tspan>
+                <tspan x="960" dy="28">представителях целевой аудитории,</tspan>
+                <tspan x="960" dy="28">только на десктопе</tspan>
+              </text>
+
+              <!-- point 3 -->
+              <circle cx="1620" cy="700" r="72" fill="#BFE1D7" fill-opacity="0.8"/>
+              <circle cx="1620" cy="700" r="58" fill="#0F6B68"/>
+              <path d="M1596 700 L1614 718 L1646 682" fill="none" stroke="#FFFFFF" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+              <text class="t-step-h" x="1620" y="804" text-anchor="middle">3. Решить</text>
+              <text class="t-step" x="1620" y="842" text-anchor="middle">
+                <tspan x="1620" dy="0">Если пользователи проходят сценарии</tspan>
+                <tspan x="1620" dy="28">уверенно — передавать решение</tspan>
+                <tspan x="1620" dy="28">в разработку</tspan>
+              </text>
+            </g>
+
+            <!-- final badge -->
+            <g>
+              <rect x="120" y="920" width="420" height="86" rx="30" fill="#0F6B68"/>
+              <text x="330" y="974" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" fill="#FFFFFF">Готово к следующей итерации</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Export panel (outside SVGs; not included in exports) -->
+    <div class="export-panel" role="region" aria-label="Экспорт SVG">
+      <div class="inner">
+        <div class="buttons">
+          <button type="button" data-slide="slide-01" data-file="01-main-conclusion.svg">Скачать 01 — главный вывод</button>
+          <button type="button" data-slide="slide-02" data-file="02-test-scenarios.svg">Скачать 02 — сценарии</button>
+          <button type="button" data-slide="slide-03" data-file="03-validated-model.svg">Скачать 03 — что подтвердилось</button>
+          <button type="button" data-slide="slide-04" data-file="04-points-of-friction.svg">Скачать 04 — точки роста</button>
+          <button type="button" data-slide="slide-05" data-file="05-improvements.svg">Скачать 05 — решения</button>
+          <button type="button" data-slide="slide-06" data-file="06-next-step.svg">Скачать 06 — следующий шаг</button>
+        </div>
+        <div class="hint">
+          Экспорт идёт через <b>Blob</b> и <b>URL.createObjectURL()</b>. Внутри файлов нет HTML, raster‑изображений и внешних ссылок.
+        </div>
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        function serializeSvg(svgEl) {
+          const clone = svgEl.cloneNode(true);
+          clone.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+          clone.setAttribute("width", svgEl.getAttribute("width") || "1920");
+          clone.setAttribute("height", svgEl.getAttribute("height") || "1080");
+          clone.setAttribute("viewBox", svgEl.getAttribute("viewBox") || "0 0 1920 1080");
+          return new XMLSerializer().serializeToString(clone);
+        }
+
+        function downloadSvg(slideId, filename) {
+          const svg = document.getElementById(slideId);
+          if (!svg) return;
+
+          const svgString = '<?xml version="1.0" encoding="UTF-8"?>\n' + serializeSvg(svg);
+          const blob = new Blob([svgString], { type: "image/svg+xml;charset=utf-8" });
+          const url = URL.createObjectURL(blob);
+
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = filename;
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+
+          setTimeout(() => URL.revokeObjectURL(url), 2000);
+        }
+
+        document.querySelectorAll("button[data-slide][data-file]").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            downloadSvg(btn.getAttribute("data-slide"), btn.getAttribute("data-file"));
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>
