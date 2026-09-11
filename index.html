@@ -297,6 +297,37 @@
       .slide { aspect-ratio: auto; min-height: 70vh; padding: 1.5rem 1.3rem 2.6rem; }
       .split, .split-wide, .cards, .cards-3 { grid-template-columns: 1fr; }
     }
+
+    @media print {
+      @page { size: 1280px 720px; margin: 0; }
+      html, body { height: auto; }
+      body {
+        overflow: visible;
+        background: var(--bg);
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .stage {
+        display: block;
+        height: auto;
+        padding: 0;
+      }
+      .slide {
+        display: flex !important;
+        width: 1280px;
+        height: 720px;
+        max-height: none;
+        aspect-ratio: auto;
+        border-radius: 0;
+        box-shadow: none;
+        page-break-after: always;
+        break-after: page;
+      }
+      .slide:last-child {
+        page-break-after: auto;
+        break-after: auto;
+      }
+    }
   </style>
 </head>
 <body>
