@@ -1,0 +1,638 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CoV · ЛК КК</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;1,700;1,800&display=swap" rel="stylesheet" />
+  <style>
+    :root{
+      --invitro-blue:#00abc6;
+      --invitro-blue-dark:#005564;
+      --fiery-orange:#ff5601;
+      --pure-white:#ffffff;
+      --bg:#ebeff0;
+      --ink:#1a1a1a;
+      --muted:#6b7578;
+      --line:rgba(0,171,198,0.35);
+      --line-soft:rgba(11,34,49,0.08);
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      font-family:Montserrat,Arial,sans-serif;
+      background:#d9e0e2;
+      color:var(--ink);
+      overflow:hidden;
+    }
+
+    .stage{
+      height:100%;
+      display:grid;
+      place-items:center;
+      padding:1.1rem 1.1rem 1.1rem;
+    }
+
+    .slide{
+      display:none;
+      position:relative;
+      width:min(1280px,calc(100vw - 2.2rem));
+      aspect-ratio:16/9;
+      max-height:calc(100vh - 2.2rem);
+      background:var(--bg);
+      border-radius:4px;
+      overflow:hidden;
+      box-shadow:0 18px 50px rgba(11,34,49,0.12);
+      padding:2.4rem 3rem 2.6rem;
+    }
+    .slide.active{display:flex;flex-direction:column}
+    .slide.blue{
+      background:
+        linear-gradient(120deg, rgba(0,120,140,0.18), transparent 42%),
+        linear-gradient(0deg, rgba(0,86,100,0.90), rgba(0,86,100,0.90));
+      color:var(--pure-white);
+    }
+
+    .content{
+      position:relative;
+      z-index:2;
+      flex:1;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      min-height:0;
+    }
+
+    .kicker{
+      font-size:0.72rem;
+      font-weight:600;
+      letter-spacing:0.08em;
+      text-transform:uppercase;
+      color:var(--invitro-blue);
+      margin-bottom:0.7rem;
+    }
+    .slide.blue .kicker{color:rgba(255,255,255,0.80)}
+
+    h1{
+      font-size:clamp(2.1rem,4.2vw,3.3rem);
+      font-weight:800;
+      font-style:italic;
+      text-transform:uppercase;
+      letter-spacing:-0.02em;
+      line-height:1.05;
+      max-width:18ch;
+    }
+    .slide:not(.blue) h1{color:var(--invitro-blue)}
+
+    h2{
+      font-size:clamp(1.45rem,2.8vw,2.15rem);
+      font-weight:800;
+      font-style:italic;
+      text-transform:uppercase;
+      letter-spacing:-0.02em;
+      line-height:1.12;
+      max-width:28ch;
+      color:var(--invitro-blue);
+    }
+
+    .lead{
+      margin-top:1rem;
+      font-size:1.05rem;
+      font-weight:500;
+      line-height:1.5;
+      max-width:52ch;
+      color:var(--muted);
+    }
+    .slide.blue .lead{color:rgba(255,255,255,0.90)}
+
+    .meta{
+      margin-top:1.05rem;
+      font-size:0.95rem;
+      font-weight:600;
+      line-height:1.4;
+      color:rgba(255,255,255,0.88);
+      max-width:52ch;
+    }
+    .slide:not(.blue) .meta{color:var(--muted)}
+
+    .split{
+      display:grid;
+      grid-template-columns:1.05fr 1fr;
+      gap:2rem;
+      align-items:start;
+      height:100%;
+    }
+
+    .text-block{
+      font-size:1.02rem;
+      line-height:1.55;
+      font-weight:500;
+      color:var(--ink);
+      max-width:60ch;
+    }
+    .slide.blue .text-block{color:rgba(255,255,255,0.92)}
+    .text-block p + p{margin-top:0.85rem}
+    .text-block b{color:var(--invitro-blue);font-weight:700}
+    .slide.blue .text-block b{color:rgba(255,255,255,0.95)}
+
+    .cards{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:0.9rem;
+    }
+    .cards-3{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:0.9rem;
+    }
+    .card{
+      background:var(--pure-white);
+      border-radius:18px;
+      padding:1.15rem 1.2rem;
+      min-height:148px;
+    }
+    .card h3{
+      font-size:0.95rem;
+      font-weight:800;
+      font-style:italic;
+      text-transform:uppercase;
+      color:var(--invitro-blue);
+      margin-bottom:0.55rem;
+      letter-spacing:-0.01em;
+    }
+    .card p{
+      font-size:0.92rem;
+      line-height:1.45;
+      color:var(--muted);
+      font-weight:500;
+    }
+
+    .subhead{
+      margin-top:0.9rem;
+      margin-bottom:0.55rem;
+      font-size:0.92rem;
+      font-weight:700;
+      color:var(--muted);
+      letter-spacing:0.01em;
+    }
+    .subhead:first-child{margin-top:0}
+
+    .bullets{
+      margin-top:0.4rem;
+      padding-left:1.05rem;
+      max-width:64ch;
+      color:var(--ink);
+      font-size:1.02rem;
+      line-height:1.45;
+      font-weight:500;
+    }
+    .bullets li + li{margin-top:0.6rem}
+
+    .table-card{
+      background:var(--pure-white);
+      border-radius:18px;
+      overflow:hidden;
+      padding:0.2rem 0;
+    }
+    table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      font-size:0.92rem;
+      line-height:1.35;
+      color:var(--ink);
+    }
+    thead th{
+      text-align:left;
+      padding:0.85rem 1.2rem;
+      font-weight:800;
+      font-style:italic;
+      text-transform:uppercase;
+      letter-spacing:-0.01em;
+      color:var(--invitro-blue);
+      border-bottom:1px solid var(--line-soft);
+      background:rgba(0,171,198,0.06);
+    }
+    tbody td{
+      vertical-align:top;
+      padding:0.85rem 1.2rem;
+      border-bottom:1px solid var(--line-soft);
+      font-weight:500;
+    }
+    tbody tr:last-child td{border-bottom:0}
+
+    .keyline{
+      margin-top:1rem;
+      background:var(--pure-white);
+      border-radius:18px;
+      padding:1.0rem 1.2rem;
+      font-size:0.98rem;
+      line-height:1.45;
+      color:var(--ink);
+      font-weight:500;
+    }
+    .keyline b{color:var(--invitro-blue);font-weight:700}
+
+    .scheme{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:0.55rem;
+      padding:1.2rem 1rem;
+      background:var(--pure-white);
+      border-radius:18px;
+      min-height:260px;
+    }
+    .scheme .s{
+      font-size:0.95rem;
+      font-weight:700;
+      color:var(--ink);
+      text-align:center;
+      line-height:1.25;
+      max-width:26ch;
+    }
+    .scheme .a{
+      color:var(--invitro-blue);
+      opacity:0.6;
+      font-weight:800;
+      line-height:1;
+      font-size:1.15rem;
+      user-select:none;
+    }
+
+    .banner{
+      margin-top:1rem;
+      background:var(--pure-white);
+      border-radius:18px;
+      padding:1.0rem 1.2rem;
+      display:flex;
+      flex-direction:column;
+      gap:0.25rem;
+      color:var(--ink);
+      font-weight:600;
+      font-size:0.95rem;
+      line-height:1.35;
+    }
+
+    @media (max-width: 900px){
+      body{overflow:auto}
+      .stage{place-items:stretch;padding:1rem}
+      .slide{aspect-ratio:auto;min-height:70vh;padding:1.5rem 1.3rem 1.7rem;max-height:none}
+      .split,.cards,.cards-3{grid-template-columns:1fr}
+      .scheme{min-height:220px}
+    }
+  </style>
+</head>
+<body>
+  <div class="stage" id="deck">
+
+    <!-- СЛАЙД 1 -->
+    <section class="slide blue active">
+      <div class="content">
+        <h1>Как мы вернули голос пользователя<br>в решения по ЛК КК</h1>
+        <p class="lead">Кейс: от разрозненной обратной связи — к регулярному CoV-процессу</p>
+        <div class="meta">Нина Дабдина · Личный кабинет корпоративного клиента</div>
+      </div>
+    </section>
+
+    <!-- СЛАЙД 2 -->
+    <section class="slide">
+      <div class="content">
+        <h2>Пользователи уже давали обратную связь<br>Но она не становилась системным входом в продукт</h2>
+        <div class="subhead">У нас уже были каналы:</div>
+        <div class="cards-3" style="margin-top:0.4rem;">
+          <div class="card">
+            <h3>UX Feedback</h3>
+            <p>CES · CSAT · комментарии</p>
+          </div>
+          <div class="card">
+            <h3>Техническая поддержка</h3>
+            <p>Внутренние обращения по ЛК КК</p>
+          </div>
+          <div class="card">
+            <h3>Менеджеры КК</h3>
+            <p>Вопросы · проблемы · жалобы · предложения клиентов</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- СЛАЙД 3 -->
+    <section class="slide">
+      <div class="content">
+        <h2>Между пользовательским сигналом<br>и изменением в продукте был разрыв</h2>
+        <div class="split" style="margin-top:1.1rem; align-items:center;">
+          <div class="scheme" aria-label="Схема">
+            <div class="s">Пользовательский сигнал</div>
+            <div class="a">↓</div>
+            <div class="s">Опрос / чат / поддержка</div>
+            <div class="a">↓</div>
+            <div class="s">?</div>
+            <div class="a">↓</div>
+            <div class="s">Решение в продукте</div>
+          </div>
+          <div>
+            <ul class="bullets">
+              <li>Нет единой точки разбора</li>
+              <li>Нет владельца следующего шага</li>
+              <li>Нет правил приоритизации</li>
+              <li>Нет истории принятых решений</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- СЛАЙД 4 -->
+    <section class="slide">
+      <div class="content">
+        <h2>Без единого контура мы реагировали<br>на отдельные случаи, а не управляли опытом</h2>
+        <div class="table-card" style="margin-top:1.1rem;">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:44%;">Было</th>
+                <th>Риск</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Сигналы жили в разных каналах</td>
+                <td>Не видно повторяемость проблемы</td>
+              </tr>
+              <tr>
+                <td>Вопросы решались ситуативно</td>
+                <td>Теряется системная боль пользователя</td>
+              </tr>
+              <tr>
+                <td>Опросы не разбирались регулярно</td>
+                <td>Метрики не влияют на решения</td>
+              </tr>
+              <tr>
+                <td>Обращения не связывались с задачами</td>
+                <td>Нельзя увидеть эффект изменений</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="keyline">Несколько похожих обращений — это не несколько отдельных случаев. Это возможный сигнал о проблеме в сценарии.</div>
+      </div>
+    </section>
+
+    <!-- СЛАЙД 5 -->
+    <section class="slide">
+      <div class="content">
+        <h2>Мы спроектировали замкнутый цикл<br>работы с обратной связью</h2>
+        <div class="split" style="margin-top:1.1rem; align-items:center;">
+          <div class="scheme" aria-label="Схема">
+            <div class="s">Собираем сигналы</div>
+            <div class="a">↓</div>
+            <div class="s">Объединяем и понимаем контекст</div>
+            <div class="a">↓</div>
+            <div class="s">Принимаем решение на CoV-разборе</div>
+            <div class="a">↓</div>
+            <div class="s">Фиксируем действие в Jira и Confluence</div>
+            <div class="a">↓</div>
+            <div class="s">Проверяем эффект после изменений</div>
+            <div class="a">↺</div>
+          </div>
+          <div class="keyline">Обратная связь — не архив. Это вход в Discovery, delivery и оценку результата.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- СЛАЙД 6 -->
+    <section class="slide">
+      <div class="content">
+        <h2>У каждого канала появился владелец<br>и понятный путь в продукт</h2>
+        <div class="table-card" style="margin-top:1.1rem;">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:22%;">Канал</th>
+                <th style="width:34%;">Что собираем</th>
+                <th>Как работаем</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>UX Feedback</td>
+                <td>CES, CSAT, открытые ответы</td>
+                <td>Выделяем сигналы, разбираем, превращаем в задачи</td>
+              </tr>
+              <tr>
+                <td>Менеджеры КК</td>
+                <td>Вопросы, проблемы, жалобы, предложения клиентов</td>
+                <td>Разовые вопросы — консультация; повторяющиеся и значимые — на CoV-разбор</td>
+              </tr>
+              <tr>
+                <td>Техподдержка</td>
+                <td>Внутренние обращения по ЛК КК</td>
+                <td>Фиксируем в Jira и рассматриваем регулярно</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="banner">
+          <div>CoV-разбор — раз в две недели</div>
+          <div>Продуктовый дизайнер + продакт-менеджер</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- СЛАЙД 7 -->
+    <section class="slide">
+      <div class="content">
+        <h2>На CoV-разборе каждый значимый сигнал<br>получает решение и следующий шаг</h2>
+        <div class="split" style="margin-top:1.1rem; align-items:start;">
+          <div>
+            <div class="subhead">На встрече:</div>
+            <ul class="bullets">
+              <li>Смотрим новые сигналы</li>
+              <li>Объединяем дубли</li>
+              <li>Смотрим динамику CES и CSAT</li>
+              <li>Определяем приоритет</li>
+              <li>Назначаем владельца и срок</li>
+            </ul>
+          </div>
+          <div>
+            <div class="subhead">Возможные решения:</div>
+            <div class="table-card">
+              <table>
+                <thead>
+                  <tr>
+                    <th style="width:40%;">Статус / следующий шаг</th>
+                    <th>Что означает</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>В работу</td>
+                    <td>Нужны продуктовые, UX/UI или технические изменения</td>
+                  </tr>
+                  <tr>
+                    <td>Проверить</td>
+                    <td>Не хватает данных для выбора решения</td>
+                  </tr>
+                  <tr>
+                    <td>Отложить</td>
+                    <td>Проблема признана, но сейчас не в приоритете</td>
+                  </tr>
+                  <tr>
+                    <td>Отклонить с причиной</td>
+                    <td>Изменение не требуется или сигнал вне зоны ЛК КК</td>
+                  </tr>
+                  <tr>
+                    <td>Консультация</td>
+                    <td>Вопрос решается без изменения продукта</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- СЛАЙД 8 -->
+    <section class="slide">
+      <div class="content">
+        <h2>Мы сохраняем не только задачу,<br>но и контекст, из которого она появилась</h2>
+        <div class="split" style="margin-top:1.1rem; align-items:start;">
+          <div>
+            <div class="subhead">В Jira</div>
+            <ul class="bullets">
+              <li>Ссылка на исходный сигнал</li>
+              <li>Раздел или пользовательский сценарий</li>
+              <li>Описание проблемы / наблюдения</li>
+              <li>Связь с гипотезой, исследованием или дизайном</li>
+              <li>Теги источников: ux feedback · express · support</li>
+            </ul>
+          </div>
+          <div>
+            <div class="subhead">В Confluence</div>
+            <div class="scheme" style="min-height:220px;">
+              <div class="s">Сигнал → Источник → Статус → Причина / следующий шаг → Jira-задача</div>
+            </div>
+          </div>
+        </div>
+        <div class="keyline">Дубли объединяются в одну проблему, а теги источников показывают её повторяемость и подтверждение из разных каналов.</div>
+      </div>
+    </section>
+
+    <!-- СЛАЙД 9 -->
+    <section class="slide">
+      <div class="content">
+        <h2>Мы перешли от «пользователи где-то пишут»<br>к управляемой работе с их опытом</h2>
+        <div class="table-card" style="margin-top:1.1rem;">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:44%;">Было</th>
+                <th>Стало</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Несвязанные каналы обратной связи</td>
+                <td>Единый CoV-контур</td>
+              </tr>
+              <tr>
+                <td>Сигналы могли теряться</td>
+                <td>У каждого значимого сигнала есть решение</td>
+              </tr>
+              <tr>
+                <td>Реакция на отдельные обращения</td>
+                <td>Поиск повторяющихся проблем и паттернов</td>
+              </tr>
+              <tr>
+                <td>Нет общей истории решений</td>
+                <td>Jira и Confluence связывают сигнал, действие и результат</td>
+              </tr>
+              <tr>
+                <td>Релиз завершался выпуском</td>
+                <td>После релиза можно проверять эффект через обратную связь</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- СЛАЙД 10 -->
+    <section class="slide">
+      <div class="content">
+        <h2>Следующий шаг — сделать голос пользователя<br>наблюдаемым и измеримым</h2>
+        <div class="table-card" style="margin-top:1.1rem;">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:22%;">Направление</th>
+                <th style="width:44%;">Что сделаем</th>
+                <th>Зачем</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Единый дашборд</td>
+                <td>Объединим сигналы из UX Feedback, Express и техподдержки</td>
+                <td>Видеть динамику, повторяемость и проблемные сценарии</td>
+              </tr>
+              <tr>
+                <td>DataCraft</td>
+                <td>Рассмотрим передачу части данных для автоматизации</td>
+                <td>Не собирать картину вручную из нескольких источников</td>
+              </tr>
+              <tr>
+                <td>Метрики B2B</td>
+                <td>Определим набор метрик и методологию: contact rate, CSAT, при необходимости CSI</td>
+                <td>Измерять качество опыта и эффект продуктовых изменений</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="keyline">Цель — не собрать больше цифр, а сделать данные основой для конкретных решений.</div>
+      </div>
+    </section>
+
+    <!-- СЛАЙД 11 -->
+    <section class="slide">
+      <div class="content">
+        <h2>Дизайнер проектирует не только интерфейс<br>но и способ слышать пользователя</h2>
+        <div class="subhead">CoV в ЛК КК — это:</div>
+        <ul class="bullets">
+          <li>Видимый голос пользователя в продуктовых решениях</li>
+          <li>Единый путь от сигнала до действия</li>
+          <li>Основа для Discovery и проверки эффекта релизов</li>
+        </ul>
+        <div class="keyline">Обратная связь становится ценной не в момент сбора, а в момент, когда она меняет решение.</div>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    const slides = [...document.querySelectorAll(".slide")];
+    let i = 0;
+    function go(n){
+      slides[i].classList.remove("active");
+      i = (n + slides.length) % slides.length;
+      slides[i].classList.add("active");
+    }
+    window.addEventListener("keydown",(e)=>{
+      if(e.key==="ArrowRight"||e.key===" "){e.preventDefault();go(i+1);}
+      if(e.key==="ArrowLeft"){e.preventDefault();go(i-1);}
+    });
+    window.addEventListener("click",(e)=>{
+      const sel = window.getSelection && window.getSelection();
+      if(sel && String(sel).length) return;
+      go(i + 1);
+    });
+  </script>
+</body>
+</html>
+
