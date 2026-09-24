@@ -12,7 +12,7 @@
 
     :root{
       --bg: #FFFFFF;
-      --pageBg: #EAF8FB;
+      --pageBg: #FFFFFF;
       --surface: #FFFFFF;
       --text: #0A1823;
       --muted: rgba(10,24,35,0.72);
@@ -23,7 +23,8 @@
       --radiusInner: 22px;
       --max: 980px;
       --gap: 14px;
-      --diagShift: 32px;
+      --diagShift: 34px;
+      --radiusShape: 24px;
 
       /* Brand palette (from brandbook) */
       --blue: #00ACC6;
@@ -32,6 +33,8 @@
 
       --soft: #DDF6FB;
       --soft2: #F2FCFE;
+      --paper: #FFFFFF;
+      --paper2: #FBFEFF;
 
       /* Layout */
       --stickyTop: 10px;
@@ -58,56 +61,59 @@
     .page{ max-width: var(--max); margin: 0 auto; padding: 28px 18px 72px; }
 
     .hero{ padding-bottom: 10px; }
-    .composition{
-      background: var(--bg);
-      border-radius: var(--radiusOuter);
-      padding: var(--gap);
-      box-shadow: var(--shadow);
-      overflow: hidden;
+
+    /* Branded modules: SVG shapes + HTML content above */
+    .module{
       position: relative;
+      margin: 0 0 14px;
     }
-    .plaque{
-      --plaqueBg: var(--surface);
-      border-radius: var(--radiusInner);
-      position: relative;
-      overflow: hidden;
-      background: transparent;
-    }
-    .plaque::before{
-      content: "";
+    .module__bg{
       position: absolute;
       inset: 0;
-      background: var(--plaqueBg);
+      width: 100%;
+      height: 100%;
       pointer-events: none;
-      z-index: 0;
     }
-    .plaque > *{ position: relative; z-index: 1; }
-    .plaque--paper{ --plaqueBg: #FFFFFF; }
-    .plaque--soft{ --plaqueBg: var(--soft); }
-    .plaque--soft2{ --plaqueBg: var(--soft2); }
-    .plaque--blue{ --plaqueBg: var(--blue); color: #FFFFFF; }
-
-    .plaque--cut-left::before{
-      clip-path: polygon(var(--diagShift) 0, 100% 0, 100% 100%, 0 100%);
-    }
-    .plaque--cut-right::before{
-      clip-path: polygon(0 0, 100% 0, calc(100% - var(--diagShift)) 100%, 0 100%);
-    }
-
-    .cover{
-      margin-bottom: 14px;
-    }
-    .cover-grid{
+    .module__content{
+      position: relative;
       display: grid;
       gap: var(--gap);
-      grid-template-columns: 1fr;
-      grid-template-areas:
-        "text"
-        "ill"
-        "accent";
-      align-items: stretch;
+      align-items: start;
     }
-    .cover-text{ padding: 18px 18px 16px; grid-area: text; }
+    .module--diag3 .module__content{
+      grid-template-columns: 1fr 1.22fr;
+      grid-template-rows: auto auto;
+      grid-template-areas:
+        "a c"
+        "b c";
+      column-gap: 0;
+    }
+    .module--stack3 .module__content{
+      grid-template-columns: 1fr;
+      grid-template-rows: auto auto auto;
+      grid-template-areas:
+        "a"
+        "b"
+        "c";
+    }
+    .module__a{ grid-area: a; }
+    .module__b{ grid-area: b; }
+    .module__c{ grid-area: c; align-self: stretch; }
+
+    .plaque{
+      border-radius: var(--radiusShape);
+      padding: 18px;
+      position: relative;
+      z-index: 1;
+    }
+    .fill-paper{ --fill: var(--paper); }
+    .fill-paper2{ --fill: var(--paper2); }
+    .fill-soft{ --fill: var(--soft); }
+    .fill-soft2{ --fill: var(--soft2); }
+    .fill-blue{ --fill: var(--blue); color: #FFFFFF; }
+
+    .cover{ margin-bottom: 14px; }
+    .cover-text{ }
     .brand{
       display: inline-flex;
       align-items: center;
@@ -153,7 +159,8 @@
       display: flex;
       gap: 10px;
       align-items: flex-start;
-      grid-area: accent;
+      padding-top: 14px;
+      padding-bottom: 14px;
     }
     .cover-accent-badge{
       width: 28px;
@@ -168,14 +175,12 @@
       line-height: 1;
     }
     .cover-ill{
-      grid-area: ill;
       padding: 14px;
       display: grid;
       place-items: center;
-      --plaqueBg: #FBFEFF;
     }
     .cover-ill picture, .cover-ill img{ display: block; width: 100%; height: auto; }
-    .cover-ill img{ max-height: 320px; object-fit: contain; }
+    .cover-ill img{ max-height: 380px; object-fit: contain; }
 
     .nav{
       margin-top: 14px;
@@ -188,7 +193,9 @@
       gap: 10px;
     }
     .nav-box{
-      padding: 12px 0 6px;
+      padding: 12px 14px 10px;
+      border-radius: 22px;
+      background: #FFFFFF;
     }
     .nav-title{
       display: flex;
@@ -211,7 +218,7 @@
     .nav-list{
       list-style: none;
       margin: 0;
-      padding: 0 14px 10px;
+      padding: 0;
       display: grid;
       grid-template-columns: 1fr;
       gap: 0;
@@ -292,20 +299,12 @@
       max-width: 80ch;
     }
 
-    .macro{
-      background: var(--bg);
-      border-radius: var(--radiusOuter);
-      padding: var(--gap);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-      display: grid;
-      gap: var(--gap);
-      grid-template-columns: 1fr;
-      grid-template-areas:
-        "answer"
-        "tagline"
-        "insert";
-    }
+    .macro{ }
+    .module--situation{ margin-top: 6px; }
+    .module--situation .plaque{ padding: 16px; }
+    .module--situation .answer{ padding: 18px; }
+    .module--situation .tagline{ padding: 14px 16px; }
+    .module--situation .insert{ padding: 14px 16px; }
 
     .insert{
       padding: 14px;
@@ -320,7 +319,7 @@
       margin: 0 auto;
       width: 100%;
       height: auto;
-      max-height: 260px;
+      max-height: 320px;
       object-fit: contain;
     }
     .tagline{
@@ -348,7 +347,6 @@
       display: grid;
       gap: 14px;
       padding: 16px;
-      --plaqueBg: #FFFFFF;
     }
     .answer h3{
       font-size: 16px;
@@ -433,45 +431,31 @@
         pointer-events: none;
       }
 
-      .macro{ gap: 22px; }
-      .situation[data-layout="spread"] .macro{
-        grid-template-columns: 340px 1fr;
-        grid-template-areas:
-          "insert answer"
-          "insert tagline";
-      }
-      .situation[data-layout="spread"][data-ill="right"] .macro{
-        grid-template-columns: 1fr 340px;
-        grid-template-areas:
-          "answer insert"
-          "tagline insert";
-      }
-      .situation[data-layout="dialog"] .macro,
-      .situation[data-layout="work"] .macro{
-        grid-template-columns: 1fr 340px;
-        grid-template-areas:
-          "insert insert"
-          "answer tagline";
-      }
-
-      .cover-grid{
-        grid-template-columns: 1fr 1.22fr;
-        grid-template-areas:
-          "text ill"
-          "accent ill";
-      }
-      .cover-ill{ min-height: 280px; }
-      .cover-ill img{ max-height: 360px; }
+      /* cover + situations handled by module layout */
     }
     @media (max-width: 859px){
       .cover-ill img{ max-height: 220px; }
     }
-    .insert{ grid-area: insert; }
-    .answer{ grid-area: answer; }
+    .insert{ }
+    .answer{ }
 
     @media (max-width: 859px){
-      .plaque--cut-left::before,
-      .plaque--cut-right::before{ clip-path: none; }
+      .module--diag3 .module__content{
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        grid-template-areas:
+          "a"
+          "b"
+          "c";
+      }
+      .module[data-mobile="answer-first"].module--diag3 .module__content,
+      .module[data-mobile="answer-first"].module--stack3 .module__content{
+        grid-template-areas:
+          "c"
+          "a"
+          "b";
+      }
+      .cover-ill img{ max-height: 240px; }
     }
 
     @media (prefers-reduced-motion: reduce){
@@ -482,9 +466,10 @@
 <body>
   <main class="page">
     <header class="hero">
-      <section class="cover composition" aria-label="Обложка гайда">
-        <div class="cover-grid" aria-label="Композиция плашек обложки">
-          <div class="plaque plaque--soft plaque--cut-right cover-text">
+      <section class="cover module module--diag3" data-module="diag3" aria-label="Обложка гайда">
+        <svg class="module__bg" aria-hidden="true"></svg>
+        <div class="module__content" aria-label="Композиция плашек обложки">
+          <div class="plaque fill-soft module__a cover-text" data-region="a">
             <div class="brand">
               <div class="kicker"><span class="kline" aria-hidden="true"></span><span>INVITRO · Дизайн-команда</span></div>
             </div>
@@ -492,14 +477,14 @@
             <p class="lead">Иногда спор заходит в тупик, фидбек сбивает с толку, а договорённости понимают по‑разному. Найди свою ситуацию и посмотри, что можно сделать.</p>
           </div>
 
-          <aside class="plaque plaque--paper plaque--cut-left cover-ill" aria-label="Иллюстрация обложки">
+          <aside class="plaque fill-paper2 module__c cover-ill" data-region="c" aria-label="Иллюстрация обложки">
             <picture>
               <source type="image/webp" srcset="assets/scenes/webp/hero-guide.webp" />
-              <img src="assets/scenes/hero-guide.png" alt="Маскот с путеводителем по рабочим ситуациям" loading="eager" decoding="async" />
+              <img src="assets/scenes/hero-guide.png" width="1152" height="864" alt="Маскот с путеводителем по рабочим ситуациям" loading="eager" decoding="async" />
             </picture>
           </aside>
 
-          <aside class="plaque plaque--blue plaque--cut-right cover-accent" aria-label="Акцент">
+          <aside class="plaque fill-blue module__b cover-accent" data-region="b" aria-label="Акцент">
             <span class="cover-accent-badge" aria-hidden="true">7</span>
             <span>знакомых ситуаций — и идеи, что делать дальше</span>
           </aside>
@@ -508,7 +493,7 @@
 
       <nav class="nav" id="situations" aria-label="Навигация по ситуациям">
         <div class="nav-inner">
-          <div class="composition nav-box" aria-label="Что случилось — список ситуаций">
+          <div class="nav-box" aria-label="Что случилось — список ситуаций">
             <div class="nav-title">Что случилось?</div>
             <ol class="nav-list">
             <li><a class="nav-link" href="#cant-agree"><span class="nav-num">1</span><span class="nav-text">Спорим, но не можем договориться</span></a></li>
@@ -532,48 +517,51 @@
             <p>Кажется, всё уже сказали. Но разговор снова идёт по кругу, а решения всё нет.</p>
           </header>
 
-          <div class="macro" aria-label="Ситуация: композиция плашек">
-            <div class="plaque plaque--soft2 answer" aria-label="Подсказки">
-              <section aria-label="Что сделать">
-                <h3>Что сделать</h3>
-                <ol class="steps">
-                  <li>Верни спор к одному вопросу: что именно вы сейчас выбираете?</li>
-                  <li>Договорись с командой, по какому критерию сравниваете варианты: польза для пользователя, задача, данные или ограничения.</li>
-                  <li>Если информации не хватает, решите, что проверить, кто это сделает и когда вы вернётесь к вопросу.</li>
-                </ol>
-              </section>
-
-              <section aria-label="Как сказать">
-                <h3>Как сказать</h3>
-                <div class="say">
-                  <p>«Кажется, мы ходим по кругу. Что именно выбираем и по какому критерию?»</p>
-                  <p>«Чего нам не хватает, чтобы решить, и когда вернёмся к вопросу?»</p>
+          <div class="macro module module--stack3 module--situation" data-module="stack3" data-mobile="answer-first" aria-label="Ситуация: композиция плашек">
+            <svg class="module__bg" aria-hidden="true"></svg>
+            <div class="module__content">
+              <aside class="plaque fill-paper2 module__a insert" data-region="a" aria-label="Короткая сценка с маскотом">
+                <div class="insert-media" aria-hidden="true">
+                  <picture>
+                    <source type="image/webp" srcset="assets/scenes/webp/scene-dispute.webp" />
+                    <img src="assets/scenes/scene-dispute.png" width="1280" height="720" alt="Иллюстрация: два маскота обсуждают варианты" loading="lazy" decoding="async" />
+                  </picture>
                 </div>
-              </section>
+              </aside>
 
-              <section aria-label="Если не помогло">
-                <h3>Если не помогло</h3>
-                <div class="placeholder">
-                  Позови того, кто поможет прояснить именно этот вопрос: по ревью — Любу, по продукту — продакта и при необходимости Костю, по коммуникации между дизайнерами — Нину. Ответственность за итоговое решение при этом остаётся там же, где и была.
-                </div>
-              </section>
+              <aside class="plaque fill-soft module__b tagline" data-region="b" aria-label="Подпись к сценке">
+                <div class="top">Работать вместе…</div>
+                <div class="bottom">…искать следующий шаг, а не последний аргумент.</div>
+              </aside>
 
-              <a class="back" href="#situations">К ситуациям</a>
-            </div>
+              <div class="plaque fill-paper module__c answer" data-region="c" aria-label="Подсказки">
+                <section aria-label="Что сделать">
+                  <h3>Что сделать</h3>
+                  <ol class="steps">
+                    <li>Верни спор к одному вопросу: что именно вы сейчас выбираете?</li>
+                    <li>Договорись с командой, по какому критерию сравниваете варианты: польза для пользователя, задача, данные или ограничения.</li>
+                    <li>Если информации не хватает, решите, что проверить, кто это сделает и когда вы вернётесь к вопросу.</li>
+                  </ol>
+                </section>
 
-            <aside class="plaque plaque--soft tagline" aria-label="Подпись к сценке">
-              <div class="top">Работать вместе…</div>
-              <div class="bottom">…искать следующий шаг, а не последний аргумент.</div>
-            </aside>
+                <section aria-label="Как сказать">
+                  <h3>Как сказать</h3>
+                  <div class="say">
+                    <p>«Кажется, мы ходим по кругу. Что именно выбираем и по какому критерию?»</p>
+                    <p>«Чего нам не хватает, чтобы решить, и когда вернёмся к вопросу?»</p>
+                  </div>
+                </section>
 
-            <aside class="plaque plaque--paper insert" aria-label="Короткая сценка с маскотом">
-              <div class="insert-media" aria-hidden="true">
-                <picture>
-                  <source type="image/webp" srcset="assets/scenes/webp/scene-dispute.webp" />
-                  <img src="assets/scenes/scene-dispute.png" alt="Иллюстрация: два маскота обсуждают варианты" loading="lazy" decoding="async" />
-                </picture>
+                <section aria-label="Если не помогло">
+                  <h3>Если не помогло</h3>
+                  <div class="placeholder">
+                    Позови того, кто поможет прояснить именно этот вопрос: по ревью — Любу, по продукту — продакта и при необходимости Костю, по коммуникации между дизайнерами — Нину. Ответственность за итоговое решение при этом остаётся там же, где и была.
+                  </div>
+                </section>
+
+                <a class="back" href="#situations">К ситуациям</a>
               </div>
-            </aside>
+            </div>
           </div>
         </div>
       </section>
@@ -584,8 +572,10 @@
             <h2 id="misaligned-title">Договорились, но поняли по‑разному</h2>
             <p>На встрече все кивнули. Через несколько дней оказалось, что каждый ушёл со своей версией решения.</p>
           </header>
-          <div class="macro" aria-label="Ситуация: композиция плашек">
-            <div class="plaque plaque--soft2 answer plaque--cut-right" aria-label="Подсказки">
+          <div class="macro module module--diag3 module--situation" data-module="diag3" aria-label="Ситуация: композиция плашек">
+            <svg class="module__bg" aria-hidden="true"></svg>
+            <div class="module__content">
+            <div class="plaque fill-paper module__a answer" data-region="a" aria-label="Подсказки">
               <section aria-label="Что сделать">
                 <h3>Что сделать</h3>
                 <ol class="steps">
@@ -610,19 +600,20 @@
               <a class="back" href="#situations">К ситуациям</a>
             </div>
 
-            <aside class="plaque plaque--soft tagline" aria-label="Подпись к сценке">
+            <aside class="plaque fill-soft module__b tagline" data-region="b" aria-label="Подпись к сценке">
               <div class="top">Работать вместе…</div>
               <div class="bottom">…сверяться не только кивками.</div>
             </aside>
 
-            <aside class="plaque plaque--paper insert plaque--cut-left" aria-label="Короткая сценка с маскотом">
+            <aside class="plaque fill-paper2 module__c insert" data-region="c" aria-label="Короткая сценка с маскотом">
               <div class="insert-media" aria-hidden="true">
                 <picture>
                   <source type="image/webp" srcset="assets/scenes/webp/scene-agreement.webp" />
-                  <img src="assets/scenes/scene-agreement.png" alt="Иллюстрация: два маскота сверяют разные варианты" loading="lazy" decoding="async" />
+                  <img src="assets/scenes/scene-agreement.png" width="1152" height="864" alt="Иллюстрация: два маскота сверяют разные варианты" loading="lazy" decoding="async" />
                 </picture>
               </div>
             </aside>
+            </div>
           </div>
         </div>
       </section>
@@ -633,8 +624,24 @@
             <h2 id="unclear-feedback-title">Получаю «не нравится» без объяснений</h2>
             <p>Смотришь на комментарий «что‑то не то» и пытаешься угадать: проблема в сценарии, визуале или вообще в задаче.</p>
           </header>
-          <div class="macro" aria-label="Ситуация: композиция плашек">
-            <div class="plaque plaque--soft2 answer plaque--cut-left" aria-label="Подсказки">
+          <div class="macro module module--diag3 module--situation" data-module="diag3" aria-label="Ситуация: композиция плашек">
+            <svg class="module__bg" aria-hidden="true"></svg>
+            <div class="module__content">
+            <aside class="plaque fill-paper2 module__a insert" data-region="a" aria-label="Короткая сценка с маскотом">
+              <div class="insert-media" aria-hidden="true">
+                <picture>
+                  <source type="image/webp" srcset="assets/scenes/webp/scene-feedback.webp" />
+                  <img src="assets/scenes/scene-feedback.png" width="1152" height="864" alt="Иллюстрация: маскот рассматривает деталь макета через лупу" loading="lazy" decoding="async" />
+                </picture>
+              </div>
+            </aside>
+
+            <aside class="plaque fill-soft module__b tagline" data-region="b" aria-label="Подпись к сценке">
+              <div class="top">Работать вместе…</div>
+              <div class="bottom">…уточнять, а не угадывать.</div>
+            </aside>
+
+            <div class="plaque fill-paper module__c answer" data-region="c" aria-label="Подсказки">
               <section aria-label="Что сделать">
                 <h3>Что сделать</h3>
                 <ol class="steps">
@@ -658,20 +665,7 @@
 
               <a class="back" href="#situations">К ситуациям</a>
             </div>
-
-            <aside class="plaque plaque--soft tagline" aria-label="Подпись к сценке">
-              <div class="top">Работать вместе…</div>
-              <div class="bottom">…уточнять, а не угадывать.</div>
-            </aside>
-
-            <aside class="plaque plaque--paper insert plaque--cut-right" aria-label="Короткая сценка с маскотом">
-              <div class="insert-media" aria-hidden="true">
-                <picture>
-                  <source type="image/webp" srcset="assets/scenes/webp/scene-feedback.webp" />
-                  <img src="assets/scenes/scene-feedback.png" alt="Иллюстрация: маскот рассматривает деталь макета через лупу" loading="lazy" decoding="async" />
-                </picture>
-              </div>
-            </aside>
+            </div>
           </div>
         </div>
       </section>
@@ -682,8 +676,24 @@
             <h2 id="who-decides-title">Непонятно, кто принимает решение</h2>
             <p>В одном разговоре смешались бизнес‑задача, пользовательский сценарий и интерфейс. В итоге все обсуждают всё.</p>
           </header>
-          <div class="macro" aria-label="Ситуация: композиция плашек">
-            <div class="plaque plaque--soft2 answer" aria-label="Подсказки">
+          <div class="macro module module--stack3 module--situation" data-module="stack3" data-mobile="answer-first" aria-label="Ситуация: композиция плашек">
+            <svg class="module__bg" aria-hidden="true"></svg>
+            <div class="module__content">
+            <aside class="plaque fill-paper2 module__a insert" data-region="a" aria-label="Короткая сценка с маскотом">
+              <div class="insert-media" aria-hidden="true">
+                <picture>
+                  <source type="image/webp" srcset="assets/scenes/webp/scene-responsibility.webp" />
+                  <img src="assets/scenes/scene-responsibility.png" width="1280" height="720" alt="Иллюстрация: два маскота вместе отмечают цель и путь" loading="lazy" decoding="async" />
+                </picture>
+              </div>
+            </aside>
+
+            <aside class="plaque fill-soft module__b tagline" data-region="b" aria-label="Подпись к сценке">
+              <div class="top">Работать вместе…</div>
+              <div class="bottom">…понимать, кто за что отвечает.</div>
+            </aside>
+
+            <div class="plaque fill-paper module__c answer" data-region="c" aria-label="Подсказки">
               <section aria-label="Что сделать">
                 <h3>Что сделать</h3>
                 <ol class="steps">
@@ -707,20 +717,7 @@
 
               <a class="back" href="#situations">К ситуациям</a>
             </div>
-
-            <aside class="plaque plaque--soft tagline" aria-label="Подпись к сценке">
-              <div class="top">Работать вместе…</div>
-              <div class="bottom">…понимать, кто за что отвечает.</div>
-            </aside>
-
-            <aside class="plaque plaque--paper insert" aria-label="Короткая сценка с маскотом">
-              <div class="insert-media" aria-hidden="true">
-                <picture>
-                  <source type="image/webp" srcset="assets/scenes/webp/scene-responsibility.webp" />
-                  <img src="assets/scenes/scene-responsibility.png" alt="Иллюстрация: два маскота вместе отмечают цель и путь" loading="lazy" decoding="async" />
-                </picture>
-              </div>
-            </aside>
+            </div>
           </div>
         </div>
       </section>
@@ -731,8 +728,10 @@
             <h2 id="changed-without-me-title">Интерфейс меняют без моего участия</h2>
             <p>Об изменении интерфейса ты узнаёшь, когда его уже обсудили или отдали в разработку.</p>
           </header>
-          <div class="macro" aria-label="Ситуация: композиция плашек">
-            <div class="plaque plaque--soft2 answer plaque--cut-right" aria-label="Подсказки">
+          <div class="macro module module--diag3 module--situation" data-module="diag3" aria-label="Ситуация: композиция плашек">
+            <svg class="module__bg" aria-hidden="true"></svg>
+            <div class="module__content">
+            <div class="plaque fill-paper module__a answer" data-region="a" aria-label="Подсказки">
               <section aria-label="Что сделать">
                 <h3>Что сделать</h3>
                 <ol class="steps">
@@ -757,19 +756,20 @@
               <a class="back" href="#situations">К ситуациям</a>
             </div>
 
-            <aside class="plaque plaque--soft tagline" aria-label="Подпись к сценке">
+            <aside class="plaque fill-soft module__b tagline" data-region="b" aria-label="Подпись к сценке">
               <div class="top">Работать вместе…</div>
               <div class="bottom">…подключать дизайнера до принятия решения.</div>
             </aside>
 
-            <aside class="plaque plaque--paper insert plaque--cut-left" aria-label="Короткая сценка с маскотом">
+            <aside class="plaque fill-paper2 module__c insert" data-region="c" aria-label="Короткая сценка с маскотом">
               <div class="insert-media" aria-hidden="true">
                 <picture>
                   <source type="image/webp" srcset="assets/scenes/webp/scene-involvement.webp" />
-                  <img src="assets/scenes/scene-involvement.png" alt="Иллюстрация: маскот приглашает второго маскота подключиться к обсуждению" loading="lazy" decoding="async" />
+                  <img src="assets/scenes/scene-involvement.png" width="1152" height="864" alt="Иллюстрация: маскот приглашает второго маскота подключиться к обсуждению" loading="lazy" decoding="async" />
                 </picture>
               </div>
             </aside>
+            </div>
           </div>
         </div>
       </section>
@@ -780,8 +780,24 @@
             <h2 id="multi-team-title">Задача затрагивает несколько команд</h2>
             <p>Каждая команда делает свою часть. Сложности начинаются там, где эти части встречаются.</p>
           </header>
-          <div class="macro" aria-label="Ситуация: композиция плашек">
-            <div class="plaque plaque--soft2 answer" aria-label="Подсказки">
+          <div class="macro module module--stack3 module--situation" data-module="stack3" data-mobile="answer-first" aria-label="Ситуация: композиция плашек">
+            <svg class="module__bg" aria-hidden="true"></svg>
+            <div class="module__content">
+            <aside class="plaque fill-paper2 module__a insert" data-region="a" aria-label="Короткая сценка с маскотом">
+              <div class="insert-media" aria-hidden="true">
+                <picture>
+                  <source type="image/webp" srcset="assets/scenes/webp/scene-cross-team.webp" />
+                  <img src="assets/scenes/scene-cross-team.png" width="1280" height="720" alt="Иллюстрация: два маскота сверяют стык частей пользовательского пути" loading="lazy" decoding="async" />
+                </picture>
+              </div>
+            </aside>
+
+            <aside class="plaque fill-soft module__b tagline" data-region="b" aria-label="Подпись к сценке">
+              <div class="top">Работать вместе…</div>
+              <div class="bottom">…видеть не только свою часть.</div>
+            </aside>
+
+            <div class="plaque fill-paper module__c answer" data-region="c" aria-label="Подсказки">
               <section aria-label="Что сделать">
                 <h3>Что сделать</h3>
                 <ol class="steps">
@@ -805,20 +821,7 @@
 
               <a class="back" href="#situations">К ситуациям</a>
             </div>
-
-            <aside class="plaque plaque--soft tagline" aria-label="Подпись к сценке">
-              <div class="top">Работать вместе…</div>
-              <div class="bottom">…видеть не только свою часть.</div>
-            </aside>
-
-            <aside class="plaque plaque--paper insert" aria-label="Короткая сценка с маскотом">
-              <div class="insert-media" aria-hidden="true">
-                <picture>
-                  <source type="image/webp" srcset="assets/scenes/webp/scene-cross-team.webp" />
-                  <img src="assets/scenes/scene-cross-team.png" alt="Иллюстрация: два маскота сверяют стык частей пользовательского пути" loading="lazy" decoding="async" />
-                </picture>
-              </div>
-            </aside>
+            </div>
           </div>
         </div>
       </section>
@@ -829,8 +832,24 @@
             <h2 id="mistake-found-title">В моей работе нашли ошибку</h2>
             <p>Неприятно, когда ошибку замечают другие. Но сейчас важнее понять, на что она влияет и как её исправить.</p>
           </header>
-          <div class="macro" aria-label="Ситуация: композиция плашек">
-            <div class="plaque plaque--soft2 answer plaque--cut-left" aria-label="Подсказки">
+          <div class="macro module module--diag3 module--situation" data-module="diag3" data-mobile="answer-first" aria-label="Ситуация: композиция плашек">
+            <svg class="module__bg" aria-hidden="true"></svg>
+            <div class="module__content">
+            <aside class="plaque fill-paper2 module__a insert" data-region="a" aria-label="Короткая сценка с маскотом">
+              <div class="insert-media" aria-hidden="true">
+                <picture>
+                  <source type="image/webp" srcset="assets/scenes/webp/scene-mistake.webp" />
+                  <img src="assets/scenes/scene-mistake.png" width="1152" height="864" alt="Иллюстрация: маскоты вместе поправляют небольшую ошибку" loading="lazy" decoding="async" />
+                </picture>
+              </div>
+            </aside>
+
+            <aside class="plaque fill-soft module__b tagline" data-region="b" aria-label="Подпись к сценке">
+              <div class="top">Работать вместе…</div>
+              <div class="bottom">…помогать исправить, а не искать виноватого.</div>
+            </aside>
+
+            <div class="plaque fill-paper module__c answer" data-region="c" aria-label="Подсказки">
               <section aria-label="Что сделать">
                 <h3>Что сделать</h3>
                 <ol class="steps">
@@ -854,20 +873,7 @@
 
               <a class="back" href="#situations">К ситуациям</a>
             </div>
-
-            <aside class="plaque plaque--soft tagline" aria-label="Подпись к сценке">
-              <div class="top">Работать вместе…</div>
-              <div class="bottom">…помогать исправить, а не искать виноватого.</div>
-            </aside>
-
-            <aside class="plaque plaque--paper insert plaque--cut-right" aria-label="Короткая сценка с маскотом">
-              <div class="insert-media" aria-hidden="true">
-                <picture>
-                  <source type="image/webp" srcset="assets/scenes/webp/scene-mistake.webp" />
-                  <img src="assets/scenes/scene-mistake.png" alt="Иллюстрация: маскоты вместе поправляют небольшую ошибку" loading="lazy" decoding="async" />
-                </picture>
-              </div>
-            </aside>
+            </div>
           </div>
         </div>
       </section>
@@ -877,5 +883,162 @@
       Гайд вырос из нашего ретро и будет меняться вместе с командой. Если знакомой ситуации здесь нет или подсказка не помогает — принесём её на следующее обсуждение.
     </footer>
   </main>
+  <script>
+    (function () {
+      const getVarPx = (el, name, fallback) => {
+        const v = getComputedStyle(el).getPropertyValue(name).trim();
+        const n = parseFloat(v);
+        return Number.isFinite(n) ? n : fallback;
+      };
+
+      const roundPath = (pts, r) => {
+        if (!pts || pts.length < 3) return '';
+        const p = pts.map(([x, y]) => ({ x, y }));
+        const n = p.length;
+        const area = p.reduce((acc, cur, i) => {
+          const nxt = p[(i + 1) % n];
+          return acc + (cur.x * nxt.y - nxt.x * cur.y);
+        }, 0);
+        const clockwise = area < 0;
+
+        const len = (a, b) => Math.hypot(b.x - a.x, b.y - a.y);
+        const norm = (v) => {
+          const l = Math.hypot(v.x, v.y) || 1;
+          return { x: v.x / l, y: v.y / l };
+        };
+
+        let d = '';
+        for (let i = 0; i < n; i++) {
+          const A = p[(i - 1 + n) % n];
+          const B = p[i];
+          const C = p[(i + 1) % n];
+
+          const v1 = norm({ x: A.x - B.x, y: A.y - B.y });
+          const v2 = norm({ x: C.x - B.x, y: C.y - B.y });
+
+          const angle = Math.acos(Math.max(-1, Math.min(1, v1.x * v2.x + v1.y * v2.y)));
+          const maxR = Math.min(len(B, A), len(B, C)) / 2;
+          const rr = Math.min(r, maxR);
+          const t = rr / Math.tan(angle / 2);
+
+          const p1 = { x: B.x + v1.x * t, y: B.y + v1.y * t };
+          const p2 = { x: B.x + v2.x * t, y: B.y + v2.y * t };
+
+          if (i === 0) d += `M ${p1.x.toFixed(2)} ${p1.y.toFixed(2)} `;
+          else d += `L ${p1.x.toFixed(2)} ${p1.y.toFixed(2)} `;
+
+          const cross = v1.x * v2.y - v1.y * v2.x;
+          const sweep = clockwise ? (cross < 0 ? 1 : 0) : (cross < 0 ? 0 : 1);
+
+          d += `A ${rr.toFixed(2)} ${rr.toFixed(2)} 0 0 ${sweep} ${p2.x.toFixed(2)} ${p2.y.toFixed(2)} `;
+        }
+        d += 'Z';
+        return d;
+      };
+
+      const drawDiag3 = (mod) => {
+        const svg = mod.querySelector('.module__bg');
+        const cellA = mod.querySelector('[data-region="a"]');
+        const cellB = mod.querySelector('[data-region="b"]');
+        const cellC = mod.querySelector('[data-region="c"]');
+        if (!svg || !cellA || !cellB || !cellC) return;
+
+        const rect = mod.getBoundingClientRect();
+        const W = rect.width;
+        const H = rect.height;
+        if (W < 10 || H < 10) return;
+
+        const gap = getVarPx(mod, '--gap', 14);
+        const shift = getVarPx(mod, '--diagShift', 34);
+        const radius = getVarPx(mod, '--radiusShape', 24);
+
+        const rA = cellA.getBoundingClientRect();
+        const rB = cellB.getBoundingClientRect();
+        const rC = cellC.getBoundingClientRect();
+
+        const yA0 = Math.max(0, rA.top - rect.top);
+        const yA1 = Math.min(H, rA.bottom - rect.top);
+        const yB0 = Math.max(0, rB.top - rect.top);
+        const yB1 = Math.min(H, rB.bottom - rect.top);
+
+        const xSplit = Math.max(0, Math.min(W, rA.right - rect.left));
+
+        const isStacked = (rC.top - rect.top) > (rB.bottom - rect.top) + 2;
+        const fillOf = (el, fallback) => {
+          const v = getComputedStyle(el).getPropertyValue('--fill').trim();
+          return v || fallback;
+        };
+
+        if (isStacked) {
+          const rectPath = (rEl) => {
+            const x0 = Math.max(0, rEl.left - rect.left);
+            const y0 = Math.max(0, rEl.top - rect.top);
+            const x1 = Math.min(W, rEl.right - rect.left);
+            const y1 = Math.min(H, rEl.bottom - rect.top);
+            return roundPath([[x0, y0], [x1, y0], [x1, y1], [x0, y1]], radius);
+          };
+          svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+          svg.setAttribute('preserveAspectRatio', 'none');
+          svg.innerHTML = `
+            <path d="${rectPath(rA)}" fill="${fillOf(cellA, '#DDF6FB')}" />
+            <path d="${rectPath(rB)}" fill="${fillOf(cellB, '#00ACC6')}" />
+            <path d="${rectPath(rC)}" fill="${fillOf(cellC, '#FBFEFF')}" />
+          `;
+          return;
+        }
+
+        const xDiag = (y) => xSplit - (shift * (y / H));
+        const xDiag2 = (y) => xDiag(y) + gap;
+
+        const pathA = roundPath([
+          [0, yA0],
+          [xDiag(yA0), yA0],
+          [xDiag(yA1), yA1],
+          [0, yA1],
+        ], radius);
+
+        const pathB = roundPath([
+          [0, yB0],
+          [xDiag(yB0), yB0],
+          [xDiag(yB1), yB1],
+          [0, yB1],
+        ], radius);
+
+        const pathC = roundPath([
+          [xDiag2(0), 0],
+          [W, 0],
+          [W, H],
+          [xDiag2(H), H],
+        ], radius);
+
+        svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+        svg.setAttribute('preserveAspectRatio', 'none');
+        svg.innerHTML = `
+          <path d="${pathA}" fill="${fillOf(cellA, '#DDF6FB')}" />
+          <path d="${pathB}" fill="${fillOf(cellB, '#00ACC6')}" />
+          <path d="${pathC}" fill="${fillOf(cellC, '#FBFEFF')}" />
+        `;
+      };
+
+      const setup = () => {
+        const modulesDiag = Array.from(document.querySelectorAll('.module[data-module="diag3"]'));
+        const modulesStack = Array.from(document.querySelectorAll('.module[data-module="stack3"]'));
+        const ro = new ResizeObserver((entries) => {
+          for (const e of entries) {
+            const t = e.target.getAttribute('data-module');
+            if (t === 'diag3') drawDiag3(e.target);
+            if (t === 'stack3') drawDiag3(e.target); // stacked branch handles it
+          }
+        });
+        for (const m of [...modulesDiag, ...modulesStack]) {
+          ro.observe(m);
+          requestAnimationFrame(() => drawDiag3(m));
+        }
+      };
+
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', setup);
+      else setup();
+    })();
+  </script>
 </body>
 </html>
