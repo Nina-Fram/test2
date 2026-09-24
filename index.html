@@ -50,16 +50,46 @@
 
     .page{ max-width: var(--max); margin: 0 auto; padding: 28px 18px 72px; }
 
-    .hero{ padding-bottom: 16px; }
+    .hero{ padding-bottom: 10px; }
+    .hero-top{
+      background: var(--surface);
+      border: 1px solid rgba(10,24,35,0.10);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+      padding: 16px;
+    }
+    .hero-grid{
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      align-items: center;
+    }
+    .hero-copy{
+      display: grid;
+      gap: 10px;
+      align-content: start;
+      max-width: 72ch;
+    }
+    .hero-mascot{
+      justify-self: center;
+      align-self: center;
+      background: transparent;
+    }
+    .hero-mascot img{
+      display: block;
+      height: 220px;
+      width: auto;
+      max-width: 100%;
+      object-fit: contain;
+    }
     .brand{
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      padding: 10px 12px;
+      padding: 8px 10px;
       border-radius: 14px;
-      background: var(--surface);
-      border: 1px solid rgba(10,24,35,0.10);
-      box-shadow: 0 10px 20px rgba(10,24,35,0.06);
+      background: rgba(0,172,198,0.10);
+      border: 1px solid rgba(0,172,198,0.22);
     }
     .kicker{
       display: inline-flex;
@@ -69,7 +99,7 @@
       font-weight: 800;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: rgba(10,24,35,0.72);
+      color: rgba(10,24,35,0.84);
     }
     .kline{ width: 22px; height: 2px; border-radius: 999px; background: var(--blue); flex-shrink: 0; transform: translateY(1px); }
 
@@ -88,7 +118,7 @@
     }
 
     .nav{
-      margin-top: 16px;
+      margin-top: 14px;
       z-index: 10;
       background: transparent;
     }
@@ -119,13 +149,21 @@
       display: grid;
       grid-template-columns: 1fr;
       gap: 6px;
+      background: var(--surface);
+      border: 1px solid rgba(10,24,35,0.10);
+      border-radius: 18px;
+      box-shadow: 0 10px 22px rgba(10,24,35,0.07);
+      overflow: hidden;
+    }
+    .nav-list li + li{
+      border-top: 1px solid rgba(10,24,35,0.08);
     }
     .nav-link{
       display: grid;
       grid-template-columns: 20px 1fr;
       gap: 10px;
       align-items: start;
-      padding: 8px 0;
+      padding: 12px 14px;
       border-radius: 10px;
       border: none;
       background: transparent;
@@ -189,30 +227,38 @@
       align-items: start;
     }
 
-    .scene{
-      border-radius: 16px;
-      padding: 12px 0 0;
-      background: transparent;
-    }
-    .scene-media{
-      width: 100%;
-      aspect-ratio: 4 / 3;
-      border-radius: 14px;
-      background: rgba(10,24,35,0.04);
-      border: 1px dashed rgba(10,24,35,0.22);
-      display: grid;
-      place-items: center;
-      color: rgba(10,24,35,0.55);
-      text-align: center;
+    .insert{
+      border-radius: 18px;
       padding: 14px;
-      font-weight: 600;
+      background: #FFFFFF;
+      border: 1px solid rgba(10,24,35,0.10);
+      box-shadow: 0 10px 22px rgba(10,24,35,0.06);
     }
-    .scene-media span{ display: block; max-width: 34ch; }
-    .scene figcaption{
-      margin-top: 10px;
-      font-size: 14px;
-      color: rgba(10,24,35,0.86);
-      font-weight: 700;
+    .insert-media{ width: 100%; }
+    .insert-media img{
+      display: block;
+      margin: 0 auto;
+      height: 184px;
+      width: auto;
+      max-width: 100%;
+      object-fit: contain;
+    }
+    .insert-caption{
+      margin-top: 12px;
+      display: grid;
+      gap: 4px;
+    }
+    .insert-caption .top{
+      font-weight: 900;
+      color: rgba(0,85,100,0.98);
+      letter-spacing: -0.01em;
+      font-size: 15px;
+    }
+    .insert-caption .bottom{
+      font-weight: 800;
+      color: rgba(10,24,35,0.92);
+      letter-spacing: -0.01em;
+      font-size: 15px;
     }
 
     .answer{
@@ -285,14 +331,19 @@
 
       .situation-grid{
         grid-template-columns: 340px 1fr;
-        grid-template-areas: "scene answer";
+        grid-template-areas: "insert answer";
         gap: 22px;
       }
+      .hero-top{ padding: 18px; }
+      .hero-grid{ grid-template-columns: 1fr 300px; gap: 18px; }
+      .hero-mascot{ justify-self: end; }
+      .hero-mascot img{ height: 260px; }
     }
     @media (max-width: 859px){
-      .situation-grid{ grid-template-areas: "answer" "scene"; }
+      .situation-grid{ grid-template-areas: "answer" "insert"; }
+      .hero-mascot img{ height: 140px; }
     }
-    .scene{ grid-area: scene; }
+    .insert{ grid-area: insert; }
     .answer{ grid-area: answer; }
 
     @media (prefers-reduced-motion: reduce){
@@ -303,15 +354,24 @@
 <body>
   <main class="page">
     <header class="hero">
-      <div class="brand">
-        <div class="kicker"><span class="kline" aria-hidden="true"></span><span>INVITRO · Дизайн-команда</span></div>
+      <div class="hero-top">
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <div class="brand">
+              <div class="kicker"><span class="kline" aria-hidden="true"></span><span>INVITRO · Дизайн-команда</span></div>
+            </div>
+            <h1>Как договориться в команде</h1>
+            <p class="lead">Выбери свою ситуацию: что сделать, как начать разговор и к кому обратиться.</p>
+          </div>
+          <div class="hero-mascot" aria-hidden="true">
+            <img src="assets/mascot/invitrik-brandbook.png" alt="" />
+          </div>
+        </div>
       </div>
-      <h1>Как договориться в команде</h1>
-      <p class="lead">Выбери свою ситуацию: что сделать, как начать разговор и к кому обратиться.</p>
 
       <nav class="nav" id="situations" aria-label="Навигация по ситуациям">
         <div class="nav-inner">
-          <div class="nav-title">К ситуациям</div>
+          <div class="nav-title">Что случилось?</div>
           <ol class="nav-list">
             <li><a class="nav-link" href="#cant-agree"><span class="nav-num">1</span><span class="nav-text">Спорим, но не можем договориться.</span></a></li>
             <li><a class="nav-link" href="#misaligned"><span class="nav-num">2</span><span class="nav-text">Договорились, а потом каждый понял по‑своему.</span></a></li>
@@ -362,12 +422,15 @@
               <a class="back" href="#situations">К ситуациям</a>
             </div>
 
-            <figure class="scene" aria-label="Сценка с маскотом (пока плейсхолдер)">
-              <div class="scene-media" role="img" aria-label="Место для иллюстрации с маскотом">
-                <span>Плейсхолдер для сцены с маскотом. Заменим на официальный ассет.</span>
+            <aside class="insert" aria-label="Короткая сценка с маскотом">
+              <div class="insert-media" aria-hidden="true">
+                <img src="assets/mascot/invitrik-brandbook.png" alt="" />
               </div>
-              <figcaption>Работать вместе… искать следующий шаг, а не последний аргумент.</figcaption>
-            </figure>
+              <div class="insert-caption" aria-hidden="true">
+                <div class="top">Работать вместе…</div>
+                <div class="bottom">…искать следующий шаг, а не последний аргумент.</div>
+              </div>
+            </aside>
           </div>
         </div>
       </section>
