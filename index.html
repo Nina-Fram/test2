@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Как договориться в команде · INVITRO</title>
+  <meta name="description" content="Иногда спор заходит в тупик, фидбек сбивает с толку, а договорённости понимают по-разному. Найди свою ситуацию и посмотри, что можно сделать." />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root{
+      --bg: #FFFFFF;
+      --pageBg: #FFFFFF;
+      --surface: #FFFFFF;
+      --text: #0A1823;
+      --muted: rgba(10,24,35,0.72);
+      --muted2: rgba(10,24,35,0.58);
+      --line: rgba(10,24,35,0.12);
+      --shadow: 0 14px 30px rgba(10,24,35,0.10);
+      --radiusOuter: 26px;
+      --radiusInner: 22px;
+      --max: 980px;
+      --gap: 14px;
+      --diagShift: 34px;
+      --radiusShape: 24px;
+
+      /* Brand palette (from brandbook) */
+      --blue: #00ACC6;
+      --orange: #FF5601;
+      --black-blue: #0B2231;
+
+      --soft: #DDF6FB;
+      --soft2: #F2FCFE;
+      --paper: #FFFFFF;
+      --paper2: #FBFEFF;
+
+      /* Layout */
+      --stickyTop: 10px;
+      --anchorOffset: 84px;
+    }
+
+    html{ scroll-padding-top: var(--anchorOffset); }
+
+    body{
+      font-family: Hauss, Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text);
+      background: var(--pageBg);
+      font-size: 16px;
+      line-height: 1.55;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    a{ color: inherit; text-decoration-color: rgba(0,172,198,0.45); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+    a:hover{ text-decoration-color: rgba(0,172,198,0.90); }
+    a:focus-visible{ outline: 3px solid rgba(0,172,198,0.55); outline-offset: 3px; border-radius: 8px; }
+
+    .page{ max-width: var(--max); margin: 0 auto; padding: 28px 18px 72px; }
+
+    .hero{ padding-bottom: 10px; }
+
+    /* Branded modules: SVG shapes + HTML content above */
+    .module{
+      position: relative;
+      margin: 0 0 14px;
+    }
+    .module__bg{
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+    .module__content{
+      position: relative;
+      display: grid;
+      gap: var(--gap);
+      align-items: start;
+    }
+    .module--diag3 .module__content{
+      grid-template-columns: 1fr 1.22fr;
+      grid-template-rows: auto auto;
+      grid-template-areas:
+        "a c"
+        "b c";
+      column-gap: 0;
+    }
+    .module--stack3 .module__content{
+      grid-template-columns: 1fr;
+      grid-template-rows: auto auto auto;
+      grid-template-areas:
+        "a"
+        "b"
+        "c";
+    }
+    .module__a{ grid-area: a; }
+    .module__b{ grid-area: b; }
+    .module__c{ grid-area: c; align-self: stretch; }
+
+    .plaque{
+      border-radius: var(--radiusShape);
+      padding: 18px;
+      position: relative;
+      z-index: 1;
+    }
+    .fill-paper{ --fill: var(--paper); }
+    .fill-paper2{ --fill: var(--paper2); }
+    .fill-soft{ --fill: var(--soft); }
+    .fill-soft2{ --fill: var(--soft2); }
+    .fill-blue{ --fill: var(--blue); color: #FFFFFF; }
+
+    .cover{ margin-bottom: 14px; }
+    .cover-text{ }
+    .brand{
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 10px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.90);
+      border: 1px solid rgba(10,24,35,0.10);
+      box-shadow: 0 10px 20px rgba(10,24,35,0.06);
+    }
+    .kicker{
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(10,24,35,0.84);
+    }
+    .kline{ width: 22px; height: 2px; border-radius: 999px; background: var(--blue); flex-shrink: 0; transform: translateY(1px); }
+
+    h1{
+      font-size: clamp(32px, 4.3vw, 52px);
+      line-height: 1.04;
+      letter-spacing: -0.04em;
+      margin-bottom: 10px;
+      font-weight: 800;
+    }
+    .lead{
+      max-width: 74ch;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.7;
+    }
+    .lead strong{ font-weight: 800; color: rgba(10,24,35,0.88); }
+    .cover-accent{
+      padding: 12px 14px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      font-size: 16px;
+      line-height: 1.25;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding-top: 14px;
+      padding-bottom: 14px;
+    }
+    .cover-accent-badge{
+      width: 28px;
+      height: 28px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      background: rgba(255,86,1,0.26);
+      border: 1px solid rgba(255,86,1,0.35);
+      color: #FFFFFF;
+      line-height: 1;
+    }
+    .cover-ill{
+      padding: 14px;
+      display: grid;
+      place-items: center;
+    }
+    .cover-ill picture, .cover-ill img{ display: block; width: 100%; height: auto; }
+    .cover-ill img{ max-height: 380px; object-fit: contain; }
+
+    .nav{
+      margin-top: 14px;
+      z-index: 10;
+      background: transparent;
+    }
+    .nav-inner{
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    .nav-box{
+      padding: 12px 14px 10px;
+      border-radius: 22px;
+      background: #FFFFFF;
+    }
+    .nav-title{
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      color: rgba(10,24,35,0.86);
+      padding: 0 14px 10px;
+    }
+    .nav-title::before{
+      content: "";
+      width: 14px;
+      height: 14px;
+      border-radius: 5px;
+      background: rgba(0,172,198,0.18);
+      border: 1px solid rgba(0,172,198,0.32);
+    }
+    .nav-list{
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+      position: relative;
+    }
+    .nav-list::before{ display: none; }
+    .nav-link{
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: 10px;
+      align-items: start;
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: none;
+      background: transparent;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(10,24,35,0.10);
+    }
+    .nav-list li:last-child .nav-link{ border-bottom: none; }
+    .nav-link:hover{
+      background: rgba(0,172,198,0.10);
+    }
+    .nav-link:focus-visible{
+      outline: 3px solid rgba(0,172,198,0.45);
+      outline-offset: -3px;
+      border-radius: 14px;
+    }
+    .nav-link:hover .nav-num{
+      background: rgba(0,172,198,0.16);
+    }
+    .nav-link:hover .nav-text{ text-decoration: underline; text-decoration-color: rgba(0,172,198,0.70); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+    .nav-num{
+      width: 28px;
+      height: 28px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      font-size: 13px;
+      font-weight: 800;
+      color: #FFFFFF;
+      background: var(--blue);
+    }
+    .nav-text{
+      font-size: 14px;
+      line-height: 1.35;
+      color: rgba(10,24,35,0.88);
+    }
+
+    .content{ margin-top: 18px; display: grid; gap: 18px; }
+
+    .situation{
+      scroll-margin-top: var(--anchorOffset);
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      box-shadow: none;
+      overflow: visible;
+    }
+    .situation-inner{
+      padding: 0;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--gap);
+    }
+    .situation-head{
+      display: grid;
+      gap: 8px;
+    }
+    .situation-head h2{
+      font-size: 24px;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      font-weight: 800;
+    }
+    .situation-head p{
+      color: var(--muted);
+      line-height: 1.6;
+      max-width: 80ch;
+    }
+
+    .macro{ }
+    .module--situation{ margin-top: 6px; }
+    .module--situation .plaque{ padding: 16px; }
+    .module--situation .answer{ padding: 18px; }
+    .module--situation .tagline{ padding: 14px 16px; }
+    .module--situation .insert{ padding: 14px 16px; }
+
+    .insert{
+      padding: 14px;
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      place-items: center;
+    }
+    .insert-media{ width: 100%; }
+    .insert-media img{
+      display: block;
+      margin: 0 auto;
+      width: 100%;
+      height: auto;
+      max-height: 320px;
+      object-fit: contain;
+    }
+    .tagline{
+      padding: 14px;
+      position: relative;
+      overflow: hidden;
+    }
+    .tagline .top{
+      font-weight: 900;
+      color: rgba(0,85,100,0.98);
+      letter-spacing: -0.01em;
+      font-size: 16px;
+    }
+    .tagline .bottom{
+      margin-top: 4px;
+      font-weight: 900;
+      color: rgba(10,24,35,0.92);
+      letter-spacing: -0.02em;
+      font-size: 16px;
+      line-height: 1.25;
+    }
+
+    .answer{
+      display: grid;
+      gap: 14px;
+      padding: 16px;
+    }
+    .answer h3{
+      font-size: 16px;
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+      font-weight: 800;
+      color: rgba(10,24,35,0.92);
+      margin-bottom: 8px;
+    }
+    .steps{
+      margin-left: 18px;
+      display: grid;
+      gap: 8px;
+      color: rgba(10,24,35,0.84);
+    }
+    .say{
+      padding: 14px 14px;
+      border-radius: 16px;
+      background: rgba(0,172,198,0.10);
+      color: rgba(10,24,35,0.92);
+      line-height: 1.6;
+      font-size: 17px;
+      font-weight: 650;
+      letter-spacing: -0.01em;
+    }
+    .say p{ margin: 0; }
+    .say p + p{ margin-top: 8px; }
+    .placeholder{
+      color: rgba(10,24,35,0.68);
+      line-height: 1.65;
+    }
+
+    .back{
+      margin-top: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+      color: rgba(0,85,100,0.95);
+      text-decoration: none;
+    }
+    .back::before{
+      content: "↑";
+      width: 22px;
+      height: 22px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      background: rgba(0,172,198,0.12);
+      border: 1px solid rgba(0,172,198,0.18);
+      color: rgba(10,24,35,0.86);
+    }
+    .back:hover{ text-decoration: underline; text-decoration-color: rgba(0,172,198,0.70); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+
+    .footer{
+      margin-top: 18px;
+      color: rgba(10,24,35,0.68);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    .footer b{ color: rgba(10,24,35,0.86); }
+
+    @media (min-width: 860px){
+      .nav{ position: sticky; top: var(--stickyTop); }
+      .nav-inner{ grid-template-columns: 1fr; }
+      .nav-list{
+        grid-template-columns: 1fr 1fr;
+        grid-auto-flow: column;
+        grid-template-rows: repeat(4, auto);
+        column-gap: 26px;
+      }
+      .nav-list::before{
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 50%;
+        width: 1px;
+        background: rgba(10,24,35,0.10);
+        transform: translateX(-0.5px);
+        display: block;
+        pointer-events: none;
+      }
+
+      /* cover + situations handled by module layout */
+    }
+    @media (max-width: 859px){
+      .cover-ill img{ max-height: 220px; }
+    }
+    .insert{ }
+    .answer{ }
+
+    @media (max-width: 859px){
+      .module--diag3 .module__content{
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        grid-template-areas:
+          "a"
+          "b"
+          "c";
+      }
+      .module[data-mobile="answer-first"].module--diag3 .module__content,
+      .module[data-mobile="answer-first"].module--stack3 .module__content{
+        grid-template-areas:
+          "c"
+          "a"
+          "b";
+      }
+      .cover-ill img{ max-height: 240px; }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      *, *::before, *::after{ scroll-behavior: auto !important; transition: none !important; animation: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <section class="cover module module--diag3" data-module="diag3" aria-label="Обложка гайда">
+        <svg class="module__bg" aria-hidden="true"></svg>
+        <div class="module__content" aria-label="Композиция плашек обложки">
+          <div class="plaque fill-soft module__a cover-text" data-region="a">
+            <div class="brand">
+              <div class="kicker"><span class="kline" aria-hidden="true"></span><span>INVITRO · Дизайн-команда</span></div>
+            </div>
+            <h1>Как договориться в команде</h1>
+            <p class="lead">Иногда спор заходит в тупик, фидбек сбивает с толку, а договорённости понимают по‑разному. Найди свою ситуацию и посмотри, что можно сделать.</p>
+          </div>
+
+          <aside class="plaque fill-paper2 module__c cover-ill" data-region="c" aria-label="Иллюстрация обложки">
+            <picture>
+              <source type="image/webp" srcset="assets/scenes/webp/hero-guide.webp" />
+              <img src="assets/scenes/hero-guide.png" width="1152" height="864" alt="Маскот с путеводителем по рабочим ситуациям" loading="eager" decoding="async" />
+            </picture>
+          </aside>
+
+          <aside class="plaque fill-blue module__b cover-accent" data-region="b" aria-label="Акцент">
+            <span class="cover-accent-badge" aria-hidden="true">7</span>
+            <span>знакомых ситуаций — и идеи, что делать дальше</span>
+          </aside>
+        </div>
+      </section>
+
+      <nav class="nav" id="situations" aria-label="Навигация по ситуациям">
+        <div class="nav-inner">
+          <div class="nav-box" aria-label="Что случилось — список ситуаций">
+            <div class="nav-title">Что случилось?</div>
+            <ol class="nav-list">
+            <li><a class="nav-link" href="#cant-agree"><span class="nav-num">1</span><span class="nav-text">Спорим, но не можем договориться</span></a></li>
+            <li><a class="nav-link" href="#misaligned"><span class="nav-num">2</span><span class="nav-text">Договорились, но поняли по‑разному</span></a></li>
+            <li><a class="nav-link" href="#unclear-feedback"><span class="nav-num">3</span><span class="nav-text">Получаю «не нравится» без объяснений</span></a></li>
+            <li><a class="nav-link" href="#who-decides"><span class="nav-num">4</span><span class="nav-text">Непонятно, кто принимает решение</span></a></li>
+            <li><a class="nav-link" href="#changed-without-me"><span class="nav-num">5</span><span class="nav-text">Интерфейс меняют без моего участия</span></a></li>
+            <li><a class="nav-link" href="#multi-team"><span class="nav-num">6</span><span class="nav-text">Задача затрагивает несколько команд</span></a></li>
+            <li><a class="nav-link" href="#mistake-found"><span class="nav-num">7</span><span class="nav-text">В моей работе нашли ошибку</span></a></li>
+            </ol>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <div class="content" aria-label="Ситуации и подсказки">
+      <section class="situation" id="cant-agree" data-layout="dialog" aria-labelledby="cant-agree-title">
+        <div class="situation-inner">
+          <header class="situation-head">
+            <h2 id="cant-agree-title">Спорим, но не можем договориться</h2>
+            <p>Кажется, всё уже сказали. Но разговор снова идёт по кругу, а решения всё нет.</p>
+          </header>
+
+          <div class="macro module module--stack3 module--situation" data-module="stack3" data-mobile="answer-first" aria-label="Ситуация: композиция плашек">
+            <svg class="module__bg" aria-hidden="true"></svg>
+            <div class="module__content">
+              <aside class="plaque fill-paper2 module__a insert" data-region="a" aria-label="Короткая сценка с маскотом">
+                <div class="insert-media" aria-hidden="true">
+                  <picture>
+                    <source type="image/webp" srcset="assets/scenes/webp/scene-dispute.webp" />
+                    <img src="assets/scenes/scene-dispute.png" width="1280" height="720" alt="Иллюстрация: два маскота обсуждают варианты" loading="lazy" decoding="async" />
+                  </picture>
+                </div>
+              </aside>
+
+              <aside class="plaque fill-soft module__b tagline" data-region="b" aria-label="Подпись к сценке">
+                <div class="top">Работать вместе…</div>
+                <div class="bottom">…искать следующий шаг, а не последний аргумент.</div>
+              </aside>
+
+              <div class="plaque fill-paper module__c answer" data-region="c" aria-label="Подсказки">
+                <section aria-label="Что сделать">
+                  <h3>Что сделать</h3>
+                  <ol class="steps">
+                    <li>Верни спор к одному вопросу: что именно вы сейчас выбираете?</li>
+                    <li>Договорись с командой, по какому критерию сравниваете варианты: польза для пользователя, задача, данные или ограничения.</li>
+                    <li>Если информации не хватает, решите, что проверить, кто это сделает и когда вы вернётесь к вопросу.</li>
+                  </ol>
+                </section>
+
+                <section aria-label="Как сказать">
+                  <h3>Как сказать</h3>
+                  <div class="say">
+                    <p>«Кажется, мы ходим по кругу. Что именно выбираем и по какому критерию?»</p>
+                    <p>«Чего нам не хватает, чтобы решить, и когда вернёмся к вопросу?»</p>
+                  </div>
+                </section>
+
+                <section aria-label="Если не помогло">
+                  <h3>Если не помогло</h3>
+                  <div class="placeholder">
+                    Позови того, кто поможет прояснить именно этот вопрос: по ревью — Любу, по продукту — продакта и при необходимости Костю, по коммуникации между дизайнерами — Нину. Ответственность за итоговое решение при этом остаётся там же, где и была.
+                  </div>
+                </section>
+
+                <a class="back" href="#situations">К ситуациям</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="situation" id="misaligned" data-layout="spread" data-ill="right" aria-labelledby="misaligned-title">
+        <div class="situation-inner">
+          <header class="situation-head">
+            <h2 id="misaligned-title">Договорились, но поняли по‑разному</h2>
+            <p>На встрече все кивнули. Через несколько дней оказалось, что каждый ушёл со своей версией решения.</p>
+          </header>
+          <div class="macro module module--diag3 module--situation" data-module="diag3" aria-label="Ситуация: композиция плашек">
+            <svg class="module__bg" aria-hidden="true"></svg>
+            <div class="module__content">
+            <div class="plaque fill-paper module__a answer" data-region="a" aria-label="Подсказки">
+              <section aria-label="Что сделать">
+                <h3>Что сделать</h3>
+                <ol class="steps">
+                  <li>Сверь, что каждый запомнил и записал после встречи.</li>
+                  <li>Собери один короткий итог: что решили, кто что делает и какие вопросы остались.</li>
+                  <li>Если решение изменилось, обнови запись и предупреди тех, кого это касается.</li>
+                </ol>
+              </section>
+
+              <section aria-label="Как сказать">
+                <h3>Как сказать</h3>
+                <div class="say">
+                  <p>«Кажется, мы по‑разному поняли итог. Я записала так: … Давайте сверимся»</p>
+                </div>
+              </section>
+
+              <section aria-label="Если не помогло">
+                <h3>Если не помогло</h3>
+                <div class="placeholder">Отдели то, о чём уже договорились, от открытого вопроса. Потом подключи того, кто отвечает за эту часть: продуктовую задачу или UX и интерфейс.</div>
+              </section>
+
+              <a class="back" href="#situations">К ситуациям</a>
+            </div>
+
+            <aside class="plaque fill-soft module__b tagline" data-region="b" aria-label="Подпись к сценке">
+              <div class="top">Работать вместе…</div>
+              <div class="bottom">…сверяться не только кивками.</div>
+            </aside>
+
+            <aside class="plaque fill-paper2 module__c insert" data-region="c" aria-label="Короткая сценка с маскотом">
+              <div class="insert-media" aria-hidden="true">
+                <picture>
+                  <source type="image/webp" srcset="assets/scenes/webp/scene-agreement.webp" />
+                  <img src="assets/scenes/scene-agreement.png" width="1152" height="864" alt="Иллюстрация: два маскота сверяют разные варианты" loading="lazy" decoding="async" />
+                </picture>
+              </div>
+            </aside>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="situation" id="unclear-feedback" data-layout="spread" data-ill="left" aria-labelledby="unclear-feedback-title">
+        <div class="situation-inner">
+          <header class="situation-head">
+            <h2 id="unclear-feedback-title">Получаю «не нравится» без объяснений</h2>
+            <p>Смотришь на комментарий «что‑то не то» и пытаешься угадать: проблема в сценарии, визуале или вообще в задаче.</p>
+          </header>
+          <div class="macro module module--diag3 module--situation" data-module="diag3" aria-label="Ситуация: композиция плашек">
+            <svg class="module__bg" aria-hidden="true"></svg>
+            <div class="module__content">
+            <aside class="plaque fill-paper2 module__a insert" data-region="a" aria-label="Короткая сценка с маскотом">
+              <div class="insert-media" aria-hidden="true">
+                <picture>
+                  <source type="image/webp" srcset="assets/scenes/webp/scene-feedback.webp" />
+                  <img src="assets/scenes/scene-feedback.png" width="1152" height="864" alt="Иллюстрация: маскот рассматривает деталь макета через лупу" loading="lazy" decoding="async" />
+                </picture>
+              </div>
+            </aside>
+
+            <aside class="plaque fill-soft module__b tagline" data-region="b" aria-label="Подпись к сценке">
+              <div class="top">Работать вместе…</div>
+              <div class="bottom">…уточнять, а не угадывать.</div>
+            </aside>
+
+            <div class="plaque fill-paper module__c answer" data-region="c" aria-label="Подсказки">
+              <section aria-label="Что сделать">
+                <h3>Что сделать</h3>
+                <ol class="steps">
+                  <li>Попроси показать конкретное место в макете.</li>
+                  <li>Уточни, чему оно мешает: пользователю, задаче, ограничениям или общей логике.</li>
+                  <li>Перед правками проговори, какую именно проблему вы собираетесь решить.</li>
+                </ol>
+              </section>
+
+              <section aria-label="Как сказать">
+                <h3>Как сказать</h3>
+                <div class="say">
+                  <p>«Покажи, пожалуйста, где именно возникает вопрос. Что здесь не работает для пользователя или задачи?»</p>
+                </div>
+              </section>
+
+              <section aria-label="Если не помогло">
+                <h3>Если не помогло</h3>
+                <div class="placeholder">Возьмите один конкретный сценарий и пройдите его вместе. Если вопрос в самом процессе ревью, подключи Любу.</div>
+              </section>
+
+              <a class="back" href="#situations">К ситуациям</a>
+            </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="situation" id="who-decides" data-layout="work" aria-labelledby="who-decides-title">
+        <div class="situation-inner">
+          <header class="situation-head">
+            <h2 id="who-decides-title">Непонятно, кто принимает решение</h2>
+            <p>В одном разговоре смешались бизнес‑задача, пользовательский сценарий и интерфейс. В итоге все обсуждают всё.</p>
+          </header>
+          <div class="macro module module--stack3 module--situation" data-module="stack3" data-mobile="answer-first" aria-label="Ситуация: композиция плашек">
+            <svg class="module__bg" aria-hidden="true"></svg>
+            <div class="module__content">
+            <aside class="plaque fill-paper2 module__a insert" data-region="a" aria-label="Короткая сценка с маскотом">
+              <div class="insert-media" aria-hidden="true">
+                <picture>
+                  <source type="image/webp" srcset="assets/scenes/webp/scene-responsibility.webp" />
+                  <img src="assets/scenes/scene-responsibility.png" width="1280" height="720" alt="Иллюстрация: два маскота вместе отмечают цель и путь" loading="lazy" decoding="async" />
+                </picture>
+              </div>
+            </aside>
+
+            <aside class="plaque fill-soft module__b tagline" data-region="b" aria-label="Подпись к сценке">
+              <div class="top">Работать вместе…</div>
+              <div class="bottom">…понимать, кто за что отвечает.</div>
+            </aside>
+
+            <div class="plaque fill-paper module__c answer" data-region="c" aria-label="Подсказки">
+              <section aria-label="Что сделать">
+                <h3>Что сделать</h3>
+                <ol class="steps">
+                  <li>Раздели вопросы: где речь о задаче, а где — об UX и интерфейсе.</li>
+                  <li>Держи базовую рамку в голове: за задачу и бизнес‑контекст отвечает продакт, за UX и интерфейс — дизайнер.</li>
+                  <li>Согласуй ограничения и коротко запиши итог.</li>
+                </ol>
+              </section>
+
+              <section aria-label="Как сказать">
+                <h3>Как сказать</h3>
+                <div class="say">
+                  <p>«Давайте разделим: что сейчас решаем по задаче, а что — по UX и интерфейсу?»</p>
+                </div>
+              </section>
+
+              <section aria-label="Если не помогло">
+                <h3>Если не помогло</h3>
+                <div class="placeholder">По продуктовой части подключи продакта и при необходимости Костю. Если вопрос упирается в процесс ревью — Любу.</div>
+              </section>
+
+              <a class="back" href="#situations">К ситуациям</a>
+            </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="situation" id="changed-without-me" data-layout="spread" data-ill="right" aria-labelledby="changed-without-me-title">
+        <div class="situation-inner">
+          <header class="situation-head">
+            <h2 id="changed-without-me-title">Интерфейс меняют без моего участия</h2>
+            <p>Об изменении интерфейса ты узнаёшь, когда его уже обсудили или отдали в разработку.</p>
+          </header>
+          <div class="macro module module--diag3 module--situation" data-module="diag3" aria-label="Ситуация: композиция плашек">
+            <svg class="module__bg" aria-hidden="true"></svg>
+            <div class="module__content">
+            <div class="plaque fill-paper module__a answer" data-region="a" aria-label="Подсказки">
+              <section aria-label="Что сделать">
+                <h3>Что сделать</h3>
+                <ol class="steps">
+                  <li>Узнай, что изменили, зачем и насколько далеко уже продвинулась работа.</li>
+                  <li>Вместе проверьте, как изменение влияет на пользовательский сценарий и принятые стандарты.</li>
+                  <li>Договорись, в какой момент подключать тебя в следующий раз.</li>
+                </ol>
+              </section>
+
+              <section aria-label="Как сказать">
+                <h3>Как сказать</h3>
+                <div class="say">
+                  <p>«Вижу, что интерфейс изменился. Давайте быстро сверим задачу и влияние на сценарий, пока решение ещё можно поправить»</p>
+                </div>
+              </section>
+
+              <section aria-label="Если не помогло">
+                <h3>Если не помогло</h3>
+                <div class="placeholder">Собери несколько конкретных примеров и обсуди их с продактом. Если договориться о процессе не получается, подключи Костю.</div>
+              </section>
+
+              <a class="back" href="#situations">К ситуациям</a>
+            </div>
+
+            <aside class="plaque fill-soft module__b tagline" data-region="b" aria-label="Подпись к сценке">
+              <div class="top">Работать вместе…</div>
+              <div class="bottom">…подключать дизайнера до принятия решения.</div>
+            </aside>
+
+            <aside class="plaque fill-paper2 module__c insert" data-region="c" aria-label="Короткая сценка с маскотом">
+              <div class="insert-media" aria-hidden="true">
+                <picture>
+                  <source type="image/webp" srcset="assets/scenes/webp/scene-involvement.webp" />
+                  <img src="assets/scenes/scene-involvement.png" width="1152" height="864" alt="Иллюстрация: маскот приглашает второго маскота подключиться к обсуждению" loading="lazy" decoding="async" />
+                </picture>
+              </div>
+            </aside>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="situation" id="multi-team" data-layout="work" aria-labelledby="multi-team-title">
+        <div class="situation-inner">
+          <header class="situation-head">
+            <h2 id="multi-team-title">Задача затрагивает несколько команд</h2>
+            <p>Каждая команда делает свою часть. Сложности начинаются там, где эти части встречаются.</p>
+          </header>
+          <div class="macro module module--stack3 module--situation" data-module="stack3" data-mobile="answer-first" aria-label="Ситуация: композиция плашек">
+            <svg class="module__bg" aria-hidden="true"></svg>
+            <div class="module__content">
+            <aside class="plaque fill-paper2 module__a insert" data-region="a" aria-label="Короткая сценка с маскотом">
+              <div class="insert-media" aria-hidden="true">
+                <picture>
+                  <source type="image/webp" srcset="assets/scenes/webp/scene-cross-team.webp" />
+                  <img src="assets/scenes/scene-cross-team.png" width="1280" height="720" alt="Иллюстрация: два маскота сверяют стык частей пользовательского пути" loading="lazy" decoding="async" />
+                </picture>
+              </div>
+            </aside>
+
+            <aside class="plaque fill-soft module__b tagline" data-region="b" aria-label="Подпись к сценке">
+              <div class="top">Работать вместе…</div>
+              <div class="bottom">…видеть не только свою часть.</div>
+            </aside>
+
+            <div class="plaque fill-paper module__c answer" data-region="c" aria-label="Подсказки">
+              <section aria-label="Что сделать">
+                <h3>Что сделать</h3>
+                <ol class="steps">
+                  <li>Покажи, где пересекаются ваши сценарии и от чего зависит каждая команда.</li>
+                  <li>Про приоритеты и зависимости договариваются продакты. Дизайнеры сверяют свои части и пользовательский путь между ними.</li>
+                  <li>Коротко запиши, кто что делает и что нужно проверить вместе.</li>
+                </ol>
+              </section>
+
+              <section aria-label="Как сказать">
+                <h3>Как сказать</h3>
+                <div class="say">
+                  <p>«Наши части встречаются здесь. Давайте сверим переход для пользователя, а зависимости согласуем с продактами»</p>
+                </div>
+              </section>
+
+              <section aria-label="Если не помогло">
+                <h3>Если не помогло</h3>
+                <div class="placeholder">Назови конкретную договорённость, которая блокирует работу, и передай её вовлечённым продактам. Не пытайся решить продуктовые приоритеты только в макетах.</div>
+              </section>
+
+              <a class="back" href="#situations">К ситуациям</a>
+            </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="situation" id="mistake-found" data-layout="spread" data-ill="left" aria-labelledby="mistake-found-title">
+        <div class="situation-inner">
+          <header class="situation-head">
+            <h2 id="mistake-found-title">В моей работе нашли ошибку</h2>
+            <p>Неприятно, когда ошибку замечают другие. Но сейчас важнее понять, на что она влияет и как её исправить.</p>
+          </header>
+          <div class="macro module module--diag3 module--situation" data-module="diag3" data-mobile="answer-first" aria-label="Ситуация: композиция плашек">
+            <svg class="module__bg" aria-hidden="true"></svg>
+            <div class="module__content">
+            <aside class="plaque fill-paper2 module__a insert" data-region="a" aria-label="Короткая сценка с маскотом">
+              <div class="insert-media" aria-hidden="true">
+                <picture>
+                  <source type="image/webp" srcset="assets/scenes/webp/scene-mistake.webp" />
+                  <img src="assets/scenes/scene-mistake.png" width="1152" height="864" alt="Иллюстрация: маскоты вместе поправляют небольшую ошибку" loading="lazy" decoding="async" />
+                </picture>
+              </div>
+            </aside>
+
+            <aside class="plaque fill-soft module__b tagline" data-region="b" aria-label="Подпись к сценке">
+              <div class="top">Работать вместе…</div>
+              <div class="bottom">…помогать исправить, а не искать виноватого.</div>
+            </aside>
+
+            <div class="plaque fill-paper module__c answer" data-region="c" aria-label="Подсказки">
+              <section aria-label="Что сделать">
+                <h3>Что сделать</h3>
+                <ol class="steps">
+                  <li>Уточни, где ошибка и что из‑за неё может пойти не так.</li>
+                  <li>Исправь её и предупреди тех, чью работу затронет изменение.</li>
+                  <li>Если ошибка может повториться, разберите причину и выберите одно улучшение.</li>
+                </ol>
+              </section>
+
+              <section aria-label="Как сказать">
+                <h3>Как сказать</h3>
+                <div class="say">
+                  <p>«Спасибо, что заметили. Давайте уточним, на что это влияет и что нужно исправить первым»</p>
+                </div>
+              </section>
+
+              <section aria-label="Если не помогло">
+                <h3>Если не помогло</h3>
+                <div class="placeholder">Если разговор уходит в личные оценки, верни его к самой ошибке и способу исправления. Если между дизайнерами не получается договориться о формате общения, подключи Нину.</div>
+              </section>
+
+              <a class="back" href="#situations">К ситуациям</a>
+            </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <footer class="footer">
+      Гайд вырос из нашего ретро и будет меняться вместе с командой. Если знакомой ситуации здесь нет или подсказка не помогает — принесём её на следующее обсуждение.
+    </footer>
+  </main>
+  <script>
+    (function () {
+      const getVarPx = (el, name, fallback) => {
+        const v = getComputedStyle(el).getPropertyValue(name).trim();
+        const n = parseFloat(v);
+        return Number.isFinite(n) ? n : fallback;
+      };
+
+      const roundPath = (pts, r) => {
+        if (!pts || pts.length < 3) return '';
+        const p = pts.map(([x, y]) => ({ x, y }));
+        const n = p.length;
+        const area = p.reduce((acc, cur, i) => {
+          const nxt = p[(i + 1) % n];
+          return acc + (cur.x * nxt.y - nxt.x * cur.y);
+        }, 0);
+        const clockwise = area < 0;
+
+        const len = (a, b) => Math.hypot(b.x - a.x, b.y - a.y);
+        const norm = (v) => {
+          const l = Math.hypot(v.x, v.y) || 1;
+          return { x: v.x / l, y: v.y / l };
+        };
+
+        let d = '';
+        for (let i = 0; i < n; i++) {
+          const A = p[(i - 1 + n) % n];
+          const B = p[i];
+          const C = p[(i + 1) % n];
+
+          const v1 = norm({ x: A.x - B.x, y: A.y - B.y });
+          const v2 = norm({ x: C.x - B.x, y: C.y - B.y });
+
+          const angle = Math.acos(Math.max(-1, Math.min(1, v1.x * v2.x + v1.y * v2.y)));
+          const maxR = Math.min(len(B, A), len(B, C)) / 2;
+          const rr = Math.min(r, maxR);
+          const t = rr / Math.tan(angle / 2);
+
+          const p1 = { x: B.x + v1.x * t, y: B.y + v1.y * t };
+          const p2 = { x: B.x + v2.x * t, y: B.y + v2.y * t };
+
+          if (i === 0) d += `M ${p1.x.toFixed(2)} ${p1.y.toFixed(2)} `;
+          else d += `L ${p1.x.toFixed(2)} ${p1.y.toFixed(2)} `;
+
+          const cross = v1.x * v2.y - v1.y * v2.x;
+          const sweep = clockwise ? (cross < 0 ? 1 : 0) : (cross < 0 ? 0 : 1);
+
+          d += `A ${rr.toFixed(2)} ${rr.toFixed(2)} 0 0 ${sweep} ${p2.x.toFixed(2)} ${p2.y.toFixed(2)} `;
+        }
+        d += 'Z';
+        return d;
+      };
+
+      const drawDiag3 = (mod) => {
+        const svg = mod.querySelector('.module__bg');
+        const cellA = mod.querySelector('[data-region="a"]');
+        const cellB = mod.querySelector('[data-region="b"]');
+        const cellC = mod.querySelector('[data-region="c"]');
+        if (!svg || !cellA || !cellB || !cellC) return;
+
+        const rect = mod.getBoundingClientRect();
+        const W = rect.width;
+        const H = rect.height;
+        if (W < 10 || H < 10) return;
+
+        const gap = getVarPx(mod, '--gap', 14);
+        const shift = getVarPx(mod, '--diagShift', 34);
+        const radius = getVarPx(mod, '--radiusShape', 24);
+
+        const rA = cellA.getBoundingClientRect();
+        const rB = cellB.getBoundingClientRect();
+        const rC = cellC.getBoundingClientRect();
+
+        const yA0 = Math.max(0, rA.top - rect.top);
+        const yA1 = Math.min(H, rA.bottom - rect.top);
+        const yB0 = Math.max(0, rB.top - rect.top);
+        const yB1 = Math.min(H, rB.bottom - rect.top);
+
+        const xSplit = Math.max(0, Math.min(W, rA.right - rect.left));
+
+        const isStacked = (rC.top - rect.top) > (rB.bottom - rect.top) + 2;
+        const fillOf = (el, fallback) => {
+          const v = getComputedStyle(el).getPropertyValue('--fill').trim();
+          return v || fallback;
+        };
+
+        if (isStacked) {
+          const rectPath = (rEl) => {
+            const x0 = Math.max(0, rEl.left - rect.left);
+            const y0 = Math.max(0, rEl.top - rect.top);
+            const x1 = Math.min(W, rEl.right - rect.left);
+            const y1 = Math.min(H, rEl.bottom - rect.top);
+            return roundPath([[x0, y0], [x1, y0], [x1, y1], [x0, y1]], radius);
+          };
+          svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+          svg.setAttribute('preserveAspectRatio', 'none');
+          svg.innerHTML = `
+            <path d="${rectPath(rA)}" fill="${fillOf(cellA, '#DDF6FB')}" />
+            <path d="${rectPath(rB)}" fill="${fillOf(cellB, '#00ACC6')}" />
+            <path d="${rectPath(rC)}" fill="${fillOf(cellC, '#FBFEFF')}" />
+          `;
+          return;
+        }
+
+        const xDiag = (y) => xSplit - (shift * (y / H));
+        const xDiag2 = (y) => xDiag(y) + gap;
+
+        const pathA = roundPath([
+          [0, yA0],
+          [xDiag(yA0), yA0],
+          [xDiag(yA1), yA1],
+          [0, yA1],
+        ], radius);
+
+        const pathB = roundPath([
+          [0, yB0],
+          [xDiag(yB0), yB0],
+          [xDiag(yB1), yB1],
+          [0, yB1],
+        ], radius);
+
+        const pathC = roundPath([
+          [xDiag2(0), 0],
+          [W, 0],
+          [W, H],
+          [xDiag2(H), H],
+        ], radius);
+
+        svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+        svg.setAttribute('preserveAspectRatio', 'none');
+        svg.innerHTML = `
+          <path d="${pathA}" fill="${fillOf(cellA, '#DDF6FB')}" />
+          <path d="${pathB}" fill="${fillOf(cellB, '#00ACC6')}" />
+          <path d="${pathC}" fill="${fillOf(cellC, '#FBFEFF')}" />
+        `;
+      };
+
+      const setup = () => {
+        const modulesDiag = Array.from(document.querySelectorAll('.module[data-module="diag3"]'));
+        const modulesStack = Array.from(document.querySelectorAll('.module[data-module="stack3"]'));
+        const ro = new ResizeObserver((entries) => {
+          for (const e of entries) {
+            const t = e.target.getAttribute('data-module');
+            if (t === 'diag3') drawDiag3(e.target);
+            if (t === 'stack3') drawDiag3(e.target); // stacked branch handles it
+          }
+        });
+        for (const m of [...modulesDiag, ...modulesStack]) {
+          ro.observe(m);
+          requestAnimationFrame(() => drawDiag3(m));
+        }
+      };
+
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', setup);
+      else setup();
+    })();
+  </script>
+</body>
+</html>

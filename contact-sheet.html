@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>INVITRO · Контактный лист иллюстраций</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root{
+      --bg: #ECEFEF;
+      --surface: #FFFFFF;
+      --text: #0A1823;
+      --muted: rgba(10,24,35,0.70);
+      --line: rgba(10,24,35,0.12);
+      --shadow: 0 10px 26px rgba(10,24,35,0.10);
+      --radius: 18px;
+      --max: 1100px;
+      --blue: #00ACC6;
+    }
+    body{
+      font-family: Hauss, Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      font-size: 16px;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    a{ color: inherit; text-decoration-color: rgba(0,172,198,0.55); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+    a:hover{ text-decoration-color: rgba(0,172,198,0.90); }
+    a:focus-visible{ outline: 3px solid rgba(0,172,198,0.55); outline-offset: 3px; border-radius: 8px; }
+
+    .page{ max-width: var(--max); margin: 0 auto; padding: 28px 18px 64px; }
+    header{ margin-bottom: 14px; }
+    .kicker{
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(10,24,35,0.84);
+    }
+    .kline{ width: 22px; height: 2px; border-radius: 999px; background: var(--blue); flex-shrink: 0; transform: translateY(1px); }
+    h1{
+      margin-top: 10px;
+      font-size: clamp(28px, 3.2vw, 44px);
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+      font-weight: 900;
+    }
+    .sub{
+      margin-top: 10px;
+      color: var(--muted);
+      max-width: 85ch;
+    }
+
+    .grid{
+      margin-top: 14px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    .card{
+      background: var(--surface);
+      border: 1px solid rgba(10,24,35,0.10);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .card-head{
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 14px;
+      border-bottom: 1px solid rgba(10,24,35,0.08);
+      align-items: baseline;
+    }
+    .card-head b{ font-weight: 900; letter-spacing: -0.01em; }
+    .card-head span{ color: rgba(10,24,35,0.62); font-size: 13px; }
+    .imgwrap{
+      background: #FFFFFF;
+      padding: 14px;
+      display: grid;
+      place-items: center;
+    }
+    .imgwrap img{ max-width: 100%; height: auto; display: block; }
+
+    @media (min-width: 920px){
+      .grid{ grid-template-columns: 1fr 1fr; }
+      .card.wide{ grid-column: 1 / -1; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header>
+      <div class="kicker"><span class="kline" aria-hidden="true"></span><span>INVITRO · Дизайн-команда</span></div>
+      <h1>Контактный лист иллюстраций (7 сцен)</h1>
+      <p class="sub">Сцены сгенерированы по официальному референсу Инвитрика. Внутри изображений нет текста; подписи и реплики живут в HTML‑вёрстке. Формат: WebP для страницы + PNG как исходник.</p>
+      <p class="sub"><a href="./index.html">Открыть гайд</a></p>
+    </header>
+
+    <section class="grid" aria-label="Сцены">
+      <article class="card wide" aria-label="scene-dispute">
+        <div class="card-head"><b>scene-dispute</b><span>Спорим, но не можем договориться</span></div>
+        <div class="imgwrap">
+          <picture>
+            <source type="image/webp" srcset="assets/scenes/webp/scene-dispute.webp" />
+            <img src="assets/scenes/scene-dispute.png" alt="" loading="lazy" decoding="async" />
+          </picture>
+        </div>
+      </article>
+
+      <article class="card" aria-label="scene-agreement">
+        <div class="card-head"><b>scene-agreement</b><span>Договорились, но поняли по‑разному</span></div>
+        <div class="imgwrap">
+          <picture>
+            <source type="image/webp" srcset="assets/scenes/webp/scene-agreement.webp" />
+            <img src="assets/scenes/scene-agreement.png" alt="" loading="lazy" decoding="async" />
+          </picture>
+        </div>
+      </article>
+
+      <article class="card" aria-label="scene-feedback">
+        <div class="card-head"><b>scene-feedback</b><span>«Не нравится» без объяснений</span></div>
+        <div class="imgwrap">
+          <picture>
+            <source type="image/webp" srcset="assets/scenes/webp/scene-feedback.webp" />
+            <img src="assets/scenes/scene-feedback.png" alt="" loading="lazy" decoding="async" />
+          </picture>
+        </div>
+      </article>
+
+      <article class="card wide" aria-label="scene-responsibility">
+        <div class="card-head"><b>scene-responsibility</b><span>Кто принимает решение</span></div>
+        <div class="imgwrap">
+          <picture>
+            <source type="image/webp" srcset="assets/scenes/webp/scene-responsibility.webp" />
+            <img src="assets/scenes/scene-responsibility.png" alt="" loading="lazy" decoding="async" />
+          </picture>
+        </div>
+      </article>
+
+      <article class="card" aria-label="scene-involvement">
+        <div class="card-head"><b>scene-involvement</b><span>Интерфейс меняют без участия</span></div>
+        <div class="imgwrap">
+          <picture>
+            <source type="image/webp" srcset="assets/scenes/webp/scene-involvement.webp" />
+            <img src="assets/scenes/scene-involvement.png" alt="" loading="lazy" decoding="async" />
+          </picture>
+        </div>
+      </article>
+
+      <article class="card wide" aria-label="scene-cross-team">
+        <div class="card-head"><b>scene-cross-team</b><span>Задача затрагивает несколько команд</span></div>
+        <div class="imgwrap">
+          <picture>
+            <source type="image/webp" srcset="assets/scenes/webp/scene-cross-team.webp" />
+            <img src="assets/scenes/scene-cross-team.png" alt="" loading="lazy" decoding="async" />
+          </picture>
+        </div>
+      </article>
+
+      <article class="card" aria-label="scene-mistake">
+        <div class="card-head"><b>scene-mistake</b><span>В работе нашли ошибку</span></div>
+        <div class="imgwrap">
+          <picture>
+            <source type="image/webp" srcset="assets/scenes/webp/scene-mistake.webp" />
+            <img src="assets/scenes/scene-mistake.png" alt="" loading="lazy" decoding="async" />
+          </picture>
+        </div>
+      </article>
+    </section>
+  </main>
+</body>
+</html>
+
