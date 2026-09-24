@@ -4,22 +4,24 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Как договориться в команде · INVITRO</title>
-  <meta name="description" content="Спор зашёл в тупик, фидбек непонятен или договорённости потерялись? Выбери свою ситуацию: здесь собраны подсказки, что сделать, как начать разговор и к кому обратиться." />
+  <meta name="description" content="Иногда спор заходит в тупик, фидбек сбивает с толку, а договорённости понимают по-разному. Найди свою ситуацию и посмотри, что можно сделать." />
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root{
-      --bg: #ECEFEF;
+      --bg: #FFFFFF;
       --surface: #FFFFFF;
       --text: #0A1823;
       --muted: rgba(10,24,35,0.72);
       --muted2: rgba(10,24,35,0.58);
       --line: rgba(10,24,35,0.12);
-      --shadow: 0 10px 26px rgba(10,24,35,0.10);
+      --shadow: 0 14px 30px rgba(10,24,35,0.10);
       --radius: 18px;
       --max: 980px;
+      --gap: 14px;
+      --slant: 34px;
 
       /* Brand palette (from brandbook) */
       --blue: #00ACC6;
@@ -51,65 +53,58 @@
     .page{ max-width: var(--max); margin: 0 auto; padding: 28px 18px 72px; }
 
     .hero{ padding-bottom: 10px; }
-    .hero-top{
+    .plaque{
       background: var(--surface);
       border: 1px solid rgba(10,24,35,0.10);
       border-radius: 22px;
       box-shadow: var(--shadow);
-      padding: 16px;
-      position: relative;
       overflow: hidden;
+      position: relative;
     }
-    .hero-top::before{
+    .plaque--accent{
+      background: rgba(0,172,198,0.10);
+      border-color: rgba(0,172,198,0.22);
+      box-shadow: 0 10px 22px rgba(10,24,35,0.06);
+    }
+    .plaque--blue{
+      background: var(--blue);
+      border-color: rgba(0,172,198,0.45);
+      box-shadow: 0 14px 30px rgba(0,172,198,0.14);
+      color: #FFFFFF;
+    }
+    .plaque--diag-left::before{
       content: "";
       position: absolute;
-      inset: -2px -2px -2px auto;
-      width: min(440px, 46%);
-      background: var(--blue);
-      clip-path: polygon(18% 0, 100% 0, 100% 100%, 0 100%);
-      opacity: 1;
+      left: calc(var(--gap) * -1);
+      top: -2px;
+      bottom: -2px;
+      width: calc(var(--gap) + var(--slant));
+      background: var(--bg);
+      clip-path: polygon(0 0, 100% 0, 0 100%);
       pointer-events: none;
     }
-    .hero-top::after{
-      content: "Гайд";
+    .plaque--diag-right::before{
+      content: "";
       position: absolute;
-      right: 18px;
-      bottom: 10px;
-      font-size: clamp(40px, 5vw, 68px);
-      line-height: 1;
-      font-weight: 900;
-      letter-spacing: -0.06em;
-      color: rgba(255,255,255,0.22);
+      right: calc(var(--gap) * -1);
+      top: -2px;
+      bottom: -2px;
+      width: calc(var(--gap) + var(--slant));
+      background: var(--bg);
+      clip-path: polygon(0 0, 100% 0, 100% 100%);
       pointer-events: none;
-      user-select: none;
     }
-    .hero-grid{
+
+    .cover{
       display: grid;
-      grid-template-columns: 1fr;
-      gap: 14px;
-      align-items: center;
-      position: relative;
+      gap: var(--gap);
+      margin-bottom: 14px;
     }
-    .hero-copy{
-      display: grid;
-      gap: 10px;
-      align-content: start;
-      max-width: 72ch;
-    }
-    .hero-mascot{
-      justify-self: center;
-      align-self: center;
-      background: transparent;
-      position: relative;
-      z-index: 1;
-    }
-    .hero-mascot img{
-      display: block;
-      height: 220px;
-      width: auto;
-      max-width: 100%;
-      object-fit: contain;
-      filter: drop-shadow(0 18px 28px rgba(10,24,35,0.18));
+    .cover-text{ padding: 16px 16px 14px; }
+    .cover-text{
+      background: rgba(0,172,198,0.06);
+      border-color: rgba(0,172,198,0.20);
+      box-shadow: 0 14px 30px rgba(10,24,35,0.08);
     }
     .brand{
       display: inline-flex;
@@ -117,7 +112,7 @@
       gap: 10px;
       padding: 8px 10px;
       border-radius: 14px;
-      background: rgba(255,255,255,0.85);
+      background: rgba(255,255,255,0.90);
       border: 1px solid rgba(10,24,35,0.10);
       box-shadow: 0 10px 20px rgba(10,24,35,0.06);
     }
@@ -147,6 +142,36 @@
       line-height: 1.7;
     }
     .lead strong{ font-weight: 800; color: rgba(10,24,35,0.88); }
+    .cover-accent{
+      padding: 12px 14px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      font-size: 16px;
+      line-height: 1.25;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .cover-accent::before{
+      content: "7";
+      width: 28px;
+      height: 28px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.22);
+      color: #FFFFFF;
+      line-height: 1;
+    }
+    .cover-ill{
+      padding: 14px;
+      display: grid;
+      place-items: center;
+    }
+    .cover-ill picture, .cover-ill img{ display: block; width: 100%; height: auto; }
+    .cover-ill img{ max-height: 320px; object-fit: contain; }
 
     .nav{
       margin-top: 14px;
@@ -158,6 +183,12 @@
       grid-template-columns: 1fr;
       gap: 10px;
     }
+    .nav-box{
+      padding: 12px 0;
+      background: rgba(0,172,198,0.04);
+      border-color: rgba(0,172,198,0.16);
+      box-shadow: 0 14px 30px rgba(10,24,35,0.08);
+    }
     .nav-title{
       display: flex;
       align-items: center;
@@ -166,6 +197,7 @@
       font-weight: 800;
       letter-spacing: -0.01em;
       color: rgba(10,24,35,0.86);
+      padding: 0 14px 10px;
     }
     .nav-title::before{
       content: "";
@@ -177,21 +209,12 @@
     }
     .nav-list{
       list-style: none;
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 0;
-      background: var(--surface);
-      border: 1px solid rgba(10,24,35,0.10);
-      border-radius: 18px;
-      box-shadow: 0 10px 22px rgba(10,24,35,0.07);
-      overflow: hidden;
-    }
-    .nav-list li + li{
-      border-top: 1px solid rgba(10,24,35,0.08);
+      margin: 0;
+      padding: 0 6px;
     }
     .nav-link{
       display: grid;
-      grid-template-columns: 20px 1fr;
+      grid-template-columns: 28px 1fr;
       gap: 10px;
       align-items: start;
       padding: 12px 14px;
@@ -199,6 +222,11 @@
       border: none;
       background: transparent;
       text-decoration: none;
+      border-bottom: 1px solid rgba(10,24,35,0.08);
+    }
+    .nav-list li:last-child .nav-link{ border-bottom: none; }
+    .nav-link:hover{
+      background: rgba(0,172,198,0.08);
     }
     .nav-link:focus-visible{
       outline: 3px solid rgba(0,172,198,0.45);
@@ -211,12 +239,12 @@
     }
     .nav-link:hover .nav-text{ text-decoration: underline; text-decoration-color: rgba(0,172,198,0.70); text-decoration-thickness: 2px; text-underline-offset: 3px; }
     .nav-num{
-      width: 20px;
-      height: 20px;
-      border-radius: 7px;
+      width: 28px;
+      height: 28px;
+      border-radius: 10px;
       display: grid;
       place-items: center;
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 800;
       color: rgba(10,24,35,0.86);
       background: rgba(0,172,198,0.12);
@@ -228,21 +256,21 @@
       color: rgba(10,24,35,0.88);
     }
 
-    .content{ margin-top: 18px; display: grid; gap: 14px; }
+    .content{ margin-top: 18px; display: grid; gap: 18px; }
 
     .situation{
       scroll-margin-top: var(--anchorOffset);
-      background: var(--surface);
-      border: 1px solid rgba(10,24,35,0.10);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow: hidden;
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      box-shadow: none;
+      overflow: visible;
     }
     .situation-inner{
-      padding: 18px;
+      padding: 0;
       display: grid;
       grid-template-columns: 1fr;
-      gap: 14px;
+      gap: var(--gap);
     }
     .situation-head{
       display: grid;
@@ -265,102 +293,56 @@
       grid-template-columns: 1fr;
       gap: 14px;
       align-items: start;
-      grid-template-areas: "answer" "insert";
+      grid-template-areas:
+        "answer"
+        "tagline"
+        "insert";
     }
 
     .insert{
-      border-radius: 18px;
       padding: 14px;
-      background: #FFFFFF;
-      border: 1px solid rgba(10,24,35,0.10);
-      box-shadow: 0 10px 22px rgba(10,24,35,0.06);
       position: relative;
       overflow: hidden;
+      display: grid;
+      place-items: center;
     }
-    .insert::before{
-      content: "";
-      position: absolute;
-      left: -24px;
-      top: -24px;
-      width: 120px;
-      height: 120px;
-      border-radius: 32px;
-      background: rgba(0,172,198,0.14);
-      transform: rotate(12deg);
-      pointer-events: none;
-    }
-    .insert[data-variant="misaligned"]::before{ transform: rotate(-10deg) translate(8px, 10px); }
-    .insert[data-variant="unclear-feedback"]::before{ transform: rotate(18deg) translate(10px, -6px); background: rgba(0,172,198,0.12); }
-    .insert[data-variant="who-decides"]::before{ transform: rotate(6deg) translate(16px, 4px); background: rgba(0,172,198,0.10); }
-    .insert[data-variant="changed-without-me"]::before{ transform: rotate(-16deg) translate(6px, 16px); background: rgba(0,172,198,0.12); }
-    .insert[data-variant="multi-team"]::before{ transform: rotate(10deg) translate(18px, 10px); background: rgba(0,172,198,0.10); }
-    .insert[data-variant="mistake-found"]::before{ transform: rotate(-6deg) translate(10px, 14px); background: rgba(0,172,198,0.12); }
-
-    .insert::after{
-      content: "";
-      position: absolute;
-      right: -30px;
-      bottom: -30px;
-      width: 110px;
-      height: 110px;
-      border-radius: 999px;
-      background: rgba(255,86,1,0);
-      pointer-events: none;
-    }
-    .insert[data-variant="unclear-feedback"]::after{ background: rgba(255,86,1,0.10); }
-    .insert[data-variant="changed-without-me"]::after{ background: rgba(255,86,1,0.08); }
-    .insert[data-variant="misaligned"]::before{ transform: rotate(-10deg) translate(8px, 10px); }
-    .insert[data-variant="unclear-feedback"]::before{ transform: rotate(18deg) translate(10px, -6px); background: rgba(0,172,198,0.12); }
-    .insert[data-variant="who-decides"]::before{ transform: rotate(6deg) translate(16px, 4px); background: rgba(0,172,198,0.10); }
-    .insert[data-variant="changed-without-me"]::before{ transform: rotate(-16deg) translate(6px, 16px); background: rgba(0,172,198,0.12); }
-    .insert[data-variant="multi-team"]::before{ transform: rotate(10deg) translate(18px, 10px); background: rgba(0,172,198,0.10); }
-    .insert[data-variant="mistake-found"]::before{ transform: rotate(-6deg) translate(10px, 14px); background: rgba(0,172,198,0.12); }
-
-    .insert::after{
-      content: "";
-      position: absolute;
-      right: -30px;
-      bottom: -30px;
-      width: 110px;
-      height: 110px;
-      border-radius: 999px;
-      background: rgba(255,86,1,0.00);
-      pointer-events: none;
-    }
-    .insert[data-variant="unclear-feedback"]::after{ background: rgba(255,86,1,0.10); }
-    .insert[data-variant="changed-without-me"]::after{ background: rgba(255,86,1,0.08); }
     .insert-media{ width: 100%; }
     .insert-media img{
       display: block;
       margin: 0 auto;
-      height: 184px;
-      width: auto;
-      max-width: 100%;
+      width: 100%;
+      height: auto;
+      max-height: 260px;
       object-fit: contain;
     }
-    .situation[data-layout="dialog"] .insert-media img{ height: 232px; }
-    .situation[data-layout="work"] .insert-media img{ height: 244px; }
-    .insert-caption{
-      margin-top: 12px;
-      display: grid;
-      gap: 4px;
+    .tagline{
+      padding: 14px;
+      position: relative;
+      overflow: hidden;
+      grid-area: tagline;
     }
-    .insert-caption .top{
+    .tagline .top{
       font-weight: 900;
       color: rgba(0,85,100,0.98);
       letter-spacing: -0.01em;
       font-size: 16px;
     }
-    .insert-caption .bottom{
-      font-weight: 800;
+    .tagline .bottom{
+      margin-top: 4px;
+      font-weight: 900;
       color: rgba(10,24,35,0.92);
-      letter-spacing: -0.01em;
+      letter-spacing: -0.02em;
       font-size: 16px;
+      line-height: 1.25;
     }
 
     .answer{
       display: grid;
       gap: 14px;
+      padding: 16px;
+      background: rgba(0,172,198,0.04);
+      border-color: rgba(0,172,198,0.18);
+      box-shadow: 0 14px 30px rgba(10,24,35,0.08);
     }
     .answer h3{
       font-size: 16px;
@@ -377,12 +359,15 @@
       color: rgba(10,24,35,0.84);
     }
     .say{
-      padding: 12px 12px;
-      border-left: 4px solid rgba(0,172,198,0.55);
-      background: rgba(0,172,198,0.08);
-      border-radius: 12px;
-      color: rgba(10,24,35,0.86);
+      padding: 14px 14px;
+      border-radius: 16px;
+      background: rgba(0,172,198,0.10);
+      border: 1px solid rgba(0,172,198,0.22);
+      color: rgba(10,24,35,0.92);
       line-height: 1.6;
+      font-size: 17px;
+      font-weight: 650;
+      letter-spacing: -0.01em;
     }
     .say p{ margin: 0; }
     .say p + p{ margin-top: 8px; }
@@ -424,32 +409,72 @@
     @media (min-width: 860px){
       .nav{ position: sticky; top: var(--stickyTop); }
       .nav-inner{ grid-template-columns: 1fr; }
-      .nav-list{ grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 18px; row-gap: 8px; }
+      .nav-list{
+        column-count: 2;
+        column-gap: var(--gap);
+        padding: 0 14px 6px;
+      }
+      .nav-list li{ break-inside: avoid; }
+      .nav-link{ border-bottom: 1px solid rgba(10,24,35,0.08); }
+      .nav-box::after{
+        content: "";
+        position: absolute;
+        top: 52px;
+        bottom: 10px;
+        left: calc(50% - (var(--gap) / 2));
+        width: calc(var(--gap) + var(--slant));
+        background: var(--bg);
+        clip-path: polygon(0 0, 100% 0, 0 100%);
+        pointer-events: none;
+        opacity: 1;
+      }
 
       .situation-grid{ gap: 22px; }
       .situation[data-layout="spread"] .situation-grid{
         grid-template-columns: 340px 1fr;
-        grid-template-areas: "insert answer";
+        grid-template-areas:
+          "insert answer"
+          "insert tagline";
       }
       .situation[data-layout="spread"][data-ill="right"] .situation-grid{
         grid-template-columns: 1fr 340px;
-        grid-template-areas: "answer insert";
+        grid-template-areas:
+          "answer insert"
+          "tagline insert";
       }
       .situation[data-layout="dialog"] .situation-grid,
       .situation[data-layout="work"] .situation-grid{
-        grid-template-columns: 1fr;
-        grid-template-areas: "insert" "answer";
+        grid-template-columns: 1fr 340px;
+        grid-template-areas:
+          "insert insert"
+          "answer tagline";
       }
-      .hero-top{ padding: 18px; }
-      .hero-grid{ grid-template-columns: 1fr 300px; gap: 18px; }
-      .hero-mascot{ justify-self: end; }
-      .hero-mascot img{ height: 260px; }
+
+      .cover{
+        grid-template-columns: 1fr 1.22fr;
+        grid-template-areas:
+          "text ill"
+          "accent ill";
+        align-items: stretch;
+      }
+      .cover-text{ grid-area: text; }
+      .cover-ill{ grid-area: ill; }
+      .cover-accent{ grid-area: accent; }
+      .cover-ill{ min-height: 260px; }
+      .cover-ill img{ max-height: 360px; }
+      .cover-ill.plaque--diag-left::before{ left: calc(var(--gap) * -1); }
     }
     @media (max-width: 859px){
-      .hero-mascot img{ height: 140px; }
+      .cover-ill img{ max-height: 220px; }
     }
     .insert{ grid-area: insert; }
     .answer{ grid-area: answer; }
+
+    @media (max-width: 859px){
+      .plaque--diag-left::before,
+      .plaque--diag-right::before,
+      .nav-box::after{ display: none; }
+    }
 
     @media (prefers-reduced-motion: reduce){
       *, *::before, *::after{ scroll-behavior: auto !important; transition: none !important; animation: none !important; }
@@ -459,33 +484,41 @@
 <body>
   <main class="page">
     <header class="hero">
-      <div class="hero-top">
-        <div class="hero-grid">
-          <div class="hero-copy">
-            <div class="brand">
-              <div class="kicker"><span class="kline" aria-hidden="true"></span><span>INVITRO · Дизайн-команда</span></div>
-            </div>
-            <h1>Как договориться в команде</h1>
-            <p class="lead">Выбери свою ситуацию: <strong>что сделать</strong>, <strong>как начать разговор</strong> и <strong>к кому обратиться</strong>.</p>
+      <div class="cover" aria-label="Обложка гайда">
+        <section class="plaque plaque--diag-right cover-text">
+          <div class="brand">
+            <div class="kicker"><span class="kline" aria-hidden="true"></span><span>INVITRO · Дизайн-команда</span></div>
           </div>
-          <div class="hero-mascot" aria-hidden="true">
-            <img src="assets/mascot/invitrik-brandbook.png" alt="" />
-          </div>
-        </div>
+          <h1>Как договориться в команде</h1>
+          <p class="lead">Иногда спор заходит в тупик, фидбек сбивает с толку, а договорённости понимают по‑разному. Найди свою ситуацию и посмотри, что можно сделать.</p>
+        </section>
+
+        <aside class="plaque cover-ill" aria-label="Иллюстрация обложки">
+          <picture>
+            <source type="image/webp" srcset="assets/scenes/webp/hero-guide.webp" />
+            <img src="assets/scenes/hero-guide.png" alt="Маскот с путеводителем по рабочим ситуациям" loading="eager" decoding="async" />
+          </picture>
+        </aside>
+
+        <aside class="plaque plaque--blue cover-accent" aria-label="Акцент">
+          7 знакомых ситуаций — и идеи, что делать дальше
+        </aside>
       </div>
 
       <nav class="nav" id="situations" aria-label="Навигация по ситуациям">
         <div class="nav-inner">
-          <div class="nav-title">Что случилось?</div>
-          <ol class="nav-list">
-            <li><a class="nav-link" href="#cant-agree"><span class="nav-num">1</span><span class="nav-text">Спорим, но не можем договориться.</span></a></li>
-            <li><a class="nav-link" href="#misaligned"><span class="nav-num">2</span><span class="nav-text">Договорились, а потом каждый понял по‑своему.</span></a></li>
-            <li><a class="nav-link" href="#unclear-feedback"><span class="nav-num">3</span><span class="nav-text">Получаю «не нравится» без объяснений.</span></a></li>
-            <li><a class="nav-link" href="#who-decides"><span class="nav-num">4</span><span class="nav-text">Непонятно, кто принимает решение.</span></a></li>
-            <li><a class="nav-link" href="#changed-without-me"><span class="nav-num">5</span><span class="nav-text">Интерфейс меняют без моего участия.</span></a></li>
-            <li><a class="nav-link" href="#multi-team"><span class="nav-num">6</span><span class="nav-text">Задача затрагивает несколько команд.</span></a></li>
-            <li><a class="nav-link" href="#mistake-found"><span class="nav-num">7</span><span class="nav-text">В моей работе нашли ошибку.</span></a></li>
-          </ol>
+          <div class="plaque nav-box">
+            <div class="nav-title">Что случилось?</div>
+            <ol class="nav-list">
+            <li><a class="nav-link" href="#cant-agree"><span class="nav-num">1</span><span class="nav-text">Спорим, но не можем договориться</span></a></li>
+            <li><a class="nav-link" href="#misaligned"><span class="nav-num">2</span><span class="nav-text">Договорились, а потом каждый понял по‑своему</span></a></li>
+            <li><a class="nav-link" href="#unclear-feedback"><span class="nav-num">3</span><span class="nav-text">Получаю «не нравится» без объяснений</span></a></li>
+            <li><a class="nav-link" href="#who-decides"><span class="nav-num">4</span><span class="nav-text">Непонятно, кто принимает решение</span></a></li>
+            <li><a class="nav-link" href="#changed-without-me"><span class="nav-num">5</span><span class="nav-text">Интерфейс меняют без моего участия</span></a></li>
+            <li><a class="nav-link" href="#multi-team"><span class="nav-num">6</span><span class="nav-text">Задача затрагивает несколько команд</span></a></li>
+            <li><a class="nav-link" href="#mistake-found"><span class="nav-num">7</span><span class="nav-text">В моей работе нашли ошибку</span></a></li>
+            </ol>
+          </div>
         </div>
       </nav>
     </header>
@@ -495,48 +528,49 @@
         <div class="situation-inner">
           <header class="situation-head">
             <h2 id="cant-agree-title">Спорим, но не можем договориться</h2>
-            <p>Обсуждение ходит по кругу: аргументы повторяются, а решения нет.</p>
+            <p>Кажется, всё уже сказали. Но разговор снова идёт по кругу, а решения всё нет.</p>
           </header>
 
           <div class="situation-grid">
-            <div class="answer" aria-label="Подсказки">
+            <div class="plaque answer plaque--diag-right" aria-label="Подсказки">
               <section aria-label="Что сделать">
                 <h3>Что сделать</h3>
                 <ol class="steps">
-                  <li>Уточните, что именно выбираете и какой критерий поможет сравнить варианты.</li>
-                  <li>Сопоставьте обсуждаемые варианты: что каждый даёт пользователю и задаче, какие ограничения остаются.</li>
-                  <li>Если сейчас решить нельзя, договоритесь, что проверить, кто этим займётся и когда вернётесь к вопросу.</li>
+                  <li>Верни спор к одному вопросу: что именно вы сейчас выбираете?</li>
+                  <li>Договорись с командой, по какому критерию сравниваете варианты: польза для пользователя, задача, данные или ограничения.</li>
+                  <li>Если информации не хватает, решите, что проверить, кто это сделает и когда вы вернётесь к вопросу.</li>
                 </ol>
               </section>
 
               <section aria-label="Как сказать">
                 <h3>Как сказать</h3>
                 <div class="say">
-                  <p>«Давайте уточним: что выбираем и по какому критерию?»</p>
-                  <p>«Что нужно проверить, чтобы решить, и когда вернёмся к вопросу?»</p>
+                  <p>«Кажется, мы ходим по кругу. Что именно выбираем и по какому критерию?»</p>
+                  <p>«Чего нам не хватает, чтобы решить, и когда вернёмся к вопросу?»</p>
                 </div>
               </section>
 
               <section aria-label="Если не помогло">
                 <h3>Если не помогло</h3>
                 <div class="placeholder">
-                  Подключите коллегу по маршруту из договорённостей: вопросы ревью — Люба (владелица процесса ревью), продуктовые вопросы — продакт (при необходимости Костя), коммуникационные конфликты между дизайнерами — Нина. Подключение коллеги не означает автоматическую передачу ему финального решения.
+                  Позови того, кто поможет прояснить именно этот вопрос: по ревью — Любу, по продукту — продакта и при необходимости Костю, по коммуникации между дизайнерами — Нину. Ответственность за итоговое решение при этом остаётся там же, где и была.
                 </div>
               </section>
 
               <a class="back" href="#situations">К ситуациям</a>
             </div>
 
-            <aside class="insert" data-variant="cant-agree" aria-label="Короткая сценка с маскотом">
+            <aside class="plaque plaque--accent tagline plaque--diag-left" aria-label="Подпись к сценке">
+              <div class="top">Работать вместе…</div>
+              <div class="bottom">…искать следующий шаг, а не последний аргумент.</div>
+            </aside>
+
+            <aside class="plaque insert" aria-label="Короткая сценка с маскотом">
               <div class="insert-media" aria-hidden="true">
                 <picture>
                   <source type="image/webp" srcset="assets/scenes/webp/scene-dispute.webp" />
-                  <img src="assets/scenes/scene-dispute.png" alt="" loading="lazy" decoding="async" />
+                  <img src="assets/scenes/scene-dispute.png" alt="Иллюстрация: два маскота обсуждают варианты" loading="lazy" decoding="async" />
                 </picture>
-              </div>
-              <div class="insert-caption">
-                <div class="top">Работать вместе…</div>
-                <div class="bottom">…искать следующий шаг, а не последний аргумент.</div>
               </div>
             </aside>
           </div>
@@ -546,45 +580,46 @@
       <section class="situation" id="misaligned" data-layout="spread" data-ill="right" aria-labelledby="misaligned-title">
         <div class="situation-inner">
           <header class="situation-head">
-            <h2 id="misaligned-title">Договорились, а потом каждый понял по‑своему</h2>
-            <p>После встречи все разошлись с разным пониманием результата. Это выяснилось, когда работа уже была сделана.</p>
+            <h2 id="misaligned-title">Договорились, но поняли по‑разному</h2>
+            <p>На встрече все кивнули. Через несколько дней оказалось, что каждый ушёл со своей версией решения.</p>
           </header>
           <div class="situation-grid">
-            <div class="answer" aria-label="Подсказки">
+            <div class="plaque answer plaque--diag-right" aria-label="Подсказки">
               <section aria-label="Что сделать">
                 <h3>Что сделать</h3>
                 <ol class="steps">
-                  <li>Сверьте, как каждый понял договорённость. Если есть запись встречи или итоговое сообщение, вернитесь к нему.</li>
-                  <li>Коротко зафиксируйте общий итог: что решили, кто что делает и какие вопросы остались открытыми.</li>
-                  <li>Если решение меняется, обновите запись и сообщите тем, чью работу это затрагивает.</li>
+                  <li>Сверь, что каждый запомнил и записал после встречи.</li>
+                  <li>Собери один короткий итог: что решили, кто что делает и какие вопросы остались.</li>
+                  <li>Если решение изменилось, обнови запись и предупреди тех, кого это касается.</li>
                 </ol>
               </section>
 
               <section aria-label="Как сказать">
                 <h3>Как сказать</h3>
                 <div class="say">
-                  <p>«Кажется, мы по‑разному поняли итог встречи. Я исходила из такого решения: … Давайте сверим и запишем, что делаем дальше»</p>
+                  <p>«Кажется, мы по‑разному поняли итог. Я записала так: … Давайте сверимся»</p>
                 </div>
               </section>
 
               <section aria-label="Если не помогло">
                 <h3>Если не помогло</h3>
-                <div class="placeholder">Отделите то, о чём уже договорились, от того, что ещё нужно решить. Открытый вопрос обсудите с участником, который отвечает за соответствующую часть: продуктовую задачу или UX и интерфейс.</div>
+                <div class="placeholder">Отдели то, о чём уже договорились, от открытого вопроса. Потом подключи того, кто отвечает за эту часть: продуктовую задачу или UX и интерфейс.</div>
               </section>
 
               <a class="back" href="#situations">К ситуациям</a>
             </div>
 
-            <aside class="insert" data-variant="misaligned" aria-label="Короткая сценка с маскотом">
+            <aside class="plaque plaque--accent tagline" aria-label="Подпись к сценке">
+              <div class="top">Работать вместе…</div>
+              <div class="bottom">…сверяться не только кивками.</div>
+            </aside>
+
+            <aside class="plaque insert" aria-label="Короткая сценка с маскотом">
               <div class="insert-media" aria-hidden="true">
                 <picture>
                   <source type="image/webp" srcset="assets/scenes/webp/scene-agreement.webp" />
-                  <img src="assets/scenes/scene-agreement.png" alt="" loading="lazy" decoding="async" />
+                  <img src="assets/scenes/scene-agreement.png" alt="Иллюстрация: два маскота сверяют разные варианты" loading="lazy" decoding="async" />
                 </picture>
-              </div>
-              <div class="insert-caption">
-                <div class="top">Работать вместе…</div>
-                <div class="bottom">…сверяться не только кивками.</div>
               </div>
             </aside>
           </div>
@@ -595,16 +630,16 @@
         <div class="situation-inner">
           <header class="situation-head">
             <h2 id="unclear-feedback-title">Получаю «не нравится» без объяснений</h2>
-            <p>В ответ на макет звучит «что‑то не то», но непонятно, что именно нужно изменить и зачем.</p>
+            <p>Смотришь на комментарий «что‑то не то» и пытаешься угадать: проблема в сценарии, визуале или вообще в задаче.</p>
           </header>
           <div class="situation-grid">
-            <div class="answer" aria-label="Подсказки">
+            <div class="plaque answer plaque--diag-left" aria-label="Подсказки">
               <section aria-label="Что сделать">
                 <h3>Что сделать</h3>
                 <ol class="steps">
-                  <li>Попроси показать конкретное место в макете, к которому относится замечание.</li>
-                  <li>Уточни, что именно не работает: пользовательский сценарий, соответствие задаче, ограничение или визуальное решение.</li>
-                  <li>Перед правками коротко сверяй понимание проблемы и ожидаемого результата.</li>
+                  <li>Попроси показать конкретное место в макете.</li>
+                  <li>Уточни, чему оно мешает: пользователю, задаче, ограничениям или общей логике.</li>
+                  <li>Перед правками проговори, какую именно проблему вы собираетесь решить.</li>
                 </ol>
               </section>
 
@@ -617,22 +652,23 @@
 
               <section aria-label="Если не помогло">
                 <h3>Если не помогло</h3>
-                <div class="placeholder">Разберите один конкретный сценарий вместе: что пользователь хочет сделать и где решение ему мешает. Если это вопрос организации ревью, уточните его с Любой, владелицей процесса.</div>
+                <div class="placeholder">Возьмите один конкретный сценарий и пройдите его вместе. Если вопрос в самом процессе ревью, подключи Любу.</div>
               </section>
 
               <a class="back" href="#situations">К ситуациям</a>
             </div>
 
-            <aside class="insert" data-variant="unclear-feedback" aria-label="Короткая сценка с маскотом">
+            <aside class="plaque plaque--accent tagline" aria-label="Подпись к сценке">
+              <div class="top">Работать вместе…</div>
+              <div class="bottom">…уточнять, а не угадывать.</div>
+            </aside>
+
+            <aside class="plaque insert" aria-label="Короткая сценка с маскотом">
               <div class="insert-media" aria-hidden="true">
                 <picture>
                   <source type="image/webp" srcset="assets/scenes/webp/scene-feedback.webp" />
-                  <img src="assets/scenes/scene-feedback.png" alt="" loading="lazy" decoding="async" />
+                  <img src="assets/scenes/scene-feedback.png" alt="Иллюстрация: маскот рассматривает деталь макета через лупу" loading="lazy" decoding="async" />
                 </picture>
-              </div>
-              <div class="insert-caption">
-                <div class="top">Работать вместе…</div>
-                <div class="bottom">…уточнять, а не угадывать.</div>
               </div>
             </aside>
           </div>
@@ -643,44 +679,45 @@
         <div class="situation-inner">
           <header class="situation-head">
             <h2 id="who-decides-title">Непонятно, кто принимает решение</h2>
-            <p>В одном обсуждении смешались бизнес‑задача, пользовательский сценарий и интерфейс. Непонятно, за кем итоговое решение.</p>
+            <p>В одном разговоре смешались бизнес‑задача, пользовательский сценарий и интерфейс. В итоге все обсуждают всё.</p>
           </header>
           <div class="situation-grid">
-            <div class="answer" aria-label="Подсказки">
+            <div class="plaque answer plaque--diag-right" aria-label="Подсказки">
               <section aria-label="Что сделать">
                 <h3>Что сделать</h3>
                 <ol class="steps">
-                  <li>Разделите вопросы: что относится к задаче и бизнес‑контексту, а что к UX и интерфейсу.</li>
-                  <li>Опирайтесь на действующее распределение ответственности: по задаче отвечает продакт, по UX и интерфейсу — дизайнер.</li>
-                  <li>Если части зависят друг от друга, согласуйте ограничения и зафиксируйте итог: что решили и за какую часть отвечает каждый.</li>
+                  <li>Раздели вопросы: где речь о задаче, а где — об UX и интерфейсе.</li>
+                  <li>Держи базовую рамку в голове: за задачу и бизнес‑контекст отвечает продакт, за UX и интерфейс — дизайнер.</li>
+                  <li>Согласуй ограничения и коротко запиши итог.</li>
                 </ol>
               </section>
 
               <section aria-label="Как сказать">
                 <h3>Как сказать</h3>
                 <div class="say">
-                  <p>«Давайте разделим вопросы. По задаче и бизнес‑контексту решение за продактом, по UX и интерфейсу — за дизайнером. Какие ограничения нам нужно согласовать?»</p>
+                  <p>«Давайте разделим: что сейчас решаем по задаче, а что — по UX и интерфейсу?»</p>
                 </div>
               </section>
 
               <section aria-label="Если не помогло">
                 <h3>Если не помогло</h3>
-                <div class="placeholder">Вернитесь к действующему процессу и уточните конкретную спорную границу ответственности. По продуктовой части подключите продакта, при необходимости Костю; по процессу ревью — Любу.</div>
+                <div class="placeholder">По продуктовой части подключи продакта и при необходимости Костю. Если вопрос упирается в процесс ревью — Любу.</div>
               </section>
 
               <a class="back" href="#situations">К ситуациям</a>
             </div>
 
-            <aside class="insert" data-variant="who-decides" aria-label="Короткая сценка с маскотом">
+            <aside class="plaque plaque--accent tagline plaque--diag-left" aria-label="Подпись к сценке">
+              <div class="top">Работать вместе…</div>
+              <div class="bottom">…понимать, кто за что отвечает.</div>
+            </aside>
+
+            <aside class="plaque insert" aria-label="Короткая сценка с маскотом">
               <div class="insert-media" aria-hidden="true">
                 <picture>
                   <source type="image/webp" srcset="assets/scenes/webp/scene-responsibility.webp" />
-                  <img src="assets/scenes/scene-responsibility.png" alt="" loading="lazy" decoding="async" />
+                  <img src="assets/scenes/scene-responsibility.png" alt="Иллюстрация: два маскота вместе отмечают цель и путь" loading="lazy" decoding="async" />
                 </picture>
-              </div>
-              <div class="insert-caption">
-                <div class="top">Работать вместе…</div>
-                <div class="bottom">…понимать, кто за что отвечает.</div>
               </div>
             </aside>
           </div>
@@ -691,44 +728,45 @@
         <div class="situation-inner">
           <header class="situation-head">
             <h2 id="changed-without-me-title">Интерфейс меняют без моего участия</h2>
-            <p>Ты узнаёшь об изменении интерфейса, когда решение уже обсуждено или передано в разработку.</p>
+            <p>Об изменении интерфейса ты узнаёшь, когда его уже обсудили или отдали в разработку.</p>
           </header>
           <div class="situation-grid">
-            <div class="answer" aria-label="Подсказки">
+            <div class="plaque answer plaque--diag-right" aria-label="Подсказки">
               <section aria-label="Что сделать">
                 <h3>Что сделать</h3>
                 <ol class="steps">
-                  <li>Уточни, что изменили, зачем и на каком этапе находится работа.</li>
-                  <li>Вместе с командой проверь влияние на пользовательский сценарий и соответствие действующим стандартам.</li>
-                  <li>Договоритесь, как подключать дизайнера к таким изменениям вовремя, в рамках существующего процесса.</li>
+                  <li>Узнай, что изменили, зачем и насколько далеко уже продвинулась работа.</li>
+                  <li>Вместе проверьте, как изменение влияет на пользовательский сценарий и принятые стандарты.</li>
+                  <li>Договорись, в какой момент подключать тебя в следующий раз.</li>
                 </ol>
               </section>
 
               <section aria-label="Как сказать">
                 <h3>Как сказать</h3>
                 <div class="say">
-                  <p>«Вижу, что здесь изменили интерфейс. Давайте сверим задачу и влияние на сценарий, пока решение ещё можно скорректировать»</p>
+                  <p>«Вижу, что интерфейс изменился. Давайте быстро сверим задачу и влияние на сценарий, пока решение ещё можно поправить»</p>
                 </div>
               </section>
 
               <section aria-label="Если не помогло">
                 <h3>Если не помогло</h3>
-                <div class="placeholder">Если ситуация повторяется, обсуди с продактом конкретные случаи и место, где тебя нужно подключать. Опирайся на действующие стандарты; если договориться не получается, подключите Костю.</div>
+                <div class="placeholder">Собери несколько конкретных примеров и обсуди их с продактом. Если договориться о процессе не получается, подключи Костю.</div>
               </section>
 
               <a class="back" href="#situations">К ситуациям</a>
             </div>
 
-            <aside class="insert" data-variant="changed-without-me" aria-label="Короткая сценка с маскотом">
+            <aside class="plaque plaque--accent tagline" aria-label="Подпись к сценке">
+              <div class="top">Работать вместе…</div>
+              <div class="bottom">…подключать дизайнера до принятия решения.</div>
+            </aside>
+
+            <aside class="plaque insert" aria-label="Короткая сценка с маскотом">
               <div class="insert-media" aria-hidden="true">
                 <picture>
                   <source type="image/webp" srcset="assets/scenes/webp/scene-involvement.webp" />
-                  <img src="assets/scenes/scene-involvement.png" alt="" loading="lazy" decoding="async" />
+                  <img src="assets/scenes/scene-involvement.png" alt="Иллюстрация: маскот приглашает второго маскота подключиться к обсуждению" loading="lazy" decoding="async" />
                 </picture>
-              </div>
-              <div class="insert-caption">
-                <div class="top">Работать вместе…</div>
-                <div class="bottom">…подключать дизайнера до принятия решения.</div>
               </div>
             </aside>
           </div>
@@ -739,44 +777,45 @@
         <div class="situation-inner">
           <header class="situation-head">
             <h2 id="multi-team-title">Задача затрагивает несколько команд</h2>
-            <p>Решение проходит через несколько продуктов. Каждая команда делает свою часть, но на стыке остаются вопросы.</p>
+            <p>Каждая команда делает свою часть. Сложности начинаются там, где эти части встречаются.</p>
           </header>
           <div class="situation-grid">
-            <div class="answer" aria-label="Подсказки">
+            <div class="plaque answer plaque--diag-right" aria-label="Подсказки">
               <section aria-label="Что сделать">
                 <h3>Что сделать</h3>
                 <ol class="steps">
-                  <li>Обозначьте, какие команды участвуют и какие части сценария зависят друг от друга.</li>
-                  <li>Продуктовые договорённости согласуют продакты. Дизайнеры отвечают за свои части и сверяют пользовательский путь на стыках.</li>
-                  <li>Зафиксируйте конкретные договорённости по задаче: что делает каждая команда и что необходимо проверить вместе.</li>
+                  <li>Покажи, где пересекаются ваши сценарии и от чего зависит каждая команда.</li>
+                  <li>Про приоритеты и зависимости договариваются продакты. Дизайнеры сверяют свои части и пользовательский путь между ними.</li>
+                  <li>Коротко запиши, кто что делает и что нужно проверить вместе.</li>
                 </ol>
               </section>
 
               <section aria-label="Как сказать">
                 <h3>Как сказать</h3>
                 <div class="say">
-                  <p>«Наши части встречаются вот здесь. Давайте сверим переход для пользователя, а зависимости и приоритеты согласуем с продактами»</p>
+                  <p>«Наши части встречаются здесь. Давайте сверим переход для пользователя, а зависимости согласуем с продактами»</p>
                 </div>
               </section>
 
               <section aria-label="Если не помогло">
                 <h3>Если не помогло</h3>
-                <div class="placeholder">Опишите, какая межкомандная договорённость блокирует работу, и передайте вопрос вовлечённым продактам. Не пытайтесь решить продуктовые приоритеты только на уровне макетов.</div>
+                <div class="placeholder">Назови конкретную договорённость, которая блокирует работу, и передай её вовлечённым продактам. Не пытайся решить продуктовые приоритеты только в макетах.</div>
               </section>
 
               <a class="back" href="#situations">К ситуациям</a>
             </div>
 
-            <aside class="insert" data-variant="multi-team" aria-label="Короткая сценка с маскотом">
+            <aside class="plaque plaque--accent tagline plaque--diag-left" aria-label="Подпись к сценке">
+              <div class="top">Работать вместе…</div>
+              <div class="bottom">…видеть не только свою часть.</div>
+            </aside>
+
+            <aside class="plaque insert" aria-label="Короткая сценка с маскотом">
               <div class="insert-media" aria-hidden="true">
                 <picture>
                   <source type="image/webp" srcset="assets/scenes/webp/scene-cross-team.webp" />
-                  <img src="assets/scenes/scene-cross-team.png" alt="" loading="lazy" decoding="async" />
+                  <img src="assets/scenes/scene-cross-team.png" alt="Иллюстрация: два маскота сверяют стык частей пользовательского пути" loading="lazy" decoding="async" />
                 </picture>
-              </div>
-              <div class="insert-caption">
-                <div class="top">Работать вместе…</div>
-                <div class="bottom">…видеть не только свою часть.</div>
               </div>
             </aside>
           </div>
@@ -787,44 +826,45 @@
         <div class="situation-inner">
           <header class="situation-head">
             <h2 id="mistake-found-title">В моей работе нашли ошибку</h2>
-            <p>В макете или сценарии заметили проблему. Нужно разобраться и исправить её, не превращая разговор в поиск виноватого.</p>
+            <p>Неприятно, когда ошибку замечают другие. Но сейчас важнее понять, на что она влияет и как её исправить.</p>
           </header>
           <div class="situation-grid">
-            <div class="answer" aria-label="Подсказки">
+            <div class="plaque answer plaque--diag-left" aria-label="Подсказки">
               <section aria-label="Что сделать">
                 <h3>Что сделать</h3>
                 <ol class="steps">
-                  <li>Уточни, в чём ошибка и на что она влияет. Отдели саму проблему от того, как прозвучало замечание.</li>
-                  <li>Договорись об исправлении и сообщи об изменении тем, чья работа от него зависит.</li>
-                  <li>Если это поможет избежать повторения, разберите причину и выберите конкретное улучшение.</li>
+                  <li>Уточни, где ошибка и что из‑за неё может пойти не так.</li>
+                  <li>Исправь её и предупреди тех, чью работу затронет изменение.</li>
+                  <li>Если ошибка может повториться, разберите причину и выберите одно улучшение.</li>
                 </ol>
               </section>
 
               <section aria-label="Как сказать">
                 <h3>Как сказать</h3>
                 <div class="say">
-                  <p>«Спасибо, что заметили. Давайте уточним, на что это влияет и что нужно исправить в первую очередь»</p>
+                  <p>«Спасибо, что заметили. Давайте уточним, на что это влияет и что нужно исправить первым»</p>
                 </div>
               </section>
 
               <section aria-label="Если не помогло">
                 <h3>Если не помогло</h3>
-                <div class="placeholder">Если разговор переходит на личные оценки, верни его к конкретной ошибке и способу исправления. Если между дизайнерами не удаётся договориться о корректном взаимодействии, подключите Нину.</div>
+                <div class="placeholder">Если разговор уходит в личные оценки, верни его к самой ошибке и способу исправления. Если между дизайнерами не получается договориться о формате общения, подключи Нину.</div>
               </section>
 
               <a class="back" href="#situations">К ситуациям</a>
             </div>
 
-            <aside class="insert" data-variant="mistake-found" aria-label="Короткая сценка с маскотом">
+            <aside class="plaque plaque--accent tagline" aria-label="Подпись к сценке">
+              <div class="top">Работать вместе…</div>
+              <div class="bottom">…помогать исправить, а не искать виноватого.</div>
+            </aside>
+
+            <aside class="plaque insert" aria-label="Короткая сценка с маскотом">
               <div class="insert-media" aria-hidden="true">
                 <picture>
                   <source type="image/webp" srcset="assets/scenes/webp/scene-mistake.webp" />
-                  <img src="assets/scenes/scene-mistake.png" alt="" loading="lazy" decoding="async" />
+                  <img src="assets/scenes/scene-mistake.png" alt="Иллюстрация: маскоты вместе поправляют небольшую ошибку" loading="lazy" decoding="async" />
                 </picture>
-              </div>
-              <div class="insert-caption">
-                <div class="top">Работать вместе…</div>
-                <div class="bottom">…помогать исправить, а не искать виноватого.</div>
               </div>
             </aside>
           </div>
@@ -833,7 +873,7 @@
     </div>
 
     <footer class="footer">
-      Эти подсказки выросли из нашего ретро. Если знакомой ситуации здесь нет или рекомендация не помогает, принесём её на следующее обсуждение и дополним гайд.
+      Гайд вырос из нашего ретро и будет меняться вместе с командой. Если знакомой ситуации здесь нет или подсказка не помогает — принесём её на следующее обсуждение.
     </footer>
   </main>
 </body>
