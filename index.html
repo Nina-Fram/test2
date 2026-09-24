@@ -265,6 +265,7 @@
       grid-template-columns: 1fr;
       gap: 14px;
       align-items: start;
+      grid-template-areas: "answer" "insert";
     }
 
     .insert{
@@ -303,6 +304,26 @@
       width: 110px;
       height: 110px;
       border-radius: 999px;
+      background: rgba(255,86,1,0);
+      pointer-events: none;
+    }
+    .insert[data-variant="unclear-feedback"]::after{ background: rgba(255,86,1,0.10); }
+    .insert[data-variant="changed-without-me"]::after{ background: rgba(255,86,1,0.08); }
+    .insert[data-variant="misaligned"]::before{ transform: rotate(-10deg) translate(8px, 10px); }
+    .insert[data-variant="unclear-feedback"]::before{ transform: rotate(18deg) translate(10px, -6px); background: rgba(0,172,198,0.12); }
+    .insert[data-variant="who-decides"]::before{ transform: rotate(6deg) translate(16px, 4px); background: rgba(0,172,198,0.10); }
+    .insert[data-variant="changed-without-me"]::before{ transform: rotate(-16deg) translate(6px, 16px); background: rgba(0,172,198,0.12); }
+    .insert[data-variant="multi-team"]::before{ transform: rotate(10deg) translate(18px, 10px); background: rgba(0,172,198,0.10); }
+    .insert[data-variant="mistake-found"]::before{ transform: rotate(-6deg) translate(10px, 14px); background: rgba(0,172,198,0.12); }
+
+    .insert::after{
+      content: "";
+      position: absolute;
+      right: -30px;
+      bottom: -30px;
+      width: 110px;
+      height: 110px;
+      border-radius: 999px;
       background: rgba(255,86,1,0.00);
       pointer-events: none;
     }
@@ -317,6 +338,8 @@
       max-width: 100%;
       object-fit: contain;
     }
+    .situation[data-layout="dialog"] .insert-media img{ height: 232px; }
+    .situation[data-layout="work"] .insert-media img{ height: 244px; }
     .insert-caption{
       margin-top: 12px;
       display: grid;
@@ -403,10 +426,19 @@
       .nav-inner{ grid-template-columns: 1fr; }
       .nav-list{ grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 18px; row-gap: 8px; }
 
-      .situation-grid{
+      .situation-grid{ gap: 22px; }
+      .situation[data-layout="spread"] .situation-grid{
         grid-template-columns: 340px 1fr;
         grid-template-areas: "insert answer";
-        gap: 22px;
+      }
+      .situation[data-layout="spread"][data-ill="right"] .situation-grid{
+        grid-template-columns: 1fr 340px;
+        grid-template-areas: "answer insert";
+      }
+      .situation[data-layout="dialog"] .situation-grid,
+      .situation[data-layout="work"] .situation-grid{
+        grid-template-columns: 1fr;
+        grid-template-areas: "insert" "answer";
       }
       .hero-top{ padding: 18px; }
       .hero-grid{ grid-template-columns: 1fr 300px; gap: 18px; }
@@ -414,7 +446,6 @@
       .hero-mascot img{ height: 260px; }
     }
     @media (max-width: 859px){
-      .situation-grid{ grid-template-areas: "answer" "insert"; }
       .hero-mascot img{ height: 140px; }
     }
     .insert{ grid-area: insert; }
@@ -460,7 +491,7 @@
     </header>
 
     <div class="content" aria-label="Ситуации и подсказки">
-      <section class="situation" id="cant-agree" aria-labelledby="cant-agree-title">
+      <section class="situation" id="cant-agree" data-layout="dialog" aria-labelledby="cant-agree-title">
         <div class="situation-inner">
           <header class="situation-head">
             <h2 id="cant-agree-title">Спорим, но не можем договориться</h2>
@@ -498,7 +529,10 @@
 
             <aside class="insert" data-variant="cant-agree" aria-label="Короткая сценка с маскотом">
               <div class="insert-media" aria-hidden="true">
-                <img src="assets/mascot/invitrik-brandbook.png" alt="" />
+                <picture>
+                  <source type="image/webp" srcset="assets/scenes/webp/scene-dispute.webp" />
+                  <img src="assets/scenes/scene-dispute.png" alt="" loading="lazy" decoding="async" />
+                </picture>
               </div>
               <div class="insert-caption">
                 <div class="top">Работать вместе…</div>
@@ -509,7 +543,7 @@
         </div>
       </section>
 
-      <section class="situation" id="misaligned" aria-labelledby="misaligned-title">
+      <section class="situation" id="misaligned" data-layout="spread" data-ill="right" aria-labelledby="misaligned-title">
         <div class="situation-inner">
           <header class="situation-head">
             <h2 id="misaligned-title">Договорились, а потом каждый понял по‑своему</h2>
@@ -543,7 +577,10 @@
 
             <aside class="insert" data-variant="misaligned" aria-label="Короткая сценка с маскотом">
               <div class="insert-media" aria-hidden="true">
-                <img src="assets/mascot/invitrik-brandbook.png" alt="" />
+                <picture>
+                  <source type="image/webp" srcset="assets/scenes/webp/scene-agreement.webp" />
+                  <img src="assets/scenes/scene-agreement.png" alt="" loading="lazy" decoding="async" />
+                </picture>
               </div>
               <div class="insert-caption">
                 <div class="top">Работать вместе…</div>
@@ -554,7 +591,7 @@
         </div>
       </section>
 
-      <section class="situation" id="unclear-feedback" aria-labelledby="unclear-feedback-title">
+      <section class="situation" id="unclear-feedback" data-layout="spread" data-ill="left" aria-labelledby="unclear-feedback-title">
         <div class="situation-inner">
           <header class="situation-head">
             <h2 id="unclear-feedback-title">Получаю «не нравится» без объяснений</h2>
@@ -588,7 +625,10 @@
 
             <aside class="insert" data-variant="unclear-feedback" aria-label="Короткая сценка с маскотом">
               <div class="insert-media" aria-hidden="true">
-                <img src="assets/mascot/invitrik-brandbook.png" alt="" />
+                <picture>
+                  <source type="image/webp" srcset="assets/scenes/webp/scene-feedback.webp" />
+                  <img src="assets/scenes/scene-feedback.png" alt="" loading="lazy" decoding="async" />
+                </picture>
               </div>
               <div class="insert-caption">
                 <div class="top">Работать вместе…</div>
@@ -599,7 +639,7 @@
         </div>
       </section>
 
-      <section class="situation" id="who-decides" aria-labelledby="who-decides-title">
+      <section class="situation" id="who-decides" data-layout="work" aria-labelledby="who-decides-title">
         <div class="situation-inner">
           <header class="situation-head">
             <h2 id="who-decides-title">Непонятно, кто принимает решение</h2>
@@ -633,7 +673,10 @@
 
             <aside class="insert" data-variant="who-decides" aria-label="Короткая сценка с маскотом">
               <div class="insert-media" aria-hidden="true">
-                <img src="assets/mascot/invitrik-brandbook.png" alt="" />
+                <picture>
+                  <source type="image/webp" srcset="assets/scenes/webp/scene-responsibility.webp" />
+                  <img src="assets/scenes/scene-responsibility.png" alt="" loading="lazy" decoding="async" />
+                </picture>
               </div>
               <div class="insert-caption">
                 <div class="top">Работать вместе…</div>
@@ -644,7 +687,7 @@
         </div>
       </section>
 
-      <section class="situation" id="changed-without-me" aria-labelledby="changed-without-me-title">
+      <section class="situation" id="changed-without-me" data-layout="spread" data-ill="right" aria-labelledby="changed-without-me-title">
         <div class="situation-inner">
           <header class="situation-head">
             <h2 id="changed-without-me-title">Интерфейс меняют без моего участия</h2>
@@ -678,7 +721,10 @@
 
             <aside class="insert" data-variant="changed-without-me" aria-label="Короткая сценка с маскотом">
               <div class="insert-media" aria-hidden="true">
-                <img src="assets/mascot/invitrik-brandbook.png" alt="" />
+                <picture>
+                  <source type="image/webp" srcset="assets/scenes/webp/scene-involvement.webp" />
+                  <img src="assets/scenes/scene-involvement.png" alt="" loading="lazy" decoding="async" />
+                </picture>
               </div>
               <div class="insert-caption">
                 <div class="top">Работать вместе…</div>
@@ -689,7 +735,7 @@
         </div>
       </section>
 
-      <section class="situation" id="multi-team" aria-labelledby="multi-team-title">
+      <section class="situation" id="multi-team" data-layout="work" aria-labelledby="multi-team-title">
         <div class="situation-inner">
           <header class="situation-head">
             <h2 id="multi-team-title">Задача затрагивает несколько команд</h2>
@@ -723,7 +769,10 @@
 
             <aside class="insert" data-variant="multi-team" aria-label="Короткая сценка с маскотом">
               <div class="insert-media" aria-hidden="true">
-                <img src="assets/mascot/invitrik-brandbook.png" alt="" />
+                <picture>
+                  <source type="image/webp" srcset="assets/scenes/webp/scene-cross-team.webp" />
+                  <img src="assets/scenes/scene-cross-team.png" alt="" loading="lazy" decoding="async" />
+                </picture>
               </div>
               <div class="insert-caption">
                 <div class="top">Работать вместе…</div>
@@ -734,7 +783,7 @@
         </div>
       </section>
 
-      <section class="situation" id="mistake-found" aria-labelledby="mistake-found-title">
+      <section class="situation" id="mistake-found" data-layout="spread" data-ill="left" aria-labelledby="mistake-found-title">
         <div class="situation-inner">
           <header class="situation-head">
             <h2 id="mistake-found-title">В моей работе нашли ошибку</h2>
@@ -768,7 +817,10 @@
 
             <aside class="insert" data-variant="mistake-found" aria-label="Короткая сценка с маскотом">
               <div class="insert-media" aria-hidden="true">
-                <img src="assets/mascot/invitrik-brandbook.png" alt="" />
+                <picture>
+                  <source type="image/webp" srcset="assets/scenes/webp/scene-mistake.webp" />
+                  <img src="assets/scenes/scene-mistake.png" alt="" loading="lazy" decoding="async" />
+                </picture>
               </div>
               <div class="insert-caption">
                 <div class="top">Работать вместе…</div>
