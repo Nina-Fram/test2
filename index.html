@@ -179,7 +179,7 @@
       list-style: none;
       display: grid;
       grid-template-columns: 1fr;
-      gap: 6px;
+      gap: 0;
       background: var(--surface);
       border: 1px solid rgba(10,24,35,0.10);
       border-radius: 18px;
@@ -288,6 +288,26 @@
       transform: rotate(12deg);
       pointer-events: none;
     }
+    .insert[data-variant="misaligned"]::before{ transform: rotate(-10deg) translate(8px, 10px); }
+    .insert[data-variant="unclear-feedback"]::before{ transform: rotate(18deg) translate(10px, -6px); background: rgba(0,172,198,0.12); }
+    .insert[data-variant="who-decides"]::before{ transform: rotate(6deg) translate(16px, 4px); background: rgba(0,172,198,0.10); }
+    .insert[data-variant="changed-without-me"]::before{ transform: rotate(-16deg) translate(6px, 16px); background: rgba(0,172,198,0.12); }
+    .insert[data-variant="multi-team"]::before{ transform: rotate(10deg) translate(18px, 10px); background: rgba(0,172,198,0.10); }
+    .insert[data-variant="mistake-found"]::before{ transform: rotate(-6deg) translate(10px, 14px); background: rgba(0,172,198,0.12); }
+
+    .insert::after{
+      content: "";
+      position: absolute;
+      right: -30px;
+      bottom: -30px;
+      width: 110px;
+      height: 110px;
+      border-radius: 999px;
+      background: rgba(255,86,1,0.00);
+      pointer-events: none;
+    }
+    .insert[data-variant="unclear-feedback"]::after{ background: rgba(255,86,1,0.10); }
+    .insert[data-variant="changed-without-me"]::after{ background: rgba(255,86,1,0.08); }
     .insert-media{ width: 100%; }
     .insert-media img{
       display: block;
@@ -476,11 +496,11 @@
               <a class="back" href="#situations">К ситуациям</a>
             </div>
 
-            <aside class="insert" aria-label="Короткая сценка с маскотом">
+            <aside class="insert" data-variant="cant-agree" aria-label="Короткая сценка с маскотом">
               <div class="insert-media" aria-hidden="true">
                 <img src="assets/mascot/invitrik-brandbook.png" alt="" />
               </div>
-              <div class="insert-caption" aria-hidden="true">
+              <div class="insert-caption">
                 <div class="top">Работать вместе…</div>
                 <div class="bottom">…искать следующий шаг, а не последний аргумент.</div>
               </div>
@@ -493,7 +513,44 @@
         <div class="situation-inner">
           <header class="situation-head">
             <h2 id="misaligned-title">Договорились, а потом каждый понял по‑своему</h2>
+            <p>После встречи все разошлись с разным пониманием результата. Это выяснилось, когда работа уже была сделана.</p>
           </header>
+          <div class="situation-grid">
+            <div class="answer" aria-label="Подсказки">
+              <section aria-label="Что сделать">
+                <h3>Что сделать</h3>
+                <ol class="steps">
+                  <li>Сверьте, как каждый понял договорённость. Если есть запись встречи или итоговое сообщение, вернитесь к нему.</li>
+                  <li>Коротко зафиксируйте общий итог: что решили, кто что делает и какие вопросы остались открытыми.</li>
+                  <li>Если решение меняется, обновите запись и сообщите тем, чью работу это затрагивает.</li>
+                </ol>
+              </section>
+
+              <section aria-label="Как сказать">
+                <h3>Как сказать</h3>
+                <div class="say">
+                  <p>«Кажется, мы по‑разному поняли итог встречи. Я исходила из такого решения: … Давайте сверим и запишем, что делаем дальше»</p>
+                </div>
+              </section>
+
+              <section aria-label="Если не помогло">
+                <h3>Если не помогло</h3>
+                <div class="placeholder">Отделите то, о чём уже договорились, от того, что ещё нужно решить. Открытый вопрос обсудите с участником, который отвечает за соответствующую часть: продуктовую задачу или UX и интерфейс.</div>
+              </section>
+
+              <a class="back" href="#situations">К ситуациям</a>
+            </div>
+
+            <aside class="insert" data-variant="misaligned" aria-label="Короткая сценка с маскотом">
+              <div class="insert-media" aria-hidden="true">
+                <img src="assets/mascot/invitrik-brandbook.png" alt="" />
+              </div>
+              <div class="insert-caption">
+                <div class="top">Работать вместе…</div>
+                <div class="bottom">…сверяться не только кивками.</div>
+              </div>
+            </aside>
+          </div>
         </div>
       </section>
 
@@ -501,7 +558,44 @@
         <div class="situation-inner">
           <header class="situation-head">
             <h2 id="unclear-feedback-title">Получаю «не нравится» без объяснений</h2>
+            <p>В ответ на макет звучит «что‑то не то», но непонятно, что именно нужно изменить и зачем.</p>
           </header>
+          <div class="situation-grid">
+            <div class="answer" aria-label="Подсказки">
+              <section aria-label="Что сделать">
+                <h3>Что сделать</h3>
+                <ol class="steps">
+                  <li>Попроси показать конкретное место в макете, к которому относится замечание.</li>
+                  <li>Уточни, что именно не работает: пользовательский сценарий, соответствие задаче, ограничение или визуальное решение.</li>
+                  <li>Перед правками коротко сверяй понимание проблемы и ожидаемого результата.</li>
+                </ol>
+              </section>
+
+              <section aria-label="Как сказать">
+                <h3>Как сказать</h3>
+                <div class="say">
+                  <p>«Покажи, пожалуйста, где именно возникает вопрос. Что здесь не работает для пользователя или задачи?»</p>
+                </div>
+              </section>
+
+              <section aria-label="Если не помогло">
+                <h3>Если не помогло</h3>
+                <div class="placeholder">Разберите один конкретный сценарий вместе: что пользователь хочет сделать и где решение ему мешает. Если это вопрос организации ревью, уточните его с Любой, владелицей процесса.</div>
+              </section>
+
+              <a class="back" href="#situations">К ситуациям</a>
+            </div>
+
+            <aside class="insert" data-variant="unclear-feedback" aria-label="Короткая сценка с маскотом">
+              <div class="insert-media" aria-hidden="true">
+                <img src="assets/mascot/invitrik-brandbook.png" alt="" />
+              </div>
+              <div class="insert-caption">
+                <div class="top">Работать вместе…</div>
+                <div class="bottom">…уточнять, а не угадывать.</div>
+              </div>
+            </aside>
+          </div>
         </div>
       </section>
 
@@ -509,7 +603,44 @@
         <div class="situation-inner">
           <header class="situation-head">
             <h2 id="who-decides-title">Непонятно, кто принимает решение</h2>
+            <p>В одном обсуждении смешались бизнес‑задача, пользовательский сценарий и интерфейс. Непонятно, за кем итоговое решение.</p>
           </header>
+          <div class="situation-grid">
+            <div class="answer" aria-label="Подсказки">
+              <section aria-label="Что сделать">
+                <h3>Что сделать</h3>
+                <ol class="steps">
+                  <li>Разделите вопросы: что относится к задаче и бизнес‑контексту, а что к UX и интерфейсу.</li>
+                  <li>Опирайтесь на действующее распределение ответственности: по задаче отвечает продакт, по UX и интерфейсу — дизайнер.</li>
+                  <li>Если части зависят друг от друга, согласуйте ограничения и зафиксируйте итог: что решили и за какую часть отвечает каждый.</li>
+                </ol>
+              </section>
+
+              <section aria-label="Как сказать">
+                <h3>Как сказать</h3>
+                <div class="say">
+                  <p>«Давайте разделим вопросы. По задаче и бизнес‑контексту решение за продактом, по UX и интерфейсу — за дизайнером. Какие ограничения нам нужно согласовать?»</p>
+                </div>
+              </section>
+
+              <section aria-label="Если не помогло">
+                <h3>Если не помогло</h3>
+                <div class="placeholder">Вернитесь к действующему процессу и уточните конкретную спорную границу ответственности. По продуктовой части подключите продакта, при необходимости Костю; по процессу ревью — Любу.</div>
+              </section>
+
+              <a class="back" href="#situations">К ситуациям</a>
+            </div>
+
+            <aside class="insert" data-variant="who-decides" aria-label="Короткая сценка с маскотом">
+              <div class="insert-media" aria-hidden="true">
+                <img src="assets/mascot/invitrik-brandbook.png" alt="" />
+              </div>
+              <div class="insert-caption">
+                <div class="top">Работать вместе…</div>
+                <div class="bottom">…понимать, кто за что отвечает.</div>
+              </div>
+            </aside>
+          </div>
         </div>
       </section>
 
@@ -517,7 +648,44 @@
         <div class="situation-inner">
           <header class="situation-head">
             <h2 id="changed-without-me-title">Интерфейс меняют без моего участия</h2>
+            <p>Ты узнаёшь об изменении интерфейса, когда решение уже обсуждено или передано в разработку.</p>
           </header>
+          <div class="situation-grid">
+            <div class="answer" aria-label="Подсказки">
+              <section aria-label="Что сделать">
+                <h3>Что сделать</h3>
+                <ol class="steps">
+                  <li>Уточни, что изменили, зачем и на каком этапе находится работа.</li>
+                  <li>Вместе с командой проверь влияние на пользовательский сценарий и соответствие действующим стандартам.</li>
+                  <li>Договоритесь, как подключать дизайнера к таким изменениям вовремя, в рамках существующего процесса.</li>
+                </ol>
+              </section>
+
+              <section aria-label="Как сказать">
+                <h3>Как сказать</h3>
+                <div class="say">
+                  <p>«Вижу, что здесь изменили интерфейс. Давайте сверим задачу и влияние на сценарий, пока решение ещё можно скорректировать»</p>
+                </div>
+              </section>
+
+              <section aria-label="Если не помогло">
+                <h3>Если не помогло</h3>
+                <div class="placeholder">Если ситуация повторяется, обсуди с продактом конкретные случаи и место, где тебя нужно подключать. Опирайся на действующие стандарты; если договориться не получается, подключите Костю.</div>
+              </section>
+
+              <a class="back" href="#situations">К ситуациям</a>
+            </div>
+
+            <aside class="insert" data-variant="changed-without-me" aria-label="Короткая сценка с маскотом">
+              <div class="insert-media" aria-hidden="true">
+                <img src="assets/mascot/invitrik-brandbook.png" alt="" />
+              </div>
+              <div class="insert-caption">
+                <div class="top">Работать вместе…</div>
+                <div class="bottom">…подключать дизайнера до принятия решения.</div>
+              </div>
+            </aside>
+          </div>
         </div>
       </section>
 
@@ -525,7 +693,44 @@
         <div class="situation-inner">
           <header class="situation-head">
             <h2 id="multi-team-title">Задача затрагивает несколько команд</h2>
+            <p>Решение проходит через несколько продуктов. Каждая команда делает свою часть, но на стыке остаются вопросы.</p>
           </header>
+          <div class="situation-grid">
+            <div class="answer" aria-label="Подсказки">
+              <section aria-label="Что сделать">
+                <h3>Что сделать</h3>
+                <ol class="steps">
+                  <li>Обозначьте, какие команды участвуют и какие части сценария зависят друг от друга.</li>
+                  <li>Продуктовые договорённости согласуют продакты. Дизайнеры отвечают за свои части и сверяют пользовательский путь на стыках.</li>
+                  <li>Зафиксируйте конкретные договорённости по задаче: что делает каждая команда и что необходимо проверить вместе.</li>
+                </ol>
+              </section>
+
+              <section aria-label="Как сказать">
+                <h3>Как сказать</h3>
+                <div class="say">
+                  <p>«Наши части встречаются вот здесь. Давайте сверим переход для пользователя, а зависимости и приоритеты согласуем с продактами»</p>
+                </div>
+              </section>
+
+              <section aria-label="Если не помогло">
+                <h3>Если не помогло</h3>
+                <div class="placeholder">Опишите, какая межкомандная договорённость блокирует работу, и передайте вопрос вовлечённым продактам. Не пытайтесь решить продуктовые приоритеты только на уровне макетов.</div>
+              </section>
+
+              <a class="back" href="#situations">К ситуациям</a>
+            </div>
+
+            <aside class="insert" data-variant="multi-team" aria-label="Короткая сценка с маскотом">
+              <div class="insert-media" aria-hidden="true">
+                <img src="assets/mascot/invitrik-brandbook.png" alt="" />
+              </div>
+              <div class="insert-caption">
+                <div class="top">Работать вместе…</div>
+                <div class="bottom">…видеть не только свою часть.</div>
+              </div>
+            </aside>
+          </div>
         </div>
       </section>
 
@@ -533,13 +738,50 @@
         <div class="situation-inner">
           <header class="situation-head">
             <h2 id="mistake-found-title">В моей работе нашли ошибку</h2>
+            <p>В макете или сценарии заметили проблему. Нужно разобраться и исправить её, не превращая разговор в поиск виноватого.</p>
           </header>
+          <div class="situation-grid">
+            <div class="answer" aria-label="Подсказки">
+              <section aria-label="Что сделать">
+                <h3>Что сделать</h3>
+                <ol class="steps">
+                  <li>Уточни, в чём ошибка и на что она влияет. Отдели саму проблему от того, как прозвучало замечание.</li>
+                  <li>Договорись об исправлении и сообщи об изменении тем, чья работа от него зависит.</li>
+                  <li>Если это поможет избежать повторения, разберите причину и выберите конкретное улучшение.</li>
+                </ol>
+              </section>
+
+              <section aria-label="Как сказать">
+                <h3>Как сказать</h3>
+                <div class="say">
+                  <p>«Спасибо, что заметили. Давайте уточним, на что это влияет и что нужно исправить в первую очередь»</p>
+                </div>
+              </section>
+
+              <section aria-label="Если не помогло">
+                <h3>Если не помогло</h3>
+                <div class="placeholder">Если разговор переходит на личные оценки, верни его к конкретной ошибке и способу исправления. Если между дизайнерами не удаётся договориться о корректном взаимодействии, подключите Нину.</div>
+              </section>
+
+              <a class="back" href="#situations">К ситуациям</a>
+            </div>
+
+            <aside class="insert" data-variant="mistake-found" aria-label="Короткая сценка с маскотом">
+              <div class="insert-media" aria-hidden="true">
+                <img src="assets/mascot/invitrik-brandbook.png" alt="" />
+              </div>
+              <div class="insert-caption">
+                <div class="top">Работать вместе…</div>
+                <div class="bottom">…помогать исправить, а не искать виноватого.</div>
+              </div>
+            </aside>
+          </div>
         </div>
       </section>
     </div>
 
     <footer class="footer">
-      <b>Это практический гайд.</b> Не нужно читать его целиком: отправляй ссылку сразу на нужную ситуацию из навигации выше.
+      Эти подсказки выросли из нашего ретро. Если знакомой ситуации здесь нет или рекомендация не помогает, принесём её на следующее обсуждение и дополним гайд.
     </footer>
   </main>
 </body>
