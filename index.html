@@ -12,21 +12,26 @@
 
     :root{
       --bg: #FFFFFF;
+      --pageBg: #EAF8FB;
       --surface: #FFFFFF;
       --text: #0A1823;
       --muted: rgba(10,24,35,0.72);
       --muted2: rgba(10,24,35,0.58);
       --line: rgba(10,24,35,0.12);
       --shadow: 0 14px 30px rgba(10,24,35,0.10);
-      --radius: 18px;
+      --radiusOuter: 26px;
+      --radiusInner: 22px;
       --max: 980px;
       --gap: 14px;
-      --slant: 34px;
+      --diagShift: 32px;
 
       /* Brand palette (from brandbook) */
       --blue: #00ACC6;
       --orange: #FF5601;
       --black-blue: #0B2231;
+
+      --soft: #DDF6FB;
+      --soft2: #F2FCFE;
 
       /* Layout */
       --stickyTop: 10px;
@@ -38,7 +43,7 @@
     body{
       font-family: Hauss, Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       color: var(--text);
-      background: var(--bg);
+      background: var(--pageBg);
       font-size: 16px;
       line-height: 1.55;
       text-rendering: optimizeLegibility;
@@ -53,59 +58,56 @@
     .page{ max-width: var(--max); margin: 0 auto; padding: 28px 18px 72px; }
 
     .hero{ padding-bottom: 10px; }
-    .plaque{
-      background: var(--surface);
-      border: 1px solid rgba(10,24,35,0.10);
-      border-radius: 22px;
+    .composition{
+      background: var(--bg);
+      border-radius: var(--radiusOuter);
+      padding: var(--gap);
       box-shadow: var(--shadow);
       overflow: hidden;
       position: relative;
     }
-    .plaque--accent{
-      background: rgba(0,172,198,0.10);
-      border-color: rgba(0,172,198,0.22);
-      box-shadow: 0 10px 22px rgba(10,24,35,0.06);
+    .plaque{
+      --plaqueBg: var(--surface);
+      border-radius: var(--radiusInner);
+      position: relative;
+      overflow: hidden;
+      background: transparent;
     }
-    .plaque--blue{
-      background: var(--blue);
-      border-color: rgba(0,172,198,0.45);
-      box-shadow: 0 14px 30px rgba(0,172,198,0.14);
-      color: #FFFFFF;
-    }
-    .plaque--diag-left::before{
+    .plaque::before{
       content: "";
       position: absolute;
-      left: calc(var(--gap) * -1);
-      top: -2px;
-      bottom: -2px;
-      width: calc(var(--gap) + var(--slant));
-      background: var(--bg);
-      clip-path: polygon(0 0, 100% 0, 0 100%);
+      inset: 0;
+      background: var(--plaqueBg);
       pointer-events: none;
+      z-index: 0;
     }
-    .plaque--diag-right::before{
-      content: "";
-      position: absolute;
-      right: calc(var(--gap) * -1);
-      top: -2px;
-      bottom: -2px;
-      width: calc(var(--gap) + var(--slant));
-      background: var(--bg);
-      clip-path: polygon(0 0, 100% 0, 100% 100%);
-      pointer-events: none;
+    .plaque > *{ position: relative; z-index: 1; }
+    .plaque--paper{ --plaqueBg: #FFFFFF; }
+    .plaque--soft{ --plaqueBg: var(--soft); }
+    .plaque--soft2{ --plaqueBg: var(--soft2); }
+    .plaque--blue{ --plaqueBg: var(--blue); color: #FFFFFF; }
+
+    .plaque--cut-left::before{
+      clip-path: polygon(var(--diagShift) 0, 100% 0, 100% 100%, 0 100%);
+    }
+    .plaque--cut-right::before{
+      clip-path: polygon(0 0, 100% 0, calc(100% - var(--diagShift)) 100%, 0 100%);
     }
 
     .cover{
-      display: grid;
-      gap: var(--gap);
       margin-bottom: 14px;
     }
-    .cover-text{ padding: 16px 16px 14px; }
-    .cover-text{
-      background: rgba(0,172,198,0.06);
-      border-color: rgba(0,172,198,0.20);
-      box-shadow: 0 14px 30px rgba(10,24,35,0.08);
+    .cover-grid{
+      display: grid;
+      gap: var(--gap);
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        "text"
+        "ill"
+        "accent";
+      align-items: stretch;
     }
+    .cover-text{ padding: 18px 18px 16px; grid-area: text; }
     .brand{
       display: inline-flex;
       align-items: center;
@@ -151,9 +153,9 @@
       display: flex;
       gap: 10px;
       align-items: flex-start;
+      grid-area: accent;
     }
-    .cover-accent::before{
-      content: "7";
+    .cover-accent-badge{
       width: 28px;
       height: 28px;
       border-radius: 10px;
@@ -166,9 +168,11 @@
       line-height: 1;
     }
     .cover-ill{
+      grid-area: ill;
       padding: 14px;
       display: grid;
       place-items: center;
+      --plaqueBg: #FBFEFF;
     }
     .cover-ill picture, .cover-ill img{ display: block; width: 100%; height: auto; }
     .cover-ill img{ max-height: 320px; object-fit: contain; }
@@ -184,10 +188,7 @@
       gap: 10px;
     }
     .nav-box{
-      padding: 12px 0;
-      background: rgba(0,172,198,0.04);
-      border-color: rgba(0,172,198,0.16);
-      box-shadow: 0 14px 30px rgba(10,24,35,0.08);
+      padding: 12px 0 6px;
     }
     .nav-title{
       display: flex;
@@ -210,8 +211,13 @@
     .nav-list{
       list-style: none;
       margin: 0;
-      padding: 0 6px;
+      padding: 0 14px 10px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+      position: relative;
     }
+    .nav-list::before{ display: none; }
     .nav-link{
       display: grid;
       grid-template-columns: 28px 1fr;
@@ -222,11 +228,11 @@
       border: none;
       background: transparent;
       text-decoration: none;
-      border-bottom: 1px solid rgba(10,24,35,0.08);
+      border-bottom: 1px solid rgba(10,24,35,0.10);
     }
     .nav-list li:last-child .nav-link{ border-bottom: none; }
     .nav-link:hover{
-      background: rgba(0,172,198,0.08);
+      background: rgba(0,172,198,0.10);
     }
     .nav-link:focus-visible{
       outline: 3px solid rgba(0,172,198,0.45);
@@ -235,7 +241,6 @@
     }
     .nav-link:hover .nav-num{
       background: rgba(0,172,198,0.16);
-      border-color: rgba(0,172,198,0.24);
     }
     .nav-link:hover .nav-text{ text-decoration: underline; text-decoration-color: rgba(0,172,198,0.70); text-decoration-thickness: 2px; text-underline-offset: 3px; }
     .nav-num{
@@ -246,9 +251,8 @@
       place-items: center;
       font-size: 13px;
       font-weight: 800;
-      color: rgba(10,24,35,0.86);
-      background: rgba(0,172,198,0.12);
-      border: 1px solid rgba(0,172,198,0.18);
+      color: #FFFFFF;
+      background: var(--blue);
     }
     .nav-text{
       font-size: 14px;
@@ -288,11 +292,15 @@
       max-width: 80ch;
     }
 
-    .situation-grid{
+    .macro{
+      background: var(--bg);
+      border-radius: var(--radiusOuter);
+      padding: var(--gap);
+      box-shadow: var(--shadow);
+      overflow: hidden;
       display: grid;
+      gap: var(--gap);
       grid-template-columns: 1fr;
-      gap: 14px;
-      align-items: start;
       grid-template-areas:
         "answer"
         "tagline"
@@ -340,9 +348,7 @@
       display: grid;
       gap: 14px;
       padding: 16px;
-      background: rgba(0,172,198,0.04);
-      border-color: rgba(0,172,198,0.18);
-      box-shadow: 0 14px 30px rgba(10,24,35,0.08);
+      --plaqueBg: #FFFFFF;
     }
     .answer h3{
       font-size: 16px;
@@ -362,7 +368,6 @@
       padding: 14px 14px;
       border-radius: 16px;
       background: rgba(0,172,198,0.10);
-      border: 1px solid rgba(0,172,198,0.22);
       color: rgba(10,24,35,0.92);
       line-height: 1.6;
       font-size: 17px;
@@ -410,59 +415,53 @@
       .nav{ position: sticky; top: var(--stickyTop); }
       .nav-inner{ grid-template-columns: 1fr; }
       .nav-list{
-        column-count: 2;
-        column-gap: var(--gap);
-        padding: 0 14px 6px;
+        grid-template-columns: 1fr 1fr;
+        grid-auto-flow: column;
+        grid-template-rows: repeat(4, auto);
+        column-gap: 26px;
       }
-      .nav-list li{ break-inside: avoid; }
-      .nav-link{ border-bottom: 1px solid rgba(10,24,35,0.08); }
-      .nav-box::after{
+      .nav-list::before{
         content: "";
         position: absolute;
-        top: 52px;
-        bottom: 10px;
-        left: calc(50% - (var(--gap) / 2));
-        width: calc(var(--gap) + var(--slant));
-        background: var(--bg);
-        clip-path: polygon(0 0, 100% 0, 0 100%);
+        top: 0;
+        bottom: 0;
+        left: 50%;
+        width: 1px;
+        background: rgba(10,24,35,0.10);
+        transform: translateX(-0.5px);
+        display: block;
         pointer-events: none;
-        opacity: 1;
       }
 
-      .situation-grid{ gap: 22px; }
-      .situation[data-layout="spread"] .situation-grid{
+      .macro{ gap: 22px; }
+      .situation[data-layout="spread"] .macro{
         grid-template-columns: 340px 1fr;
         grid-template-areas:
           "insert answer"
           "insert tagline";
       }
-      .situation[data-layout="spread"][data-ill="right"] .situation-grid{
+      .situation[data-layout="spread"][data-ill="right"] .macro{
         grid-template-columns: 1fr 340px;
         grid-template-areas:
           "answer insert"
           "tagline insert";
       }
-      .situation[data-layout="dialog"] .situation-grid,
-      .situation[data-layout="work"] .situation-grid{
+      .situation[data-layout="dialog"] .macro,
+      .situation[data-layout="work"] .macro{
         grid-template-columns: 1fr 340px;
         grid-template-areas:
           "insert insert"
           "answer tagline";
       }
 
-      .cover{
+      .cover-grid{
         grid-template-columns: 1fr 1.22fr;
         grid-template-areas:
           "text ill"
           "accent ill";
-        align-items: stretch;
       }
-      .cover-text{ grid-area: text; }
-      .cover-ill{ grid-area: ill; }
-      .cover-accent{ grid-area: accent; }
-      .cover-ill{ min-height: 260px; }
+      .cover-ill{ min-height: 280px; }
       .cover-ill img{ max-height: 360px; }
-      .cover-ill.plaque--diag-left::before{ left: calc(var(--gap) * -1); }
     }
     @media (max-width: 859px){
       .cover-ill img{ max-height: 220px; }
@@ -471,9 +470,8 @@
     .answer{ grid-area: answer; }
 
     @media (max-width: 859px){
-      .plaque--diag-left::before,
-      .plaque--diag-right::before,
-      .nav-box::after{ display: none; }
+      .plaque--cut-left::before,
+      .plaque--cut-right::before{ clip-path: none; }
     }
 
     @media (prefers-reduced-motion: reduce){
@@ -484,30 +482,33 @@
 <body>
   <main class="page">
     <header class="hero">
-      <div class="cover" aria-label="Обложка гайда">
-        <section class="plaque plaque--diag-right cover-text">
-          <div class="brand">
-            <div class="kicker"><span class="kline" aria-hidden="true"></span><span>INVITRO · Дизайн-команда</span></div>
+      <section class="cover composition" aria-label="Обложка гайда">
+        <div class="cover-grid" aria-label="Композиция плашек обложки">
+          <div class="plaque plaque--soft plaque--cut-right cover-text">
+            <div class="brand">
+              <div class="kicker"><span class="kline" aria-hidden="true"></span><span>INVITRO · Дизайн-команда</span></div>
+            </div>
+            <h1>Как договориться в команде</h1>
+            <p class="lead">Иногда спор заходит в тупик, фидбек сбивает с толку, а договорённости понимают по‑разному. Найди свою ситуацию и посмотри, что можно сделать.</p>
           </div>
-          <h1>Как договориться в команде</h1>
-          <p class="lead">Иногда спор заходит в тупик, фидбек сбивает с толку, а договорённости понимают по‑разному. Найди свою ситуацию и посмотри, что можно сделать.</p>
-        </section>
 
-        <aside class="plaque cover-ill" aria-label="Иллюстрация обложки">
-          <picture>
-            <source type="image/webp" srcset="assets/scenes/webp/hero-guide.webp" />
-            <img src="assets/scenes/hero-guide.png" alt="Маскот с путеводителем по рабочим ситуациям" loading="eager" decoding="async" />
-          </picture>
-        </aside>
+          <aside class="plaque plaque--paper plaque--cut-left cover-ill" aria-label="Иллюстрация обложки">
+            <picture>
+              <source type="image/webp" srcset="assets/scenes/webp/hero-guide.webp" />
+              <img src="assets/scenes/hero-guide.png" alt="Маскот с путеводителем по рабочим ситуациям" loading="eager" decoding="async" />
+            </picture>
+          </aside>
 
-        <aside class="plaque plaque--blue cover-accent" aria-label="Акцент">
-          7 знакомых ситуаций — и идеи, что делать дальше
-        </aside>
-      </div>
+          <aside class="plaque plaque--blue plaque--cut-right cover-accent" aria-label="Акцент">
+            <span class="cover-accent-badge" aria-hidden="true">7</span>
+            <span>знакомых ситуаций — и идеи, что делать дальше</span>
+          </aside>
+        </div>
+      </section>
 
       <nav class="nav" id="situations" aria-label="Навигация по ситуациям">
         <div class="nav-inner">
-          <div class="plaque nav-box">
+          <div class="composition nav-box" aria-label="Что случилось — список ситуаций">
             <div class="nav-title">Что случилось?</div>
             <ol class="nav-list">
             <li><a class="nav-link" href="#cant-agree"><span class="nav-num">1</span><span class="nav-text">Спорим, но не можем договориться</span></a></li>
@@ -531,8 +532,8 @@
             <p>Кажется, всё уже сказали. Но разговор снова идёт по кругу, а решения всё нет.</p>
           </header>
 
-          <div class="situation-grid">
-            <div class="plaque answer plaque--diag-right" aria-label="Подсказки">
+          <div class="macro" aria-label="Ситуация: композиция плашек">
+            <div class="plaque plaque--soft2 answer" aria-label="Подсказки">
               <section aria-label="Что сделать">
                 <h3>Что сделать</h3>
                 <ol class="steps">
@@ -560,12 +561,12 @@
               <a class="back" href="#situations">К ситуациям</a>
             </div>
 
-            <aside class="plaque plaque--accent tagline plaque--diag-left" aria-label="Подпись к сценке">
+            <aside class="plaque plaque--soft tagline" aria-label="Подпись к сценке">
               <div class="top">Работать вместе…</div>
               <div class="bottom">…искать следующий шаг, а не последний аргумент.</div>
             </aside>
 
-            <aside class="plaque insert" aria-label="Короткая сценка с маскотом">
+            <aside class="plaque plaque--paper insert" aria-label="Короткая сценка с маскотом">
               <div class="insert-media" aria-hidden="true">
                 <picture>
                   <source type="image/webp" srcset="assets/scenes/webp/scene-dispute.webp" />
@@ -583,8 +584,8 @@
             <h2 id="misaligned-title">Договорились, но поняли по‑разному</h2>
             <p>На встрече все кивнули. Через несколько дней оказалось, что каждый ушёл со своей версией решения.</p>
           </header>
-          <div class="situation-grid">
-            <div class="plaque answer plaque--diag-right" aria-label="Подсказки">
+          <div class="macro" aria-label="Ситуация: композиция плашек">
+            <div class="plaque plaque--soft2 answer plaque--cut-right" aria-label="Подсказки">
               <section aria-label="Что сделать">
                 <h3>Что сделать</h3>
                 <ol class="steps">
@@ -609,12 +610,12 @@
               <a class="back" href="#situations">К ситуациям</a>
             </div>
 
-            <aside class="plaque plaque--accent tagline" aria-label="Подпись к сценке">
+            <aside class="plaque plaque--soft tagline" aria-label="Подпись к сценке">
               <div class="top">Работать вместе…</div>
               <div class="bottom">…сверяться не только кивками.</div>
             </aside>
 
-            <aside class="plaque insert" aria-label="Короткая сценка с маскотом">
+            <aside class="plaque plaque--paper insert plaque--cut-left" aria-label="Короткая сценка с маскотом">
               <div class="insert-media" aria-hidden="true">
                 <picture>
                   <source type="image/webp" srcset="assets/scenes/webp/scene-agreement.webp" />
@@ -632,8 +633,8 @@
             <h2 id="unclear-feedback-title">Получаю «не нравится» без объяснений</h2>
             <p>Смотришь на комментарий «что‑то не то» и пытаешься угадать: проблема в сценарии, визуале или вообще в задаче.</p>
           </header>
-          <div class="situation-grid">
-            <div class="plaque answer plaque--diag-left" aria-label="Подсказки">
+          <div class="macro" aria-label="Ситуация: композиция плашек">
+            <div class="plaque plaque--soft2 answer plaque--cut-left" aria-label="Подсказки">
               <section aria-label="Что сделать">
                 <h3>Что сделать</h3>
                 <ol class="steps">
@@ -658,12 +659,12 @@
               <a class="back" href="#situations">К ситуациям</a>
             </div>
 
-            <aside class="plaque plaque--accent tagline" aria-label="Подпись к сценке">
+            <aside class="plaque plaque--soft tagline" aria-label="Подпись к сценке">
               <div class="top">Работать вместе…</div>
               <div class="bottom">…уточнять, а не угадывать.</div>
             </aside>
 
-            <aside class="plaque insert" aria-label="Короткая сценка с маскотом">
+            <aside class="plaque plaque--paper insert plaque--cut-right" aria-label="Короткая сценка с маскотом">
               <div class="insert-media" aria-hidden="true">
                 <picture>
                   <source type="image/webp" srcset="assets/scenes/webp/scene-feedback.webp" />
@@ -681,8 +682,8 @@
             <h2 id="who-decides-title">Непонятно, кто принимает решение</h2>
             <p>В одном разговоре смешались бизнес‑задача, пользовательский сценарий и интерфейс. В итоге все обсуждают всё.</p>
           </header>
-          <div class="situation-grid">
-            <div class="plaque answer plaque--diag-right" aria-label="Подсказки">
+          <div class="macro" aria-label="Ситуация: композиция плашек">
+            <div class="plaque plaque--soft2 answer" aria-label="Подсказки">
               <section aria-label="Что сделать">
                 <h3>Что сделать</h3>
                 <ol class="steps">
@@ -707,12 +708,12 @@
               <a class="back" href="#situations">К ситуациям</a>
             </div>
 
-            <aside class="plaque plaque--accent tagline plaque--diag-left" aria-label="Подпись к сценке">
+            <aside class="plaque plaque--soft tagline" aria-label="Подпись к сценке">
               <div class="top">Работать вместе…</div>
               <div class="bottom">…понимать, кто за что отвечает.</div>
             </aside>
 
-            <aside class="plaque insert" aria-label="Короткая сценка с маскотом">
+            <aside class="plaque plaque--paper insert" aria-label="Короткая сценка с маскотом">
               <div class="insert-media" aria-hidden="true">
                 <picture>
                   <source type="image/webp" srcset="assets/scenes/webp/scene-responsibility.webp" />
@@ -730,8 +731,8 @@
             <h2 id="changed-without-me-title">Интерфейс меняют без моего участия</h2>
             <p>Об изменении интерфейса ты узнаёшь, когда его уже обсудили или отдали в разработку.</p>
           </header>
-          <div class="situation-grid">
-            <div class="plaque answer plaque--diag-right" aria-label="Подсказки">
+          <div class="macro" aria-label="Ситуация: композиция плашек">
+            <div class="plaque plaque--soft2 answer plaque--cut-right" aria-label="Подсказки">
               <section aria-label="Что сделать">
                 <h3>Что сделать</h3>
                 <ol class="steps">
@@ -756,12 +757,12 @@
               <a class="back" href="#situations">К ситуациям</a>
             </div>
 
-            <aside class="plaque plaque--accent tagline" aria-label="Подпись к сценке">
+            <aside class="plaque plaque--soft tagline" aria-label="Подпись к сценке">
               <div class="top">Работать вместе…</div>
               <div class="bottom">…подключать дизайнера до принятия решения.</div>
             </aside>
 
-            <aside class="plaque insert" aria-label="Короткая сценка с маскотом">
+            <aside class="plaque plaque--paper insert plaque--cut-left" aria-label="Короткая сценка с маскотом">
               <div class="insert-media" aria-hidden="true">
                 <picture>
                   <source type="image/webp" srcset="assets/scenes/webp/scene-involvement.webp" />
@@ -779,8 +780,8 @@
             <h2 id="multi-team-title">Задача затрагивает несколько команд</h2>
             <p>Каждая команда делает свою часть. Сложности начинаются там, где эти части встречаются.</p>
           </header>
-          <div class="situation-grid">
-            <div class="plaque answer plaque--diag-right" aria-label="Подсказки">
+          <div class="macro" aria-label="Ситуация: композиция плашек">
+            <div class="plaque plaque--soft2 answer" aria-label="Подсказки">
               <section aria-label="Что сделать">
                 <h3>Что сделать</h3>
                 <ol class="steps">
@@ -805,12 +806,12 @@
               <a class="back" href="#situations">К ситуациям</a>
             </div>
 
-            <aside class="plaque plaque--accent tagline plaque--diag-left" aria-label="Подпись к сценке">
+            <aside class="plaque plaque--soft tagline" aria-label="Подпись к сценке">
               <div class="top">Работать вместе…</div>
               <div class="bottom">…видеть не только свою часть.</div>
             </aside>
 
-            <aside class="plaque insert" aria-label="Короткая сценка с маскотом">
+            <aside class="plaque plaque--paper insert" aria-label="Короткая сценка с маскотом">
               <div class="insert-media" aria-hidden="true">
                 <picture>
                   <source type="image/webp" srcset="assets/scenes/webp/scene-cross-team.webp" />
@@ -828,8 +829,8 @@
             <h2 id="mistake-found-title">В моей работе нашли ошибку</h2>
             <p>Неприятно, когда ошибку замечают другие. Но сейчас важнее понять, на что она влияет и как её исправить.</p>
           </header>
-          <div class="situation-grid">
-            <div class="plaque answer plaque--diag-left" aria-label="Подсказки">
+          <div class="macro" aria-label="Ситуация: композиция плашек">
+            <div class="plaque plaque--soft2 answer plaque--cut-left" aria-label="Подсказки">
               <section aria-label="Что сделать">
                 <h3>Что сделать</h3>
                 <ol class="steps">
@@ -854,12 +855,12 @@
               <a class="back" href="#situations">К ситуациям</a>
             </div>
 
-            <aside class="plaque plaque--accent tagline" aria-label="Подпись к сценке">
+            <aside class="plaque plaque--soft tagline" aria-label="Подпись к сценке">
               <div class="top">Работать вместе…</div>
               <div class="bottom">…помогать исправить, а не искать виноватого.</div>
             </aside>
 
-            <aside class="plaque insert" aria-label="Короткая сценка с маскотом">
+            <aside class="plaque plaque--paper insert plaque--cut-right" aria-label="Короткая сценка с маскотом">
               <div class="insert-media" aria-hidden="true">
                 <picture>
                   <source type="image/webp" srcset="assets/scenes/webp/scene-mistake.webp" />
