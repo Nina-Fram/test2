@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Как договориться в команде · INVITRO</title>
+  <meta name="description" content="Спор зашёл в тупик, фидбек непонятен или договорённости потерялись? Выбери свою ситуацию: здесь собраны подсказки, что сделать, как начать разговор и к кому обратиться." />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root{
+      --bg: #ECEFEF;
+      --surface: #FFFFFF;
+      --text: #0A1823;
+      --muted: rgba(10,24,35,0.72);
+      --muted2: rgba(10,24,35,0.58);
+      --line: rgba(10,24,35,0.12);
+      --shadow: 0 14px 34px rgba(10,24,35,0.10);
+      --radius: 18px;
+      --max: 980px;
+
+      /* Brand palette (from brandbook) */
+      --blue: #00ACC6;
+      --orange: #FF5601;
+      --black-blue: #0B2231;
+
+      /* Layout */
+      --stickyTop: 10px;
+      --anchorOffset: 84px;
+    }
+
+    html{ scroll-padding-top: var(--anchorOffset); }
+
+    body{
+      font-family: Hauss, Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      font-size: 16px;
+      line-height: 1.55;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    a{ color: inherit; text-decoration-color: rgba(0,172,198,0.45); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+    a:hover{ text-decoration-color: rgba(0,172,198,0.90); }
+    a:focus-visible{ outline: 3px solid rgba(0,172,198,0.55); outline-offset: 3px; border-radius: 8px; }
+
+    .page{ max-width: var(--max); margin: 0 auto; padding: 28px 18px 72px; }
+
+    .hero{ padding-bottom: 16px; }
+    .kicker{
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+      color: var(--blue);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .kline{ width: 22px; height: 2px; border-radius: 999px; background: var(--blue); flex-shrink: 0; transform: translateY(1px); }
+
+    h1{
+      font-size: clamp(32px, 4.3vw, 52px);
+      line-height: 1.04;
+      letter-spacing: -0.04em;
+      margin-bottom: 10px;
+      font-weight: 800;
+    }
+    .lead{
+      max-width: 74ch;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    .nav{
+      margin-top: 16px;
+      position: sticky;
+      top: var(--stickyTop);
+      z-index: 10;
+      background: color-mix(in srgb, var(--bg) 82%, transparent);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(10,24,35,0.10);
+      border-radius: 16px;
+      box-shadow: 0 10px 24px rgba(10,24,35,0.06);
+    }
+    .nav-inner{
+      padding: 12px 12px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    .nav-title{
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(10,24,35,0.62);
+    }
+    .nav-list{
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+    .nav-link{
+      display: grid;
+      grid-template-columns: 22px 1fr;
+      gap: 10px;
+      align-items: start;
+      padding: 10px 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(10,24,35,0.10);
+      background: rgba(255,255,255,0.72);
+      box-shadow: 0 8px 18px rgba(10,24,35,0.05);
+      text-decoration: none;
+    }
+    .nav-link:hover{ border-color: rgba(0,172,198,0.35); }
+    .nav-num{
+      width: 22px;
+      height: 22px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      font-size: 12px;
+      font-weight: 800;
+      color: rgba(10,24,35,0.86);
+      background: rgba(0,172,198,0.12);
+      border: 1px solid rgba(0,172,198,0.18);
+    }
+    .nav-text{
+      font-size: 14px;
+      line-height: 1.35;
+      color: rgba(10,24,35,0.88);
+    }
+
+    .content{ margin-top: 18px; display: grid; gap: 14px; }
+
+    .situation{
+      scroll-margin-top: var(--anchorOffset);
+      background: var(--surface);
+      border: 1px solid rgba(10,24,35,0.10);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .situation-inner{
+      padding: 18px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+    .situation-head{
+      display: grid;
+      gap: 8px;
+    }
+    .situation-head h2{
+      font-size: 22px;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      font-weight: 800;
+    }
+    .situation-head p{
+      color: var(--muted);
+      line-height: 1.6;
+      max-width: 80ch;
+    }
+
+    .situation-grid{
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      align-items: start;
+    }
+
+    .scene{
+      border: 1px dashed rgba(10,24,35,0.22);
+      border-radius: 16px;
+      padding: 12px;
+      background: rgba(236,239,239,0.55);
+    }
+    .scene-media{
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(0,172,198,0.10), rgba(255,86,1,0.08));
+      border: 1px solid rgba(10,24,35,0.10);
+      display: grid;
+      place-items: center;
+      color: rgba(10,24,35,0.55);
+      text-align: center;
+      padding: 14px;
+      font-weight: 600;
+    }
+    .scene-media span{ display: block; max-width: 34ch; }
+    .scene figcaption{
+      margin-top: 10px;
+      font-size: 13px;
+      color: rgba(10,24,35,0.76);
+    }
+
+    .card{
+      border: 1px solid rgba(10,24,35,0.10);
+      border-radius: 16px;
+      padding: 14px;
+      background: #FFFFFF;
+    }
+    .card h3{
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(10,24,35,0.62);
+      margin-bottom: 10px;
+    }
+    .steps{
+      margin-left: 18px;
+      display: grid;
+      gap: 8px;
+      color: rgba(10,24,35,0.84);
+    }
+    .say{
+      padding: 12px 12px;
+      border-left: 4px solid rgba(0,172,198,0.55);
+      background: rgba(0,172,198,0.08);
+      border-radius: 12px;
+      color: rgba(10,24,35,0.86);
+      line-height: 1.6;
+    }
+    .placeholder{
+      color: rgba(10,24,35,0.68);
+      line-height: 1.65;
+    }
+
+    .footer{
+      margin-top: 18px;
+      color: rgba(10,24,35,0.68);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    .footer b{ color: rgba(10,24,35,0.86); }
+
+    @media (min-width: 860px){
+      .nav-inner{ grid-template-columns: auto 1fr; align-items: start; gap: 12px; }
+      .nav-title{ padding: 10px 10px; border-right: 1px solid rgba(10,24,35,0.10); }
+      .nav-list{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .situation-grid{ grid-template-columns: 360px 1fr; }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      *, *::before, *::after{ scroll-behavior: auto !important; transition: none !important; animation: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <div class="kicker"><span class="kline" aria-hidden="true"></span><span>Дизайн-команда · Гайд по взаимодействию</span></div>
+      <h1>Как договориться в команде</h1>
+      <p class="lead">Спор зашёл в тупик, фидбек непонятен или договорённости потерялись? Выбери свою ситуацию: здесь собраны подсказки, что сделать, как начать разговор и к кому обратиться.</p>
+
+      <nav class="nav" aria-label="Навигация по ситуациям">
+        <div class="nav-inner">
+          <div class="nav-title">Ситуации</div>
+          <ol class="nav-list">
+            <li><a class="nav-link" href="#cant-agree"><span class="nav-num">1</span><span class="nav-text">Спорим, но не можем договориться.</span></a></li>
+            <li><a class="nav-link" href="#misaligned"><span class="nav-num">2</span><span class="nav-text">Договорились, а потом каждый понял по‑своему.</span></a></li>
+            <li><a class="nav-link" href="#unclear-feedback"><span class="nav-num">3</span><span class="nav-text">Получаю «не нравится» без объяснений.</span></a></li>
+            <li><a class="nav-link" href="#who-decides"><span class="nav-num">4</span><span class="nav-text">Непонятно, кто принимает решение.</span></a></li>
+            <li><a class="nav-link" href="#changed-without-me"><span class="nav-num">5</span><span class="nav-text">Интерфейс меняют без моего участия.</span></a></li>
+            <li><a class="nav-link" href="#multi-team"><span class="nav-num">6</span><span class="nav-text">Задача затрагивает несколько команд.</span></a></li>
+            <li><a class="nav-link" href="#mistake-found"><span class="nav-num">7</span><span class="nav-text">В моей работе нашли ошибку.</span></a></li>
+          </ol>
+        </div>
+      </nav>
+    </header>
+
+    <div class="content" aria-label="Ситуации и подсказки">
+      <section class="situation" id="cant-agree" aria-labelledby="cant-agree-title">
+        <div class="situation-inner">
+          <header class="situation-head">
+            <h2 id="cant-agree-title">Спорим, но не можем договориться</h2>
+            <p>Обсуждение ходит по кругу: аргументы есть, решения — нет.</p>
+          </header>
+
+          <div class="situation-grid">
+            <figure class="scene">
+              <div class="scene-media" role="img" aria-label="Место для иллюстрации с маскотом">
+                <span>Здесь будет иллюстрация с маскотом. Пока — плейсхолдер.</span>
+              </div>
+              <figcaption>Работать вместе… искать следующий шаг, а не последний аргумент.</figcaption>
+            </figure>
+
+            <div class="cards" aria-label="Подсказки">
+              <section class="card" aria-label="Что сделать">
+                <h3>Что сделать</h3>
+                <ol class="steps">
+                  <li>Сформулируй предмет спора как один вопрос: что именно выбираем и по какому критерию.</li>
+                  <li>Собери 2–3 варианта и коротко запиши аргументы: что выигрываем, чем рискуем.</li>
+                  <li>Если зациклились — зафиксируй следующий шаг: кто принимает решение, что нужно проверить и к какому сроку возвращаемся.</li>
+                </ol>
+              </section>
+
+              <section class="card" aria-label="Как сказать">
+                <h3>Как сказать</h3>
+                <div class="say">«Давайте на минуту остановимся: какой вопрос мы сейчас решаем и по каким признакам поймём, что вариант подходит? Если не выбираем прямо сейчас — какой следующий шаг и когда вернёмся?»</div>
+              </section>
+
+              <section class="card" aria-label="Если не помогло">
+                <h3>Если не помогло</h3>
+                <div class="placeholder">Если всё ещё не договорились, зафиксируй, к кому идём дальше: ревью → владелец ревью‑процесса, продукт → лид дизайна, конфликт → community lead.</div>
+              </section>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="situation" id="misaligned" aria-labelledby="misaligned-title">
+        <div class="situation-inner">
+          <header class="situation-head">
+            <h2 id="misaligned-title">Договорились, а потом каждый понял по‑своему</h2>
+            <p class="placeholder">Раздел будет заполнен после согласования образцовой ситуации. Якорная ссылка уже готова.</p>
+          </header>
+          <figure class="scene" aria-label="Плейсхолдер иллюстрации">
+            <div class="scene-media" role="img" aria-label="Место для иллюстрации с маскотом"><span>Иллюстрация появится позже.</span></div>
+            <figcaption>Работать вместе… сверяться не только кивками.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="situation" id="unclear-feedback" aria-labelledby="unclear-feedback-title">
+        <div class="situation-inner">
+          <header class="situation-head">
+            <h2 id="unclear-feedback-title">Получаю «не нравится» без объяснений</h2>
+            <p class="placeholder">Раздел будет заполнен после согласования образцовой ситуации. Якорная ссылка уже готова.</p>
+          </header>
+          <figure class="scene">
+            <div class="scene-media" role="img" aria-label="Место для иллюстрации с маскотом"><span>Иллюстрация появится позже.</span></div>
+            <figcaption>Работать вместе… уточнять, что именно не так.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="situation" id="who-decides" aria-labelledby="who-decides-title">
+        <div class="situation-inner">
+          <header class="situation-head">
+            <h2 id="who-decides-title">Непонятно, кто принимает решение</h2>
+            <p class="placeholder">Раздел будет заполнен после согласования образцовой ситуации. Якорная ссылка уже готова.</p>
+          </header>
+          <figure class="scene">
+            <div class="scene-media" role="img" aria-label="Место для иллюстрации с маскотом"><span>Иллюстрация появится позже.</span></div>
+            <figcaption>Работать вместе… понимать, кто за что отвечает.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="situation" id="changed-without-me" aria-labelledby="changed-without-me-title">
+        <div class="situation-inner">
+          <header class="situation-head">
+            <h2 id="changed-without-me-title">Интерфейс меняют без моего участия</h2>
+            <p class="placeholder">Раздел будет заполнен после согласования образцовой ситуации. Якорная ссылка уже готова.</p>
+          </header>
+          <figure class="scene">
+            <div class="scene-media" role="img" aria-label="Место для иллюстрации с маскотом"><span>Иллюстрация появится позже.</span></div>
+            <figcaption>Работать вместе… подключать дизайнера до принятия решения.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="situation" id="multi-team" aria-labelledby="multi-team-title">
+        <div class="situation-inner">
+          <header class="situation-head">
+            <h2 id="multi-team-title">Задача затрагивает несколько команд</h2>
+            <p class="placeholder">Раздел будет заполнен после согласования образцовой ситуации. Якорная ссылка уже готова.</p>
+          </header>
+          <figure class="scene">
+            <div class="scene-media" role="img" aria-label="Место для иллюстрации с маскотом"><span>Иллюстрация появится позже.</span></div>
+            <figcaption>Работать вместе… согласовывать то, что касается нескольких команд.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="situation" id="mistake-found" aria-labelledby="mistake-found-title">
+        <div class="situation-inner">
+          <header class="situation-head">
+            <h2 id="mistake-found-title">В моей работе нашли ошибку</h2>
+            <p class="placeholder">Раздел будет заполнен после согласования образцовой ситуации. Якорная ссылка уже готова.</p>
+          </header>
+          <figure class="scene">
+            <div class="scene-media" role="img" aria-label="Место для иллюстрации с маскотом"><span>Иллюстрация появится позже.</span></div>
+            <figcaption>Работать вместе… помогать исправить, а не искать виноватого.</figcaption>
+          </figure>
+        </div>
+      </section>
+    </div>
+
+    <footer class="footer">
+      <b>Это практический гайд.</b> Не нужно читать его целиком: отправляй ссылку сразу на нужную ситуацию из навигации выше.
+    </footer>
+  </main>
+</body>
+</html>
