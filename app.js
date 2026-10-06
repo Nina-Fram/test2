@@ -22,7 +22,6 @@ const MONTHS_NOM = ["Январь", "Февраль", "Март", "Апрель"
 const DOW = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
 const DOW_LONG = ["воскресенье", "понедельник", "вторник", "среда", "четверг", "пятница", "суббота"];
 const HOUR_PX = 48;
-const PENDING_PREVIEW = 2;
 const MONTH_PREVIEW = 3;
 
 const SERIES = {
@@ -366,7 +365,7 @@ function seed() {
       created: at(0, 10, 5),
       visit: onDay(addDays(mon, 9), 11, 0),
       visitTo: "14:00",
-      status: "new",
+      status: "confirmed",
       comment: "Заявка на другой неделе",
     }),
   ];
@@ -863,25 +862,35 @@ function monthView() {
   return `<div class="month-wrap"><div class="month"><div class="month-head">${head}</div><div class="month-grid">${body}</div></div></div>`;
 }
 
+function typeBadge(v, withIcon = true) {
+  const standing = v.type === "standing";
+  const mark = standing && withIcon ? icon("repeat", 12) : "";
+  return `<span class="ds-badge ${standing ? "is-standing" : "is-once"}">${mark}${esc(typeLabel(v))}</span>`;
+}
+
+function statusLine(v) {
+  const st = statusMeta(v.status);
+  return `<span class="status-line is-${v.status}">${icon(st.icon, 14)}<span>${esc(st.text)}</span></span>`;
+}
+
+function pendingCard(v) {
+  const when = `${fmtTime(v.visit)}–${v.visitTo}`;
+  const label = `${fmtVisitDay(v.visit)}, ${when}, ${typeLabel(v)}`;
+  return `<button type="button" class="pend-card" data-action="details" data-id="${v.id}" aria-label="${esc(label)}">
+    <span class="pend-date">${esc(fmtVisitDay(v.visit))}</span>
+    <span class="pend-time">${esc(when)}</span>
+    ${typeBadge(v)}
+  </button>`;
+}
+
 function scheduleView() {
   const pending = pendingVisits();
-  const shown = state.pendingExpanded ? pending : pending.slice(0, PENDING_PREVIEW);
-  const hidden = pending.length - shown.length;
   const pendingBlock = pending.length ? `
     <section class="panel wait-list" aria-label="Ожидают подтверждения">
-      <h2 class="wait-title">Ожидают подтверждения <span class="count">${pending.length}</span></h2>
-      <div class="cells">
-        ${shown.map((v) => `<button type="button" class="cell" data-action="details" data-id="${v.id}">
-          <span class="cell-ico">${icon(v.type === "standing" ? "repeat" : "clock", 24)}</span>
-          <span class="cell-body">
-            <span class="cell-label">${esc(fmtVisitDay(v.visit))} · ${fmtTime(v.visit)}–${v.visitTo}</span>
-            <span class="cell-caption">${esc(typeLabel(v))} · Ожидает подтверждения</span>
-          </span>
-          <span class="cell-go">${icon("right", 24)}</span>
-        </button>`).join("")}
+      <h2 class="wait-title">Ожидают подтверждения</h2>
+      <div class="wait-grid">
+        ${pending.map(pendingCard).join("")}
       </div>
-      ${hidden > 0 ? `<button type="button" class="link-btn" data-action="toggle-pending">Ещё ${hidden}</button>` : ""}
-      ${state.pendingExpanded && pending.length > PENDING_PREVIEW ? `<button type="button" class="link-btn" data-action="toggle-pending">Свернуть</button>` : ""}
     </section>` : "";
   return `
     <div class="page-head">
@@ -905,9 +914,7 @@ function scheduleView() {
         <button type="button" class="icon-btn ${state.refreshing ? "spin" : ""}" data-action="refresh" aria-label="Обновить список">${icon("refresh")}</button>
       </span>
     </div>
-    <p class="window-note">Интервал на календаре — окно ожидаемого приезда курьера, а не длительность его работы у клиента.</p>
-    ${scheduleLegend()}
-    ${state.calMode === "week" ? dayBoard(true) : monthBoard()}
+    ${state.calMode === "week" ? dayBoard() : monthBoard()}
     </section>`;
 }
 
@@ -1355,22 +1362,19 @@ function modalHtml() {
   return "";
 }
 
-function visitCard(v, showRule) {
+function visitCard(v) {
   const st = statusMeta(v.status);
   const when = `${fmtTime(v.visit)}–${v.visitTo}`;
   const type = typeLabel(v);
-  const label = `${when}, ${type}, ${st.text}. Окно приезда курьера`;
-  const rule = showRule && v.type === "standing" && v.schedule ? `<span class="v2-rule">${esc(v.schedule)}</span>` : "";
-  return `<button type="button" class="v2-card is-${v.status}" data-action="details" data-id="${v.id}" data-status="${v.status}" data-type="${v.type}" aria-label="${esc(label)}">
-    <span class="v2-type ${v.type === "standing" ? "is-standing" : ""}">${v.type === "standing" ? icon("repeat", 12) : ""}<span>${esc(type)}</span></span>
+  const label = `${when}, ${type}, ${st.text}`;
+  return `<button type="button" class="v2-card" data-action="details" data-id="${v.id}" data-status="${v.status}" data-type="${v.type}" aria-label="${esc(label)}">
+    ${typeBadge(v, false)}
     <span class="v2-when">${esc(when)}</span>
-    <span class="v2-win">Окно приезда</span>
-    <span class="v2-status">${icon(st.icon, 14)} <span>${esc(st.text)}</span></span>
-    ${rule}
+    ${statusLine(v)}
   </button>`;
 }
 
-function dayBoard(showRule) {
+function dayBoard() {
   const start = mondayOf(state.anchor);
   const days = Array.from({ length: 7 }, (_, i) => addDays(start, i));
   const today = new Date();
@@ -1379,15 +1383,12 @@ function dayBoard(showRule) {
     const isToday = isSameDay(d, today);
     const weekend = d.getDay() === 0 || d.getDay() === 6;
     const body = visits.length
-      ? visits.map((v) => visitCard(v, showRule)).join("")
+      ? visits.map((v) => visitCard(v)).join("")
       : `<p class="v2-empty">Нет заявок</p>`;
     return `<section class="v2-col ${isToday ? "is-today" : ""} ${weekend ? "is-weekend" : ""}">
       <header class="v2-col-head">
-        <div>
-          <div class="v2-dow">${DOW[dowIndex(d)]}</div>
-          <div class="v2-dom">${d.getDate()}</div>
-        </div>
-        <span class="count" aria-label="Заявок: ${visits.length}">${visits.length}</span>
+        <span class="v2-dow">${DOW[dowIndex(d)]}</span>
+        <span class="v2-dom">${d.getDate()}</span>
       </header>
       <div class="v2-col-body">${body}</div>
     </section>`;
@@ -1404,12 +1405,12 @@ function monthBoard() {
     const shown = visits.slice(0, MONTH_PREVIEW);
     const more = visits.length - shown.length;
     const cards = shown.map((v) => {
-      const st = statusMeta(v.status);
       const when = `${fmtTime(v.visit)}–${v.visitTo}`;
-      return `<button type="button" class="v2-m-card is-${v.status}" data-action="details" data-id="${v.id}" data-type="${v.type}">
-        <span class="v2-type ${v.type === "standing" ? "is-standing" : ""}">${v.type === "standing" ? icon("repeat", 12) : ""}<span>${esc(typeLabel(v))}</span></span>
+      const label = `${when}, ${typeLabel(v)}, ${statusMeta(v.status).text}`;
+      return `<button type="button" class="v2-m-card" data-action="details" data-id="${v.id}" data-type="${v.type}" aria-label="${esc(label)}">
+        ${typeBadge(v, false)}
         <span class="v2-m-time">${esc(when)}</span>
-        <span class="v2-m-status">${icon(st.icon, 12)} <span>${esc(st.text)}</span></span>
+        ${statusLine(v)}
       </button>`;
     }).join("");
     const moreBtn = more > 0 ? `<button type="button" class="more-btn" data-action="day-more" data-date="${isoDate(d)}">Ещё ${more}</button>` : "";
@@ -1422,47 +1423,14 @@ function monthBoard() {
   return `<div class="v2-month"><div class="v2-month-head">${head}</div><div class="v2-month-grid">${body}</div></div>`;
 }
 
-function scheduleLegend() {
-  return `<div class="v2-legend" aria-label="Обозначения карточек">
-    <span class="v2-legend-item is-new">${icon("clock", 12)} Ожидает подтверждения</span>
-    <span class="v2-legend-item is-confirmed">${icon("check", 12)} Подтверждена</span>
-    <span class="v2-legend-item is-done">${icon("done", 12)} Выполнена</span>
-    <span class="v2-legend-item is-cancelled">${icon("cross", 12)} Отменена</span>
-    <span class="v2-type">Разовая</span>
-    <span class="v2-type is-standing">${icon("repeat", 12)} Постоянная</span>
-  </div>`;
-}
-
 function v2Pending() {
   const pending = pendingVisits();
-  const rows = pending.length ? `
-    <div class="v2-pend-list">
-      ${pending.map((v) => `<button type="button" class="v2-pend" data-action="details" data-id="${v.id}">
-        <span class="v2-pend-when">${esc(fmtVisitDay(v.visit))}</span>
-        <span class="v2-pend-time">${fmtTime(v.visit)}–${esc(v.visitTo)}</span>
-        <span class="v2-pend-meta">${esc(typeLabel(v))}</span>
-        <span class="v2-status is-new"><span>${esc(statusMeta(v.status).text)}</span></span>
-      </button>`).join("")}
-    </div>
-  ` : `<p class="v2-empty">Нет заявок, ожидающих подтверждения</p>`;
+  const rows = pending.length
+    ? `<div class="v2-pend-list">${pending.map(pendingCard).join("")}</div>`
+    : `<p class="v2-empty">Нет заявок, ожидающих подтверждения</p>`;
   return `<section class="v2-block" aria-label="Ожидают подтверждения">
-    <h2 class="v2-block-title">Ожидают подтверждения <span class="count">${pending.length}</span></h2>
+    <h2 class="v2-block-title">Ожидают подтверждения</h2>
     ${rows}
-  </section>`;
-}
-
-function v2Rules() {
-  const open = state.rulesOpen;
-  return `<section class="v2-rules">
-    <button type="button" class="v2-rules-btn" data-action="toggle-rules" aria-expanded="${open ? "true" : "false"}">
-      Правила оформления
-      <span class="v2-chevron ${open ? "is-open" : ""}">${icon("chevron", 16)}</span>
-    </button>
-    ${open ? `<ul class="v2-rules-list">
-      <li><b>Заявки «день в день» рекомендуем оформлять до 13:00.</b> Оказание услуги зависит от текущей загруженности службы доставки.</li>
-      <li><b>Старайтесь использовать 3-часовой интервал времени для визита курьера.</b> При указании интервала менее 3 часов визит курьера в точное время не гарантируется.</li>
-      <li><b>Поддержка всегда рядом.</b> При необходимости с вами свяжется специалист клиентской поддержки, или вы можете самостоятельно связаться с курирующим сотрудником ИНВИТРО.</li>
-    </ul>` : ""}
   </section>`;
 }
 
@@ -1475,7 +1443,6 @@ function scheduleViewV2() {
     <div class="v2">
     <aside class="v2-side">
       ${v2Pending()}
-      ${v2Rules()}
     </aside>
     <section class="v2-cal" aria-label="Расписание заявок">
       <div class="cal-tools">
@@ -1493,9 +1460,7 @@ function scheduleViewV2() {
           <button type="button" class="icon-btn ${state.refreshing ? "spin" : ""}" data-action="refresh" aria-label="Обновить список">${icon("refresh")}</button>
         </span>
       </div>
-      <p class="window-note">Интервал на календаре — окно ожидаемого приезда курьера, а не длительность его работы у клиента.</p>
-      ${scheduleLegend()}
-      ${state.calMode === "week" ? dayBoard(false) : monthBoard()}
+      ${state.calMode === "week" ? dayBoard() : monthBoard()}
     </section>
   </div>`;
 }

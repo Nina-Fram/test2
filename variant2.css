@@ -1,158 +1,140 @@
-/* Shared day board and variant 2 layout.
-   Status fills are the light snackbar icon tokens, accents are the inverted snackbar icon tokens:
-   warning #fbcd74 / #e8a41c, info #79e3fa / #2fc1dc, success #ace2a2 / #6fc462, error #f6b6b4 / #ef7e7d.
-   Type chips: Badge Soft #eef3f4 and Badge Solid #1dadc6. */
+/* Variant 2 composition: 348 + 32 + 640 = 1020, left-aligned in the 1170 container.
+   Badge component: height 24, padding 0 8px, radius 6, ALS Hauss 12/500, line-height 16.
+   Once = Badge Custom #fbdea0 / #222c2e. Standing = Badge Solid #1dadc6 / #feffff.
+   Status icon strokes are the inverted snackbar tokens. */
 
 .v2 {
+  width: 1020px;
   display: grid;
-  grid-template-columns: 220px minmax(0, 1fr);
-  gap: 12px;
+  grid-template-columns: 348px 640px;
+  gap: 32px;
+  justify-content: start;
   align-items: start;
 }
 
 .v2-side,
 .v2-cal {
+  box-sizing: border-box;
+  background: #feffff;
   border-radius: 20px;
-  padding: 12px;
+  padding: 32px;
   min-width: 0;
   height: auto;
   align-self: start;
 }
-.v2-side { background: #eff2f6; }
-.v2-cal { background: #feffff; }
-.v2-side { display: flex; flex-direction: column; gap: 16px; }
+.v2-side { width: 348px; }
+.v2-cal { width: 640px; }
 
-.v2-block-title {
-  margin: 0 0 8px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 16px;
-  line-height: 20px;
+.v2-block-title,
+.wait-title {
+  margin: 0 0 16px;
   font-weight: 500;
   color: #121313;
 }
+.v2-block-title {
+  display: block;
+  font-size: 16px;
+  line-height: 20px;
+}
+
 .v2-pend-list {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
 }
-.v2-pend {
+
+.pend-card {
   width: 100%;
+  box-sizing: border-box;
   text-align: left;
   border: 0;
   border-radius: 12px;
-  background: #feffff;
-  padding: 8px 10px;
+  background: #eef3f4;
+  padding: 12px 16px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 2px;
+  gap: 4px;
 }
-.v2-pend:hover { box-shadow: 0 0 0 1px #d5dee3; }
-.v2-pend-when { font-size: 14px; line-height: 16px; font-weight: 500; color: #222c2e; }
-.v2-pend-time { font-size: 14px; line-height: 20px; font-weight: 500; color: #222c2e; }
-.v2-pend-meta { font-size: 12px; line-height: 16px; color: #5a6d71; }
-.v2-text-btn {
-  margin-top: 8px;
-  padding: 0;
-  border: 0;
-  background: none;
-  color: #1dadc6;
+.pend-card:hover { box-shadow: 0 0 0 1px #d5dee3; }
+.pend-date {
   font-size: 14px;
-  font-weight: 500;
   line-height: 20px;
+  font-weight: 400;
+  color: #222c2e;
+}
+.pend-time {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+  color: #222c2e;
+  white-space: nowrap;
 }
 .v2-empty { margin: 0; color: #5a6d71; font-size: 14px; line-height: 16px; }
 
-.v2-rules-btn {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  height: 40px;
-  padding: 0 12px;
-  border: 0;
-  border-radius: 12px;
-  background: #eef3f4;
-  color: #222c2e;
-  font-size: 14px;
-  font-weight: 500;
-}
-.v2-rules-btn:hover { background: #eff2f6; }
-.v2-chevron { display: grid; place-items: center; color: #5a6d71; transition: transform .15s ease; }
-.v2-chevron.is-open { transform: rotate(180deg); }
-.v2-rules-list {
-  margin: 8px 0 0;
-  padding: 0 0 0 18px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  color: #222c2e;
-  font-size: 13px;
-  line-height: 1.35;
-}
-.v2-rules-list b { font-weight: 500; }
-
-.v2-cal .cal-tools,
-.schedule .cal-tools { margin-bottom: 8px; }
-.v2-cal .period-label,
-.schedule .period-label { min-width: 0; }
-
-.v2-legend {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin: 0 0 10px;
-  min-width: 0;
-}
-.v2-legend-item {
+.ds-badge {
   display: inline-flex;
+  align-self: flex-start;
   align-items: center;
   gap: 4px;
-  min-height: 24px;
+  box-sizing: border-box;
+  height: 24px;
   padding: 0 8px;
   border-radius: 6px;
-  border-left: 3px solid transparent;
-  color: #222c2e;
   font-size: 12px;
+  font-weight: 500;
   line-height: 16px;
+  white-space: nowrap;
+  width: max-content;
+  max-width: none;
+  flex: 0 0 auto;
 }
-.v2-legend-item.is-new { background: #fbcd74; border-left-color: #e8a41c; }
-.v2-legend-item.is-confirmed { background: #79e3fa; border-left-color: #2fc1dc; }
-.v2-legend-item.is-done { background: #ace2a2; border-left-color: #6fc462; }
-.v2-legend-item.is-cancelled { background: #f6b6b4; border-left-color: #ef7e7d; }
+.ds-badge.is-once { background: #fbdea0; color: #222c2e; }
+.ds-badge.is-standing { background: #1dadc6; color: #feffff; }
+.ds-badge svg { flex: 0 0 auto; }
+
+.v2-cal .cal-tools,
+.schedule .cal-tools { margin-bottom: 16px; width: 100%; }
+.v2-cal .period-label,
+.schedule .period-label { min-width: 0; }
+.v2-cal .cal-tools { flex-wrap: wrap; }
+.v2-cal .refresh-note { margin-left: 0; }
 
 .v2-board {
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
-  gap: 6px;
+  gap: 4px;
   align-items: start;
   min-width: 0;
 }
+.schedule .v2-when,
+.schedule .v2-m-time { font-size: 14px; line-height: 20px; }
+.v2 .v2-board { gap: 2px; }
 .v2-col {
   background: #eff2f6;
-  border-radius: 16px;
-  padding: 4px;
+  border-radius: 12px;
+  padding: 6px 4px;
   display: flex;
   flex-direction: column;
   gap: 6px;
   min-width: 0;
+  overflow: visible;
 }
+.v2 .v2-col { padding: 4px 0; gap: 4px; }
 .v2-col-head {
-  background: #feffff;
-  border-radius: 12px;
-  padding: 8px 8px 8px 10px;
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  gap: 6px;
+  gap: 4px;
+  min-height: 0;
+  padding: 0 2px;
+  background: transparent;
 }
-.v2-dow { font-size: 12px; line-height: 16px; color: #5a6d71; }
+.v2-dow { font-size: 12px; line-height: 16px; font-weight: 400; color: #5a6d71; }
 .v2-dom {
-  width: 28px;
-  height: 28px;
+  width: 22px;
+  height: 22px;
   display: grid;
   place-items: center;
   border-radius: 50%;
@@ -163,96 +145,90 @@
 }
 .v2-col.is-today .v2-dom { background: #1dadc6; color: #feffff; }
 .v2-col.is-weekend .v2-dow { color: #85a1a6; }
-.v2-col-body { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
-.v2-col .v2-empty { padding: 4px 2px 8px; }
+.v2-col-body { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.v2-col .v2-empty { padding: 2px 2px 4px; font-size: 12px; line-height: 16px; }
 
-.v2-card {
+.v2-card,
+.v2-m-card {
   width: 100%;
+  box-sizing: border-box;
   text-align: left;
   border: 0;
-  border-left: 3px solid transparent;
   border-radius: 12px;
   background: #feffff;
-  padding: 4px 5px;
+  padding: 6px 4px;
   display: flex;
   flex-direction: column;
-  align-items: stretch;
+  align-items: flex-start;
   gap: 4px;
   min-width: 0;
+  overflow: visible;
+  position: relative;
+  z-index: 1;
 }
-.v2-card:hover { box-shadow: 0 0 0 1px #1dadc6; }
-.v2-card.is-new { background: #fbcd74; border-left-color: #e8a41c; }
-.v2-card.is-confirmed { background: #79e3fa; border-left-color: #2fc1dc; }
-.v2-card.is-done { background: #ace2a2; border-left-color: #6fc462; }
-.v2-card.is-cancelled { background: #f6b6b4; border-left-color: #ef7e7d; }
-.v2-card.is-new .v2-status svg { color: #e8a41c; }
-.v2-card.is-confirmed .v2-status svg { color: #2fc1dc; }
-.v2-card.is-done .v2-status svg { color: #6fc462; }
-.v2-card.is-cancelled .v2-status svg { color: #ef7e7d; }
-.v2-type {
-  display: inline-flex;
-  align-self: flex-start;
-  align-items: center;
-  gap: 4px;
+.v2 .v2-card { padding: 4px 0; }
+.v2-m-card { border-radius: 8px; margin-top: 4px; padding: 4px; }
+.v2-card:hover,
+.v2-m-card:hover { box-shadow: 0 0 0 1px #d5dee3; }
+.v2-when,
+.v2-m-time {
   max-width: 100%;
-  min-height: 24px;
-  padding: 2px 8px;
-  border-radius: 6px;
-  background: #eef3f4;
-  color: #222c2e;
   font-size: 12px;
   line-height: 16px;
-  font-weight: 400;
-}
-.v2-type span,
-.v2-status span,
-.v2-m-status span {
-  min-width: 0;
-  hyphens: auto;
-  overflow-wrap: break-word;
-}
-.v2-type.is-standing { background: #1dadc6; color: #feffff; }
-.v2-when {
-  max-width: 100%;
-  font-size: 14px;
-  line-height: 20px;
   font-weight: 500;
   color: #222c2e;
+  white-space: nowrap;
 }
-.v2-win,
-.v2-rule { max-width: 100%; font-size: 12px; line-height: 16px; color: #222c2e; }
-.v2-status {
+
+.status-line {
   display: flex;
   align-items: flex-start;
   gap: 4px;
   max-width: 100%;
   color: #222c2e;
   font-size: 12px;
+  font-weight: 400;
   line-height: 16px;
+  white-space: normal;
+  word-break: normal;
+  overflow-wrap: normal;
+  hyphens: manual;
 }
-.v2-status svg { flex: 0 0 auto; margin-top: 1px; }
+.status-line span {
+  min-width: min-content;
+  hyphens: manual;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+.status-line svg { flex: 0 0 auto; margin-top: 1px; }
+.v2 .status-line { flex-direction: column; align-items: flex-start; gap: 2px; }
+.status-line.is-new svg { color: #e8a41c; }
+.status-line.is-confirmed svg { color: #2fc1dc; }
+.status-line.is-done svg { color: #6fc462; }
+.status-line.is-cancelled svg { color: #ef7e7d; }
 
 .v2-month { min-width: 0; }
 .v2-month-head,
 .v2-month-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); }
 .v2-month-head span {
-  padding: 8px 4px;
+  padding: 4px 2px 8px;
   text-align: center;
   font-size: 12px;
   line-height: 16px;
   color: #5a6d71;
 }
 .v2-month-cell {
-  min-height: 108px;
+  min-height: 88px;
   padding: 4px;
   border-top: 1px solid #eef3f4;
   border-left: 1px solid #eef3f4;
   background: #feffff;
+  min-width: 0;
 }
 .v2-month-cell:nth-child(7n + 1) { border-left: 0; }
 .v2-month-num {
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
   display: grid;
   place-items: center;
   border-radius: 50%;
@@ -263,29 +239,6 @@
 }
 .v2-month-cell.is-out .v2-month-num { color: #85a1a6; }
 .v2-month-cell.is-today .v2-month-num { background: #1dadc6; color: #feffff; }
-.v2-m-card {
-  width: 100%;
-  text-align: left;
-  border: 0;
-  border-left: 3px solid transparent;
-  border-radius: 8px;
-  background: #feffff;
-  padding: 4px;
-  margin-top: 4px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 2px;
-  min-width: 0;
-}
-.v2-m-card:hover { box-shadow: 0 0 0 1px #1dadc6; }
-.v2-m-card.is-new { background: #fbcd74; border-left-color: #e8a41c; }
-.v2-m-card.is-confirmed { background: #79e3fa; border-left-color: #2fc1dc; }
-.v2-m-card.is-done { background: #ace2a2; border-left-color: #6fc462; }
-.v2-m-card.is-cancelled { background: #f6b6b4; border-left-color: #ef7e7d; }
-.v2-m-card .v2-type { min-height: 20px; padding: 0 6px; }
-.v2-m-time { font-size: 12px; line-height: 16px; font-weight: 500; color: #222c2e; max-width: 100%; }
-.v2-m-status { display: flex; gap: 3px; align-items: flex-start; max-width: 100%; font-size: 11px; line-height: 14px; color: #222c2e; }
 
 .proto-switch {
   width: 100%;
@@ -322,91 +275,10 @@
 .proto-switch button[aria-pressed="true"] { background: #2fc1dc; color: #121313; }
 
 @media (max-width: 1100px) {
-  .v2 .v2-when { font-size: 13px; line-height: 18px; }
-}
-@media (max-width: 860px) {
-  .v2 { grid-template-columns: minmax(0, 1fr); }
-}
-
-/* Variant 2 only: white cards, status color on a soft badge.
-   Badge Castom #fbdea0, icon plate #e2f6fb, snackbar success #ace2a2, snackbar error #f6b6b4.
-   Text #222c2e. Day counts use Count Indicator Secondary #eff2f6. */
-
-.v2 .v2-card { padding: 4px; }
-.v2 .v2-col { padding: 3px; }
-.v2 .v2-board { gap: 4px; }
-
-.v2 .v2-card,
-.v2 .v2-m-card,
-.v2 .v2-card.is-new,
-.v2 .v2-card.is-confirmed,
-.v2 .v2-card.is-done,
-.v2 .v2-card.is-cancelled,
-.v2 .v2-m-card.is-new,
-.v2 .v2-m-card.is-confirmed,
-.v2 .v2-m-card.is-done,
-.v2 .v2-m-card.is-cancelled {
-  background: #feffff;
-  border-left-width: 0;
-}
-.v2 .v2-card:hover,
-.v2 .v2-m-card:hover { box-shadow: 0 0 0 1px #d5dee3; }
-
-.v2 .v2-type,
-.v2 .v2-type.is-standing {
-  background: #eef3f4;
-  color: #222c2e;
-}
-.v2 .v2-type span,
-.v2 .v2-status span,
-.v2 .v2-m-status span {
-  min-width: min-content;
-  hyphens: manual;
-  overflow-wrap: normal;
-  word-break: normal;
-}
-.v2 .v2-when { white-space: nowrap; }
-.v2 .v2-win { color: #5a6d71; }
-
-.v2 .v2-card .v2-status svg,
-.v2 .v2-m-card .v2-m-status svg { display: none; }
-
-.v2 .v2-status,
-.v2 .v2-m-status,
-.v2 .v2-legend-item {
-  display: inline-flex;
-  align-self: flex-start;
-  align-items: flex-start;
-  gap: 4px;
-  width: fit-content;
-  max-width: 100%;
-  padding: 2px 2px;
-  border-radius: 6px;
-  font-size: 11px;
-  line-height: 14px;
-  border-left: 0;
-  background: #eef3f4;
-  color: #222c2e;
-  font-weight: 500;
-  hyphens: manual;
-  overflow-wrap: normal;
-  word-break: normal;
-}
-.v2 .v2-status.is-new,
-.v2 .v2-card.is-new .v2-status,
-.v2 .v2-m-card.is-new .v2-m-status,
-.v2 .v2-legend-item.is-new { background: #fbdea0; color: #222c2e; }
-.v2 .v2-card.is-confirmed .v2-status,
-.v2 .v2-m-card.is-confirmed .v2-m-status,
-.v2 .v2-legend-item.is-confirmed { background: #e2f6fb; color: #222c2e; }
-.v2 .v2-card.is-done .v2-status,
-.v2 .v2-m-card.is-done .v2-m-status,
-.v2 .v2-legend-item.is-done { background: #ace2a2; color: #222c2e; }
-.v2 .v2-card.is-cancelled .v2-status,
-.v2 .v2-m-card.is-cancelled .v2-m-status,
-.v2 .v2-legend-item.is-cancelled { background: #f6b6b4; color: #222c2e; }
-
-.v2 .v2-col-head .count {
-  background: #eff2f6;
-  color: #222c2e;
+  .v2 {
+    width: auto;
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .v2-side,
+  .v2-cal { width: auto; max-width: 100%; }
 }

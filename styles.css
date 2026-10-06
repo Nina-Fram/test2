@@ -254,11 +254,17 @@ button:disabled { cursor: default; }
 }
 .panel {
   background: var(--card);
-  border-radius: 16px;
-  padding: 16px 20px 12px;
+  border-radius: 20px;
+  padding: 32px;
   margin: 0 0 16px;
+  box-sizing: border-box;
 }
 .wait-list { margin: 0 0 16px; }
+.wait-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
 .wait-title {
   margin: 0 0 4px;
   font-size: 20px;
