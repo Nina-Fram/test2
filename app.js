@@ -331,23 +331,23 @@ function timeOptions(minMinute) {
   return out;
 }
 
-function sameDayLate(date) {
-  return isSameDay(date, new Date()) && new Date().getHours() >= 13;
-}
-
 function intervalWarnings(form) {
   const notes = [];
-  if (!form.timeFrom || !form.timeTo) return notes;
-  const span = minutes(form.timeTo) - minutes(form.timeFrom);
   const same = isSameDay(form.date, new Date());
-  if (same && span > 0 && span < 180) {
-    notes.push("Просьба обратить внимание, выбран нестандартный временной интервал. Возможны временные отклонения приезда курьера.");
+  if (same && new Date().getHours() >= 13) {
+    notes.push("Обратите внимание, что заявка оформляется позже установленного срока. Просьба контролировать статус заявки.");
+  }
+  if (same && minStartMinutes(form.date) >= 24 * 60) {
+    notes.push("На сегодня свободных интервалов нет — курьер может приехать не раньше чем через 3 часа. Выберите другую дату.");
   }
   if (same && form.cargo === "bio" && form.packages.some((p) => p.regime === "p35")) {
     notes.push("Термоконтейнеры (+35…+37 °C) рекомендуем заказывать на следующий день. День в день доставка не гарантируется.");
   }
-  if (sameDayLate(form.date)) {
-    notes.push("Обратите внимание, что заявка оформляется позже установленного срока. Просьба контролировать статус заявки.");
+  if (form.timeFrom && form.timeTo) {
+    const span = minutes(form.timeTo) - minutes(form.timeFrom);
+    if (same && span > 0 && span < 180) {
+      notes.push("Просьба обратить внимание, выбран нестандартный временной интервал. Возможны временные отклонения приезда курьера.");
+    }
   }
   return notes;
 }
@@ -547,8 +547,8 @@ function listView() {
   const rows = visibleOrders();
   const period = PERIODS.find((p) => p.id === state.period);
   const sortBtn = (key, label) => {
-    const mark = state.sortKey === key ? (state.sortDir === "asc" ? "↑" : "↓") : "";
-    return `<button data-action="sort" data-key="${key}">${label}<span class="sort-mark">${mark}</span></button>`;
+    const mark = state.sortKey === key ? `<span class="sort-mark ${state.sortDir}">${icon("chevron")}</span>` : "";
+    return `<button data-action="sort" data-key="${key}">${label}${mark}</button>`;
   };
   const body = rows.length ? rows.map((o) => {
     const st = statusMeta(o.status);
