@@ -704,7 +704,7 @@ function header() {
     <header class="lk-header">
       <div class="lk-bar">
         <button type="button" class="brand" data-action="home" aria-label="Личный кабинет ИНВИТРО">
-          <span class="logo">INVITRO</span>
+          <img class="logo-mark" src="assets/logo.svg" width="133" height="24" alt="INVITRO" />
           <span class="brand-sep"></span>
           <span class="brand-sub">Личный кабинет</span>
         </button>
@@ -862,28 +862,26 @@ function scheduleView() {
   const shown = state.pendingExpanded ? pending : pending.slice(0, PENDING_PREVIEW);
   const hidden = pending.length - shown.length;
   const pendingBlock = pending.length ? `
-    <section class="pending" aria-label="Ожидают подтверждения">
-      <h2>Ожидают подтверждения <span class="count-pill">${pending.length}</span></h2>
-      ${shown.map((v) => `<button type="button" class="pend" data-action="details" data-id="${v.id}">
-        <b>${esc(fmtVisitDay(v.visit))} · ${fmtTime(v.visit)}–${v.visitTo}</b>
-        <span class="kind">${v.type === "standing" ? icon("repeat", 14) : ""}${esc(typeLabel(v))}</span>
-        <span class="st">${icon("clock", 14)} Ожидает подтверждения</span>
-      </button>`).join("")}
+    <section class="wait-list" aria-label="Ожидают подтверждения">
+      <h2 class="wait-title">Ожидают подтверждения <span class="tab-badge">${pending.length}</span></h2>
+      <div class="cells">
+        ${shown.map((v) => `<button type="button" class="cell" data-action="details" data-id="${v.id}">
+          <span class="cell-ico">${icon(v.type === "standing" ? "repeat" : "clock", 24)}</span>
+          <span class="cell-body">
+            <span class="cell-label">${esc(fmtVisitDay(v.visit))} · ${fmtTime(v.visit)}–${v.visitTo}</span>
+            <span class="cell-caption">${esc(typeLabel(v))} · Ожидает подтверждения</span>
+          </span>
+          <span class="cell-go">${icon("right", 24)}</span>
+        </button>`).join("")}
+      </div>
       ${hidden > 0 ? `<button type="button" class="link-btn" data-action="toggle-pending">Ещё ${hidden}</button>` : ""}
       ${state.pendingExpanded && pending.length > PENDING_PREVIEW ? `<button type="button" class="link-btn" data-action="toggle-pending">Свернуть</button>` : ""}
     </section>` : "";
   return `
     <div class="page-head">
-      <h1 class="page-title">Вызов курьера</h1>
+      <h1 class="page-title">Заявки</h1>
       <button type="button" class="btn" data-action="create">Вызвать курьера</button>
     </div>
-    <section class="rules" aria-label="Правила оформления">
-      <ul>
-        <li><b>Заявки «день в день» рекомендуем оформлять до 13:00.</b> <span>Оказание услуги зависит от текущей загруженности службы доставки.</span></li>
-        <li><b>Старайтесь использовать 3-часовой интервал времени для визита курьера.</b> <span>При указании интервала менее 3 часов визит курьера в точное время не гарантируется.</span></li>
-        <li><b>Поддержка всегда рядом.</b> <span>При необходимости с вами свяжется специалист клиентской поддержки, или вы можете самостоятельно связаться с курирующим сотрудником ИНВИТРО.</span></li>
-      </ul>
-    </section>
     ${pendingBlock}
     <div class="cal-tools">
       <div class="seg" role="group" aria-label="Режим календаря">
@@ -1178,7 +1176,7 @@ function detailsModal(order) {
   const st = statusMeta(order.status);
   const standing = order.type === "standing";
   const canCancel = order.status === "new";
-  const canRepeat = !standing && order.status === "cancelled";
+  const canRepeat = !standing && (order.status === "cancelled" || order.status === "done");
   const note = standing
     ? "Редактирование созданной заявки недоступно. Отмена здесь касается только выбранного приезда и не меняет расписание."
     : "Чтобы внести изменения, отмените текущую заявку и создайте новую. Редактирование созданных заявок недоступно.";
@@ -1416,7 +1414,7 @@ function onField(el) {
 
 function repeatOrder(id) {
   const o = state.orders.find((x) => x.id === id);
-  if (!o || o.type !== "once" || o.status !== "cancelled") return;
+  if (!o || o.type !== "once" || (o.status !== "cancelled" && o.status !== "done")) return;
   const today = startOfDay(new Date());
   const date = startOfDay(o.visit) >= today ? new Date(o.visit) : addDays(today, 1);
   const filler = state.contacts.find((c) => c.name === o.fillerName);
