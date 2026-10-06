@@ -170,19 +170,26 @@ button:disabled { cursor: default; }
   height: 2px;
   background: var(--line-tab);
 }
-.tab-badge {
-  display: inline-grid;
-  place-items: center;
-  min-width: 26px;
+.tab-badge,
+.count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  box-sizing: border-box;
   height: 16px;
-  margin-left: 6px;
+  min-width: 16px;
   padding: 0 5px;
-  border-radius: 10px;
-  background: var(--badge);
-  color: #fff;
+  border-radius: 12px;
+  background: #2fc1dc;
+  color: #feffff;
   font-size: 12px;
   font-weight: 700;
+  line-height: 12px;
+  letter-spacing: 0;
 }
+.tab-badge { margin-left: 6px; background: var(--badge); }
+.cell:last-child { border-bottom: 0; }
 .drop {
   position: absolute;
   top: calc(100% + 4px);
@@ -245,7 +252,13 @@ button:disabled { cursor: default; }
   font-size: 16px;
   font-weight: 500;
 }
-.wait-list { margin: 0 0 8px; }
+.panel {
+  background: var(--card);
+  border-radius: 16px;
+  padding: 16px 20px 12px;
+  margin: 0 0 16px;
+}
+.wait-list { margin: 0 0 16px; }
 .wait-title {
   margin: 0 0 4px;
   font-size: 20px;
@@ -285,6 +298,7 @@ button:disabled { cursor: default; }
 .cell-caption { font-size: 14px; line-height: 16px; font-weight: 400; color: var(--text-soft); }
 .cell-go { color: var(--text-soft); display: grid; place-items: center; flex: 0 0 auto; }
 
+.schedule { padding-bottom: 20px; }
 .cal-tools {
   display: flex;
   align-items: center;
@@ -294,22 +308,26 @@ button:disabled { cursor: default; }
 }
 .seg {
   display: inline-flex;
-  background: var(--card);
-  border: 1px solid var(--line-strong);
-  border-radius: 12px;
-  padding: 2px;
+  align-items: center;
+  height: 40px;
+  padding: 4px;
+  background: #eef3f4;
+  border-radius: 10px;
 }
 .seg button {
-  height: 36px;
+  height: 32px;
   border: 0;
   background: transparent;
-  border-radius: 10px;
+  border-radius: 8px;
   padding: 0 14px;
-  color: var(--text-soft);
-  font-size: 14px;
+  color: #5a6d71;
+  font-size: 16px;
   font-weight: 500;
+  line-height: 20px;
 }
-.seg button[aria-pressed="true"] { background: var(--brand); color: #fff; }
+.seg button:hover { color: var(--text); }
+.seg button[aria-pressed="true"] { background: #2fc1dc; color: #feffff; }
+.seg button[aria-pressed="true"]:hover { color: #feffff; }
 .cal-nav { display: inline-flex; align-items: center; gap: 4px; }
 .period-label { min-width: 240px; text-align: center; font-size: 16px; font-weight: 500; }
 .refresh-note {

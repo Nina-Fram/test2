@@ -862,8 +862,8 @@ function scheduleView() {
   const shown = state.pendingExpanded ? pending : pending.slice(0, PENDING_PREVIEW);
   const hidden = pending.length - shown.length;
   const pendingBlock = pending.length ? `
-    <section class="wait-list" aria-label="Ожидают подтверждения">
-      <h2 class="wait-title">Ожидают подтверждения <span class="tab-badge">${pending.length}</span></h2>
+    <section class="panel wait-list" aria-label="Ожидают подтверждения">
+      <h2 class="wait-title">Ожидают подтверждения <span class="count">${pending.length}</span></h2>
       <div class="cells">
         ${shown.map((v) => `<button type="button" class="cell" data-action="details" data-id="${v.id}">
           <span class="cell-ico">${icon(v.type === "standing" ? "repeat" : "clock", 24)}</span>
@@ -883,6 +883,7 @@ function scheduleView() {
       <button type="button" class="btn" data-action="create">Вызвать курьера</button>
     </div>
     ${pendingBlock}
+    <section class="panel schedule" aria-label="Расписание заявок">
     <div class="cal-tools">
       <div class="seg" role="group" aria-label="Режим календаря">
         <button type="button" data-action="cal-mode" data-mode="week" aria-pressed="${state.calMode === "week"}">Неделя</button>
@@ -899,7 +900,8 @@ function scheduleView() {
       </span>
     </div>
     <p class="window-note">Интервал на календаре — окно ожидаемого приезда курьера, а не длительность его работы у клиента.</p>
-    ${state.calMode === "week" ? weekView() : monthView()}`;
+    ${state.calMode === "week" ? weekView() : monthView()}
+    </section>`;
 }
 
 function settingsView() {
