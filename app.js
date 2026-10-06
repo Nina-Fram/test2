@@ -886,8 +886,8 @@ function scheduleView() {
     </section>` : "";
   return `
     <div class="page-head">
-      <h1 class="page-title">Заявки</h1>
-      <button type="button" class="btn" data-action="create">Вызвать курьера</button>
+      <h1 class="page-title">Вызов курьера</h1>
+      <button type="button" class="btn" data-action="create">Создать заявку</button>
     </div>
     ${pendingBlock}
     <section class="panel schedule" aria-label="Расписание заявок">
@@ -907,7 +907,8 @@ function scheduleView() {
       </span>
     </div>
     <p class="window-note">Интервал на календаре — окно ожидаемого приезда курьера, а не длительность его работы у клиента.</p>
-    ${state.calMode === "week" ? weekView() : monthView()}
+    ${scheduleLegend()}
+    ${state.calMode === "week" ? dayBoard(true) : monthBoard()}
     </section>`;
 }
 
@@ -1355,22 +1356,22 @@ function modalHtml() {
   return "";
 }
 
-function v2Card(v) {
+function visitCard(v, showRule) {
   const st = statusMeta(v.status);
   const when = `${fmtTime(v.visit)}–${v.visitTo}`;
   const type = typeLabel(v);
   const label = `${when}, ${type}, ${st.text}. Окно приезда курьера`;
-  const rule = v.type === "standing" && v.schedule ? `<span class="v2-rule">${esc(v.schedule)}</span>` : "";
+  const rule = showRule && v.type === "standing" && v.schedule ? `<span class="v2-rule">${esc(v.schedule)}</span>` : "";
   return `<button type="button" class="v2-card is-${v.status}" data-action="details" data-id="${v.id}" data-status="${v.status}" data-type="${v.type}" aria-label="${esc(label)}">
-    <span class="v2-type ${v.type === "standing" ? "is-standing" : ""}">${v.type === "standing" ? icon("repeat", 12) : ""}${esc(type)}</span>
+    <span class="v2-type ${v.type === "standing" ? "is-standing" : ""}">${v.type === "standing" ? icon("repeat", 12) : ""}<span>${esc(type)}</span></span>
     <span class="v2-when">${esc(when)}</span>
     <span class="v2-win">Окно приезда</span>
-    <span class="v2-status">${icon(st.icon, 14)} ${esc(st.text)}</span>
+    <span class="v2-status">${icon(st.icon, 14)} <span>${esc(st.text)}</span></span>
     ${rule}
   </button>`;
 }
 
-function v2Week() {
+function dayBoard(showRule) {
   const start = mondayOf(state.anchor);
   const days = Array.from({ length: 7 }, (_, i) => addDays(start, i));
   const today = new Date();
@@ -1379,7 +1380,7 @@ function v2Week() {
     const isToday = isSameDay(d, today);
     const weekend = d.getDay() === 0 || d.getDay() === 6;
     const body = visits.length
-      ? visits.map(v2Card).join("")
+      ? visits.map((v) => visitCard(v, showRule)).join("")
       : `<p class="v2-empty">Нет заявок</p>`;
     return `<section class="v2-col ${isToday ? "is-today" : ""} ${weekend ? "is-weekend" : ""}">
       <header class="v2-col-head">
@@ -1392,10 +1393,10 @@ function v2Week() {
       <div class="v2-col-body">${body}</div>
     </section>`;
   }).join("");
-  return `<div class="v2-board-scroll"><div class="v2-board">${cols}</div></div>`;
+  return `<div class="v2-board">${cols}</div>`;
 }
 
-function v2Month() {
+function monthBoard() {
   const today = new Date();
   const cells = monthCells(state.anchor);
   const head = DOW.map((d) => `<span>${d}</span>`).join("");
@@ -1406,10 +1407,10 @@ function v2Month() {
     const cards = shown.map((v) => {
       const st = statusMeta(v.status);
       const when = `${fmtTime(v.visit)}–${v.visitTo}`;
-      return `<button type="button" class="v2-m-card is-${v.status}" data-action="details" data-id="${v.id}">
+      return `<button type="button" class="v2-m-card is-${v.status}" data-action="details" data-id="${v.id}" data-type="${v.type}">
+        <span class="v2-type ${v.type === "standing" ? "is-standing" : ""}">${v.type === "standing" ? icon("repeat", 12) : ""}<span>${esc(typeLabel(v))}</span></span>
         <span class="v2-m-time">${esc(when)}</span>
-        <span class="v2-m-meta">${esc(typeLabel(v))}</span>
-        <span class="v2-m-status">${icon(st.icon, 12)} ${esc(st.text)}</span>
+        <span class="v2-m-status">${icon(st.icon, 12)} <span>${esc(st.text)}</span></span>
       </button>`;
     }).join("");
     const moreBtn = more > 0 ? `<button type="button" class="more-btn" data-action="day-more" data-date="${isoDate(d)}">Ещё ${more}</button>` : "";
@@ -1419,7 +1420,18 @@ function v2Month() {
       ${cards}${moreBtn}
     </div>`;
   }).join("");
-  return `<div class="v2-month-scroll"><div class="v2-month"><div class="v2-month-head">${head}</div><div class="v2-month-grid">${body}</div></div></div>`;
+  return `<div class="v2-month"><div class="v2-month-head">${head}</div><div class="v2-month-grid">${body}</div></div>`;
+}
+
+function scheduleLegend() {
+  return `<div class="v2-legend" aria-label="Обозначения карточек">
+    <span class="v2-legend-item is-new">${icon("clock", 12)} Ожидает подтверждения</span>
+    <span class="v2-legend-item is-confirmed">${icon("check", 12)} Подтверждена</span>
+    <span class="v2-legend-item is-done">${icon("done", 12)} Выполнена</span>
+    <span class="v2-legend-item is-cancelled">${icon("cross", 12)} Отменена</span>
+    <span class="v2-type">Разовая</span>
+    <span class="v2-type is-standing">${icon("repeat", 12)} Постоянная</span>
+  </div>`;
 }
 
 function v2Pending() {
@@ -1459,10 +1471,13 @@ function v2Rules() {
 }
 
 function scheduleViewV2() {
-  return `<div class="v2">
+  return `
+    <div class="page-head">
+      <h1 class="page-title">Вызов курьера</h1>
+      <button type="button" class="btn" data-action="create">Создать заявку</button>
+    </div>
+    <div class="v2">
     <aside class="v2-side">
-      <h1 class="v2-title">Вызов курьера</h1>
-      <button type="button" class="btn v2-create" data-action="create">Создать заявку</button>
       ${v2Pending()}
       ${v2Rules()}
     </aside>
@@ -1482,7 +1497,9 @@ function scheduleViewV2() {
           <button type="button" class="icon-btn ${state.refreshing ? "spin" : ""}" data-action="refresh" aria-label="Обновить список">${icon("refresh")}</button>
         </span>
       </div>
-      ${state.calMode === "week" ? v2Week() : v2Month()}
+      <p class="window-note">Интервал на календаре — окно ожидаемого приезда курьера, а не длительность его работы у клиента.</p>
+      ${scheduleLegend()}
+      ${state.calMode === "week" ? dayBoard(false) : monthBoard()}
     </section>
   </div>`;
 }
@@ -1490,8 +1507,8 @@ function scheduleViewV2() {
 function protoSwitch() {
   return `<div class="proto-switch" role="group" aria-label="Сравнение прототипов">
     <span class="proto-switch-kicker">Сравнение прототипов</span>
-    <button type="button" data-action="switch-variant" data-variant="1" aria-pressed="${variant === 1 ? "true" : "false"}">Вариант 1 — временная сетка</button>
-    <button type="button" data-action="switch-variant" data-variant="2" aria-pressed="${variant === 2 ? "true" : "false"}">Вариант 2 — карточки по дням</button>
+    <button type="button" data-action="switch-variant" data-variant="1" aria-pressed="${variant === 1 ? "true" : "false"}">Вариант 1 — ожидающие сверху</button>
+    <button type="button" data-action="switch-variant" data-variant="2" aria-pressed="${variant === 2 ? "true" : "false"}">Вариант 2 — ожидающие сбоку</button>
   </div>`;
 }
 
@@ -1510,10 +1527,9 @@ function render({ keepScroll = true } = {}) {
   const focus = document.activeElement;
   const field = focus && focus.dataset ? focus.dataset.field : null;
   const fieldId = focus && focus.dataset ? focus.dataset.id : null;
-  const wide = variant === 2 && state.view === "list" ? " container-v2" : "";
   document.getElementById("app").innerHTML = `
     ${header()}
-    <main class="page">${protoSwitch()}<div class="container${wide}">${mainView()}</div></main>
+    <main class="page"><div class="container">${mainView()}${protoSwitch()}</div></main>
     ${footer()}
     ${modalHtml()}
     ${state.toast ? `<div class="toast" role="status">${esc(state.toast)}</div>` : ""}`;
@@ -1907,7 +1923,7 @@ function useVariant(id) {
   } else {
     state = buckets[variant];
   }
-  document.title = variant === 2 ? "Вызов курьера — Личный кабинет ИНВИТРО" : "Заявки — Личный кабинет ИНВИТРО";
+  document.title = "Вызов курьера — Личный кабинет ИНВИТРО";
 }
 
 useVariant(readVariant());
