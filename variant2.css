@@ -1,14 +1,12 @@
-/* Variant 2 composition: 348 + 32 + 640 = 1020, left-aligned in the 1170 container.
-   Badge component: height 24, padding 0 8px, radius 6, ALS Hauss 12/500, line-height 16.
-   Once = Badge Custom #fbdea0 / #222c2e. Standing = Badge Solid #1dadc6 / #feffff.
-   Status icon strokes are the inverted snackbar tokens. */
+/* Variant 2 fills the 1170 container: 260 + 32 + 878.
+   Badge: height 24, padding 0 8px, radius 6, ALS Hauss 12/500.
+   Once = Badge Custom #fbdea0. Standing = Badge Solid #1dadc6. */
 
 .v2 {
-  width: 1020px;
+  width: 100%;
   display: grid;
-  grid-template-columns: 348px 640px;
+  grid-template-columns: 260px minmax(0, 1fr);
   gap: 32px;
-  justify-content: start;
   align-items: start;
 }
 
@@ -17,13 +15,12 @@
   box-sizing: border-box;
   background: #feffff;
   border-radius: 20px;
-  padding: 32px;
   min-width: 0;
   height: auto;
   align-self: start;
 }
-.v2-side { width: 348px; }
-.v2-cal { width: 640px; }
+.v2-side { padding: 24px; }
+.v2-cal { padding: 32px; }
 
 .v2-block-title,
 .wait-title {
@@ -58,10 +55,14 @@
 }
 .pend-card:hover { box-shadow: 0 0 0 1px #d5dee3; }
 .pend-date {
+  max-width: 100%;
   font-size: 14px;
   line-height: 20px;
   font-weight: 400;
   color: #222c2e;
+  white-space: normal;
+  overflow-wrap: normal;
+  word-break: normal;
 }
 .pend-time {
   font-size: 14px;
@@ -109,7 +110,7 @@
 }
 .schedule .v2-when,
 .schedule .v2-m-time { font-size: 14px; line-height: 20px; }
-.v2 .v2-board { gap: 2px; }
+.v2 .v2-board { gap: 8px; }
 .v2-col {
   background: #eff2f6;
   border-radius: 12px;
@@ -118,9 +119,8 @@
   flex-direction: column;
   gap: 6px;
   min-width: 0;
-  overflow: visible;
 }
-.v2 .v2-col { padding: 4px 0; gap: 4px; }
+.v2 .v2-col { padding: 6px 4px; }
 .v2-col-head {
   display: flex;
   flex-direction: row;
@@ -162,12 +162,10 @@
   align-items: flex-start;
   gap: 4px;
   min-width: 0;
-  overflow: visible;
-  position: relative;
-  z-index: 1;
 }
-.v2 .v2-card { padding: 4px 0; }
+.v2 .v2-card { padding: 6px; }
 .v2-m-card { border-radius: 8px; margin-top: 4px; padding: 4px; }
+.v2 .v2-m-card { padding: 4px 6px; }
 .v2-card:hover,
 .v2-m-card:hover { box-shadow: 0 0 0 1px #d5dee3; }
 .v2-when,
@@ -179,6 +177,8 @@
   color: #222c2e;
   white-space: nowrap;
 }
+.v2 .v2-when,
+.v2 .v2-m-time { font-size: 14px; line-height: 20px; }
 
 .status-line {
   display: flex;
@@ -275,10 +275,5 @@
 .proto-switch button[aria-pressed="true"] { background: #2fc1dc; color: #121313; }
 
 @media (max-width: 1100px) {
-  .v2 {
-    width: auto;
-    grid-template-columns: minmax(0, 1fr);
-  }
-  .v2-side,
-  .v2-cal { width: auto; max-width: 100%; }
+  .v2 { grid-template-columns: minmax(0, 1fr); }
 }
