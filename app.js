@@ -49,7 +49,6 @@ const SERIES = {
 
 let seq = 1;
 const uid = (p) => `${p}${seq++}`;
-const V2_PENDING_PREVIEW = 4;
 
 function createState() {
   return {
@@ -1436,18 +1435,15 @@ function scheduleLegend() {
 
 function v2Pending() {
   const pending = pendingVisits();
-  const shown = state.pendingExpanded ? pending : pending.slice(0, V2_PENDING_PREVIEW);
-  const hidden = pending.length - shown.length;
   const rows = pending.length ? `
     <div class="v2-pend-list">
-      ${shown.map((v) => `<button type="button" class="v2-pend" data-action="details" data-id="${v.id}">
+      ${pending.map((v) => `<button type="button" class="v2-pend" data-action="details" data-id="${v.id}">
         <span class="v2-pend-when">${esc(fmtVisitDay(v.visit))}</span>
         <span class="v2-pend-time">${fmtTime(v.visit)}–${esc(v.visitTo)}</span>
-        <span class="v2-pend-meta">${esc(typeLabel(v))} · Ожидает подтверждения</span>
+        <span class="v2-pend-meta">${esc(typeLabel(v))}</span>
+        <span class="v2-status is-new"><span>${esc(statusMeta(v.status).text)}</span></span>
       </button>`).join("")}
     </div>
-    ${hidden > 0 ? `<button type="button" class="v2-text-btn" data-action="toggle-pending">Показать все</button>` : ""}
-    ${state.pendingExpanded && pending.length > V2_PENDING_PREVIEW ? `<button type="button" class="v2-text-btn" data-action="toggle-pending">Свернуть</button>` : ""}
   ` : `<p class="v2-empty">Нет заявок, ожидающих подтверждения</p>`;
   return `<section class="v2-block" aria-label="Ожидают подтверждения">
     <h2 class="v2-block-title">Ожидают подтверждения <span class="count">${pending.length}</span></h2>

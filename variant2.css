@@ -12,11 +12,14 @@
 
 .v2-side,
 .v2-cal {
-  background: #feffff;
   border-radius: 20px;
   padding: 12px;
   min-width: 0;
+  height: auto;
+  align-self: start;
 }
+.v2-side { background: #eff2f6; }
+.v2-cal { background: #feffff; }
 .v2-side { display: flex; flex-direction: column; gap: 16px; }
 
 .v2-block-title {
@@ -33,21 +36,20 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
-  max-height: 320px;
-  overflow: auto;
 }
 .v2-pend {
   width: 100%;
   text-align: left;
   border: 0;
   border-radius: 12px;
-  background: #eef3f4;
+  background: #feffff;
   padding: 8px 10px;
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: 2px;
 }
-.v2-pend:hover { background: #e2f6fb; }
+.v2-pend:hover { box-shadow: 0 0 0 1px #d5dee3; }
 .v2-pend-when { font-size: 14px; line-height: 16px; font-weight: 500; color: #222c2e; }
 .v2-pend-time { font-size: 14px; line-height: 20px; font-weight: 500; color: #222c2e; }
 .v2-pend-meta { font-size: 12px; line-height: 16px; color: #5a6d71; }
@@ -319,6 +321,92 @@
 }
 .proto-switch button[aria-pressed="true"] { background: #2fc1dc; color: #121313; }
 
+@media (max-width: 1100px) {
+  .v2 .v2-when { font-size: 13px; line-height: 18px; }
+}
 @media (max-width: 860px) {
   .v2 { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* Variant 2 only: white cards, status color on a soft badge.
+   Badge Castom #fbdea0, icon plate #e2f6fb, snackbar success #ace2a2, snackbar error #f6b6b4.
+   Text #222c2e. Day counts use Count Indicator Secondary #eff2f6. */
+
+.v2 .v2-card { padding: 4px; }
+.v2 .v2-col { padding: 3px; }
+.v2 .v2-board { gap: 4px; }
+
+.v2 .v2-card,
+.v2 .v2-m-card,
+.v2 .v2-card.is-new,
+.v2 .v2-card.is-confirmed,
+.v2 .v2-card.is-done,
+.v2 .v2-card.is-cancelled,
+.v2 .v2-m-card.is-new,
+.v2 .v2-m-card.is-confirmed,
+.v2 .v2-m-card.is-done,
+.v2 .v2-m-card.is-cancelled {
+  background: #feffff;
+  border-left-width: 0;
+}
+.v2 .v2-card:hover,
+.v2 .v2-m-card:hover { box-shadow: 0 0 0 1px #d5dee3; }
+
+.v2 .v2-type,
+.v2 .v2-type.is-standing {
+  background: #eef3f4;
+  color: #222c2e;
+}
+.v2 .v2-type span,
+.v2 .v2-status span,
+.v2 .v2-m-status span {
+  min-width: min-content;
+  hyphens: manual;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+.v2 .v2-when { white-space: nowrap; }
+.v2 .v2-win { color: #5a6d71; }
+
+.v2 .v2-card .v2-status svg,
+.v2 .v2-m-card .v2-m-status svg { display: none; }
+
+.v2 .v2-status,
+.v2 .v2-m-status,
+.v2 .v2-legend-item {
+  display: inline-flex;
+  align-self: flex-start;
+  align-items: flex-start;
+  gap: 4px;
+  width: fit-content;
+  max-width: 100%;
+  padding: 2px 2px;
+  border-radius: 6px;
+  font-size: 11px;
+  line-height: 14px;
+  border-left: 0;
+  background: #eef3f4;
+  color: #222c2e;
+  font-weight: 500;
+  hyphens: manual;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+.v2 .v2-status.is-new,
+.v2 .v2-card.is-new .v2-status,
+.v2 .v2-m-card.is-new .v2-m-status,
+.v2 .v2-legend-item.is-new { background: #fbdea0; color: #222c2e; }
+.v2 .v2-card.is-confirmed .v2-status,
+.v2 .v2-m-card.is-confirmed .v2-m-status,
+.v2 .v2-legend-item.is-confirmed { background: #e2f6fb; color: #222c2e; }
+.v2 .v2-card.is-done .v2-status,
+.v2 .v2-m-card.is-done .v2-m-status,
+.v2 .v2-legend-item.is-done { background: #ace2a2; color: #222c2e; }
+.v2 .v2-card.is-cancelled .v2-status,
+.v2 .v2-m-card.is-cancelled .v2-m-status,
+.v2 .v2-legend-item.is-cancelled { background: #f6b6b4; color: #222c2e; }
+
+.v2 .v2-col-head .count {
+  background: #eff2f6;
+  color: #222c2e;
 }
