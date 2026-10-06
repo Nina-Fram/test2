@@ -49,41 +49,47 @@ const SERIES = {
 
 let seq = 1;
 const uid = (p) => `${p}${seq++}`;
+const V2_PENDING_PREVIEW = 4;
 
-const state = {
-  view: "list",
-  modal: null,
-  calMode: "week",
-  anchor: startOfDay(new Date()),
-  weekScroll: null,
-  keepWeekScroll: true,
-  pendingExpanded: false,
-  refreshLeft: 9 * 60 + 58,
-  refreshing: false,
-  toast: "",
-  toastTimer: null,
-  orders: [],
-  contacts: [
-    { id: "c1", name: "Кудряшов Владимир Андреевич", phone: "+7 (953) 510-44-66" },
-    { id: "c2", name: "Кукухин Петр Сергеевич", phone: "+7 (951) 212-33-44" },
-  ],
-  seriesCancelled: [],
-  seriesStatus: {},
-  activeId: null,
-  dayIso: null,
-  form: null,
-  errors: {},
-  showErrors: false,
-  calOpen: false,
-  calCursor: null,
-  openMenu: null,
-  headerMenu: null,
-  officeName: "TEST-KK-A1",
-  officeQuery: "",
-  officeSection: "",
-  successPayload: null,
-  sendTimer: null,
-};
+function createState() {
+  return {
+    view: "list",
+    modal: null,
+    calMode: "week",
+    anchor: startOfDay(new Date()),
+    weekScroll: null,
+    keepWeekScroll: true,
+    pendingExpanded: false,
+    rulesOpen: false,
+    refreshLeft: 9 * 60 + 58,
+    refreshing: false,
+    toast: "",
+    toastTimer: null,
+    orders: [],
+    contacts: [
+      { id: "c1", name: "Кудряшов Владимир Андреевич", phone: "+7 (953) 510-44-66" },
+      { id: "c2", name: "Кукухин Петр Сергеевич", phone: "+7 (951) 212-33-44" },
+    ],
+    seriesCancelled: [],
+    seriesStatus: {},
+    activeId: null,
+    dayIso: null,
+    form: null,
+    errors: {},
+    showErrors: false,
+    calOpen: false,
+    calCursor: null,
+    openMenu: null,
+    headerMenu: null,
+    officeName: "TEST-KK-A1",
+    officeQuery: "",
+    officeSection: "",
+    successPayload: null,
+    sendTimer: null,
+  };
+}
+
+let state;
 
 function at(dayOffset, hh, mm) {
   const d = new Date();
@@ -613,20 +619,21 @@ function submitForm() {
   }
   state.modal = "sending";
   render();
-  clearTimeout(state.sendTimer);
-  state.sendTimer = setTimeout(() => {
-    const filler = personFromForm(form, "filler");
-    const meet = personFromForm(form, "meet");
+  const bucket = state;
+  const filler = personFromForm(form, "filler");
+  const meet = personFromForm(form, "meet");
+  clearTimeout(bucket.sendTimer);
+  bucket.sendTimer = setTimeout(() => {
     if (form.fillerMode === "new") {
       const phone = formatPhone(form.newPhone);
-      if (!state.contacts.some((c) => c.phone === phone && c.name === form.newName.trim())) {
-        state.contacts.push({ id: uid("c"), name: form.newName.trim(), phone });
+      if (!bucket.contacts.some((c) => c.phone === phone && c.name === form.newName.trim())) {
+        bucket.contacts.push({ id: uid("c"), name: form.newName.trim(), phone });
       }
     }
     if (form.meetSub === "new") {
       const phone = formatPhone(form.meetPhone);
-      if (!state.contacts.some((c) => c.phone === phone && c.name === form.meetName.trim())) {
-        state.contacts.push({ id: uid("c"), name: form.meetName.trim(), phone });
+      if (!bucket.contacts.some((c) => c.phone === phone && c.name === form.meetName.trim())) {
+        bucket.contacts.push({ id: uid("c"), name: form.meetName.trim(), phone });
       }
     }
     const visit = new Date(form.date);
@@ -651,15 +658,15 @@ function submitForm() {
       hoursTo: form.hoursTo,
       cancelFails: false,
     };
-    state.orders.unshift(order);
-    state.successPayload = order;
-    state.view = "list";
-    state.modal = "success";
-    state.anchor = startOfDay(visit);
-    state.weekScroll = Math.max(0, (vh - 1) * HOUR_PX);
-    state.keepWeekScroll = false;
-    state.pendingExpanded = true;
-    render({ keepScroll: false });
+    bucket.orders.unshift(order);
+    bucket.successPayload = order;
+    bucket.view = "list";
+    bucket.modal = "success";
+    bucket.anchor = startOfDay(visit);
+    bucket.weekScroll = Math.max(0, (vh - 1) * HOUR_PX);
+    bucket.keepWeekScroll = false;
+    bucket.pendingExpanded = true;
+    if (state === bucket) render({ keepScroll: false });
   }, 2000);
 }
 
@@ -1348,9 +1355,150 @@ function modalHtml() {
   return "";
 }
 
+function v2Card(v) {
+  const st = statusMeta(v.status);
+  const when = `${fmtTime(v.visit)}–${v.visitTo}`;
+  const type = typeLabel(v);
+  const label = `${when}, ${type}, ${st.text}. Окно приезда курьера`;
+  const rule = v.type === "standing" && v.schedule ? `<span class="v2-rule">${esc(v.schedule)}</span>` : "";
+  return `<button type="button" class="v2-card is-${v.status}" data-action="details" data-id="${v.id}" data-status="${v.status}" data-type="${v.type}" aria-label="${esc(label)}">
+    <span class="v2-type ${v.type === "standing" ? "is-standing" : ""}">${v.type === "standing" ? icon("repeat", 12) : ""}${esc(type)}</span>
+    <span class="v2-when">${esc(when)}</span>
+    <span class="v2-win">Окно приезда</span>
+    <span class="v2-status">${icon(st.icon, 14)} ${esc(st.text)}</span>
+    ${rule}
+  </button>`;
+}
+
+function v2Week() {
+  const start = mondayOf(state.anchor);
+  const days = Array.from({ length: 7 }, (_, i) => addDays(start, i));
+  const today = new Date();
+  const cols = days.map((d) => {
+    const visits = visitsOn(d);
+    const isToday = isSameDay(d, today);
+    const weekend = d.getDay() === 0 || d.getDay() === 6;
+    const body = visits.length
+      ? visits.map(v2Card).join("")
+      : `<p class="v2-empty">Нет заявок</p>`;
+    return `<section class="v2-col ${isToday ? "is-today" : ""} ${weekend ? "is-weekend" : ""}">
+      <header class="v2-col-head">
+        <div>
+          <div class="v2-dow">${DOW[dowIndex(d)]}</div>
+          <div class="v2-dom">${d.getDate()}</div>
+        </div>
+        <span class="count" aria-label="Заявок: ${visits.length}">${visits.length}</span>
+      </header>
+      <div class="v2-col-body">${body}</div>
+    </section>`;
+  }).join("");
+  return `<div class="v2-board-scroll"><div class="v2-board">${cols}</div></div>`;
+}
+
+function v2Month() {
+  const today = new Date();
+  const cells = monthCells(state.anchor);
+  const head = DOW.map((d) => `<span>${d}</span>`).join("");
+  const body = cells.map((d) => {
+    const visits = visitsOn(d);
+    const shown = visits.slice(0, MONTH_PREVIEW);
+    const more = visits.length - shown.length;
+    const cards = shown.map((v) => {
+      const st = statusMeta(v.status);
+      const when = `${fmtTime(v.visit)}–${v.visitTo}`;
+      return `<button type="button" class="v2-m-card is-${v.status}" data-action="details" data-id="${v.id}">
+        <span class="v2-m-time">${esc(when)}</span>
+        <span class="v2-m-meta">${esc(typeLabel(v))}</span>
+        <span class="v2-m-status">${icon(st.icon, 12)} ${esc(st.text)}</span>
+      </button>`;
+    }).join("");
+    const moreBtn = more > 0 ? `<button type="button" class="more-btn" data-action="day-more" data-date="${isoDate(d)}">Ещё ${more}</button>` : "";
+    const out = d.getMonth() !== state.anchor.getMonth();
+    return `<div class="v2-month-cell ${out ? "is-out" : ""} ${isSameDay(d, today) ? "is-today" : ""}">
+      <div class="v2-month-num">${d.getDate()}</div>
+      ${cards}${moreBtn}
+    </div>`;
+  }).join("");
+  return `<div class="v2-month-scroll"><div class="v2-month"><div class="v2-month-head">${head}</div><div class="v2-month-grid">${body}</div></div></div>`;
+}
+
+function v2Pending() {
+  const pending = pendingVisits();
+  const shown = state.pendingExpanded ? pending : pending.slice(0, V2_PENDING_PREVIEW);
+  const hidden = pending.length - shown.length;
+  const rows = pending.length ? `
+    <div class="v2-pend-list">
+      ${shown.map((v) => `<button type="button" class="v2-pend" data-action="details" data-id="${v.id}">
+        <span class="v2-pend-when">${esc(fmtVisitDay(v.visit))}</span>
+        <span class="v2-pend-time">${fmtTime(v.visit)}–${esc(v.visitTo)}</span>
+        <span class="v2-pend-meta">${esc(typeLabel(v))} · Ожидает подтверждения</span>
+      </button>`).join("")}
+    </div>
+    ${hidden > 0 ? `<button type="button" class="v2-text-btn" data-action="toggle-pending">Показать все</button>` : ""}
+    ${state.pendingExpanded && pending.length > V2_PENDING_PREVIEW ? `<button type="button" class="v2-text-btn" data-action="toggle-pending">Свернуть</button>` : ""}
+  ` : `<p class="v2-empty">Нет заявок, ожидающих подтверждения</p>`;
+  return `<section class="v2-block" aria-label="Ожидают подтверждения">
+    <h2 class="v2-block-title">Ожидают подтверждения <span class="count">${pending.length}</span></h2>
+    ${rows}
+  </section>`;
+}
+
+function v2Rules() {
+  const open = state.rulesOpen;
+  return `<section class="v2-rules">
+    <button type="button" class="v2-rules-btn" data-action="toggle-rules" aria-expanded="${open ? "true" : "false"}">
+      Правила оформления
+      <span class="v2-chevron ${open ? "is-open" : ""}">${icon("chevron", 16)}</span>
+    </button>
+    ${open ? `<ul class="v2-rules-list">
+      <li><b>Заявки «день в день» рекомендуем оформлять до 13:00.</b> Оказание услуги зависит от текущей загруженности службы доставки.</li>
+      <li><b>Старайтесь использовать 3-часовой интервал времени для визита курьера.</b> При указании интервала менее 3 часов визит курьера в точное время не гарантируется.</li>
+      <li><b>Поддержка всегда рядом.</b> При необходимости с вами свяжется специалист клиентской поддержки, или вы можете самостоятельно связаться с курирующим сотрудником ИНВИТРО.</li>
+    </ul>` : ""}
+  </section>`;
+}
+
+function scheduleViewV2() {
+  return `<div class="v2">
+    <aside class="v2-side">
+      <h1 class="v2-title">Вызов курьера</h1>
+      <button type="button" class="btn v2-create" data-action="create">Создать заявку</button>
+      ${v2Pending()}
+      ${v2Rules()}
+    </aside>
+    <section class="v2-cal" aria-label="Расписание заявок">
+      <div class="cal-tools">
+        <div class="cal-nav">
+          <button type="button" class="icon-sq sm" data-action="cal-move" data-dir="-1" aria-label="Предыдущий период">${icon("left", 18)}</button>
+          <div class="period-label">${periodLabel()}</div>
+          <button type="button" class="icon-sq sm" data-action="cal-move" data-dir="1" aria-label="Следующий период">${icon("right", 18)}</button>
+        </div>
+        <button type="button" class="btn light slim" data-action="cal-today">Сегодня</button>
+        <div class="seg" role="group" aria-label="Режим календаря">
+          <button type="button" data-action="cal-mode" data-mode="week" aria-pressed="${state.calMode === "week"}">Неделя</button>
+          <button type="button" data-action="cal-mode" data-mode="month" aria-pressed="${state.calMode === "month"}">Месяц</button>
+        </div>
+        <span class="refresh-note"><span id="refresh-label">Обновится через ${fmtTimer(state.refreshLeft)}</span>
+          <button type="button" class="icon-btn ${state.refreshing ? "spin" : ""}" data-action="refresh" aria-label="Обновить список">${icon("refresh")}</button>
+        </span>
+      </div>
+      ${state.calMode === "week" ? v2Week() : v2Month()}
+    </section>
+  </div>`;
+}
+
+function protoSwitch() {
+  return `<div class="proto-switch" role="group" aria-label="Сравнение прототипов">
+    <span class="proto-switch-kicker">Сравнение прототипов</span>
+    <button type="button" data-action="switch-variant" data-variant="1" aria-pressed="${variant === 1 ? "true" : "false"}">Вариант 1 — временная сетка</button>
+    <button type="button" data-action="switch-variant" data-variant="2" aria-pressed="${variant === 2 ? "true" : "false"}">Вариант 2 — карточки по дням</button>
+  </div>`;
+}
+
 function mainView() {
   if (state.view === "form") return formView();
   if (state.view === "settings") return settingsView();
+  if (variant === 2) return scheduleViewV2();
   return scheduleView();
 }
 
@@ -1362,9 +1510,10 @@ function render({ keepScroll = true } = {}) {
   const focus = document.activeElement;
   const field = focus && focus.dataset ? focus.dataset.field : null;
   const fieldId = focus && focus.dataset ? focus.dataset.id : null;
+  const wide = variant === 2 && state.view === "list" ? " container-v2" : "";
   document.getElementById("app").innerHTML = `
     ${header()}
-    <main class="page"><div class="container">${mainView()}</div></main>
+    <main class="page">${protoSwitch()}<div class="container${wide}">${mainView()}</div></main>
     ${footer()}
     ${modalHtml()}
     ${state.toast ? `<div class="toast" role="status">${esc(state.toast)}</div>` : ""}`;
@@ -1525,6 +1674,18 @@ function onAction(el, event) {
     render();
     return;
   }
+  if (action === "switch-variant") {
+    const next = Number(el.dataset.variant) === 2 ? 2 : 1;
+    if (next === variant) return;
+    useVariant(next);
+    const url = new URL(location.href);
+    if (next === 2) url.searchParams.set("variant", "2");
+    else url.searchParams.delete("variant");
+    history.pushState({ variant: next }, "", url);
+    render({ keepScroll: false });
+    return;
+  }
+  if (action === "toggle-rules") { state.rulesOpen = !state.rulesOpen; render(); return; }
   if (action === "create") { openForm(); return; }
   if (action === "cal-mode") {
     state.calMode = el.dataset.mode;
@@ -1730,6 +1891,29 @@ function bind() {
   }, 1000);
 }
 
-seed();
+const buckets = { 1: null, 2: null };
+let variant = 1;
+
+function readVariant() {
+  return new URLSearchParams(location.search).get("variant") === "2" ? 2 : 1;
+}
+
+function useVariant(id) {
+  variant = id === 2 ? 2 : 1;
+  if (!buckets[variant]) {
+    state = createState();
+    seed();
+    buckets[variant] = state;
+  } else {
+    state = buckets[variant];
+  }
+  document.title = variant === 2 ? "Вызов курьера — Личный кабинет ИНВИТРО" : "Заявки — Личный кабинет ИНВИТРО";
+}
+
+useVariant(readVariant());
 bind();
 render({ keepScroll: false });
+window.addEventListener("popstate", () => {
+  useVariant(readVariant());
+  render({ keepScroll: false });
+});
