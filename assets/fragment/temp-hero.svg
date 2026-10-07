@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 508 336" width="508" height="336">
+  <rect width="508" height="336" fill="#f4f0e8"/>
+  <g fill="none" stroke="#5c6b66" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="168" y="78" width="172" height="118" rx="16"/>
+    <path d="M196 118h116M196 142h88M196 166h72"/>
+    <circle cx="214" cy="72" r="22"/>
+    <path d="M214 58v28M200 72h28"/>
+    <rect x="286" y="148" width="78" height="54" rx="10"/>
+    <path d="M302 168h46M302 184h30"/>
+  </g>
+  <rect x="0" y="292" width="508" height="44" fill="#121313" opacity="0.78"/>
+  <text x="254" y="320" text-anchor="middle" fill="#ffffff" font-family="Arial, sans-serif" font-size="16">Временное изображение</text>
+</svg>

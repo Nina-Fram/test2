@@ -1,0 +1,262 @@
+/* Page shell. Secondary slide rules live in fragment.css. */
+
+body {
+  background: #fff;
+  font-family: "ALS Hauss";
+}
+
+.landing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #fff;
+}
+
+.landing .ss,
+.landing .fn,
+.landing .tx,
+.landing .cards {
+  scroll-margin-top: 16px;
+}
+
+/* Fast Navigation, desktop 2:8354. */
+.fn {
+  display: flex;
+  align-items: stretch;
+  gap: 32px;
+  box-sizing: border-box;
+  width: 1440px;
+  padding: 20px 88px 64px;
+}
+
+.fn__col {
+  display: flex;
+  flex: 1 1 616px;
+  flex-direction: column;
+  gap: 24px;
+  width: 616px;
+  min-height: 324px;
+}
+
+.fn__card {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  gap: 16px;
+  box-sizing: border-box;
+  min-height: 0;
+  padding: 20px 32px;
+  border-radius: 16px;
+  background: #f5f9f9;
+  color: #121313;
+  font-family: "ALS Hauss";
+  font-style: normal;
+  font-synthesis: none;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 28px;
+  letter-spacing: 0;
+  text-align: left;
+  text-decoration: none;
+}
+
+.fn__label {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.fn__chevron {
+  flex: 0 0 32px;
+  width: 32px;
+  height: 32px;
+  background: center / 8px 16px no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='16' viewBox='0 0 8 16' fill='none'%3E%3Cpath d='M1 1.5 6.5 8 1 14.5' stroke='%23121313' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+.fn__card:focus-visible {
+  outline: 2px solid #121313;
+  outline-offset: 3px;
+}
+
+/* DIV Text paragraph, instance 2:8162. */
+.tx {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  box-sizing: border-box;
+  width: 1264px;
+}
+
+.tx__title,
+.tx__text {
+  margin: 0;
+  font-family: "ALS Hauss";
+  font-style: normal;
+  font-synthesis: none;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: #121313;
+  text-align: left;
+}
+
+.tx__title {
+  font-size: 24px;
+  line-height: 28px;
+}
+
+.tx__text {
+  font-size: 20px;
+  line-height: 28px;
+}
+
+/* Cards, first row of 2:8444. Second row is off. */
+.cards {
+  display: flex;
+  gap: 32px;
+  width: 1264px;
+}
+
+.cards__item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  box-sizing: border-box;
+  width: 400px;
+  min-height: 220px;
+  height: auto;
+  padding: 44px;
+  border-radius: 16px;
+  background: #fff;
+}
+
+.cards__text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.cards__num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 52px;
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  background: #dcf1ff;
+  color: #121313;
+  font-family: "ALS Hauss";
+  font-style: normal;
+  font-synthesis: none;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 32px;
+  letter-spacing: 0;
+}
+
+.cards__label,
+.cards__caption {
+  margin: 0;
+  color: #121313;
+  font-family: "ALS Hauss";
+  font-style: normal;
+  font-synthesis: none;
+  letter-spacing: 0;
+  text-align: left;
+}
+
+.cards__label {
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 28px;
+}
+
+.cards__caption {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+/* Mobile Default for the slide, and the mobile Fast Navigation 2:8337. */
+@media (max-width: 1439px) {
+  .landing .ss {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    width: 360px;
+    padding: 0 20px;
+    background: #fff;
+  }
+
+  .landing .ss__media {
+    order: -1;
+    flex-basis: 280px;
+    width: 320px;
+    height: 280px;
+  }
+
+  .landing .ss__content {
+    padding-top: 16px;
+    gap: 20px;
+  }
+
+  .landing .ss__copy,
+  .landing .ss--left .ss__copy {
+    gap: 12px;
+  }
+
+  .landing .ss__title {
+    font-size: 24px;
+    line-height: 28px;
+  }
+
+  .landing .ss__sub {
+    font-weight: 400;
+  }
+
+  .landing .ss__actions {
+    align-items: stretch;
+  }
+
+  .landing .ss .ss__btn {
+    width: 100%;
+  }
+
+  .landing .fn {
+    flex-direction: column;
+    gap: 8px;
+    width: 360px;
+    padding: 0 20px;
+  }
+
+  .landing .fn__col {
+    display: contents;
+  }
+
+  .landing .fn__card {
+    flex: none;
+    width: 320px;
+    padding: 20px 24px;
+    font-size: 20px;
+    line-height: 24px;
+  }
+
+  .landing .tx,
+  .landing .cards {
+    width: 360px;
+    padding: 0 20px;
+  }
+
+  .landing .cards {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .landing .cards__item {
+    width: 320px;
+    height: auto;
+    min-height: 220px;
+  }
+}
