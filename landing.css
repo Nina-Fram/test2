@@ -123,10 +123,18 @@ body {
   gap: 24px;
   box-sizing: border-box;
   width: 400px;
-  height: 220px;
+  min-height: 220px;
+  height: auto;
   padding: 44px;
   border-radius: 16px;
   background: #fff;
+}
+
+.cards__text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
 }
 
 .cards__num {
@@ -148,17 +156,27 @@ body {
   letter-spacing: 0;
 }
 
-.cards__label {
+.cards__label,
+.cards__caption {
   margin: 0;
   color: #121313;
   font-family: "ALS Hauss";
   font-style: normal;
   font-synthesis: none;
+  letter-spacing: 0;
+  text-align: left;
+}
+
+.cards__label {
   font-weight: 500;
   font-size: 20px;
   line-height: 28px;
-  letter-spacing: 0;
-  text-align: left;
+}
+
+.cards__caption {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
 }
 
 /* Mobile Default for the slide, and the mobile Fast Navigation 2:8337. */
