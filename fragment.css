@@ -14,6 +14,14 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: "ALS Hauss";
+  src: url("fonts/ALSHauss-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 *,
 *::before,
 *::after {
@@ -192,22 +200,68 @@ body {
   gap: 16px;
 }
 
+.ss__slot {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.ss__title,
+.ss__text,
+.ss__sub,
+.ss__price,
+.ss__btn {
+  font-family: "ALS Hauss";
+  font-style: normal;
+  font-synthesis: none;
+  letter-spacing: 0;
+  text-decoration: none;
+}
+
 .ss__title {
   margin: 0;
-  font-family: "ALS Hauss", Arial, sans-serif;
   font-weight: 400;
   font-size: 36px;
   line-height: 36px;
   color: #121313;
+  text-align: left;
 }
 
 .ss__text {
   margin: 0;
-  font-family: "ALS Hauss", Arial, sans-serif;
   font-weight: 400;
   font-size: 20px;
   line-height: 28px;
   color: #121313;
+  text-align: left;
+}
+
+.ss__sub {
+  margin: 0;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+  color: #121313;
+  text-align: left;
+}
+
+.ss__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.ss__price {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 32px;
+  color: #121313;
+  text-align: left;
 }
 
 .ss__media {
@@ -236,7 +290,6 @@ body {
   border-radius: 16px;
   background: #08c3dc;
   color: #fff;
-  font-family: "ALS Hauss", Arial, sans-serif;
   font-weight: 400;
   font-size: 16px;
   line-height: 20px;
@@ -271,6 +324,10 @@ body {
   gap: 20px;
 }
 
+.ss--left .ss__copy {
+  gap: 20px;
+}
+
 .ss--mobile .ss__copy {
   gap: 12px;
 }
@@ -278,6 +335,14 @@ body {
 .ss--mobile .ss__title {
   font-size: 24px;
   line-height: 28px;
+}
+
+.ss--mobile .ss__sub {
+  font-weight: 400;
+}
+
+.ss--mobile .ss__actions {
+  align-items: stretch;
 }
 
 .ss--mobile .ss__btn {
