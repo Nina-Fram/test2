@@ -1,0 +1,285 @@
+@font-face {
+  font-family: "ALS Hauss";
+  src: url("fonts/ALSHauss-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "ALS Hauss";
+  src: url("fonts/ALSHauss-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #dfe3e4;
+  color: #121313;
+  font-family: "ALS Hauss", Arial, sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: -40px;
+  background: #fff;
+  padding: 8px 12px;
+}
+
+.skip-link:focus {
+  top: 8px;
+}
+
+.review {
+  width: min(920px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: 32px 0 8px;
+}
+
+.review h1 {
+  margin: 0 0 12px;
+  font-size: 28px;
+  line-height: 32px;
+  font-weight: 500;
+}
+
+.review p,
+.notes p,
+.notes li {
+  margin: 0 0 12px;
+}
+
+.status {
+  padding: 16px 20px;
+  background: #fff;
+  border-radius: 12px;
+}
+
+.case {
+  width: max-content;
+  min-width: 100%;
+  padding: 28px 24px 8px;
+}
+
+.case h2 {
+  margin: 0 24px 8px;
+  font-size: 22px;
+  line-height: 28px;
+  font-weight: 500;
+}
+
+.meta {
+  margin: 0 24px 16px;
+  color: #3d4a4d;
+  max-width: 920px;
+}
+
+.pair {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.pair figure {
+  margin: 0;
+}
+
+.pair figcaption {
+  margin: 0 0 8px;
+  font-size: 14px;
+  line-height: 20px;
+  color: #3d4a4d;
+}
+
+.ref {
+  display: block;
+  background: #fff;
+}
+
+.ref--desktop {
+  width: 1440px;
+  height: auto;
+}
+
+.ref--mobile {
+  width: 360px;
+  height: auto;
+}
+
+.stage {
+  background: #fff;
+}
+
+.notes {
+  width: min(920px, calc(100% - 48px));
+  margin: 12px auto 48px;
+  padding: 8px 0 24px;
+}
+
+.notes h2 {
+  margin: 28px 0 12px;
+  font-size: 22px;
+  line-height: 28px;
+  font-weight: 500;
+}
+
+.notes ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.notes table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.notes th,
+.notes td {
+  border: 1px solid #d5dee3;
+  padding: 8px 10px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.notes th {
+  font-weight: 500;
+  background: #f7f8f8;
+}
+
+/* Secondary slide, desktop masters 2:8271 and 2:8295. Width is the component width. */
+.ss {
+  display: flex;
+  align-items: center;
+  gap: 108px;
+  width: 1440px;
+}
+
+.ss--right {
+  flex-direction: row;
+}
+
+.ss--left {
+  flex-direction: row;
+}
+
+.ss__content {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.ss__copy {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.ss__title {
+  margin: 0;
+  font-family: "ALS Hauss", Arial, sans-serif;
+  font-weight: 400;
+  font-size: 36px;
+  line-height: 36px;
+  color: #121313;
+}
+
+.ss__text {
+  margin: 0;
+  font-family: "ALS Hauss", Arial, sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 28px;
+  color: #121313;
+}
+
+.ss__media {
+  flex: 0 0 508px;
+  width: 508px;
+  height: 336px;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.ss__media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ss__btn {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 248px;
+  height: 52px;
+  padding: 12px 16px;
+  border-radius: 16px;
+  background: #08c3dc;
+  color: #fff;
+  font-family: "ALS Hauss", Arial, sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.ss__btn:focus-visible {
+  outline: 2px solid #121313;
+  outline-offset: 3px;
+}
+
+/* Secondary slide, Type=Mobile Default, Layout=Mobile, node 2:8247. */
+.ss--mobile {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 12px;
+  width: 360px;
+  padding: 0 20px;
+  background: #fff;
+}
+
+.ss--mobile .ss__media {
+  flex-basis: 280px;
+  width: 320px;
+  height: 280px;
+}
+
+.ss--mobile .ss__content {
+  padding-top: 16px;
+  gap: 20px;
+}
+
+.ss--mobile .ss__copy {
+  gap: 12px;
+}
+
+.ss--mobile .ss__title {
+  font-size: 24px;
+  line-height: 28px;
+}
+
+.ss--mobile .ss__btn {
+  width: 100%;
+}
