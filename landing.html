@@ -4,55 +4,104 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Исследования — Личный кабинет ИНВИТРО</title>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231dadc6'/%3E%3C/svg%3E" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="fragment.css" />
   <link rel="stylesheet" href="landing.css" />
 </head>
-<!--
-  Конструктор Figma (file whZtEBiVjuX0yq19a66Ve1) в этой сессии недоступен:
-  нет Figma MCP, запрос к файлу завершился по таймауту.
-  Блоки страницы — предварительная структура на токенах личного кабинета.
-  Имена компонентов конструктора здесь не указаны, потому что не подтверждены.
-  Прототип «Вызов курьера» остаётся на index.html и этим файлом не изменяется.
--->
 <body>
   <a class="skip-link" href="#content">К содержанию</a>
-  <header class="lk-header">
-    <div class="lk-bar">
-      <a class="brand" href="index.html">
-        <img class="logo-mark" src="assets/logo.svg" width="133" height="24" alt="INVITRO" />
-        <span class="brand-sep"></span>
-        <span class="brand-sub">Личный кабинет</span>
-      </a>
-      <div class="lk-actions">
-        <span class="ghost-btn">TEST-KK-A1</span>
-        <span class="ghost-btn">Сотрудники</span>
-        <span class="ghost-btn">Constantinopolitan</span>
-        <span class="icon-sq" aria-hidden="true">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 9a6 6 0 1 1 12 0c0 7 3 7 3 9H3c0-2 3-2 3-9"/><path d="M10 20a2 2 0 0 0 4 0"/></svg>
-        </span>
-        <a class="icon-sq" href="index.html" aria-label="К прототипу вызова курьера">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M15 6l-6 6 6 6"/></svg>
-        </a>
+  <main class="landing" id="content">
+    <article class="ss ss--right">
+      <div class="ss__content">
+        <div class="ss__copy">
+          <h1 class="ss__title">От пренатального скрининга до аллергодиагностики</h1>
+          <p class="ss__text">Познакомьтесь с исследованиями ИНВИТРО для разных диагностических задач. Коротко о каждом тесте, его особенностях и материалах для врачей.</p>
+        </div>
+        <a class="ss__btn" href="#selection">Посмотреть исследования</a>
       </div>
-    </div>
-    <nav class="lk-tabs" aria-label="Разделы">
-      <span class="tab">Результаты</span>
-      <span class="tab">Оформление заказа</span>
-      <span class="tab">Заказы</span>
-      <a class="tab" href="index.html">Вызов курьера</a>
-      <span class="tab">Расходные материалы</span>
-      <span class="tab">Лаборатория <span class="tab-badge">68</span></span>
-      <span class="tab">Предзаказы</span>
-    </nav>
-  </header>
-  <main class="page" id="content">
-    <div class="container">
-      <div id="landing" class="landing"></div>
-    </div>
+      <div class="ss__media">
+        <img src="assets/landing/hero.svg" width="508" height="336" alt="Несколько лабораторных предметов: карточка, отметка и бланк" />
+      </div>
+    </article>
+
+    <article class="ss ss--left" id="selection">
+      <div class="ss__media">
+        <img src="assets/landing/nipt.svg" width="508" height="336" alt="Схема хромосом и пробирка с образцом крови" />
+      </div>
+      <div class="ss__content">
+        <div class="ss__copy">
+          <h2 class="ss__title">НИПТ Расширенный</h2>
+          <p class="ss__text">№&nbsp;6НИПТ по крови беременной оценивает риск хромосомных нарушений у плода: анеуплоидии всех хромосом и 60&nbsp;микроделеционных и микродупликационных синдромов. Это оценка риска, а не диагноз.</p>
+        </div>
+        <a class="ss__btn" href="https://rutube.ru/video/500b89903dd72f7443034e626fc9bb26/" target="_blank" rel="noopener noreferrer">Смотреть вебинар</a>
+      </div>
+    </article>
+
+    <article class="ss ss--right">
+      <div class="ss__content">
+        <div class="ss__copy">
+          <h2 class="ss__title">Фемофлор II</h2>
+          <p class="ss__text">№&nbsp;3060 исследует микрофлору урогенитального тракта у женщин методом ПЦР. Оценивает состав нормальной и условно‑патогенной микрофлоры и выявляет ряд возбудителей инфекций и репродуктивно значимых вирусов.</p>
+        </div>
+        <a class="ss__btn" href="https://rutube.ru/video/6ad0e8b8c607bb831a768d8a5fc5f1ee/" target="_blank" rel="noopener noreferrer">Смотреть вебинар</a>
+      </div>
+      <div class="ss__media">
+        <img src="assets/landing/femo.svg" width="508" height="336" alt="Группа клеток разного размера" />
+      </div>
+    </article>
+
+    <article class="ss ss--left">
+      <div class="ss__media">
+        <img src="assets/landing/alex.svg" width="508" height="336" alt="Чип и отдельные точки компонентов" />
+      </div>
+      <div class="ss__content">
+        <div class="ss__copy">
+          <h2 class="ss__title">Аллергочип ALEX2</h2>
+          <p class="ss__text">№&nbsp;1881‑К оценивает сенсибилизацию к 120&nbsp;аллергенам и 180&nbsp;аллергокомпонентам и определяет общий IgE. Материал — сыворотка крови. Выявленная сенсибилизация не является диагнозом аллергии.</p>
+        </div>
+        <a class="ss__btn" href="https://rutube.ru/video/49d23d385cc2404222ffb3107b47f6e9/" target="_blank" rel="noopener noreferrer">Смотреть вебинар</a>
+      </div>
+    </article>
+
+    <article class="ss ss--right">
+      <div class="ss__content">
+        <div class="ss__copy">
+          <h2 class="ss__title">ФиброТест и НЭШ‑ФиброТест</h2>
+          <p class="ss__text">№&nbsp;3ФТ ФиброТест, 2&nbsp;алгоритма: фиброз и некровоспалительная активность. №&nbsp;4НФТ НЭШ‑ФиброТест, 5&nbsp;алгоритмов: фиброз, стеатоз и стеатогепатит. Оба по показателям крови, это не ступени одного теста.</p>
+        </div>
+        <a class="ss__btn" href="https://rutube.ru/video/b8c8f0676fd9273b5c4ae6ba1070e021/" target="_blank" rel="noopener noreferrer">Смотреть вебинар</a>
+      </div>
+      <div class="ss__media">
+        <img src="assets/landing/liver.svg" width="508" height="336" alt="Две отдельные группы отметок: из двух и из пяти" />
+      </div>
+    </article>
+
+    <article class="ss ss--left">
+      <div class="ss__media">
+        <img src="assets/landing/gastro.svg" width="508" height="336" alt="Контур и две точки взятия образца" />
+      </div>
+      <div class="ss__content">
+        <div class="ss__copy">
+          <h2 class="ss__title">Гастропанель</h2>
+          <p class="ss__text">№&nbsp;ГАСТР берут один раз, натощак, без стимуляции. №&nbsp;ГАСТР978 берут натощак и повторно после белкового завтрака: так уточняют причины сниженного гастрина‑17. Оба дают информацию о слизистой желудка.</p>
+        </div>
+        <a class="ss__btn" href="https://rutube.ru/video/f83b9b3c05d6e8de495ef5271c65a495/" target="_blank" rel="noopener noreferrer">Смотреть вебинар</a>
+      </div>
+    </article>
+
+    <article class="ss ss--right">
+      <div class="ss__content">
+        <div class="ss__copy">
+          <h2 class="ss__title">ColonView</h2>
+          <p class="ss__text">№&nbsp;842 — исследование на скрытую кровь в кале с выявлением гемоглобина и гемоглобин‑гаптоглобинового комплекса.</p>
+        </div>
+        <a class="ss__btn" href="https://rutube.ru/video/20908c997c269792bb4d3621ad5f1872/" target="_blank" rel="noopener noreferrer">Смотреть вебинар</a>
+      </div>
+      <div class="ss__media">
+        <img src="assets/landing/colon.svg" width="508" height="336" alt="Кассета теста с окном для образца" />
+      </div>
+    </article>
+
+    <p class="landing__note">Необходимость исследования и интерпретацию результатов определяет лечащий врач.</p>
   </main>
-  <footer class="lk-footer"><div class="container">© 2011-2026, ИНВИТРО</div></footer>
-  <script src="landing-data.js"></script>
-  <script src="landing.js"></script>
 </body>
 </html>
